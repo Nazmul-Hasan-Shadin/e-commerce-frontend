@@ -10,7 +10,6 @@ import { fontSans } from "@/src/config/fonts";
 import { Navbar } from "@/src/components/navbar";
 import ReduxProviders from "../lib/Providers";
 
-
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -35,24 +34,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-   <ReduxProviders>
-        <html suppressHydrationWarning lang="en">
-      <head />
-      <body
-        className={clsx(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
-        )}
-      >
-        {/* ================provider-start============ */}
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-           {children}
-        </Providers>
+    <ReduxProviders>
+      <html suppressHydrationWarning lang="en">
+        <head />
+        <body>
+          {/* ================provider-start============ */}
+          <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+            {children}
+          </Providers>
 
-
-        {/* ======================provider end=========== */}
-      </body>
-    </html>
-   </ReduxProviders>
+          {/* ======================provider end=========== */}
+        </body>
+      </html>
+    </ReduxProviders>
   );
 }

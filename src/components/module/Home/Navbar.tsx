@@ -1,84 +1,145 @@
-import React from 'react';
+"use client";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Link,
+  Input,
+  DropdownItem,
+  DropdownTrigger,
+  Dropdown,
+  DropdownMenu,
+  Avatar,
+  NavbarMenuToggle,
+  NavbarMenu,
+} from "@nextui-org/react";
+import { IoSearchOutline } from "react-icons/io5";
 
-const Navbar = () => {
-    return (
-        import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar} from "@nextui-org/react";
-        import {AcmeLogo} from "./AcmeLogo.jsx";
-        import {SearchIcon} from "./SearchIcon.jsx";
-        
-        export default function App() {
-          return (
-            <Navbar isBordered>
-              <NavbarContent justify="start">
-                <NavbarBrand className="mr-4">
-                  <AcmeLogo />
-                  <p className="hidden sm:block font-bold text-inherit">ACME</p>
-                </NavbarBrand>
-                <NavbarContent className="hidden sm:flex gap-3">
-                  <NavbarItem>
-                    <Link color="foreground" href="#">
-                      Features
-                    </Link>
-                  </NavbarItem>
-                  <NavbarItem isActive>
-                    <Link href="#" aria-current="page" color="secondary">
-                      Customers
-                    </Link>
-                  </NavbarItem>
-                  <NavbarItem>
-                    <Link color="foreground" href="#">
-                      Integrations
-                    </Link>
-                  </NavbarItem>
-                </NavbarContent>
-              </NavbarContent>
-        
-              <NavbarContent as="div" className="items-center" justify="end">
-                <Input
-                  classNames={{
-                    base: "max-w-full sm:max-w-[10rem] h-10",
-                    mainWrapper: "h-full",
-                    input: "text-small",
-                    inputWrapper: "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
-                  }}
-                  placeholder="Type to search..."
-                  size="sm"
-                  startContent={<SearchIcon size={18} />}
-                  type="search"
-                />
-                <Dropdown placement="bottom-end">
-                  <DropdownTrigger>
-                    <Avatar
-                      isBordered
-                      as="button"
-                      className="transition-transform"
-                      color="secondary"
-                      name="Jason Hughes"
-                      size="sm"
-                      src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                    />
-                  </DropdownTrigger>
-                  <DropdownMenu aria-label="Profile Actions" variant="flat">
-                    <DropdownItem key="profile" className="h-14 gap-2">
-                      <p className="font-semibold">Signed in as</p>
-                      <p className="font-semibold">zoey@example.com</p>
-                    </DropdownItem>
-                    <DropdownItem key="settings">My Settings</DropdownItem>
-                    <DropdownItem key="team_settings">Team Settings</DropdownItem>
-                    <DropdownItem key="analytics">Analytics</DropdownItem>
-                    <DropdownItem key="system">System</DropdownItem>
-                    <DropdownItem key="configurations">Configurations</DropdownItem>
-                    <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-                    <DropdownItem key="logout" color="danger">
-                      Log Out
-                    </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-              </NavbarContent>
-            </Navbar>
-          );
-        }
-    );
+import logo from "@/src/assests/icon/logo.png";
+import Image from "next/image.js";
+import { SearchIcon } from "../../icons.jsx";
+import React from "react";
+import { GiSelfLove } from "react-icons/gi";
+import { RxAvatar } from "react-icons/rx";
+import { IoCartOutline } from "react-icons/io5";
+
+const NavBar = () => {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(true);
+
+  return (
+    <div className="">
+      <Navbar
+        onMenuOpenChange={setIsMenuOpen}
+        isMenuOpen={isMenuOpen}
+        className="bg-primary-color p-4 text-white"
+        maxWidth="full"
+      >
+        {/* logo */}
+
+        <NavbarContent className="sm:hidden">
+          <NavbarMenuToggle
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          />
+        </NavbarContent>
+
+        <NavbarBrand className="flex gap-0">
+          <Image alt="Navbar logo" src={logo} width={180} height={100} />
+        </NavbarBrand>
+
+        <NavbarContent className="flex-col gap-1 ">
+          <p className="">Available 24/7 at</p>
+          <p>091 234-ELLA</p>
+        </NavbarContent>
+
+        <NavbarContent className="hidden md:flex">
+          <Input
+            classNames={{
+              base: "max-w-full",
+              inputWrapper:
+                "h-full  font-bold  text-default-500 text-2xl  pr-6 bg-default-400/20 dark:bg-default-500/20",
+              mainWrapper: "w-[500px] h-12",
+            }}
+            endContent={<IoSearchOutline />}
+            placeholder="search here"
+            className="rouded-full bg-white rounded-full "
+            size="md"
+          />
+        </NavbarContent>
+
+        {/* ================icnons============ */}
+
+        <NavbarContent justify="end">
+          <NavbarItem>
+            <div className="text-white flex flex-col justify-center items-center  mx-auto">
+              <GiSelfLove className="text-4xl" />
+              <span> watchlist</span>
+            </div>
+          </NavbarItem>
+
+          <NavbarItem className="text-white flex flex-col justify-center">
+            <RxAvatar className="text-4xl" />
+            <span> signin</span>
+          </NavbarItem>
+
+          <NavbarItem className="text-white flex flex-col justify-center">
+            <div className="text-white flex flex-col justify-center items-center  mx-auto">
+              <IoCartOutline className="text-4xl" />
+              <span> cart</span>
+            </div>
+          </NavbarItem>
+
+          <NavbarItem className="text-white flex flex-col justify-center">
+            <GiSelfLove className="text-4xl" />
+            <span> watchlist</span>
+          </NavbarItem>
+        </NavbarContent>
+
+        {/* <NavbarContent className="hidden sm:flex" justify="end">
+          <NavbarItem className="text-white flex flex-col justify-center">
+            <GiSelfLove className="text-4xl" />
+            <span> watchlist</span>
+          </NavbarItem>
+
+          <NavbarItem>
+            <Link className="text-white">Product</Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link className="text-white">Dashboard</Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link className="text-white">About</Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link className="text-white">Login</Link>
+          </NavbarItem>
+        </NavbarContent> */}
+
+        {/* =========================for small device menu====================== */}
+
+        <NavbarMenu className="z-20 ">
+          <NavbarItem className="text-white">
+            <Link className="text-black">Home</Link>
+          </NavbarItem>
+
+          <NavbarItem>
+            <Link className="text-black">Product</Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link className="text-black">Dashboard</Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link className="text-black">About</Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link className="text-black">Login</Link>
+          </NavbarItem>
+        </NavbarMenu>
+
+        {/* ==================Navbar rightside content=========== */}
+      </Navbar>
+    </div>
+  );
 };
 
-export default Navbar;
+export default NavBar;
