@@ -16,8 +16,6 @@ import {
 } from "@nextui-org/react";
 import { IoSearchOutline } from "react-icons/io5";
 
-import logo from "@/src/assests/icon/logo.png";
-import Image from "next/image.js";
 import { SearchIcon } from "../../icons.jsx";
 import React from "react";
 import { GiSelfLove } from "react-icons/gi";
@@ -26,34 +24,49 @@ import { IoCartOutline } from "react-icons/io5";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { FcCustomerSupport } from "react-icons/fc";
 import { LiaFlagUsaSolid } from "react-icons/lia";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import logo from "@/src/assests/icon/bottomnavlogo.avif";
+import Image from "next/image.js";
 
 const BottomNav = () => {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(true);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   return (
     <div className="">
       <Navbar
         onMenuOpenChange={setIsMenuOpen}
         isMenuOpen={isMenuOpen}
-        className="bg-[#ffffff] p-4 text-white"
+        className="bg-[#ffffff] p-0 sm:p-4 text-white "
         maxWidth="full"
       >
-        {/* logo */}
-
-        {/* <NavbarContent className="sm:hidden">
+        <NavbarContent className="text-black flex gap-12 lg:hidden">
           <NavbarMenuToggle
+            className="text-block"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           />
-        </NavbarContent> */}
 
-        <NavbarBrand className="flex gap-5">
+          <NavbarItem>
+            <IoSearchOutline className="text-black font-bold text-3xl" />
+          </NavbarItem>
+        </NavbarContent>
+
+        {/* ==========logo for big devie=========== */}
+        <NavbarBrand className="flex gap-5 items-center hidden lg:flex">
           <AiOutlineMenuUnfold className="text-primary-color text-3xl " />
           <p className="text-black font-medium text-2xl">Categories</p>
+
+          <MdKeyboardArrowDown className="text-black text-xl" />
         </NavbarBrand>
 
-        {/* ================icnons============ */}
+        {/* =============logo for small device=========== */}
 
-        <NavbarContent className="hidden sm:flex   gap-20" justify="center">
+        <NavbarBrand className="flex  lg:hidden gap-0 -p-16">
+          <Image alt="Navbar logo" src={logo} width={150} height={50} />
+        </NavbarBrand>
+
+        {/* ================ menu for large device============ */}
+
+        <NavbarContent className="gap-20 hidden lg:flex" justify="center">
           <NavbarItem className="text-xl ">
             <Link color="foreground">Home</Link>
           </NavbarItem>
@@ -74,7 +87,7 @@ const BottomNav = () => {
 
         {/* =========================for small device menu====================== */}
 
-        {/* <NavbarMenu className="z-20 ">
+        <NavbarMenu className="z-20">
           <NavbarItem className="text-white">
             <Link className="text-black">Home</Link>
           </NavbarItem>
@@ -91,9 +104,11 @@ const BottomNav = () => {
           <NavbarItem>
             <Link className="text-black">Login</Link>
           </NavbarItem>
-        </NavbarMenu> */}
+        </NavbarMenu>
 
-        <NavbarContent justify="end">
+        {/* =================icons fro large  device========== */}
+
+        <NavbarContent className="hidden lg:flex" justify="end">
           <NavbarItem className="flex justify-center items-center gap-2">
             <FcCustomerSupport className="text-3xl" />
             <p className="text-md text-black"> Help</p>
@@ -106,7 +121,19 @@ const BottomNav = () => {
           </NavbarItem>
         </NavbarContent>
 
-        {/* ==================Navbar rightside content=========== */}
+        {/* =================icons fro small  device========== */}
+
+        <NavbarContent className=" lg:hidden text-black" justify="end">
+          <NavbarItem className="lex flex-col justify-center">
+            <RxAvatar className="text-4xl" />
+          </NavbarItem>
+
+          <NavbarItem className=" flex flex-col justify-center">
+            <div className=" flex flex-col justify-center items-center  mx-auto">
+              <IoCartOutline className="text-4xl" />
+            </div>
+          </NavbarItem>
+        </NavbarContent>
       </Navbar>
     </div>
   );
