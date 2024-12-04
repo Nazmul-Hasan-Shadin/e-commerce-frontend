@@ -26,6 +26,20 @@ import { CartIcon, UserIcon, WatchListIcon } from "../../icons";
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
+  const menuItems = [
+    { label: "Home", link: "/" },
+    { label: "Product", link: "/product" },
+    { label: "Dashboard", link: "/dashboard" },
+    { label: "About", link: "/about" },
+    { label: "Login", link: "/login" },
+  ];
+
+  const icons = [
+    { Icon: WatchListIcon, label: "watchlist" },
+    { Icon: UserIcon, label: "signin" },
+    { Icon: CartIcon, label: "cart" },
+  ];
+
   return (
     <div className="hidden lg:block">
       <Navbar
@@ -69,65 +83,26 @@ const NavBar = () => {
         {/* ================icnons============ */}
 
         <NavbarContent justify="end">
-          <NavbarItem>
-            <div className="text-white flex flex-col justify-center items-center  mx-auto">
-              <WatchListIcon className="text-4xl" />
-              <span> watchlist</span>
-            </div>
-          </NavbarItem>
-
-          <NavbarItem className="text-white flex flex-col justify-center">
-            <UserIcon className="text-4xl" />
-            <span> signin</span>
-          </NavbarItem>
-
-          <NavbarItem className="text-white flex flex-col justify-center">
-            <div className="text-white flex flex-col justify-center items-center  mx-auto">
-              <CartIcon className="text-4xl" />
-              <span> cart</span>
-            </div>
-          </NavbarItem>
+          {icons.map((icon) => (
+            <NavbarItem>
+              <div className="text-white flex flex-col justify-center items-center  mx-auto">
+                <icon.Icon className="text-4xl" />
+                <span> {icon.label}</span>
+              </div>
+            </NavbarItem>
+          ))}
         </NavbarContent>
-
-        {/* <NavbarContent className="hidden sm:flex" justify="end">
-          <NavbarItem className="text-white flex flex-col justify-center">
-            <GiSelfLove className="text-4xl" />
-            <span> watchlist</span>
-          </NavbarItem>
-
-          <NavbarItem>
-            <Link className="text-white">Product</Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link className="text-white">Dashboard</Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link className="text-white">About</Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link className="text-white">Login</Link>
-          </NavbarItem>
-        </NavbarContent> */}
 
         {/* =========================for small device menu====================== */}
 
         <NavbarMenu className="z-20 ">
-          <NavbarItem className="text-white">
-            <Link className="text-black">Home</Link>
-          </NavbarItem>
-
-          <NavbarItem>
-            <Link className="text-black">Product</Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link className="text-black">Dashboard</Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link className="text-black">About</Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link className="text-black">Login</Link>
-          </NavbarItem>
+          {menuItems.map((menu) => (
+            <NavbarItem className="text-white">
+              <Link href={menu.link} className="text-black">
+                {menu.label}
+              </Link>
+            </NavbarItem>
+          ))}
         </NavbarMenu>
 
         {/* ==================Navbar rightside content=========== */}
