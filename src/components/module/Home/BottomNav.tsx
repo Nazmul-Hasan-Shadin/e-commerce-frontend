@@ -53,21 +53,21 @@ const BottomNav = () => {
 
         {/* ================icnons============ */}
 
-        <NavbarContent className="hidden sm:flex" justify="center">
-          <NavbarItem>
+        <NavbarContent className="hidden sm:flex   gap-20" justify="center">
+          <NavbarItem className="text-xl ">
             <Link color="foreground">Home</Link>
           </NavbarItem>
-          <NavbarItem>
+          <NavbarItem className="text-xl ">
             <Link color="foreground">Product</Link>
           </NavbarItem>
 
-          <NavbarItem>
+          <NavbarItem className="text-xl ">
             <Link color="foreground">Dashboard</Link>
           </NavbarItem>
-          <NavbarItem>
+          <NavbarItem className="text-xl ">
             <Link color="foreground">About</Link>
           </NavbarItem>
-          <NavbarItem>
+          <NavbarItem className="text-xl ">
             <Link color="foreground">Login</Link>
           </NavbarItem>
         </NavbarContent>
