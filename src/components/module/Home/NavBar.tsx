@@ -25,7 +25,7 @@ import { RxAvatar } from "react-icons/rx";
 import { IoCartOutline } from "react-icons/io5";
 
 const NavBar = () => {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(true);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   return (
     <div className="">

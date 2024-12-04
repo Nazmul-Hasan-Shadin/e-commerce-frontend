@@ -6,13 +6,10 @@ import { button as buttonStyles } from "@nextui-org/theme";
 import { siteConfig } from "@/src/config/site";
 import { title, subtitle } from "@/src/components/primitives";
 import { GithubIcon } from "@/src/components/icons";
-import Navbar from "@/src/components/module/Home/Navbar";
-import NavBar from "@/src/components/module/Home/Navbar";
+import Navbar from "@/src/components/module/Home/NavBar";
+import NavBar from "@/src/components/module/Home/NavBar";
+import BottomNav from "@/src/components/module/Home/BottomNav";
 
 export default function Home() {
-  return (
-    <div>
-      < NavBar />
-    </div>
-  );
+  return <div>ff</div>;
 }
