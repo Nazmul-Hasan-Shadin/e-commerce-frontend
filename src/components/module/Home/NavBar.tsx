@@ -83,8 +83,8 @@ const NavBar = () => {
         {/* ================icnons============ */}
 
         <NavbarContent justify="end">
-          {icons.map((icon) => (
-            <NavbarItem>
+          {icons.map((icon, index) => (
+            <NavbarItem key={index}>
               <div className="text-white flex flex-col justify-center items-center  mx-auto">
                 <icon.Icon className="text-4xl" />
                 <span> {icon.label}</span>
@@ -96,8 +96,8 @@ const NavBar = () => {
         {/* =========================for small device menu====================== */}
 
         <NavbarMenu className="z-20 ">
-          {menuItems.map((menu) => (
-            <NavbarItem className="text-white">
+          {menuItems.map((menu, index) => (
+            <NavbarItem key={index} className="text-white">
               <Link href={menu.link} className="text-black">
                 {menu.label}
               </Link>
