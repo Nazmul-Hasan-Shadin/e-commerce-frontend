@@ -10,11 +10,14 @@ import Navbar from "@/src/components/module/Home/NavBar";
 import NavBar from "@/src/components/module/Home/NavBar";
 import BottomNav from "@/src/components/module/Home/BottomNav";
 import Banner from "@/src/components/module/Home/Banner";
+import Card from "@/src/components/ui/Card";
 
 export default function Home() {
   return (
     <div>
       <Banner />
+
+      <Card />
     </div>
   );
 }

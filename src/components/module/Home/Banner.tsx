@@ -7,6 +7,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import Image from "next/image";
 import slidBanner1 from "@/src/assests/Banner/slideBanner1.png";
 import mainBanner1 from "@/src/assests/Banner/tv.jpg";
+import mainBanner2 from "@/src/assests/Banner/winter.webp";
 
 const Banner = () => {
   return (
@@ -30,14 +31,14 @@ const Banner = () => {
             <Image
               src={mainBanner1}
               alt="special discount banner"
-              className="  w-full lg:w-full lg:h-full"
+              className="  w-full lg:w-full lg:h-4/5"
             />
           </SwiperSlide>
           <SwiperSlide>
             <Image
-              src={mainBanner1}
+              src={mainBanner2}
               alt="special discount banner"
-              className="  w-full lg:w-full lg:h-full"
+              className="  w-full lg:w-full lg:h-4/5"
             />
           </SwiperSlide>
         </Swiper>

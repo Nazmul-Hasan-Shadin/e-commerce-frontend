@@ -1,0 +1,76 @@
+[
+  {
+    "id": "1",
+    "name": "Product 1",
+    "price": 25.99,
+    "category": "Electronics",
+    "description": "This is a great product for your daily use, offering amazing features.",
+    "image": "https://example.com/products/product1.jpg",
+    "shop": {
+      "name": "Vendor Shop 1",
+      "logo": "https://example.com/vendors/vendor1_logo.jpg",
+      "follower_count": 125
+    },
+    "discount": 10,
+    "reviews": [
+      {
+        "user": "John Doe",
+        "rating": 4,
+        "comment": "Great product, highly recommend!"
+      },
+      {
+        "user": "Jane Smith",
+        "rating": 5,
+        "comment": "Amazing quality and fast delivery."
+      }
+    ],
+    "inventory_count": 50,
+    "is_flash_sale": false
+  },
+  {
+    "id": "2",
+    "name": "Product 2",
+    "price": 100.0,
+    "category": "Fashion",
+    "description": "Stylish and comfortable, perfect for every occasion.",
+    "image": "https://example.com/products/product2.jpg",
+    "shop": {
+      "name": "Vendor Shop 2",
+      "logo": "https://example.com/vendors/vendor2_logo.jpg",
+      "follower_count": 200
+    },
+    "discount": 20,
+    "reviews": [
+      {
+        "user": "Michael Lee",
+        "rating": 5,
+        "comment": "Love the style and comfort!"
+      }
+    ],
+    "inventory_count": 100,
+    "is_flash_sale": true
+  },
+  {
+    "id": "3",
+    "name": "Product 3",
+    "price": 75.5,
+    "category": "Home Appliances",
+    "description": "An efficient product that makes your daily tasks easier.",
+    "image": "https://example.com/products/product3.jpg",
+    "shop": {
+      "name": "Vendor Shop 3",
+      "logo": "https://example.com/vendors/vendor3_logo.jpg",
+      "follower_count": 320
+    },
+    "discount": 5,
+    "reviews": [
+      {
+        "user": "Alice Johnson",
+        "rating": 4,
+        "comment": "Good quality, but a bit expensive."
+      }
+    ],
+    "inventory_count": 75,
+    "is_flash_sale": false
+  }
+]

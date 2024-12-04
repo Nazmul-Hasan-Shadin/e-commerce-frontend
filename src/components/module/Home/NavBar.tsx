@@ -18,11 +18,10 @@ import { IoSearchOutline } from "react-icons/io5";
 
 import logo from "@/src/assests/icon/logo.png";
 import Image from "next/image.js";
-import { SearchIcon } from "../../icons.jsx";
+
 import React from "react";
 import { GiSelfLove } from "react-icons/gi";
-import { RxAvatar } from "react-icons/rx";
-import { IoCartOutline } from "react-icons/io5";
+import { CartIcon, UserIcon, WatchListIcon } from "../../icons";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -72,26 +71,21 @@ const NavBar = () => {
         <NavbarContent justify="end">
           <NavbarItem>
             <div className="text-white flex flex-col justify-center items-center  mx-auto">
-              <GiSelfLove className="text-4xl" />
+              <WatchListIcon className="text-4xl" />
               <span> watchlist</span>
             </div>
           </NavbarItem>
 
           <NavbarItem className="text-white flex flex-col justify-center">
-            <RxAvatar className="text-4xl" />
+            <UserIcon className="text-4xl" />
             <span> signin</span>
           </NavbarItem>
 
           <NavbarItem className="text-white flex flex-col justify-center">
             <div className="text-white flex flex-col justify-center items-center  mx-auto">
-              <IoCartOutline className="text-4xl" />
+              <CartIcon className="text-4xl" />
               <span> cart</span>
             </div>
-          </NavbarItem>
-
-          <NavbarItem className="text-white flex flex-col justify-center">
-            <GiSelfLove className="text-4xl" />
-            <span> watchlist</span>
           </NavbarItem>
         </NavbarContent>
 
