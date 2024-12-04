@@ -10,10 +10,12 @@ import { WatchListIcon } from "@/src/components/icons";
 import { GiSelfLove } from "react-icons/gi";
 import { Checkbox } from "@nextui-org/checkbox";
 import { Divider, Tab, Tabs } from "@nextui-org/react";
+import ReviewTab from "@/src/components/module/ProductDetails/ReviewDescription";
+import CommentBox from "@/src/components/ui/CommentBox";
 
 const ProductDetails = () => {
   return (
-    <div>
+    <div className="px-9">
       <Card
         isBlurred
         className="border-none bg-background/60 dark:bg-default-100/50 max-w-full]"
@@ -105,11 +107,10 @@ const ProductDetails = () => {
 
       {/* =======================================Review And Description section===================== */}
 
-      <div className="flex justify-center gap-16">
-        <Tabs>
-          <Tab key="Review" title="Review" />
-          <Tab key="Descripiton" title="Description" />
-        </Tabs>
+      <div className="flex  flex-col justify-center  px-12">
+        <ReviewTab />
+
+        <CommentBox />
       </div>
     </div>
   );
