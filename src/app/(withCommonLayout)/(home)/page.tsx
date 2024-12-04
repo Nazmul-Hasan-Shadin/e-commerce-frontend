@@ -9,7 +9,12 @@ import { GithubIcon } from "@/src/components/icons";
 import Navbar from "@/src/components/module/Home/NavBar";
 import NavBar from "@/src/components/module/Home/NavBar";
 import BottomNav from "@/src/components/module/Home/BottomNav";
+import Banner from "@/src/components/module/Home/Banner";
 
 export default function Home() {
-  return <div>ff</div>;
+  return (
+    <div>
+      <Banner />
+    </div>
+  );
 }

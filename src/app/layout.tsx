@@ -6,9 +6,9 @@ import clsx from "clsx";
 import { Providers } from "./providers";
 
 import { siteConfig } from "@/src/config/site";
-import { fontSans } from "@/src/config/fonts";
-import { Navbar } from "@/src/components/navbar";
+
 import ReduxProviders from "../lib/Providers";
+// import { store } from "../redux/store";
 
 export const metadata: Metadata = {
   title: {
@@ -34,18 +34,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ReduxProviders>
-      <html suppressHydrationWarning lang="en">
-        <head />
-        <body>
+    <html suppressHydrationWarning lang="en">
+      <head />
+      <body>
+        <ReduxProviders>
           {/* ================provider-start============ */}
           <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
             {children}
           </Providers>
 
           {/* ======================provider end=========== */}
-        </body>
-      </html>
-    </ReduxProviders>
+        </ReduxProviders>
+      </body>
+    </html>
   );
 }
