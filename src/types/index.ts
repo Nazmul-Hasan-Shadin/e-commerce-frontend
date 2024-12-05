@@ -6,4 +6,5 @@ export interface IInput {
   variant?: "flat" | "bordered" | "faded" | "underlined";
   size?: "sm" | "md" | "lg";
   disabled?: boolean;
+  className?: string;
 }

@@ -1,42 +1,61 @@
 "use client";
-import { IInput } from "@/src/types";
-import { Select, SelectItem } from "@nextui-org/react";
+
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
-interface IProps extends IInput {
+interface IProps {
+  name: string;
+  label: string;
   options: {
     key: string;
     label: string;
   }[];
+  required?: boolean;
+  disabled?: boolean;
+  className?: string;
 }
 
 const ESelect = ({
-  options,
   name,
   label,
-  variant = "bordered",
-  disabled,
+  options,
+  required = false,
+  disabled = false,
+  className = "",
 }: IProps) => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
-  console.log(errors);
 
   return (
-    <Select
-      {...register(name)}
-      label={label}
-      placeholder="Select an animal"
-      variant={variant}
-      className="max-w-[210px] h-[56px] relative  "
-      disabled={disabled}
-    >
-      {options.map((option) => (
-        <SelectItem key={option.key}>{option.label}</SelectItem>
-      ))}
-    </Select>
+    <div className={`flex flex-col ${className}`}>
+      <label htmlFor={name} className="mb-1 text-sm font-medium text-gray-700">
+        {required && <span className="text-red-500"> *</span>}
+      </label>
+      <select
+        id={name}
+        {...register(name, { required })}
+        className={`p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+          errors[name] ? "border-red-500" : "border-gray-300"
+        }`}
+        disabled={disabled}
+      >
+        <option value="" disabled>
+          Select Category
+        </option>
+        {options.map((option) => (
+          <option key={option.key} value={option.key}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+      {errors[name] && (
+        <p className="mt-1 text-sm text-red-500">
+          {(errors[name]?.message as string) || "This field is required"}
+        </p>
+      )}
+    </div>
   );
 };
 

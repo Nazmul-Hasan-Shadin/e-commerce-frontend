@@ -1,3 +1,4 @@
+"use client";
 import { IInput } from "@/src/types";
 import { Input } from "@nextui-org/input";
 import React from "react";
@@ -10,13 +11,13 @@ const EInput = ({
   required = false,
   type = "text",
   label,
+
   name,
 }: Iprops) => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
-  console.log(errors);
 
   return (
     <Input
@@ -25,6 +26,7 @@ const EInput = ({
       {...register(name)}
       label={label}
       size={size}
+      className=""
       errorMessage={errors[name] ? (errors[name]?.message as string) : ""}
     />
   );
