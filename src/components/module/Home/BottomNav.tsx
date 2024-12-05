@@ -4,7 +4,6 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Link,
   Input,
   DropdownItem,
   DropdownTrigger,
@@ -14,6 +13,8 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
 } from "@nextui-org/react";
+import Link from "next/link";
+
 import { IoSearchOutline } from "react-icons/io5";
 
 import { SearchIcon } from "../../icons.jsx";
@@ -30,6 +31,14 @@ import Image from "next/image.js";
 
 const BottomNav = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const menuItems = [
+    { label: "Home", link: "/" },
+    { label: "Product", link: "/product" },
+    { label: "Dashboard", link: "/dashboard" },
+    { label: "About", link: "/about" },
+    { label: "Login", link: "/login" },
+    { label: "Register", link: "/register" },
+  ];
 
   return (
     <div className="">
@@ -67,43 +76,27 @@ const BottomNav = () => {
         {/* ================ menu for large device============ */}
 
         <NavbarContent className="gap-20 hidden lg:flex" justify="center">
-          <NavbarItem className="text-xl ">
-            <Link color="foreground">Home</Link>
-          </NavbarItem>
-          <NavbarItem className="text-xl ">
-            <Link color="foreground">Product</Link>
-          </NavbarItem>
-
-          <NavbarItem className="text-xl ">
-            <Link color="foreground">Dashboard</Link>
-          </NavbarItem>
-          <NavbarItem className="text-xl ">
-            <Link color="foreground">About</Link>
-          </NavbarItem>
-          <NavbarItem className="text-xl ">
-            <Link color="foreground">Login</Link>
-          </NavbarItem>
+          {menuItems.map((menu, index) => (
+            <NavbarItem key={index} className="text-white">
+              <Link href={menu.link} className="text-black">
+                {menu.label}
+              </Link>
+            </NavbarItem>
+          ))}
         </NavbarContent>
 
         {/* =========================for small device menu====================== */}
 
         <NavbarMenu className="z-20">
-          <NavbarItem className="text-white">
-            <Link className="text-black">Home</Link>
-          </NavbarItem>
-
-          <NavbarItem>
-            <Link className="text-black">Product</Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link className="text-black">Dashboard</Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link className="text-black">About</Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link className="text-black">Login</Link>
-          </NavbarItem>
+          <NavbarMenu className="z-20 ">
+            {menuItems.map((menu, index) => (
+              <NavbarItem key={index} className="text-white">
+                <Link href={menu.link} className="text-black">
+                  {menu.label}
+                </Link>
+              </NavbarItem>
+            ))}
+          </NavbarMenu>
         </NavbarMenu>
 
         {/* =================icons fro large  device========== */}

@@ -26,14 +26,6 @@ import { CartIcon, UserIcon, WatchListIcon } from "../../icons";
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-  const menuItems = [
-    { label: "Home", link: "/" },
-    { label: "Product", link: "/product" },
-    { label: "Dashboard", link: "/dashboard" },
-    { label: "About", link: "/about" },
-    { label: "Login", link: "/login" },
-  ];
-
   const icons = [
     { Icon: WatchListIcon, label: "watchlist" },
     { Icon: UserIcon, label: "signin" },
@@ -94,7 +86,7 @@ const NavBar = () => {
         </NavbarContent>
 
         {/* =========================for small device menu====================== */}
-
+        {/* 
         <NavbarMenu className="z-20 ">
           {menuItems.map((menu, index) => (
             <NavbarItem key={index} className="text-white">
@@ -103,7 +95,7 @@ const NavBar = () => {
               </Link>
             </NavbarItem>
           ))}
-        </NavbarMenu>
+        </NavbarMenu> */}
 
         {/* ==================Navbar rightside content=========== */}
       </Navbar>

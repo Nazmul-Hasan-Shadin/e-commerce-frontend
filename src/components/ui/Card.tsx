@@ -20,11 +20,11 @@ const Card = ({ product }) => {
           className="w-full"
         />
         <CardHeader>
-          <p className="text-xl">{product.name}</p>
+          <p className="text-xl">{product?.name}</p>
         </CardHeader>
         <CardBody>
           <span>
-            <del className="text-xl text-gray-500"> ${product.price}</del> from{" "}
+            <del className="text-xl text-gray-500"> ${product?.price}</del> from{" "}
             <span className="text-xl font-bold text-[#e10600]">$20</span>
           </span>
         </CardBody>
