@@ -4,10 +4,37 @@ import { Button } from "@nextui-org/react";
 import { SubmitHandler } from "react-hook-form";
 import EForm from "@/src/components/form/EForm";
 import EInput from "@/src/components/form/EInput";
+import { useLoginMutation } from "@/src/redux/feature/auth/auth.api";
+import { verifyToken } from "@/src/utils/verifyToke";
+import { TUser, setUser } from "@/src/redux/feature/auth/auth.slice";
+import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/src/redux/hook";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
-  const onSubmit: SubmitHandler<any> = (data) => {
-    console.log("Form data", data);
+  const [login, { data, error }] = useLoginMutation();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const onSubmit: SubmitHandler<any> = async (data) => {
+    const toastId = toast.loading("Logining");
+    const userData = {
+      email: data.email,
+      password: data.password,
+    };
+
+    try {
+      const res = await login(userData).unwrap();
+      const user = verifyToken(res.data.accessToken) as TUser;
+      console.log(user);
+      dispatch(setUser({ user, token: res.data.accessToken }));
+
+      toast.success("Logged In", { id: toastId });
+      router.push("/");
+      console.log(res, "login res");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
