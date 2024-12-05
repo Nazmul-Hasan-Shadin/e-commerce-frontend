@@ -1,6 +1,12 @@
 import React from "react";
 
-const Container = (children: React.ReactNode, className: string) => {
+const Container = ({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
   return <div className={`container mx-auto ${className}`}>{children}</div>;
 };
 

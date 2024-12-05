@@ -8,7 +8,7 @@ import {
 import Image from "next/image";
 import React from "react";
 
-const Card = () => {
+const Card = ({ product }) => {
   return (
     <div className="p-5">
       <NextCard isHoverable className="max-w-[250px] h-[475px] ">
@@ -20,13 +20,11 @@ const Card = () => {
           className="w-full"
         />
         <CardHeader>
-          <p className="text-xl">
-            Lenevo Lapto with core i 7 8th gen and Accseasory...
-          </p>
+          <p className="text-xl">{product.name}</p>
         </CardHeader>
         <CardBody>
           <span>
-            <del className="text-xl text-gray-500">$56</del> from{" "}
+            <del className="text-xl text-gray-500"> ${product.price}</del> from{" "}
             <span className="text-xl font-bold text-[#e10600]">$20</span>
           </span>
         </CardBody>
