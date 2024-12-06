@@ -13,11 +13,10 @@ import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/react";
 import React, { useRef, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const CreateShopPage = () => {
   const { isError, data: userData } = useGetCurrentUserQuery(undefined);
-
-  console.log(userData, "lol");
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -51,10 +50,12 @@ const CreateShopPage = () => {
 
     const data = {
       name: shopInfo.name,
-      descripiton: shopInfo.description,
+      description: shopInfo?.description,
 
-      vendorId: shopInfo.description,
+      vendorId: userData?.data?.id,
     };
+    console.log(data);
+
     formData.append("data", JSON.stringify(data));
 
     // Append image
@@ -65,10 +66,14 @@ const CreateShopPage = () => {
     try {
       console.log("inside try");
 
-      const response = await handleCreateShop(formData);
+      const response = await handleCreateShop(formData).unwrap();
+      if (response.success === true) {
+        toast.success("shop created successcful");
+      }
 
-      console.log(response, "shop create done bro");
-    } catch (error) {
+      toast.success("Shop created successful");
+    } catch (error: any) {
+      toast.error(error.message || "something went wrong");
       console.error("Error:", error);
     }
   };
@@ -112,7 +117,7 @@ const CreateShopPage = () => {
           />
 
           <FxTextArea
-            name="descripiton"
+            name="description"
             label="Description"
             variant="bordered"
           />

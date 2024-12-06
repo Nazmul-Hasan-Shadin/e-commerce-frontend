@@ -4,6 +4,7 @@ import EForm from "@/src/components/form/EForm";
 import EInput from "@/src/components/form/EInput";
 import ESelect from "@/src/components/form/ESelect";
 import FxTextArea from "@/src/components/form/ETextArea";
+import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import { useCreateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/react";
@@ -11,6 +12,9 @@ import React, { useRef, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 
 const AddProductPage = () => {
+  const { isError, data: userData } = useGetCurrentUserQuery(undefined);
+  console.log(userData);
+
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const [handleCreateProduct, { data, error }] = useCreateProductMutation();
@@ -42,11 +46,18 @@ const AddProductPage = () => {
     // Append text fields
 
     const data = {
-      categoryId: productInfo.categoryId,
-      discount: productInfo.categoryId,
-      inventoryCount: productInfo.inventoryCount,
-      description: productInfo.description,
+      name: productInfo?.name,
+      shopId: userData?.data.shop?.id,
+      price: productInfo?.price,
+      categoryId: productInfo?.categoryId,
+      discount: productInfo?.discount,
+      inventoryCount: productInfo?.inventoryCount,
+      vendorId: userData?.data?.id,
+      description: productInfo?.description,
     };
+
+    console.log("all data", data);
+
     formData.append("data", JSON.stringify(data));
 
     // Append image
@@ -63,8 +74,8 @@ const AddProductPage = () => {
     try {
       console.log("inside try");
 
-      const response = await handleCreateProduct(formData);
-      console.log(response);
+      // const response = await handleCreateProduct(formData);
+      // console.log(response);
     } catch (error) {
       console.error("Error:", error);
     }

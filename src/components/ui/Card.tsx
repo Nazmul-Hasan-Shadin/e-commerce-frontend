@@ -6,6 +6,7 @@ import {
   CardFooter,
 } from "@nextui-org/card";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Card = ({ product }) => {
@@ -13,7 +14,7 @@ const Card = ({ product }) => {
     <div className="p-5">
       <NextCard isHoverable className="max-w-[250px] h-[475px] ">
         <Image
-          src="https://nextui.org/images/hero-card.jpeg"
+          src={product?.images}
           alt="card picture"
           width={211}
           height={209}
@@ -31,7 +32,9 @@ const Card = ({ product }) => {
 
         <CardFooter className="flex justify-around">
           <Button variant="bordered">Quick Add</Button>
-          <Button variant="bordered">Details</Button>
+          <Link href={`/product-details/${product.id}`}>
+            <Button variant="bordered">Details</Button>
+          </Link>
         </CardFooter>
       </NextCard>
     </div>
