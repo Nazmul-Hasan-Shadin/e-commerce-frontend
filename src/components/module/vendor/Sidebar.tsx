@@ -55,13 +55,19 @@ const Sidebar = () => {
             label="Home"
             icon={<FaClipboardList />}
             isOpen={isOpen}
-            path="/" // Add the path here
+            path="/"
+          />
+          <SidebarItem
+            label="Create Shop"
+            icon={<FaClipboardList />}
+            isOpen={isOpen}
+            path="/dashboard/create-shop"
           />
           <SidebarItem
             label="Dashboard"
             icon={<FaClipboardList />}
             isOpen={isOpen}
-            path="/dashboard" // Add the path here
+            path="/dashboard"
           />
 
           {/* Products */}

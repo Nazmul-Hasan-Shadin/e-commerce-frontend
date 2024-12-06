@@ -4,11 +4,6 @@ const vendorApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     createProduct: builder.mutation({
       query: (productInfo) => {
-        console.log(
-          productInfo,
-          "iam useerInffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffo"
-        );
-
         return {
           url: "/product/create-product",
           method: "POST",
@@ -16,7 +11,31 @@ const vendorApi = baseApi.injectEndpoints({
         };
       },
     }),
+    createShop: builder.mutation({
+      query: (shopInfo) => {
+        console.log(shopInfo, "create shop from reducer");
+
+        return {
+          url: "/create-shop",
+          method: "POST",
+          body: shopInfo,
+        };
+      },
+    }),
+    updateProduct: builder.mutation({
+      query: ({ id, data }) => {
+        return {
+          url: `/product/${id}`,
+          method: "POST",
+          body: data,
+        };
+      },
+    }),
   }),
 });
 
-export const { useCreateProductMutation } = vendorApi;
+export const {
+  useCreateProductMutation,
+  useUpdateProductMutation,
+  useCreateShopMutation,
+} = vendorApi;

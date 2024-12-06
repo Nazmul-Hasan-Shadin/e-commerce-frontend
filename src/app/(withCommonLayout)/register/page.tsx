@@ -13,6 +13,7 @@ import { useAppDispatch } from "@/src/redux/hook";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import ESelect from "@/src/components/form/ESelect";
 
 const Register = () => {
   const [handleRegister, { data, error }] = useRegisterMutation();
@@ -22,9 +23,11 @@ const Register = () => {
     const userData = {
       username: data.username,
       email: data.email,
-      role: "user",
+      role: data.role,
       password: data.password,
     };
+
+    console.log(userData);
 
     try {
       const res = await handleRegister(userData).unwrap();
@@ -52,6 +55,17 @@ const Register = () => {
           </div>
           <div className="mb-4">
             <EInput name="email" label="Email" type="email" required />
+          </div>
+
+          <div className="mb-4">
+            <ESelect
+              name="role"
+              label=" ROle"
+              options={[
+                { key: "user", label: "user" },
+                { key: "vendor", label: "vendor" },
+              ]}
+            />
           </div>
 
           <div className="mb-4">

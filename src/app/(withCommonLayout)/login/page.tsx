@@ -10,12 +10,14 @@ import { TUser, setUser } from "@/src/redux/feature/auth/auth.slice";
 import { useDispatch } from "react-redux";
 import { useAppDispatch } from "@/src/redux/hook";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const Login = () => {
   const [login, { data, error }] = useLoginMutation();
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const navigate = usePathname();
+
   const onSubmit: SubmitHandler<any> = async (data) => {
     const toastId = toast.loading("Logining");
     const userData = {
@@ -30,7 +32,10 @@ const Login = () => {
       dispatch(setUser({ user, token: res.data.accessToken }));
 
       toast.success("Logged In", { id: toastId });
-      router.push("/");
+      if (navigate === "/login") {
+        router.push("/dashboard/add-product");
+      }
+
       console.log(res, "login res");
     } catch (error) {
       console.log(error);
