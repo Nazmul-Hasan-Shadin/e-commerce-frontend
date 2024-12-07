@@ -13,7 +13,14 @@ import { Divider, Tab, Tabs } from "@nextui-org/react";
 import ReviewTab from "@/src/components/module/ProductDetails/ReviewDescription";
 import CommentBox from "@/src/components/ui/CommentBox";
 
-const ProductDetails = () => {
+const ProductDetails = async ({ params }) => {
+  const productInfo = await fetch(
+    `http://localhost:3001/api/v1/product/${params.productId}`
+  );
+  const res = await productInfo.json();
+  const { name, description, price, inventoryCount, images, review } = res.data;
+  console.log(name, "iam neame");
+
   return (
     <div className="px-9">
       <Card
@@ -40,22 +47,21 @@ const ProductDetails = () => {
               <div className="flex justify-between items-start">
                 <div className="flex flex-col gap-0 space-y-6">
                   <h3 className="font-semibold text-foreground/90 text-2xl">
-                    (Product 27) Sample - Computers & Accessories For Sale
+                    {res?.data?.name}
+                    Sale
                   </h3>
                   <p className="text-small text-primary-color text-foreground/80">
                     7 sold in last 17 hours
                   </p>
                   <p className="text-[18px]">
-                    Nam tempus turpis at metus scelerisque placerat nulla
-                    deumantos solicitud felis. Pellentesque diam dolor,
-                    elementum etos lobortis... Vendor: Ella - Halothemes SKU:
+                    {res?.data?.description}
                     KJSU-58636 Availability: In Stock
                   </p>
                   <span className="text-xl font-bold flex gap-2">
                     <del className="text-xl font-bold  text-gray-700 ">
                       $443
                     </del>
-                    <span className="text-[#e10600]"> $99</span>
+                    <span className="text-[#e10600]"> ${res?.data?.price}</span>
                   </span>
                   <h1 className="text-large font-medium mt-2">
                     Please hurry! Only 9 left in stock
@@ -108,9 +114,9 @@ const ProductDetails = () => {
       {/* =======================================Review And Description section===================== */}
 
       <div className="flex  flex-col justify-center  px-12">
-        <ReviewTab />
+        <ReviewTab review={review} />
 
-        <CommentBox />
+        <CommentBox review={review} />
       </div>
     </div>
   );

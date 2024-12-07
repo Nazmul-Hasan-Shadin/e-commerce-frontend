@@ -3,7 +3,7 @@ import { Tabs, Tab, CardBody, Card } from "@nextui-org/react";
 import React from "react";
 import UserCard from "../../ui/UserCard";
 
-const ReviewTab = () => {
+const ReviewTab = ({ review }) => {
   const [selected, setSelected] = React.useState("reviews");
   return (
     <div className="flex w-full flex-col ">
@@ -15,7 +15,7 @@ const ReviewTab = () => {
         onSelectionChange={setSelected}
       >
         <Tab key="reviews" className=" text-2xl" title="reviews">
-          <UserCard />
+          <UserCard review={review} />
         </Tab>
         <Tab className=" text-2xl" key="music" title="Music">
           <Card>
