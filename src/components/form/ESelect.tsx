@@ -44,9 +44,9 @@ const ESelect = ({
         <option value="" disabled>
           Select Category
         </option>
-        {options.map((option) => (
-          <option key={option.key} value={option.key}>
-            {option.label}
+        {options?.map((option) => (
+          <option key={option?.id} value={option?.id}>
+            {option?.name}
           </option>
         ))}
       </select>

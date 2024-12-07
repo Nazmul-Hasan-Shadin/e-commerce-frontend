@@ -4,15 +4,18 @@ import EForm from "@/src/components/form/EForm";
 import EInput from "@/src/components/form/EInput";
 import ESelect from "@/src/components/form/ESelect";
 import FxTextArea from "@/src/components/form/ETextArea";
+import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import { useCreateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/react";
 import React, { useRef, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const AddProductPage = () => {
   const { isError, data: userData } = useGetCurrentUserQuery(undefined);
+  const { data: categoryList } = useGetAllCategoryQuery(undefined);
   console.log(userData);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -43,16 +46,14 @@ const AddProductPage = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (productInfo) => {
     const formData = new FormData();
 
-    // Append text fields
-
     const data = {
       name: productInfo?.name,
       shopId: userData?.data.shop?.id,
-      price: productInfo?.price,
-      categoryId: productInfo?.categoryId,
-      discount: productInfo?.discount,
-      inventoryCount: productInfo?.inventoryCount,
-      vendorId: userData?.data?.id,
+      price: Number(productInfo?.price),
+      categoryId: productInfo?.category,
+      discount: Number(productInfo?.discount),
+      inventoryCount: Number(productInfo?.inventoryCount),
+      // vendorId: userData?.data?.id,
       description: productInfo?.description,
     };
 
@@ -60,24 +61,18 @@ const AddProductPage = () => {
 
     formData.append("data", JSON.stringify(data));
 
-    // Append image
     if (selectedFile) {
       formData.append("file", selectedFile);
     }
 
-    // console.log(formData, "lol");
-
-    // for (const [key, value] of formData.entries()) {
-    //   console.log(`${key}:`, value);
-    // }
-
     try {
-      console.log("inside try");
-
-      // const response = await handleCreateProduct(formData);
-      // console.log(response);
+      const response = await handleCreateProduct(formData).unwrap();
+      if (response.success === true) {
+        toast.success("product has added");
+      }
+      console.log(response);
     } catch (error) {
-      console.error("Error:", error);
+      console.log("Error:", error);
     }
   };
 
@@ -117,7 +112,7 @@ const AddProductPage = () => {
 
           <EInput name="price" type="number" label="Price" variant="bordered" />
           <ESelect
-            options={[{ key: "category1", label: "Category 1" }]}
+            options={categoryList?.data}
             name="category"
             label="Category"
           />

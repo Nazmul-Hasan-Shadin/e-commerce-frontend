@@ -20,6 +20,15 @@ const vendorApi = baseApi.injectEndpoints({
         };
       },
     }),
+
+    getProducsByShopId: builder.query({
+      query: (shopId: string) => {
+        return {
+          url: `/product/shop/products/${shopId}`,
+          method: "GET",
+        };
+      },
+    }),
     createShop: builder.mutation({
       query: (shopInfo) => {
         console.log(shopInfo, "create shop from reducer");
@@ -48,4 +57,5 @@ export const {
   useUpdateProductMutation,
   useCreateShopMutation,
   useGetAllProductQuery,
+  useGetProducsByShopIdQuery,
 } = vendorApi;

@@ -13,7 +13,17 @@ const shopApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getShopInfo: builder.query({
+      query: (shopId: string) => {
+        console.log(shopId);
+
+        return {
+          url: `/shop/${shopId}`,
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
-export const { useFollowShopMutation } = shopApi;
+export const { useFollowShopMutation, useGetShopInfoQuery } = shopApi;

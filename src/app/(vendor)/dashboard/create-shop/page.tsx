@@ -22,7 +22,6 @@ const CreateShopPage = () => {
 
   const [handleCreateShop, { data, error }] = useCreateShopMutation();
 
-  // States for file and preview
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
@@ -46,8 +45,6 @@ const CreateShopPage = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (shopInfo) => {
     const formData = new FormData();
 
-    // Append text fields
-
     const data = {
       name: shopInfo.name,
       description: shopInfo?.description,
@@ -58,7 +55,6 @@ const CreateShopPage = () => {
 
     formData.append("data", JSON.stringify(data));
 
-    // Append image
     if (selectedFile) {
       formData.append("file", selectedFile);
     }
@@ -79,7 +75,7 @@ const CreateShopPage = () => {
   };
   return (
     <div className="w-3/4 mx-auto gap-5">
-      <h2 className="text-2xl font-bold mb-5">Add Shop Info</h2>
+      <h2 className="text-2xl font-bold mb-5">create your Shop</h2>
       <Divider />
       <EForm onSubmit={onSubmit}>
         <div

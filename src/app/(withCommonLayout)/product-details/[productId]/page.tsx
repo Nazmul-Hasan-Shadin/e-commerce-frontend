@@ -12,13 +12,15 @@ import { Checkbox } from "@nextui-org/checkbox";
 import { Divider, Tab, Tabs } from "@nextui-org/react";
 import ReviewTab from "@/src/components/module/ProductDetails/ReviewDescription";
 import CommentBox from "@/src/components/ui/CommentBox";
+import Link from "next/link";
 
 const ProductDetails = async ({ params }) => {
   const productInfo = await fetch(
     `http://localhost:3001/api/v1/product/${params.productId}`
   );
   const res = await productInfo.json();
-  const { name, description, price, inventoryCount, images, review } = res.data;
+  const { name, description, price, inventoryCount, images, review, shopId } =
+    res.data;
   console.log(name, "iam neame");
 
   return (
@@ -53,6 +55,9 @@ const ProductDetails = async ({ params }) => {
                   <p className="text-small text-primary-color text-foreground/80">
                     7 sold in last 17 hours
                   </p>
+                  <Link href={`/shop/${shopId}`}>
+                    <p className="text-xl ">See About shop</p>
+                  </Link>
                   <p className="text-[18px]">
                     {res?.data?.description}
                     KJSU-58636 Availability: In Stock
