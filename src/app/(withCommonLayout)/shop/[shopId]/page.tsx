@@ -1,22 +1,34 @@
 "use client";
 
 import Card from "@/src/components/ui/Card";
-import { useGetShopInfoQuery } from "@/src/redux/feature/shop/shop.api";
+import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
+import {
+  useCheckValidityOfFollowMutation,
+  useFollowShopMutation,
+  useGetShopInfoQuery,
+  useUnfollowShopMutation,
+} from "@/src/redux/feature/shop/shop.api";
 import { useGetProducsByShopIdQuery } from "@/src/redux/feature/vendor/vendor.api";
 import { Button } from "@nextui-org/button";
 
 import { Divider } from "@nextui-org/react";
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 type Params = Promise<{ shopId: string }>;
 
 const ShopPage = ({ params }: { params: Params }) => {
   const param = use(params);
 
   const shopId = param.shopId;
+  const { data: userInformation } = useGetCurrentUserQuery(undefined);
+
+  const [handleFollowShop, { data, error }] = useFollowShopMutation();
 
   const { data: shopData } = useGetShopInfoQuery(shopId);
   const { data: shopProduct } = useGetProducsByShopIdQuery(shopId);
+  const [handleUnfollow] = useUnfollowShopMutation();
   console.log(shopProduct, "isasm hsopd dat");
+  const [handleCheckValidiyOfFollow] = useCheckValidityOfFollowMutation();
 
   const [isFollowing, setIsFollowing] = useState(false);
 
@@ -26,31 +38,46 @@ const ShopPage = ({ params }: { params: Params }) => {
     followers: 1234,
   };
 
-  const products = [
-    {
-      id: 1,
-      name: "Product 1",
-      price: 29.99,
-      image: "/product1.jpg",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 19.99,
-      image: "/product2.jpg",
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      price: 39.99,
-      image: "/product3.jpg",
-    },
-  ];
-
   // Follow/Unfollow handler
-  const handleFollow = () => {
-    setIsFollowing(!isFollowing);
+  const handleFollow = async () => {
+    try {
+      if (isFollowing) {
+        await handleUnfollow({ userId: userInformation.id, shopId }).unwrap();
+        setIsFollowing(false);
+        toast.success("Unfollowed successfully");
+      } else {
+        await handleFollowShop({ userId: userInformation.id, shopId }).unwrap();
+        setIsFollowing(true);
+        toast.success("Shop followed successfully");
+      }
+    } catch (error: any) {
+      toast.error(error?.message || "An error occurred.");
+    } finally {
+    }
   };
+
+  useEffect(() => {
+    const handleChecckFollowStatus = async () => {
+      try {
+        const response = await handleCheckValidiyOfFollow({
+          userId: userInformation?.data?.id,
+          shopId,
+        }).unwrap();
+
+        if (response.success) {
+          setIsFollowing(response.success);
+        } else {
+          setIsFollowing(false);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (userInformation?.data?.id && shopId) {
+      handleChecckFollowStatus();
+    }
+  }, [userInformation?.data?.id, shopId, handleCheckValidiyOfFollow]);
 
   return (
     <div className="max-w-6xl mx-auto p-6">

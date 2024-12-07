@@ -6,6 +6,7 @@ import { RootState } from "../store";
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:3001/api/v1",
   credentials: "include",
+
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
     if (token) {
@@ -26,5 +27,7 @@ const baseQuery = fetchBaseQuery({
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQuery,
+  tagTypes: ["Post", "User", "follow"],
+
   endpoints: (builder) => ({}),
 });

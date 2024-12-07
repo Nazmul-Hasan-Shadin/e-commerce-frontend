@@ -12,6 +12,7 @@ const shopApi = baseApi.injectEndpoints({
           body: userInfo,
         };
       },
+      providesTags: ["follow"],
     }),
     getShopInfo: builder.query({
       query: (shopId: string) => {
@@ -23,7 +24,37 @@ const shopApi = baseApi.injectEndpoints({
         };
       },
     }),
+
+    checkValidityOfFollow: builder.mutation({
+      query: (shopFollowInfo) => {
+        console.log(shopFollowInfo);
+
+        return {
+          url: `/shop/check-validity-follow`,
+          method: "post",
+          body: shopFollowInfo,
+        };
+      },
+    }),
+
+    unfollowShop: builder.mutation({
+      query: (shopFollowInfo) => {
+        console.log(shopFollowInfo);
+
+        return {
+          url: `/shop/unfollow`,
+          method: "post",
+          body: shopFollowInfo,
+        };
+      },
+      invalidatesTags: ["follow"],
+    }),
   }),
 });
 
-export const { useFollowShopMutation, useGetShopInfoQuery } = shopApi;
+export const {
+  useFollowShopMutation,
+  useGetShopInfoQuery,
+  useCheckValidityOfFollowMutation,
+  useUnfollowShopMutation,
+} = shopApi;
