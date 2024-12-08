@@ -62,8 +62,8 @@ const Register = () => {
               name="role"
               label=" ROle"
               options={[
-                { key: "user", label: "user" },
-                { key: "vendor", label: "vendor" },
+                { id: "user", label: "user" },
+                { id: "vendor", label: "vendor" },
               ]}
             />
           </div>

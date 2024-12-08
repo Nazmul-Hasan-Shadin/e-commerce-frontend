@@ -40,7 +40,7 @@ export default function RootLayout({
       <body>
         <ReduxProviders>
           {/* ================provider-start============ */}
-          <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+          <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
             {children}
           </Providers>
 

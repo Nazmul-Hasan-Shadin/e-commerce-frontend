@@ -8,7 +8,7 @@ interface IProps {
   label: string;
 
   options: {
-    id?: string;
+    id?: string | boolean;
     name?: string;
     key?: string;
     label?: string;
@@ -40,7 +40,7 @@ const ESelect = ({
       <select
         id={name}
         {...register(name, { required })}
-        className={`p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+        className={`p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white ${
           errors[name] ? "border-red-500" : "border-gray-300"
         }`}
         disabled={disabled}
@@ -48,11 +48,17 @@ const ESelect = ({
         <option value="" disabled>
           Select Category
         </option>
-        {options?.map((option) => (
-          <option key={option?.id} value={option?.id}>
-            {option?.name}
-          </option>
-        ))}
+        {options?.map((option) => {
+          return (
+            <option
+              className="text-black"
+              key={option?.id || option?.name || option?.key}
+              value={option?.id}
+            >
+              {option?.name || option?.label}
+            </option>
+          );
+        })}
       </select>
       {errors[name] && (
         <p className="mt-1 text-sm text-red-500">

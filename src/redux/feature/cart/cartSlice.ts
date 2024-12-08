@@ -3,9 +3,16 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
 export type TorderItems = {
+  id: string;
   productId: string;
   quantity: number;
   price: number;
+  images?: string;
+  name?: string;
+  categoryId: string;
+  inventoryCount: number;
+  discount: number;
+  shopId: string;
 };
 
 export type TCart = {
@@ -25,15 +32,13 @@ export const cartSlice = createSlice({
       console.log(payload.productId, "iam payload");
 
       const isExistIncart = state.orderItems.find(
-        (cart) => cart.productId === payload.productId
+        (cart) => cart.id === payload.id
       );
 
-      console.log(isExistIncart, "sis");
-
       if (isExistIncart) {
-        isExistIncart.quantity += 1;
+        isExistIncart.quantity = isExistIncart?.quantity + 1;
       } else {
-        state.orderItems.push(payload);
+        state.orderItems.push({ ...payload, quantity: 1 });
       }
     },
     removeFromCart: (state, { payload }) => {
@@ -56,4 +61,4 @@ export const cartSlice = createSlice({
 export const { addToCart, removeFromCart } = cartSlice.actions;
 export default cartSlice.reducer;
 
-export const useGetCurrentCart = (state: RootState) => state.cart.orderItems;
+export const useGetCurrentCart = (state: RootState) => state?.cart?.orderItems;

@@ -4,20 +4,14 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Input,
-  DropdownItem,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  Avatar,
   NavbarMenuToggle,
   NavbarMenu,
+  Button,
 } from "@nextui-org/react";
 import Link from "next/link";
 
 import { IoSearchOutline } from "react-icons/io5";
 
-import { SearchIcon } from "../../icons.jsx";
 import React from "react";
 import { GiSelfLove } from "react-icons/gi";
 import { RxAvatar } from "react-icons/rx";
@@ -28,15 +22,20 @@ import { LiaFlagUsaSolid } from "react-icons/lia";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import logo from "@/src/assests/icon/bottomnavlogo.avif";
 import Image from "next/image.js";
+import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
+import { logOut } from "@/src/redux/feature/auth/auth.slice";
 
 const BottomNav = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const token = useAppSelector((state) => state.auth.token);
+  const user = useAppSelector((state) => state.auth.user);
+  const dispatch = useAppDispatch();
   const menuItems = [
     { label: "Home", link: "/" },
     { label: "Product", link: "/product" },
-    { label: "Dashboard", link: "/dashboard" },
+    { label: "Dashboard", link: `/${user?.role}/dashboard` },
     { label: "About", link: "/about" },
-    { label: "Login", link: "/login" },
+
     { label: "Register", link: "/register" },
   ];
 
@@ -83,6 +82,18 @@ const BottomNav = () => {
               </Link>
             </NavbarItem>
           ))}
+
+          <NavbarItem key={"login"} className="text-white">
+            {token ? (
+              <Link href={"/login"} className="text-black">
+                <Button onClick={() => dispatch(logOut())}>LogOut</Button>
+              </Link>
+            ) : (
+              <Link href={"/login"} className="text-black">
+                Login
+              </Link>
+            )}
+          </NavbarItem>
         </NavbarContent>
 
         {/* =========================for small device menu====================== */}

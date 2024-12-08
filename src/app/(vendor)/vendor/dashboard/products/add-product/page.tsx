@@ -14,8 +14,14 @@ import { useCreateProductMutation } from "@/src/redux/feature/vendor/vendor.api"
 import toast from "react-hot-toast";
 
 const AddProductPage = () => {
-  const { isError, data: userData } = useGetCurrentUserQuery(undefined);
+  const {
+    isError,
+    data: userData,
+    isLoading,
+  } = useGetCurrentUserQuery(undefined);
   const { data: categoryList } = useGetAllCategoryQuery(undefined);
+
+  console.log(categoryList, "ilam list");
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -30,6 +36,12 @@ const AddProductPage = () => {
       inputRef.current.click();
     }
   };
+
+  console.log(userData, "iam userdata");
+
+  if (isLoading) {
+    return "Loading ";
+  }
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -46,12 +58,14 @@ const AddProductPage = () => {
     const data = {
       name: productInfo?.name,
       shopId: userData?.data.shop?.id,
+      isFlash: productInfo.isFlash === "true",
       price: Number(productInfo?.price),
       categoryId: productInfo?.category,
       discount: Number(productInfo?.discount),
       inventoryCount: Number(productInfo?.inventoryCount),
       description: productInfo?.description,
     };
+    console.log(data);
 
     formData.append("data", JSON.stringify(data));
 
@@ -61,6 +75,8 @@ const AddProductPage = () => {
 
     try {
       const response = await handleCreateProduct(formData).unwrap();
+      console.log(response, "idam inserted");
+
       if (response.success === true) {
         toast.success("Product has been added!");
       }
@@ -114,6 +130,14 @@ const AddProductPage = () => {
           <ESelect
             options={categoryList?.data}
             name="category"
+            label="Category"
+          />
+          <ESelect
+            options={[
+              { label: "flash sell", id: true },
+              { label: "Not Flash sell", id: false },
+            ]}
+            name="isFlash"
             label="Category"
           />
           <EInput

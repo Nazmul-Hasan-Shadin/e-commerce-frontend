@@ -12,6 +12,7 @@ interface IProps {
 const EForm = ({ children, onSubmit }: IProps) => {
   const methods = useForm();
   const submitHandler = methods.handleSubmit;
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={submitHandler(onSubmit)}>{children}</form>

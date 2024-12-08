@@ -61,7 +61,7 @@ const Sidebar = () => {
             label="Create Shop"
             icon={<FaClipboardList />}
             isOpen={isOpen}
-            path="/dashboard/create-shop"
+            path="/vendor/dashboard/create-shop"
           />
           <SidebarItem
             label="Dashboard"
@@ -80,7 +80,7 @@ const Sidebar = () => {
             items={[
               {
                 name: "create Products",
-                path: "/dashboard/products/add-product",
+                path: "/vendor/dashboard/products/add-product",
               },
               { name: "products", path: "/dashboard/products" },
             ]}

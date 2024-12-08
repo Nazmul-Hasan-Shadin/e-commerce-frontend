@@ -12,11 +12,28 @@ const vendorApi = baseApi.injectEndpoints({
       },
     }),
     getAllProduct: builder.query({
-      query: (productInfo) => {
+      query: ({
+        searchTerm = undefined,
+        categoryName = undefined,
+        isFlash = "",
+      }) => {
+        const params: Record<string, string> = {};
+
+        if (searchTerm) {
+          params.searchTerm = searchTerm;
+        }
+
+        if (categoryName) {
+          params.categoryName = categoryName;
+        }
+        if (isFlash) {
+          params.isFlash = isFlash;
+        }
+
         return {
-          url: "/product",
+          url: `/product`,
           method: "GET",
-          body: productInfo,
+          params: Object.keys(params).length ? params : undefined,
         };
       },
     }),
@@ -28,13 +45,13 @@ const vendorApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["shopProduct"],
     }),
+
     createShop: builder.mutation({
       query: (shopInfo) => {
-        console.log(shopInfo, "create shop from reducer");
-
         return {
-          url: "/create-shop",
+          url: "/shop/create-shop",
           method: "POST",
           body: shopInfo,
         };
@@ -49,6 +66,15 @@ const vendorApi = baseApi.injectEndpoints({
         };
       },
     }),
+    deleteProduct: builder.mutation({
+      query: ({ id }) => {
+        return {
+          url: `/product/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["shopProduct"],
+    }),
   }),
 });
 
@@ -58,4 +84,5 @@ export const {
   useCreateShopMutation,
   useGetAllProductQuery,
   useGetProducsByShopIdQuery,
+  useDeleteProductMutation,
 } = vendorApi;

@@ -3,56 +3,61 @@ import EForm from "@/src/components/form/EForm";
 import ESelect from "@/src/components/form/ESelect";
 import Card from "@/src/components/ui/Card";
 import Container from "@/src/components/ui/Container";
+import PageHeaderwithBanner from "@/src/components/ui/PageHeaderwithBanner";
+import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
+import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
+import { Button } from "@nextui-org/button";
+import { useParams, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import { CiFilter } from "react-icons/ci";
 
+import { use } from "react";
+type Params = Promise<{}>;
 const FlashDeal = () => {
+  const searchParams = useSearchParams();
+  const isFlashQuery = searchParams.get("isFlash");
+
   const [flashProduct, setFlashProduct] = useState([]);
-  console.log(flashProduct, "flashproduct");
+  const [productFilter, setProuctFilter] = useState({}); //state for filter product based on categoryname and searchterm
+
+  const { data: productData } = useGetAllProductQuery({
+    productFilter,
+    isFlash: isFlashQuery,
+  });
+
+  //  load all category
+  const { data: categoryList } = useGetAllCategoryQuery(undefined);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+    console.log(data, "finald");
+
+    setProuctFilter({ ...data });
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/data/data.json"); // Wait for the response
-        const data = await response.json(); // Parse the JSON data
-        setFlashProduct(data);
-      } catch (error) {
-        console.log("Error fetching data:", error); // Handle any errors
-      }
-    };
-
-    fetchData();
-  }, []);
 
   return (
     <div>
-      <div className="relative">
-        <div className="bg-[url('/flash.jpg')] w-full h-80 bg-cover bg-center"></div>
-
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white bg-black/50 p-4">
-          <h2 className="text-2xl font-bold mb-2">
-            Home 19 Collection Flash Deals
-          </h2>
-          <p className="max-w-lg">
-            Nullam aliquet vestibulum augue non varius. Cras cosmo congue an
-            melitos. Duis tristique del ante le maliquam praesent murna de
-            tellus laoreet cosmopolis. Quisque hendrerit nibh an purus.
-          </p>
-        </div>
-
-        {/* =========================filter for products========================= */}
-      </div>
+      <PageHeaderwithBanner
+        bannerDescription={
+          "Nullam aliquet vestibulum augue non varius. Cras cosmo congue melitos. Duis tristique del ante le maliquam praesent murna de telluslaoreet cosmopolis. Quisque hendrerit nibh an purus "
+        }
+        title="Home 19 Collection Flash Deals"
+      />
       <Container>
         <EForm onSubmit={onSubmit}>
-          <div className="w-4/5 mx-auto z-40">
-            <span className="text-2xl font-bold"> Filter By</span>
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-1  mx-auto items-center ">
+          <div className="w-4/5 mx-auto z-40 my-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-1  mx-auto items-center ">
+              <span className="  flex items-center  gap-3">
+                {" "}
+                <CiFilter className="text-3xl" /> <span>Filter By</span>
+              </span>
               <ESelect
-                label="Price"
+                label="Category"
+                name="categoryName"
+                options={categoryList?.data}
+              />
+              <ESelect
+                label="price"
                 name="price"
                 options={[
                   { key: "1", label: "price" },
@@ -60,6 +65,7 @@ const FlashDeal = () => {
                   { key: "3", label: "price" },
                 ]}
               />
+
               <ESelect
                 label="price"
                 name="price"
@@ -78,32 +84,17 @@ const FlashDeal = () => {
                   { key: "3", label: "price" },
                 ]}
               />
-              <ESelect
-                label="price"
-                name="price"
-                options={[
-                  { key: "1", label: "price" },
-                  { key: "2", label: "price" },
-                  { key: "3", label: "price" },
-                ]}
-              />
-              <ESelect
-                label="price"
-                name="price"
-                options={[
-                  { key: "1", label: "price" },
-                  { key: "2", label: "price" },
-                  { key: "3", label: "price" },
-                ]}
-              />
+              <Button size="sm" type="submit" variant="bordered">
+                search
+              </Button>
             </div>
           </div>
         </EForm>
 
-        <h2>Flash Deal</h2>
+        <h2 className="text-2xl text-primary-color ml-5">Flash Deal</h2>
         <div className="grid grid-cols-4 gap-4">
-          {flashProduct?.map((product, key) => (
-            <Card key={key} product={product} />
+          {productData?.data?.map((product: any) => (
+            <Card key={product.id} product={product} />
           ))}
         </div>
       </Container>

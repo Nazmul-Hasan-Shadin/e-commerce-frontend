@@ -25,19 +25,15 @@ const Login = () => {
     };
 
     try {
-      // Attempt login
       const res = await login(userData).unwrap();
-      const user = verifyToken(res.data.accessToken) as TUser;
+      const user = verifyToken(res.data.accessToken);
 
-      // Save user data and token in Redux
       dispatch(setUser({ user, token: res.data.accessToken }));
 
-      // Display success toast
       toast.success("Logged in successfully!", { id: toastId });
 
-      // Navigate to dashboard if currently on login page
       if (navigate === "/login") {
-        router.push("/dashboard/add-product");
+        router.push(`/${(await user).role}/dashboard/products/add-product`);
       }
     } catch (error) {
       console.error("Login failed:", error);

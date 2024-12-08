@@ -14,6 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import toast from "react-hot-toast";
+
 export interface IProduct {
   id: string;
   shopId: string;
@@ -30,42 +31,56 @@ const Card = ({ product }: { product: IProduct }) => {
   const dispatch = useAppDispatch();
 
   const handleAddToCart = () => {
-    dispatch(
-      addToCart({
-        productId: product.id,
-        quantity: 1,
-        price: product.price,
-      })
-    );
+    dispatch(addToCart(product));
     toast.success("Product added to cart");
   };
 
   return (
-    <div className="p-5">
-      <NextCard isHoverable className="max-w-[250px] h-[475px] ">
-        <Image
-          src={product?.images}
-          alt="card picture"
-          width={211}
-          height={209}
-          className="w-full"
-        />
-        <CardHeader>
-          <p className="text-xl">{product?.name}</p>
+    <div className="max-w-xs">
+      <NextCard
+        isHoverable
+        className="w-[318px] p-6 h-auto shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
+      >
+        {/* Image */}
+        <div className="relative h-56 w-full">
+          <Image
+            src={product?.images}
+            alt={product?.name}
+            layout="fill"
+            objectFit="cover"
+            className="rounded-t-lg"
+          />
+        </div>
+
+        {/* Card Header */}
+        <CardHeader className="p-3">
+          <h3 className="text-xl font-semibold text-gray-800">
+            {product?.name}
+          </h3>
         </CardHeader>
-        <CardBody>
-          <span>
-            <del className="text-xl text-gray-500"> ${product?.price}</del> from{" "}
-            <span className="text-xl font-bold text-[#e10600]">$20</span>
-          </span>
+
+        {/* Card Body */}
+        <CardBody className="p-3">
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center space-x-2">
+              <del className="text-lg text-gray-500">${product?.price}</del>
+              <span className="text-xl font-bold text-[#e10600]">
+                ${product?.price - product?.discount}
+              </span>
+            </div>
+            <p className="text-sm text-gray-600">{product?.description}</p>
+          </div>
         </CardBody>
 
-        <CardFooter className="flex justify-around">
-          <Button onClick={handleAddToCart} variant="bordered">
+        {/* Card Footer */}
+        <CardFooter className="p-3 flex justify-between">
+          <Button onClick={handleAddToCart} variant="bordered" className="w-28">
             Quick Add
           </Button>
           <Link href={`/product-details/${product.id}`}>
-            <Button variant="bordered">Details</Button>
+            <Button variant="bordered" className="w-28">
+              Details
+            </Button>
           </Link>
         </CardFooter>
       </NextCard>

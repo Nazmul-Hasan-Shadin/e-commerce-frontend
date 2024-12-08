@@ -11,12 +11,19 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import { MdEdit, MdDelete } from "react-icons/md";
-import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
+import {
+  useDeleteProductMutation,
+  useGetAllProductQuery,
+  useUpdateProductMutation,
+} from "@/src/redux/feature/vendor/vendor.api";
+import toast from "react-hot-toast";
 
 const primaryColor = "#4524DB";
 
 const GetAllProductPage = () => {
   const { data: productList, isLoading } = useGetAllProductQuery(undefined);
+  const [handleUpdateProduct] = useUpdateProductMutation();
+  const [handleDeleteProduct] = useDeleteProductMutation();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -26,12 +33,24 @@ const GetAllProductPage = () => {
 
   const handleEdit = (id: string) => {
     console.log(`Edit product with ID: ${id}`);
-    // Add edit logic here
+    // You can navigate to an edit page or open a modal to update the product
+    // Example: Open a modal with form prefilled with product data
   };
 
-  const handleDelete = (id: string) => {
-    console.log(`Delete product with ID: ${id}`);
-    // Add delete logic here
+  const handleDelete = async (id: string) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this product?"
+    );
+    if (confirmDelete) {
+      try {
+        await handleDeleteProduct({ id });
+        toast.success("Product deleted successful");
+        console.log(`Product with ID: ${id} deleted successfully`);
+      } catch (error) {
+        console.error("Error deleting product:", error);
+        toast.error("failed to deletee");
+      }
+    }
   };
 
   return (

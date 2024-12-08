@@ -29,7 +29,7 @@ const NavBar = () => {
   const icons = [
     { Icon: WatchListIcon, label: "watchlist" },
     { Icon: UserIcon, label: "signin" },
-    { Icon: CartIcon, label: "cart" },
+    { Icon: CartIcon, label: "cart", path: "/cart" },
   ];
 
   return (
@@ -79,7 +79,10 @@ const NavBar = () => {
             <NavbarItem key={index}>
               <div className="text-white flex flex-col justify-center items-center  mx-auto">
                 <icon.Icon className="text-4xl" />
-                <span> {icon.label}</span>
+                <Link className="text-white" href={icon?.path}>
+                  {" "}
+                  <span> {icon.label}</span>
+                </Link>
               </div>
             </NavbarItem>
           ))}

@@ -31,6 +31,8 @@ const ShopPage = ({ params }: { params: Params }) => {
   const param = use(params);
 
   const shopId = param.shopId;
+  console.log("iam shop id ", shopId);
+
   const { data: userInformation } = useGetCurrentUserQuery(undefined);
 
   const [handleFollowShop, { data, error }] = useFollowShopMutation();
@@ -43,21 +45,21 @@ const ShopPage = ({ params }: { params: Params }) => {
 
   const [isFollowing, setIsFollowing] = useState(false);
 
-  const shopInfo = {
-    name: "The Best Vendor Shop",
-    description: "Selling the best quality products at amazing prices!",
-    followers: 1234,
-  };
-
   // Follow/Unfollow handler
   const handleFollow = async () => {
     try {
       if (isFollowing) {
-        await handleUnfollow({ userId: userInformation.id, shopId }).unwrap();
+        await handleUnfollow({
+          userId: userInformation?.id,
+          shopId: shopId,
+        }).unwrap();
         setIsFollowing(false);
         toast.success("Unfollowed successfully");
       } else {
-        await handleFollowShop({ userId: userInformation.id, shopId }).unwrap();
+        await handleFollowShop({
+          userId: userInformation?.id,
+          shopId,
+        }).unwrap();
         setIsFollowing(true);
         toast.success("Shop followed successfully");
       }
@@ -102,7 +104,7 @@ const ShopPage = ({ params }: { params: Params }) => {
             {shopData?.data?.description} iam descrioption
           </p>
           <p className="text-sm text-gray-500 mt-1">
-            {shopInfo.followers} followers
+            {shopData?.data.shopFollower.length} followers
           </p>
         </div>
         <Button
