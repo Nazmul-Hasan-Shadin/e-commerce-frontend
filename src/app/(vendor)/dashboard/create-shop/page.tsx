@@ -1,18 +1,14 @@
 "use client";
 
-import EForm from "@/src/components/form/EForm";
-import EInput from "@/src/components/form/EInput";
-import ESelect from "@/src/components/form/ESelect";
-import FxTextArea from "@/src/components/form/ETextArea";
-import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
-import {
-  useCreateProductMutation,
-  useCreateShopMutation,
-} from "@/src/redux/feature/vendor/vendor.api";
-import { Button } from "@nextui-org/button";
-import { Divider } from "@nextui-org/react";
 import React, { useRef, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import { Button } from "@nextui-org/button";
+import { Divider } from "@nextui-org/react";
+import EForm from "@/src/components/form/EForm";
+import EInput from "@/src/components/form/EInput";
+import FxTextArea from "@/src/components/form/ETextArea";
+import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
+import { useCreateShopMutation } from "@/src/redux/feature/vendor/vendor.api";
 import toast from "react-hot-toast";
 
 const CreateShopPage = () => {
@@ -35,8 +31,6 @@ const CreateShopPage = () => {
     const files = event.target.files;
     if (files && files.length > 0) {
       const file = files[0];
-      console.log(file, "iam 1 filel");
-
       setSelectedFile(file);
       setImagePreview(URL.createObjectURL(file));
     }
@@ -48,10 +42,8 @@ const CreateShopPage = () => {
     const data = {
       name: shopInfo.name,
       description: shopInfo?.description,
-
       vendorId: userData?.data?.id,
     };
-    console.log(data);
 
     formData.append("data", JSON.stringify(data));
 
@@ -60,28 +52,33 @@ const CreateShopPage = () => {
     }
 
     try {
-      console.log("inside try");
-
       const response = await handleCreateShop(formData).unwrap();
       if (response.success === true) {
-        toast.success("shop created successcful");
+        toast.success("Shop created successfully!");
       }
-
-      toast.success("Shop created successful");
     } catch (error: any) {
-      toast.error(error.message || "something went wrong");
+      toast.error(error.message || "Something went wrong");
       console.error("Error:", error);
     }
   };
+
   return (
     <div className="w-3/4 mx-auto gap-5">
-      <h2 className="text-2xl font-bold mb-5">create your Shop</h2>
+      <h2 className="text-2xl font-bold mb-5">Create Your Shop</h2>
       <Divider />
       <EForm onSubmit={onSubmit}>
         <div
-          className="flex items-center  mb-5 justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition"
+          role="button"
+          tabIndex={0}
+          aria-label="Upload image"
+          className="flex items-center mb-5 justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition"
           style={{ width: "100%", height: "200px" }}
           onClick={handleUploadClick}
+          onKeyPress={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              handleUploadClick();
+            }
+          }}
         >
           <input
             type="file"
@@ -108,7 +105,7 @@ const CreateShopPage = () => {
           <EInput
             name="name"
             type="text"
-            label=" Shop Name"
+            label="Shop Name"
             variant="bordered"
           />
 

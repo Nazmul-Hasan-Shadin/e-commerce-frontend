@@ -52,6 +52,7 @@ const FlashDeal = () => {
             <span className="text-2xl font-bold"> Filter By</span>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-1  mx-auto items-center ">
               <ESelect
+                label="Price"
                 name="price"
                 options={[
                   { key: "1", label: "price" },
@@ -60,6 +61,7 @@ const FlashDeal = () => {
                 ]}
               />
               <ESelect
+                label="price"
                 name="price"
                 options={[
                   { key: "1", label: "price" },
@@ -68,6 +70,7 @@ const FlashDeal = () => {
                 ]}
               />
               <ESelect
+                label="price"
                 name="price"
                 options={[
                   { key: "1", label: "price" },
@@ -76,6 +79,7 @@ const FlashDeal = () => {
                 ]}
               />
               <ESelect
+                label="price"
                 name="price"
                 options={[
                   { key: "1", label: "price" },
@@ -84,6 +88,7 @@ const FlashDeal = () => {
                 ]}
               />
               <ESelect
+                label="price"
                 name="price"
                 options={[
                   { key: "1", label: "price" },

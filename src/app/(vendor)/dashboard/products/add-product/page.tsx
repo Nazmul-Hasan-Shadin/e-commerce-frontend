@@ -1,5 +1,9 @@
 "use client";
 
+import React, { useRef, useState } from "react";
+import { FieldValues, SubmitHandler } from "react-hook-form";
+import { Button } from "@nextui-org/button";
+import { Divider } from "@nextui-org/react";
 import EForm from "@/src/components/form/EForm";
 import EInput from "@/src/components/form/EInput";
 import ESelect from "@/src/components/form/ESelect";
@@ -7,16 +11,11 @@ import FxTextArea from "@/src/components/form/ETextArea";
 import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import { useCreateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
-import { Button } from "@nextui-org/button";
-import { Divider } from "@nextui-org/react";
-import React, { useRef, useState } from "react";
-import { FieldValues, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 
 const AddProductPage = () => {
   const { isError, data: userData } = useGetCurrentUserQuery(undefined);
   const { data: categoryList } = useGetAllCategoryQuery(undefined);
-  console.log(userData);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -36,8 +35,6 @@ const AddProductPage = () => {
     const files = event.target.files;
     if (files && files.length > 0) {
       const file = files[0];
-      console.log(file, "iam 1 filel");
-
       setSelectedFile(file);
       setImagePreview(URL.createObjectURL(file));
     }
@@ -53,11 +50,8 @@ const AddProductPage = () => {
       categoryId: productInfo?.category,
       discount: Number(productInfo?.discount),
       inventoryCount: Number(productInfo?.inventoryCount),
-      // vendorId: userData?.data?.id,
       description: productInfo?.description,
     };
-
-    console.log("all data", data);
 
     formData.append("data", JSON.stringify(data));
 
@@ -68,11 +62,10 @@ const AddProductPage = () => {
     try {
       const response = await handleCreateProduct(formData).unwrap();
       if (response.success === true) {
-        toast.success("product has added");
+        toast.success("Product has been added!");
       }
-      console.log(response);
     } catch (error) {
-      console.log("Error:", error);
+      toast.error("Error adding product.");
     }
   };
 
@@ -82,9 +75,17 @@ const AddProductPage = () => {
       <Divider />
       <EForm onSubmit={onSubmit}>
         <div
-          className="flex items-center  mb-5 justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition"
+          role="button"
+          tabIndex={0}
+          aria-label="Upload image"
+          className="flex items-center mb-5 justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition"
           style={{ width: "100%", height: "200px" }}
           onClick={handleUploadClick}
+          onKeyPress={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              handleUploadClick();
+            }
+          }}
         >
           <input
             type="file"
@@ -109,7 +110,6 @@ const AddProductPage = () => {
 
         <div className="grid grid-cols-2 gap-5">
           <EInput name="name" type="text" label="Name" variant="bordered" />
-
           <EInput name="price" type="number" label="Price" variant="bordered" />
           <ESelect
             options={categoryList?.data}
@@ -135,8 +135,8 @@ const AddProductPage = () => {
             variant="bordered"
           />
           <FxTextArea
-            name="descripiton"
-            label="Description"
+            name="description"
+            label="Detailed Description"
             variant="bordered"
           />
         </div>

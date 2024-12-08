@@ -7,38 +7,43 @@ import EInput from "@/src/components/form/EInput";
 import { useLoginMutation } from "@/src/redux/feature/auth/auth.api";
 import { verifyToken } from "@/src/utils/verifyToke";
 import { TUser, setUser } from "@/src/redux/feature/auth/auth.slice";
-import { useDispatch } from "react-redux";
 import { useAppDispatch } from "@/src/redux/hook";
 import toast from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
 
 const Login = () => {
-  const [login, { data, error }] = useLoginMutation();
+  const [login] = useLoginMutation();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const navigate = usePathname();
 
-  const onSubmit: SubmitHandler<any> = async (data) => {
-    const toastId = toast.loading("Logining");
+  const onSubmit: SubmitHandler<any> = async (formData) => {
+    const toastId = toast.loading("Logging in...");
     const userData = {
-      email: data.email,
-      password: data.password,
+      email: formData.email,
+      password: formData.password,
     };
 
     try {
+      // Attempt login
       const res = await login(userData).unwrap();
       const user = verifyToken(res.data.accessToken) as TUser;
-      console.log(user);
+
+      // Save user data and token in Redux
       dispatch(setUser({ user, token: res.data.accessToken }));
 
-      toast.success("Logged In", { id: toastId });
+      // Display success toast
+      toast.success("Logged in successfully!", { id: toastId });
+
+      // Navigate to dashboard if currently on login page
       if (navigate === "/login") {
         router.push("/dashboard/add-product");
       }
-
-      console.log(res, "login res");
     } catch (error) {
-      console.log(error);
+      console.error("Login failed:", error);
+      toast.error("Login failed. Please check your credentials.", {
+        id: toastId,
+      });
     }
   };
 
@@ -50,25 +55,29 @@ const Login = () => {
         </h2>
 
         <EForm onSubmit={onSubmit}>
+          {/* Email Input */}
           <div className="mb-4">
-            <EInput name="email" label="Email" type="email" required />
+            <EInput label="Email" name="email" required type="email" />
           </div>
 
+          {/* Password Input */}
           <div className="mb-6">
-            <EInput name="password" label="Password" type="password" required />
+            <EInput label="Password" name="password" required type="password" />
           </div>
 
+          {/* Submit Button */}
           <div className="mb-6 flex justify-between items-center">
             <Button
-              type="submit"
               className="w-full bg-[#fd6506] hover:bg-[#e94e00] text-white"
+              type="submit"
             >
               Login
             </Button>
           </div>
 
+          {/* Signup Redirect */}
           <div className="text-center text-sm">
-            <span>Don't have an account?</span>
+            <span>Don&apos;t have an account?</span>
             <a href="/signup" className="text-[#fd6506] hover:underline ml-1">
               Sign Up
             </a>

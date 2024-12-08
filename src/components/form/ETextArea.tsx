@@ -7,10 +7,7 @@ interface IProps extends IInput {
   type?: string;
 }
 const FxTextArea = ({ name, label, variant = "bordered" }: IProps) => {
-  const {
-    register,
-    formState: { error },
-  } = useFormContext();
+  const { register } = useFormContext();
   return (
     <Textarea
       {...register(name)}

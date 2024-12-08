@@ -78,21 +78,11 @@ const Sidebar = () => {
             isMenuOpen={openMenu === "products"}
             onClick={() => toggleMenu("products")}
             items={[
-              { name: "create Products", path: "/dashboard/add-product" },
+              {
+                name: "create Products",
+                path: "/dashboard/products/add-product",
+              },
               { name: "products", path: "/dashboard/products" },
-            ]}
-          />
-
-          {/* Category */}
-          <SidebarMenu
-            label="Category"
-            icon={<FaCubes />}
-            isOpen={isOpen}
-            isMenuOpen={openMenu === "category"}
-            onClick={() => toggleMenu("category")}
-            items={[
-              { name: "All Categories", path: "/categories/all" },
-              { name: "Add Category", path: "/categories/add" },
             ]}
           />
 

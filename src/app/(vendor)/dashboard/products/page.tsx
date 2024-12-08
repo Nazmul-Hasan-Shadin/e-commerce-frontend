@@ -46,14 +46,7 @@ const GetAllProductPage = () => {
       >
         Product Management
       </h1>
-      <Table
-        aria-label="Product List"
-        css={{
-          height: "auto",
-          minWidth: "100%",
-          border: `1px solid ${primaryColor}`,
-        }}
-      >
+      <Table aria-label="Product List">
         <TableHeader>
           <TableColumn>PRODUCT NAME</TableColumn>
           <TableColumn>PRICE</TableColumn>
@@ -61,7 +54,7 @@ const GetAllProductPage = () => {
           <TableColumn>ACTIONS</TableColumn>
         </TableHeader>
         <TableBody>
-          {products.map((product) => (
+          {products.map((product: any) => (
             <TableRow key={product.id}>
               <TableCell>{product.name}</TableCell>
               <TableCell>${product.price.toFixed(2)}</TableCell>

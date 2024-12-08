@@ -1,22 +1,19 @@
 "use client";
 
+import React, { useRef, useState } from "react";
+import { FieldValues, SubmitHandler } from "react-hook-form";
+import { Button } from "@nextui-org/button";
+import { Divider } from "@nextui-org/react";
 import EForm from "@/src/components/form/EForm";
 import EInput from "@/src/components/form/EInput";
 import ESelect from "@/src/components/form/ESelect";
 import FxTextArea from "@/src/components/form/ETextArea";
-import {
-  useCreateProductMutation,
-  useUpdateProductMutation,
-} from "@/src/redux/feature/vendor/vendor.api";
-import { Button } from "@nextui-org/button";
-import { Divider } from "@nextui-org/react";
-import React, { useRef, useState } from "react";
-import { FieldValues, SubmitHandler } from "react-hook-form";
+import { useUpdateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
 
 const UpdateProductPage = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const [handleUpdateProduct, { data, error }] = useUpdateProductMutation();
+  const [handleUpdateProduct] = useUpdateProductMutation();
 
   // States for file and preview
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -32,8 +29,6 @@ const UpdateProductPage = () => {
     const files = event.target.files;
     if (files && files.length > 0) {
       const file = files[0];
-      console.log(file, "iam 1 filel");
-
       setSelectedFile(file);
       setImagePreview(URL.createObjectURL(file));
     }
@@ -43,10 +38,9 @@ const UpdateProductPage = () => {
     const formData = new FormData();
 
     // Append text fields
-
     const data = {
       categoryId: productInfo.categoryId,
-      discount: productInfo.categoryId,
+      discount: productInfo.discount,
       inventoryCount: productInfo.inventoryCount,
       description: productInfo.description,
     };
@@ -57,12 +51,10 @@ const UpdateProductPage = () => {
     }
 
     try {
-      console.log("inside try");
-
-      const response = await handleUpdateProduct(formData);
-      console.log(response);
+      const response = await handleUpdateProduct(formData).unwrap();
+      console.log("Product updated successfully:", response);
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error updating product:", error);
     }
   };
 
@@ -72,9 +64,17 @@ const UpdateProductPage = () => {
       <Divider />
       <EForm onSubmit={onSubmit}>
         <div
-          className="flex items-center  mb-5 justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition"
+          role="button"
+          tabIndex={0}
+          aria-label="Upload image"
+          className="flex items-center mb-5 justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition"
           style={{ width: "100%", height: "200px" }}
           onClick={handleUploadClick}
+          onKeyPress={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              handleUploadClick();
+            }
+          }}
         >
           <input
             type="file"
@@ -99,7 +99,6 @@ const UpdateProductPage = () => {
 
         <div className="grid grid-cols-2 gap-5">
           <EInput name="name" type="text" label="Name" variant="bordered" />
-
           <EInput name="price" type="number" label="Price" variant="bordered" />
           <ESelect
             options={[{ key: "category1", label: "Category 1" }]}
@@ -125,19 +124,15 @@ const UpdateProductPage = () => {
             variant="bordered"
           />
           <FxTextArea
-            name="descripiton"
+            name="description"
             label="Description"
             variant="bordered"
           />
         </div>
 
         <div className="flex flex-end">
-          <Button
-            className="bg-primary-color text-white ml-auto"
-            variant="bordered"
-            type="submit"
-          >
-            Create Product
+          <Button className="bg-primary-color text-white ml-auto" type="submit">
+            Update Product
           </Button>
         </div>
       </EForm>

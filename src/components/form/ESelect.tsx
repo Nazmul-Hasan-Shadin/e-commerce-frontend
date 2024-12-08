@@ -6,9 +6,13 @@ import { useFormContext } from "react-hook-form";
 interface IProps {
   name: string;
   label: string;
+
   options: {
-    key: string;
-    label: string;
+    id?: string;
+    name?: string;
+    key?: string;
+    label?: string;
+    value?: string;
   }[];
   required?: boolean;
   disabled?: boolean;

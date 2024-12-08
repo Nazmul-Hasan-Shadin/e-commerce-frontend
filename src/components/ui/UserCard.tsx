@@ -1,5 +1,6 @@
 "use client";
 
+import { IReview } from "@/src/interface/review";
 import {
   Card,
   CardHeader,
@@ -10,12 +11,12 @@ import {
 } from "@nextui-org/react";
 import React from "react";
 
-const UserCard = ({ review }: { review: React.ReactNode }) => {
+const UserCard = ({ review }: { review: IReview[] }) => {
   const [isFollowed, setIsFollowed] = React.useState(false);
 
   return (
     <div>
-      {review!.map((review) => {
+      {review!.map((review: IReview) => {
         return (
           <Card key={review.id} className="max-w-[470px] mb-6 bg-[#e9eaef] ">
             <CardHeader className="justify-between">

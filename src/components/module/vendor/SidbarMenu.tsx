@@ -16,10 +16,13 @@ export const SidebarMenu = ({
   onClick: () => void;
   items: { name: string; path: string }[];
 }) => (
-  <div>
+  <nav>
     <div
       className="flex items-center p-2 hover:bg-gray-700 cursor-pointer"
       onClick={onClick}
+      onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onClick()}
+      role="button"
+      tabIndex={0}
     >
       <div className="text-xl">{icon}</div>
       {isOpen && <span className="ml-4">{label}</span>}
@@ -32,13 +35,21 @@ export const SidebarMenu = ({
     {isMenuOpen && (
       <div className="ml-8 mt-2 space-y-1">
         {items.map((item) => (
-          <Link href={item.path} key={item.name}>
-            <div className="text-sm hover:text-gray-400 cursor-pointer">
+          <Link key={item.name} href={item.path}>
+            <div
+              className="text-sm hover:text-gray-400 cursor-pointer"
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) =>
+                (e.key === "Enter" || e.key === " ") &&
+                window.location.assign(item.path)
+              }
+            >
               {item.name}
             </div>
           </Link>
         ))}
       </div>
     )}
-  </div>
+  </nav>
 );

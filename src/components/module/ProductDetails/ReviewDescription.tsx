@@ -2,8 +2,9 @@
 import { Tabs, Tab, CardBody, Card } from "@nextui-org/react";
 import React from "react";
 import UserCard from "../../ui/UserCard";
+import { IReview } from "@/src/interface/review";
 
-const ReviewTab = ({ review }) => {
+const ReviewTab = ({ review }: { review: IReview[] }) => {
   const [selected, setSelected] = React.useState("reviews");
   return (
     <div className="flex w-full flex-col ">
@@ -12,7 +13,7 @@ const ReviewTab = ({ review }) => {
         selectedKey={selected}
         className="flex justify-center"
         variant="underlined"
-        onSelectionChange={setSelected}
+        onSelectionChange={(key: string | number) => setSelected(key as string)}
       >
         <Tab key="reviews" className=" text-2xl" title="reviews">
           <UserCard review={review} />

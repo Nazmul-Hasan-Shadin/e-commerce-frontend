@@ -1,7 +1,8 @@
+import { IReview } from "@/src/interface/review";
 import { Textarea } from "@nextui-org/input";
 import React from "react";
 import { IoSendSharp } from "react-icons/io5";
-const CommentBox = ({ review }) => {
+const CommentBox = () => {
   return (
     <div>
       <Textarea

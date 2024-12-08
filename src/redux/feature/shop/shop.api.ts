@@ -12,7 +12,6 @@ const shopApi = baseApi.injectEndpoints({
           body: userInfo,
         };
       },
-      providesTags: ["follow"],
     }),
     getShopInfo: builder.query({
       query: (shopId: string) => {

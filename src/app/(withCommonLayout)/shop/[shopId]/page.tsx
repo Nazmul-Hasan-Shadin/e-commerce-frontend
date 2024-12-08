@@ -15,6 +15,17 @@ import { Divider } from "@nextui-org/react";
 import React, { use, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 type Params = Promise<{ shopId: string }>;
+interface Product {
+  id: string;
+  shopId: string;
+  name: string; // Product name
+  description: string;
+  price: number;
+  categoryId: string;
+  inventoryCount: number;
+  discount: number;
+  images: string;
+}
 
 const ShopPage = ({ params }: { params: Params }) => {
   const param = use(params);
@@ -110,7 +121,7 @@ const ShopPage = ({ params }: { params: Params }) => {
 
       {/* Product List */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {shopProduct?.data.map((product) => (
+        {shopProduct?.data.map((product: Product) => (
           <Card product={product} key={product.id}></Card>
         ))}
       </div>
