@@ -19,18 +19,43 @@ import { IoSearchOutline } from "react-icons/io5";
 import logo from "@/src/assests/icon/logo.png";
 import Image from "next/image.js";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GiSelfLove } from "react-icons/gi";
 import { CartIcon, UserIcon, WatchListIcon } from "../../icons";
+import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
+import SearchResultList from "./SearchResultList";
+import { skipToken } from "@reduxjs/toolkit/query";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+  const [searchQuery, setSearchQuery] = useState<string | null>();
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState<
+    string | null
+  >();
 
   const icons = [
     { Icon: WatchListIcon, label: "watchlist" },
     { Icon: UserIcon, label: "signin" },
     { Icon: CartIcon, label: "cart", path: "/cart" },
   ];
+
+  const handeSearch = (e: any) => {
+    const searchValue = e.target.value;
+    setSearchQuery(searchValue);
+  };
+
+  useEffect(() => {
+    const debounceTimeout = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 300);
+
+    return () => clearTimeout(debounceTimeout);
+  }, [searchQuery]);
+
+  const { data: searchResult } = useGetAllProductQuery(
+    debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken
+  );
 
   return (
     <div className="hidden lg:block">
@@ -57,8 +82,9 @@ const NavBar = () => {
           <p>091 234-ELLA</p>
         </NavbarContent>
 
-        <NavbarContent className="hidden md:flex">
+        <NavbarContent className="hidden md:flex relative">
           <Input
+            onChange={(e) => handeSearch(e)}
             classNames={{
               base: "max-w-full",
               inputWrapper:
@@ -70,7 +96,13 @@ const NavBar = () => {
             className="rouded-full bg-white rounded-full "
             size="md"
           />
+
+          {searchResult && (
+            <SearchResultList searchResult={searchResult?.data} />
+          )}
         </NavbarContent>
+
+        <div></div>
 
         {/* ================icnons============ */}
 

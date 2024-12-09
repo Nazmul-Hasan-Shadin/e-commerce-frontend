@@ -24,13 +24,13 @@ export default function Home() {
       <Catagories />
 
       <div className="w-3/4 mx-auto my-5">
-        <Image
+        {/* <Image
           alt="discount banner"
           height={300}
           width={400}
           className="w-full"
           src={disocuntImage}
-        />
+        /> */}
       </div>
 
       <FeatureProduct />

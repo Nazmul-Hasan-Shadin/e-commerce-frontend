@@ -26,7 +26,6 @@ const FlashDeal = () => {
     isFlash: isFlashQuery,
   });
 
-  //  load all category
   const { data: categoryList } = useGetAllCategoryQuery(undefined);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {

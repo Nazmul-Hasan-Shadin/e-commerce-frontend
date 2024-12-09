@@ -12,36 +12,23 @@ import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.category
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import { useCreateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 const AddProductPage = () => {
-  const {
-    isError,
-    data: userData,
-    isLoading,
-  } = useGetCurrentUserQuery(undefined);
+  const { isLoading, data: userData } = useGetCurrentUserQuery(undefined);
   const { data: categoryList } = useGetAllCategoryQuery(undefined);
 
-  console.log(categoryList, "ilam list");
-
   const inputRef = useRef<HTMLInputElement | null>(null);
-
-  const [handleCreateProduct, { data, error }] = useCreateProductMutation();
-
-  // States for file and preview
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imagePreview, setImagePreview] = useState<string>("");
+
+  const [handleCreateProduct] = useCreateProductMutation();
 
   const handleUploadClick = () => {
     if (inputRef.current) {
       inputRef.current.click();
     }
   };
-
-  console.log(userData, "iam userdata");
-
-  if (isLoading) {
-    return "Loading ";
-  }
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -54,7 +41,6 @@ const AddProductPage = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (productInfo) => {
     const formData = new FormData();
-
     const data = {
       name: productInfo?.name,
       shopId: userData?.data.shop?.id,
@@ -65,7 +51,6 @@ const AddProductPage = () => {
       inventoryCount: Number(productInfo?.inventoryCount),
       description: productInfo?.description,
     };
-    console.log(data);
 
     formData.append("data", JSON.stringify(data));
 
@@ -75,15 +60,17 @@ const AddProductPage = () => {
 
     try {
       const response = await handleCreateProduct(formData).unwrap();
-      console.log(response, "idam inserted");
-
-      if (response.success === true) {
+      if (response.success) {
         toast.success("Product has been added!");
       }
     } catch (error) {
       toast.error("Error adding product.");
     }
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="w-3/4 mx-auto gap-5">
@@ -97,8 +84,8 @@ const AddProductPage = () => {
           className="flex items-center mb-5 justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition"
           style={{ width: "100%", height: "200px" }}
           onClick={handleUploadClick}
-          onKeyPress={(event) => {
-            if (event.key === "Enter" || event.key === " ") {
+          onKeyDown={(event) => {
+            if (["Enter", " "].includes(event.key)) {
               handleUploadClick();
             }
           }}
@@ -110,10 +97,11 @@ const AddProductPage = () => {
             onChange={handleFileChange}
             className="hidden"
           />
-
           {imagePreview ? (
-            <img
+            <Image
               src={imagePreview}
+              width={400}
+              height={500}
               alt="Preview"
               className="max-w-full max-h-full object-contain"
             />
@@ -128,23 +116,17 @@ const AddProductPage = () => {
           <EInput name="name" type="text" label="Name" variant="bordered" />
           <EInput name="price" type="number" label="Price" variant="bordered" />
           <ESelect
-            options={categoryList?.data}
+            options={categoryList?.data || []}
             name="category"
             label="Category"
           />
           <ESelect
             options={[
-              { label: "flash sell", id: true },
+              { label: "Flash sell", id: true },
               { label: "Not Flash sell", id: false },
             ]}
             name="isFlash"
-            label="Category"
-          />
-          <EInput
-            name="description"
-            type="text"
-            label="Description"
-            variant="bordered"
+            label="Flash Sale"
           />
           <EInput
             name="discount"
@@ -165,9 +147,9 @@ const AddProductPage = () => {
           />
         </div>
 
-        <div className="flex flex-end">
+        <div className="flex justify-end">
           <Button
-            className="bg-primary-color text-white ml-auto"
+            className="bg-primary-color text-white"
             variant="bordered"
             type="submit"
           >

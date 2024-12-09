@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/react";
@@ -10,16 +10,22 @@ import FxTextArea from "@/src/components/form/ETextArea";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import { useCreateShopMutation } from "@/src/redux/feature/vendor/vendor.api";
 import toast from "react-hot-toast";
+import Image from "next/image"; // Import Image from next/image
 
 const CreateShopPage = () => {
-  const { isError, data: userData } = useGetCurrentUserQuery(undefined);
+  const { isError, data: userData } = useGetCurrentUserQuery(undefined, {
+    skip: typeof window === "undefined",
+  });
 
   const inputRef = useRef<HTMLInputElement | null>(null);
-
-  const [handleCreateShop, { data, error }] = useCreateShopMutation();
-
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [isClient, setIsClient] = useState(false);
+  const [handleCreateShop, { data, error }] = useCreateShopMutation();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleUploadClick = () => {
     if (inputRef.current) {
@@ -62,6 +68,11 @@ const CreateShopPage = () => {
     }
   };
 
+  if (!isClient) {
+    // Prevent SSR mismatches by rendering nothing until hydrated
+    return null;
+  }
+
   return (
     <div className="w-3/4 mx-auto gap-5">
       <h2 className="text-2xl font-bold mb-5">Create Your Shop</h2>
@@ -89,9 +100,11 @@ const CreateShopPage = () => {
           />
 
           {imagePreview ? (
-            <img
+            <Image
               src={imagePreview}
               alt="Preview"
+              width={160}
+              height={180}
               className="max-w-full max-h-full object-contain"
             />
           ) : (

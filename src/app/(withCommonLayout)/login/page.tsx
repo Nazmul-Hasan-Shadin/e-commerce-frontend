@@ -33,7 +33,7 @@ const Login = () => {
       toast.success("Logged in successfully!", { id: toastId });
 
       if (navigate === "/login") {
-        router.push(`/${(await user).role}/dashboard/products/add-product`);
+        router.push(`/${user?.role}/dashboard/products/add-product`);
       }
     } catch (error) {
       console.error("Login failed:", error);

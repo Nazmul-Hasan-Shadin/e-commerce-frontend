@@ -33,14 +33,14 @@ const BottomNav = () => {
   const menuItems = [
     { label: "Home", link: "/" },
     { label: "Product", link: "/product" },
-    { label: "Dashboard", link: `/${user?.role}/dashboard` },
+    { label: "Dashboard", link: `/${user!.role}/dashboard` },
     { label: "About", link: "/about" },
 
     { label: "Register", link: "/register" },
   ];
 
   return (
-    <div className="">
+    <div>
       <Navbar
         onMenuOpenChange={setIsMenuOpen}
         isMenuOpen={isMenuOpen}
@@ -69,12 +69,14 @@ const BottomNav = () => {
         {/* =============logo for small device=========== */}
 
         <NavbarBrand className="flex  lg:hidden gap-0 -p-16">
-          <Image alt="Navbar logo" src={logo} width={150} height={50} />
+          {logo ? (
+            <Image alt="Navbar logo" src={logo} width={150} height={50} />
+          ) : null}
         </NavbarBrand>
 
         {/* ================ menu for large device============ */}
 
-        <NavbarContent className="gap-20 hidden lg:flex" justify="center">
+        <NavbarContent className="gap-20 hidden  lg:flex" justify="center">
           {menuItems.map((menu, index) => (
             <NavbarItem key={index} className="text-white">
               <Link href={menu.link} className="text-black">
@@ -98,8 +100,8 @@ const BottomNav = () => {
 
         {/* =========================for small device menu====================== */}
 
-        <NavbarMenu className="z-20">
-          <NavbarMenu className="z-20 ">
+        <NavbarMenu>
+          <NavbarMenu>
             {menuItems.map((menu, index) => (
               <NavbarItem key={index} className="text-white">
                 <Link href={menu.link} className="text-black">

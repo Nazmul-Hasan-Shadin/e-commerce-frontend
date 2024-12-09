@@ -3,6 +3,7 @@
 import { Button } from "@nextui-org/button";
 import { Card } from "@nextui-org/card";
 import { Divider } from "@nextui-org/react";
+import Image from "next/image";
 import React, { useState } from "react";
 
 const ShopPage = () => {
@@ -74,7 +75,7 @@ const ShopPage = () => {
             key={product.id}
             className="p-4 bg-white shadow-md rounded-lg hover:shadow-lg transition"
           >
-            <img
+            <Image
               src={product.image}
               alt={product.name}
               className="w-full h-48 object-cover rounded-md"

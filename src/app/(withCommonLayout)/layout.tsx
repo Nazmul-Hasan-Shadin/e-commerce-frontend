@@ -7,8 +7,6 @@ export default function layout({ children }: { children: React.ReactNode }) {
       <NavBar></NavBar>
       <BottomNav></BottomNav>
       <main>{children}</main>
-
-      <h3 className="text-red-500">joy bangla</h3>
     </div>
   );
 }
