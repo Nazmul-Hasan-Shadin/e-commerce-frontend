@@ -47,6 +47,15 @@ const vendorApi = baseApi.injectEndpoints({
       },
       providesTags: ["shopProduct"],
     }),
+    getProductById: builder.query({
+      query: (productId: string) => {
+        return {
+          url: `/product/${productId}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["commentwithProduct"],
+    }),
 
     createShop: builder.mutation({
       query: (shopInfo) => {
@@ -85,4 +94,5 @@ export const {
   useGetAllProductQuery,
   useGetProducsByShopIdQuery,
   useDeleteProductMutation,
+  useGetProductByIdQuery,
 } = vendorApi;

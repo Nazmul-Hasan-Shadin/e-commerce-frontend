@@ -1,7 +1,8 @@
+"use client";
 import { Button } from "@nextui-org/button";
 import { Card, CardBody } from "@nextui-org/card";
 import Image from "next/image";
-import React from "react";
+import React, { use } from "react";
 import laptop from "@/src/assests/test.jpg";
 import { Input } from "@nextui-org/input";
 import { GoPlus } from "react-icons/go";
@@ -13,6 +14,8 @@ import ReviewTab from "@/src/components/module/ProductDetails/ReviewDescription"
 import CommentBox from "@/src/components/ui/CommentBox";
 import Link from "next/link";
 import { IReview } from "@/src/interface/review";
+import { useGetProductByIdQuery } from "@/src/redux/feature/vendor/vendor.api";
+import { useParams } from "next/navigation";
 
 interface ProductData {
   name: string;
@@ -23,15 +26,25 @@ interface ProductData {
   review: IReview[];
   shopId: string;
 }
+// type Params = Promise<{ productId: string }>;
 type Params = Promise<{ productId: string }>;
 
-const ProductDetails = async (props: { params: Params }) => {
-  const productId = (await props.params).productId;
+const ProductDetails = ({ params }: { params: Params }) => {
+  const { productId } = use(params);
+  console.log(productId, "iam productId");
 
-  const productInfo = await fetch(
-    `http://localhost:3001/api/v1/product/${productId}`
-  );
-  const res = await productInfo.json();
+  const { data: productInfo, isLoading } = useGetProductByIdQuery(productId);
+
+  if (isLoading) {
+    return "loading";
+  }
+
+  console.log(productInfo);
+
+  // const productInfo = await fetch(
+  //   `http://localhost:3001/api/v1/product/${productId}`
+  // );
+
   const {
     name,
     description,
@@ -40,7 +53,7 @@ const ProductDetails = async (props: { params: Params }) => {
     images,
     review,
     shopId,
-  }: ProductData = res.data;
+  }: ProductData = productInfo?.data;
 
   return (
     <div className="px-9">
@@ -134,7 +147,7 @@ const ProductDetails = async (props: { params: Params }) => {
       <div className="flex flex-col justify-center px-12">
         <ReviewTab review={review} />
 
-        <CommentBox />
+        <CommentBox productId={productId} />
       </div>
     </div>
   );

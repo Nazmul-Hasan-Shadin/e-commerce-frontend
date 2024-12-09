@@ -17,6 +17,8 @@ const UserCard = ({ review }: { review: IReview[] }) => {
   return (
     <div>
       {review!.map((review: IReview) => {
+        console.log(review, "iam fatatkisio");
+
         return (
           <Card key={review.id} className="max-w-[470px] mb-6 bg-[#e9eaef] ">
             <CardHeader className="justify-between">
@@ -32,7 +34,7 @@ const UserCard = ({ review }: { review: IReview[] }) => {
                     {review?.user?.username}
                   </h4>
                   <h5 className="text-small tracking-tight text-default-400">
-                    @zoeylang
+                    {review?.user?.username}
                   </h5>
                 </div>
               </div>
@@ -40,9 +42,8 @@ const UserCard = ({ review }: { review: IReview[] }) => {
             <CardBody className="px-3 py-0 text-small text-default-800 overflow-hidden">
               <p className="text-black">{review?.comment}</p>
               <span className="pt-2">
-                #FrontendWithZoey
                 <span className="py-2" aria-label="computer" role="img">
-                  💻
+                  {review?.comment}
                 </span>
               </span>
             </CardBody>

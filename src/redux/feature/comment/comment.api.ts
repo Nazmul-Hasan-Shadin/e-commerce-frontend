@@ -8,6 +8,7 @@ const commentApi = baseApi.injectEndpoints({
         method: "POST",
         body: commentData,
       }),
+      invalidatesTags: ["commentwithProduct"],
     }),
   }),
 });

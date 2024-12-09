@@ -1,16 +1,31 @@
+"use client";
+
 import { IReview } from "@/src/interface/review";
 import { useCreateCommentMutation } from "@/src/redux/feature/comment/comment.api";
 import { Textarea } from "@nextui-org/input";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { IoSendSharp } from "react-icons/io5";
-const CommentBox = () => {
+import EForm from "../form/EForm";
+import FxTextArea from "../form/ETextArea";
+import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
+import { SubmitHandler } from "react-hook-form";
+const CommentBox = ({ productId }: { productId: string }) => {
   const [handleCreate] = useCreateCommentMutation();
-  const [comment, setComment] = useState("");
+  const { data: userData } = useGetCurrentUserQuery(undefined);
 
-  const handleComment = async () => {
+  const handleComment: SubmitHandler<any> = async (data) => {
+    console.log(data);
+
+    const userCommentinfo = {
+      userId: userData?.data?.id,
+      comment: data?.comment,
+      productId: productId,
+      rating: 2,
+    };
+
     try {
-      const res = await handleCreate(comment).unwrap();
+      const res = await handleCreate(userCommentinfo).unwrap();
       if (res.success) {
         toast.success("Comment created successful");
       }
@@ -21,16 +36,13 @@ const CommentBox = () => {
 
   return (
     <div>
-      <Textarea
-        key={"comment"}
-        endContent={
-          <IoSendSharp className="absolute bottom-1 right-2 text-2xl text-green-600" />
-        }
-        variant={"bordered"}
-        labelPlacement="outside"
-        placeholder="Write Your Comment here ..."
-        className="col-span-12 md:col-span-6 mb-6 md:mb-0 relative"
-      />
+      <EForm onSubmit={handleComment}>
+        <FxTextArea
+          icon={true}
+          placeholder="write your review here......"
+          name="comment"
+        />
+      </EForm>
     </div>
   );
 };
