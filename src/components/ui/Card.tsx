@@ -3,7 +3,7 @@ import {
   addToCart,
   useGetCurrentCart,
 } from "@/src/redux/feature/cart/cartSlice";
-import { useAppDispatch } from "@/src/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import { Button } from "@nextui-org/button";
 import {
   Card as NextCard,
@@ -25,13 +25,18 @@ export interface IProduct {
   categoryId: string;
   inventoryCount: number;
   discount: number;
+  vendorId: string;
   images: string;
 }
 
 const Card = ({ product }: { product: IProduct }) => {
   const dispatch = useAppDispatch();
+  const cartItems = useAppSelector((state) => state.cart.orderItems);
 
   const handleAddToCart = () => {
+    // const isSameVendorsProduct = cartItems?.find(
+    //   (cart: IProduct) => cart.shopId === product.shopId
+    // );
     dispatch(addToCart(product));
     toast.success("Product added to cart");
   };

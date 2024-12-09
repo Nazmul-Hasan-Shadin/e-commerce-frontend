@@ -14,10 +14,13 @@ import {
 import Link from "next/link"; // Import Link from next/link
 import { SidebarItem } from "./SidebarItem";
 import { SidebarMenu } from "./SidbarMenu";
+import { selectCurrentUser } from "@/src/redux/feature/auth/auth.slice";
+import { useAppSelector } from "@/src/redux/hook";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const user = useAppSelector((state) => state.auth.user);
 
   const toggleMenu = (menu: string) => {
     setOpenMenu(openMenu === menu ? null : menu);
@@ -82,7 +85,7 @@ const Sidebar = () => {
                 name: "create Products",
                 path: "/vendor/dashboard/products/add-product",
               },
-              { name: "products", path: "/dashboard/products" },
+              { name: "products", path: `/${user!.role}/dashboard/products` },
             ]}
           />
 
@@ -107,8 +110,7 @@ const Sidebar = () => {
             isMenuOpen={openMenu === "orders"}
             onClick={() => toggleMenu("orders")}
             items={[
-              { name: "All Orders", path: "/orders/all" },
-              { name: "Pending Orders", path: "/orders/pending" },
+              { name: "All Orders", path: `/${user!.role}/dashboard/order` },
             ]}
           />
 

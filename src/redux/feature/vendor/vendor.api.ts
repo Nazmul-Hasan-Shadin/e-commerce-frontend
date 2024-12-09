@@ -12,11 +12,7 @@ const vendorApi = baseApi.injectEndpoints({
       },
     }),
     getAllProduct: builder.query({
-      query: ({
-        searchTerm = undefined,
-        categoryName = undefined,
-        isFlash = "",
-      }) => {
+      query: ({ searchTerm, categoryName, isFlash = "" }) => {
         const params: Record<string, string> = {};
 
         if (searchTerm) {
@@ -29,6 +25,8 @@ const vendorApi = baseApi.injectEndpoints({
         if (isFlash) {
           params.isFlash = isFlash;
         }
+
+        console.log(categoryName, "fidfudiiiiiiiiiiiiiiiiiiiiiiiii");
 
         return {
           url: `/product`,
@@ -70,7 +68,7 @@ const vendorApi = baseApi.injectEndpoints({
       query: ({ id, data }) => {
         return {
           url: `/product/${id}`,
-          method: "POST",
+          method: "PATCH",
           body: data,
         };
       },

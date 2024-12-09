@@ -10,91 +10,96 @@ import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 
-import { use } from "react";
 import EForm from "@/src/components/form/EForm";
 import { CiFilter } from "react-icons/ci";
 import ESelect from "@/src/components/form/ESelect";
 import { Button } from "@nextui-org/button";
-type Params = Promise<{}>;
+
 const ProductsPage = () => {
   const searchParams = useSearchParams();
-  const isFlashQuery = searchParams.get("isFlash");
+  const categoryNameFromQuery = searchParams.get("categoryName");
 
-  const [flashProduct, setFlashProduct] = useState([]);
-  const [productFilter, setProuctFilter] = useState({}); //state for filter product based on categoryname and searchterm
+  const [productFilter, setProductFilter] = useState(() => ({
+    categoryName: categoryNameFromQuery || "",
+  }));
 
-  const { data: productData } = useGetAllProductQuery({
-    productFilter,
-    isFlash: isFlashQuery,
-  });
+  const { data: productData } = useGetAllProductQuery(productFilter);
 
-  //  load all category
+  // Load all categories
   const { data: categoryList } = useGetAllCategoryQuery(undefined);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data, "finald");
-
-    setProuctFilter({ ...data });
+    console.log(data, "Filters Applied");
+    setProductFilter(data);
   };
+
+  useEffect(() => {
+    if (categoryNameFromQuery) {
+      setProductFilter((prev) => ({
+        ...prev,
+        categoryName: categoryNameFromQuery,
+      }));
+    }
+  }, [categoryNameFromQuery]);
 
   return (
     <div>
       <PageHeaderwithBanner
-        bannerDescription={
-          "Nullam aliquet vestibulum augue non varius. Cras cosmo congue melitos. Duis tristique del ante le maliquam praesent murna de telluslaoreet cosmopolis. Quisque hendrerit nibh an purus "
-        }
-        title="product list baby"
+        bannerDescription="Explore products by category and filters."
+        title="Product List"
       />
 
       <EForm onSubmit={onSubmit}>
         <div className="w-4/5 mx-auto z-40 my-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-1  mx-auto items-center ">
-            <span className="  flex items-center  gap-3">
-              {" "}
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-1 items-center">
+            <span className="flex items-center gap-3">
               <CiFilter className="text-3xl" /> <span>Filter By</span>
             </span>
             <ESelect
               label="Category"
               name="categoryName"
-              options={categoryList?.data}
+              options={categoryList?.data?.map((category) => ({
+                id: category.id,
+                name: category.name,
+              }))}
+              defaultValue={categoryNameFromQuery || ""}
             />
             <ESelect
-              label="price"
-              name="price"
+              label="Price Range"
+              name="priceRange"
               options={[
-                { key: "1", label: "price" },
-                { key: "2", label: "price" },
-                { key: "3", label: "price" },
-              ]}
-            />
-
-            <ESelect
-              label="price"
-              name="price"
-              options={[
-                { key: "1", label: "price" },
-                { key: "2", label: "price" },
-                { key: "3", label: "price" },
+                { key: "1", label: "$0 - $50" },
+                { key: "2", label: "$51 - $100" },
+                { key: "3", label: "$101 - $200" },
               ]}
             />
             <ESelect
-              label="price"
-              name="price"
+              label="Price Range"
+              name="priceRange"
               options={[
-                { key: "1", label: "price" },
-                { key: "2", label: "price" },
-                { key: "3", label: "price" },
+                { key: "1", label: "$0 - $50" },
+                { key: "2", label: "$51 - $100" },
+                { key: "3", label: "$101 - $200" },
+              ]}
+            />
+            <ESelect
+              label="Price Range"
+              name="priceRange"
+              options={[
+                { key: "1", label: "$0 - $50" },
+                { key: "2", label: "$51 - $100" },
+                { key: "3", label: "$101 - $200" },
               ]}
             />
             <Button size="sm" type="submit" variant="bordered">
-              search
+              Search
             </Button>
           </div>
         </div>
       </EForm>
 
       <Container>
-        <h2 className="text-2xl text-primary-color ml-5">Flash Deal</h2>
+        <h2 className="text-2xl text-primary-color ml-5">Products</h2>
         <div className="grid grid-cols-4 gap-4">
           {productData?.data?.map((product: any) => (
             <Card key={product.id} product={product} />

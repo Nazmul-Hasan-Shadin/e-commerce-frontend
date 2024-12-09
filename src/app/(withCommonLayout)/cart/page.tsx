@@ -23,23 +23,30 @@ const CartPage = () => {
 
   return (
     <div className="max-w-5xl mx-auto p-6">
-      <h1 className="text-4xl font-bold text-center text-[#fd6506] mb-12">
+      <h1 className="text-4xl font-bold text-center text-[#fd6506] mb-8">
         Your Shopping Cart
       </h1>
 
       {cartItems.length === 0 ? (
-        <p className="text-lg text-gray-600 text-center">
-          Your cart is empty. Please add items to your cart.
-        </p>
+        <div className="text-center mt-12">
+          <p className="text-lg text-gray-600 mb-4">
+            Your cart is empty. Start shopping to add items to your cart.
+          </p>
+          <Link href="/products">
+            <Button size="lg" color="primary">
+              Browse Products
+            </Button>
+          </Link>
+        </div>
       ) : (
         <div className="space-y-8">
           {cartItems.map((item, index) => (
             <div
               key={item.productId || index}
-              className="flex items-center justify-between bg-white shadow-lg p-6 rounded-lg transition-transform transform hover:scale-105"
+              className="flex items-center justify-between bg-white shadow-md p-6 rounded-lg hover:shadow-lg transition-shadow"
             >
               {/* Product Image */}
-              <div className="w-28 h-28 relative flex-shrink-0">
+              <div className="w-28 h-28 relative flex-shrink-0 border border-gray-200 rounded-md overflow-hidden">
                 <Image
                   src={item.images || "/placeholder.jpg"} // Fallback to a placeholder image
                   alt={item.name || "Product Image"}
@@ -54,22 +61,25 @@ const CartPage = () => {
                 <h2 className="text-xl font-semibold text-gray-800">
                   {item.name || "Unnamed Product"}
                 </h2>
-                <p className="text-sm text-gray-600">{item.categoryId}</p>
-                <p className="text-lg font-medium text-gray-900">
+                <p className="text-sm text-gray-500 mt-1">
+                  Category: {item.categoryId || "N/A"}
+                </p>
+                <p className="text-lg font-medium text-[#fd6506] mt-2">
                   ${item.price.toFixed(2)}
                 </p>
               </div>
 
               {/* Quantity and Actions */}
-              <div className="flex items-center gap-4">
-                <span className="text-sm text-gray-600">
-                  Quantity: {item.quantity}
-                </span>
+              <div className="flex items-center gap-6">
+                <div>
+                  <p className="text-sm text-gray-500">Quantity</p>
+                  <p className="text-lg font-semibold">{item.quantity}</p>
+                </div>
                 <Button
                   variant="bordered"
-                  color="primary"
                   size="sm"
-                  className="bg-[#fd6506] text-white"
+                  color="danger"
+                  className="hover:bg-red-100"
                   onClick={() => handleRemoveFromCart(item.productId)}
                 >
                   Remove
@@ -82,15 +92,18 @@ const CartPage = () => {
 
       {/* Total Amount and Proceed Button */}
       {cartItems.length > 0 && (
-        <div className="flex justify-between items-center mt-12 p-6 bg-white shadow-md rounded-lg">
-          <p className="text-2xl font-semibold text-gray-800">
-            Total: ${totalAmount.toFixed(2)}
-          </p>
-          <Link href="/payment">
-            <Button color="success" size="lg" className="px-8 py-3 text-lg">
-              Proceed to Payment
-            </Button>
-          </Link>
+        <div className="mt-12 p-6 bg-white shadow-md rounded-lg">
+          <div className="flex justify-between items-center">
+            <p className="text-2xl font-semibold text-gray-800">
+              Total:{" "}
+              <span className="text-[#fd6506]">${totalAmount.toFixed(2)}</span>
+            </p>
+            <Link href="/payment">
+              <Button size="lg" color="success" className="px-6 py-3">
+                Proceed to Checkout
+              </Button>
+            </Link>
+          </div>
         </div>
       )}
     </div>

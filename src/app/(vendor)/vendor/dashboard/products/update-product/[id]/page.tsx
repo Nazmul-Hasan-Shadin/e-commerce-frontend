@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { use, useRef, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/react";
@@ -8,12 +8,24 @@ import EForm from "@/src/components/form/EForm";
 import EInput from "@/src/components/form/EInput";
 import ESelect from "@/src/components/form/ESelect";
 import FxTextArea from "@/src/components/form/ETextArea";
-import { useUpdateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
+import {
+  useGetProductByIdQuery,
+  useUpdateProductMutation,
+} from "@/src/redux/feature/vendor/vendor.api";
+import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
 
-const UpdateProductPage = () => {
+type Params = Promise<{ id: string }>;
+
+const UpdateProductPage = ({ params }: { params: Params }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
+  const id = use(params).id;
+  const { data: categoryList } = useGetAllCategoryQuery(undefined);
+
   const [handleUpdateProduct] = useUpdateProductMutation();
+  const { data: productDataOfSelectedProduct } = useGetProductByIdQuery(id);
+
+  console.log(productDataOfSelectedProduct?.data?.name, "lol");
 
   // States for file and preview
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -39,11 +51,16 @@ const UpdateProductPage = () => {
 
     // Append text fields
     const data = {
+      name: productInfo.name,
       categoryId: productInfo.categoryId,
       discount: productInfo.discount,
       inventoryCount: productInfo.inventoryCount,
       description: productInfo.description,
+      price: productInfo.price,
     };
+
+    console.log(data, "iamd data");
+
     formData.append("data", JSON.stringify(data));
 
     if (selectedFile) {
@@ -51,10 +68,10 @@ const UpdateProductPage = () => {
     }
 
     try {
-      const response = await handleUpdateProduct(formData).unwrap();
+      const response = await handleUpdateProduct({ id, data }).unwrap();
       console.log("Product updated successfully:", response);
     } catch (error) {
-      console.error("Error updating product:", error);
+      console.log("Error updating product:", error);
     }
   };
 
@@ -62,7 +79,17 @@ const UpdateProductPage = () => {
     <div className="w-3/4 mx-auto gap-5">
       <h2 className="text-2xl font-bold mb-5">Update Product Info</h2>
       <Divider />
-      <EForm onSubmit={onSubmit}>
+      <EForm
+        onSubmit={onSubmit}
+        defaultValues={{
+          name: productDataOfSelectedProduct?.data?.name,
+          price: productDataOfSelectedProduct?.data?.price,
+          category: productDataOfSelectedProduct?.data?.categoryId,
+          description: productDataOfSelectedProduct?.data?.description,
+          discount: productDataOfSelectedProduct?.data?.discount,
+          inventoryCount: productDataOfSelectedProduct?.data?.inventoryCount,
+        }}
+      >
         <div
           role="button"
           tabIndex={0}
@@ -81,6 +108,7 @@ const UpdateProductPage = () => {
             accept="image/*"
             ref={inputRef}
             onChange={handleFileChange}
+            defaultValue={productDataOfSelectedProduct?.data.name}
             className="hidden"
           />
 
@@ -98,19 +126,26 @@ const UpdateProductPage = () => {
         </div>
 
         <div className="grid grid-cols-2 gap-5">
-          <EInput name="name" type="text" label="Name" variant="bordered" />
-          <EInput name="price" type="number" label="Price" variant="bordered" />
+          <EInput
+            defaultValue={productDataOfSelectedProduct?.data?.name}
+            name="name"
+            type="text"
+            label="Name"
+            variant="bordered"
+          />
+          <EInput
+            defaultValue={productDataOfSelectedProduct?.data?.price}
+            name="price"
+            type="number"
+            label="Price"
+            variant="bordered"
+          />
           <ESelect
-            options={[{ key: "category1", label: "Category 1" }]}
+            options={categoryList?.data}
             name="category"
             label="Category"
           />
-          <EInput
-            name="description"
-            type="text"
-            label="Description"
-            variant="bordered"
-          />
+
           <EInput
             name="discount"
             type="number"

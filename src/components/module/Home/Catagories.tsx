@@ -20,7 +20,7 @@ const Catagories = async () => {
           return (
             // Add return here
             <div key={category.id} className="flex flex-col items-center">
-              <Link href={`/product?categoryId=${category.name}`}>
+              <Link href={`/product?categoryName=${category.id}`}>
                 <Image
                   src={
                     category?.images ||

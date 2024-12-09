@@ -15,6 +15,7 @@ import FeatureProduct from "@/src/components/module/Home/FeatureProduct";
 import Catagories from "@/src/components/module/Home/Catagories";
 import Image from "next/image";
 import disocuntImage from "@/src/assests/disountt.webp";
+import Footer from "@/src/components/module/Home/Footer";
 
 export default function Home() {
   return (
@@ -24,16 +25,17 @@ export default function Home() {
       <Catagories />
 
       <div className="w-3/4 mx-auto my-5">
-        {/* <Image
+        <Image
           alt="discount banner"
           height={300}
           width={400}
           className="w-full"
           src={disocuntImage}
-        /> */}
+        />
       </div>
 
       <FeatureProduct />
+      <Footer />
     </div>
   );
 }

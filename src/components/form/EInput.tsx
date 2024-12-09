@@ -4,13 +4,18 @@ import { Input } from "@nextui-org/input";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
-interface Iprops extends IInput {}
+interface Iprops extends IInput {
+  defaultValue?: any;
+  placeholder?: string;
+}
 const EInput = ({
   variant = "bordered",
   size = "md",
   required = false,
   type = "text",
   label,
+  defaultValue,
+  placeholder,
 
   name,
 }: Iprops) => {
@@ -19,10 +24,13 @@ const EInput = ({
     formState: { errors },
   } = useFormContext();
 
+  console.log(defaultValue, "jfkdkfdkj");
+
   return (
     <Input
       type={type}
       required={required}
+      placeholder={placeholder}
       {...register(name)}
       label={label}
       size={size}

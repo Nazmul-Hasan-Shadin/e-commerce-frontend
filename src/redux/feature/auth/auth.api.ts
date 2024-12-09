@@ -24,6 +24,17 @@ const authApi = baseApi.injectEndpoints({
         };
       },
     }),
+    changePassword: builder.mutation({
+      query: (userInfo) => {
+        console.log(userInfo, "iam useerInfo");
+
+        return {
+          url: "/user/change-password",
+          method: "POST",
+          body: userInfo,
+        };
+      },
+    }),
     getCurrentUser: builder.query({
       query: () => {
         return {
@@ -35,5 +46,9 @@ const authApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useGetCurrentUserQuery } =
-  authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useGetCurrentUserQuery,
+  useChangePasswordMutation,
+} = authApi;

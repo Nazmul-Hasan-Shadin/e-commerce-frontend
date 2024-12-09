@@ -50,14 +50,13 @@ const ShopPage = ({ params }: { params: Params }) => {
     try {
       if (isFollowing) {
         await handleUnfollow({
-          userId: userInformation?.id,
           shopId: shopId,
         }).unwrap();
         setIsFollowing(false);
         toast.success("Unfollowed successfully");
       } else {
         await handleFollowShop({
-          userId: userInformation?.id,
+          userId: userInformation?.data?.id,
           shopId,
         }).unwrap();
         setIsFollowing(true);

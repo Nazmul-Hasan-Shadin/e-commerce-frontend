@@ -6,7 +6,6 @@ import { useFormContext } from "react-hook-form";
 interface IProps {
   name: string;
   label: string;
-
   options: {
     id?: string | boolean;
     name?: string;
@@ -17,6 +16,7 @@ interface IProps {
   required?: boolean;
   disabled?: boolean;
   className?: string;
+  defaultValue?: any;
 }
 
 const ESelect = ({
@@ -26,6 +26,7 @@ const ESelect = ({
   required = false,
   disabled = false,
   className = "",
+  defaultValue,
 }: IProps) => {
   const {
     register,
@@ -44,18 +45,19 @@ const ESelect = ({
           errors[name] ? "border-red-500" : "border-gray-300"
         }`}
         disabled={disabled}
+        defaultValue={defaultValue || ""} // Set default value
       >
         <option value="" disabled>
           Select Category
         </option>
-        {options?.map((option) => {
+        {options?.map((option, index) => {
+          // Ensure proper key handling
+          const optionValue = option.key || option.id || option.value; // Fallback to `key`, `id`, or `value`
+          const optionLabel = option.label || option.name || option.label;
+
           return (
-            <option
-              className="text-black"
-              key={option?.id || option?.name || option?.key}
-              value={option?.id}
-            >
-              {option?.name || option?.label}
+            <option className="text-black" key={index} value={optionValue}>
+              {optionLabel}
             </option>
           );
         })}

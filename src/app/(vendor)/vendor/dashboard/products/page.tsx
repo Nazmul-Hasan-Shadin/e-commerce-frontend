@@ -17,11 +17,12 @@ import {
   useUpdateProductMutation,
 } from "@/src/redux/feature/vendor/vendor.api";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 const primaryColor = "#4524DB";
 
 const GetAllProductPage = () => {
-  const { data: productList, isLoading } = useGetAllProductQuery(undefined);
+  const { data: productList, isLoading } = useGetAllProductQuery("");
   const [handleUpdateProduct] = useUpdateProductMutation();
   const [handleDeleteProduct] = useDeleteProductMutation();
 
@@ -33,9 +34,9 @@ const GetAllProductPage = () => {
 
   const handleEdit = (id: string) => {
     console.log(`Edit product with ID: ${id}`);
-    // You can navigate to an edit page or open a modal to update the product
-    // Example: Open a modal with form prefilled with product data
   };
+
+  console.log(productList, "iam rpriductlist");
 
   const handleDelete = async (id: string) => {
     const confirmDelete = window.confirm(
@@ -80,14 +81,18 @@ const GetAllProductPage = () => {
               <TableCell>{product.inventoryCount}</TableCell>
               <TableCell>
                 <div style={{ display: "flex", gap: "10px" }}>
-                  <Tooltip content="Edit Product" placement="top">
-                    <MdEdit
-                      size={20}
-                      color={primaryColor}
-                      style={{ cursor: "pointer" }}
-                      onClick={() => handleEdit(product.id)}
-                    />
-                  </Tooltip>
+                  <Link
+                    href={`/vendor/dashboard/products/update-product/${product.id}`}
+                  >
+                    <Tooltip content="Edit Product" placement="top">
+                      <MdEdit
+                        size={20}
+                        color={primaryColor}
+                        style={{ cursor: "pointer" }}
+                        onClick={() => handleEdit(product.id)}
+                      />
+                    </Tooltip>
+                  </Link>
                   <Tooltip content="Delete Product" placement="top">
                     <MdDelete
                       size={20}

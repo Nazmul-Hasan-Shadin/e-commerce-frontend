@@ -33,7 +33,7 @@ const BottomNav = () => {
   const menuItems = [
     { label: "Home", link: "/" },
     { label: "Product", link: "/product" },
-    { label: "Dashboard", link: `/${user!.role}/dashboard` },
+
     { label: "About", link: "/about" },
 
     { label: "Register", link: "/register" },
@@ -86,6 +86,11 @@ const BottomNav = () => {
           ))}
 
           <NavbarItem key={"login"} className="text-white">
+            {user?.role ? (
+              <Link href={user?.role} className="text-black">
+                Dashboard
+              </Link>
+            ) : null}
             {token ? (
               <Link href={"/login"} className="text-black">
                 <Button onClick={() => dispatch(logOut())}>LogOut</Button>
