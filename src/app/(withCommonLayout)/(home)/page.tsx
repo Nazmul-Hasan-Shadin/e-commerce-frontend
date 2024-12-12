@@ -16,6 +16,8 @@ import Catagories from "@/src/components/module/Home/Catagories";
 import Image from "next/image";
 import disocuntImage from "@/src/assests/disountt.webp";
 import Footer from "@/src/components/module/Home/Footer";
+import TopSellProduct from "@/src/components/module/Home/TopSellProduct";
+import AccesoriesAd from "@/src/components/module/Home/AccesoriesAd";
 
 export default function Home() {
   return (
@@ -35,6 +37,8 @@ export default function Home() {
       </div>
 
       <FeatureProduct />
+      <TopSellProduct />
+      <AccesoriesAd />
       <Footer />
     </div>
   );

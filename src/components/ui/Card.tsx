@@ -29,6 +29,15 @@ export interface IProduct {
   images: string;
 }
 
+// Function to limit description to 30 words
+const getShortDescription = (description: string) => {
+  const words = description.split(" ");
+  if (words.length > 20) {
+    return words.slice(0, 20).join(" ") + "...";
+  }
+  return description;
+};
+
 const Card = ({ product }: { product: IProduct }) => {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.orderItems);
@@ -42,49 +51,70 @@ const Card = ({ product }: { product: IProduct }) => {
   };
 
   return (
-    <div className="max-w-xs">
+    <div className="max-w-[190px] sm:max-w-0 md:w-full">
       <NextCard
         isHoverable
-        className="w-[318px] p-6 h-auto shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
+        className=" w-[168px] mr-3 md:w-[260px] md:p-6 h-auto shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
       >
         {/* Image */}
-        <div className="relative h-56 w-full">
+        <div className="relative h-32 md:h-56 w-full">
           <Image
             src={product?.images}
             alt={product?.name}
             layout="fill"
-            objectFit="cover"
-            className="rounded-t-lg"
+            objectFit="contain"
+            className="rounded-t-lg w-[126px] md:w-[200px]"
           />
         </div>
 
         {/* Card Header */}
-        <CardHeader className="p-3">
-          <h3 className="text-xl font-semibold text-gray-800">
+        <CardHeader className="md:p-3">
+          <h3 className="text-[12px] md:text-xl font-semibold text-gray-800">
             {product?.name}
           </h3>
         </CardHeader>
 
         {/* Card Body */}
-        <CardBody className="p-3">
-          <div className="flex flex-col gap-2">
+        <CardBody className="md:p-3">
+          <div className="flex flex-col md:gap-2">
             <div className="flex items-center space-x-2">
               <del className="text-lg text-gray-500">${product?.price}</del>
               <span className="text-xl font-bold text-[#e10600]">
                 ${product?.price - product?.discount}
               </span>
             </div>
-            <p className="text-sm text-gray-600">{product?.description}</p>
+            <p className="text-sm text-gray-600">
+              {getShortDescription(product?.description)}
+            </p>
           </div>
         </CardBody>
 
         {/* Card Footer */}
-        <CardFooter className="p-3 flex justify-between">
-          <Button onClick={handleAddToCart} variant="bordered" className="w-28">
-            Quick Add
+        <CardFooter className="md:p-3 hidden  md:flex gap-2  justify-between">
+          <Button
+            onClick={handleAddToCart}
+            variant="bordered"
+            className="w-4 text-[13px] md:w-28"
+          >
+            Add to cart
           </Button>
           <Link href={`/product-details/${product.id}`}>
-            <Button variant="bordered" className="w-28">
+            <Button variant="bordered" className="w-4 text-[13px] md:w-28">
+              Details
+            </Button>
+          </Link>
+        </CardFooter>
+
+        <CardFooter className="md:p-3 md:hidden flex justify-between gap-2">
+          <Button onClick={handleAddToCart} variant="bordered" size="sm">
+            Add to cart
+          </Button>
+          <Link href={`/product-details/${product.id}`}>
+            <Button
+              size="sm"
+              variant="bordered"
+              className="w-4 text-[13px] md:w-28 "
+            >
               Details
             </Button>
           </Link>
