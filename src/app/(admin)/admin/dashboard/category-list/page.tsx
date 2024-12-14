@@ -18,7 +18,10 @@ import {
 } from "@/src/redux/feature/vendor/vendor.api";
 import toast from "react-hot-toast";
 import Link from "next/link";
-import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
+import {
+  useDeleteCategoryMutation,
+  useGetAllCategoryQuery,
+} from "@/src/redux/feature/admin/admin.categoryapi";
 import Image from "next/image";
 
 const primaryColor = "#4524DB";
@@ -26,7 +29,7 @@ const primaryColor = "#4524DB";
 const CategoryListPage = () => {
   const { data: categroyList, isLoading } = useGetAllCategoryQuery("");
   const [handleUpdateProduct] = useUpdateProductMutation();
-  const [handleDeleteProduct] = useDeleteProductMutation();
+  const [handleDeleteCategory] = useDeleteCategoryMutation();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -42,8 +45,8 @@ const CategoryListPage = () => {
     );
     if (confirmDelete) {
       try {
-        await handleDeleteProduct({ id });
-        toast.success("Product deleted successful");
+        await handleDeleteCategory(id);
+        toast.success("Category deleted successful");
       } catch (error) {
         console.error("Error deleting product:", error);
         toast.error("failed to deletee");
@@ -107,7 +110,7 @@ const CategoryListPage = () => {
                       size={20}
                       color="red"
                       style={{ cursor: "pointer" }}
-                      onClick={() => handleDelete(category.id)}
+                      onClick={() => handleDeleteCategory(category.id)}
                     />
                   </Tooltip>
                 </div>

@@ -18,6 +18,7 @@ const categoryApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["categoryList"],
     }),
     getCategoryById: builder.query({
       query: (id) => {
@@ -39,6 +40,17 @@ const categoryApi = baseApi.injectEndpoints({
         };
       },
     }),
+    deleteCategory: builder.mutation({
+      query: (id) => {
+        console.log("iam id ", id);
+
+        return {
+          url: `/category/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["categoryList"],
+    }),
   }),
 });
 
@@ -47,4 +59,5 @@ export const {
   useGetAllCategoryQuery,
   useUpdateCategoryMutation,
   useGetCategoryByIdQuery,
+  useDeleteCategoryMutation,
 } = categoryApi;
