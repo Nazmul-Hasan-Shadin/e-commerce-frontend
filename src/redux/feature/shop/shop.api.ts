@@ -13,6 +13,7 @@ const shopApi = baseApi.injectEndpoints({
         };
       },
     }),
+
     getShopInfo: builder.query({
       query: (shopId: string) => {
         console.log(shopId);

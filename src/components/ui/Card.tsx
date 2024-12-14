@@ -1,6 +1,10 @@
 "use client";
+import Swal from "sweetalert2";
+
 import {
   addToCart,
+  clearCart,
+  replaceCart,
   useGetCurrentCart,
 } from "@/src/redux/feature/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
@@ -25,7 +29,7 @@ export interface IProduct {
   categoryId: string;
   inventoryCount: number;
   discount: number;
-  vendorId: string;
+  vendorId?: string;
   images: string;
 }
 
@@ -41,13 +45,38 @@ const getShortDescription = (description: string) => {
 const Card = ({ product }: { product: IProduct }) => {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.orderItems);
+  console.log(cartItems, "icartitkems");
 
   const handleAddToCart = () => {
-    // const isSameVendorsProduct = cartItems?.find(
-    //   (cart: IProduct) => cart.shopId === product.shopId
-    // );
-    dispatch(addToCart(product));
-    toast.success("Product added to cart");
+    const isMultipleVendorDetect =
+      cartItems.length > 0 &&
+      !cartItems.every((cart) => cart.shopId === product.shopId);
+
+    if (isMultipleVendorDetect) {
+      Swal.fire({
+        title: " Mutliple vedor detected replace cart?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Replace it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(replaceCart(product));
+
+          Swal.fire({
+            title: "Replaced!",
+            text: "cart Replaced with new shop product.",
+            icon: "success",
+          });
+        }
+      });
+    } else {
+      dispatch(addToCart(product));
+
+      toast.success("Product added to cart");
+    }
   };
 
   return (

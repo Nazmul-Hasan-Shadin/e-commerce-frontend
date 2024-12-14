@@ -7,7 +7,7 @@ const authApi = baseApi.injectEndpoints({
         console.log(userInfo, "iam useerInfo");
 
         return {
-          url: "/user/login",
+          url: "/auth/login",
           method: "POST",
           body: userInfo,
         };
@@ -29,7 +29,7 @@ const authApi = baseApi.injectEndpoints({
         console.log(userInfo, "iam useerInfo");
 
         return {
-          url: "/user/change-password",
+          url: "/auth/change-password",
           method: "POST",
           body: userInfo,
         };

@@ -15,3 +15,23 @@ export type TCategory = {
   description: string;
   images: string | null;
 };
+
+export interface IProduct {
+  id: string;
+  shopId: string;
+  name: string;
+  description: string;
+  price: number;
+  categoryId: string;
+  inventoryCount: number;
+  discount: number;
+  vendorId: string;
+  images: string;
+}
+
+export interface ModifiedJwtPayload {
+  email: string;
+  role: string;
+  iat: number;
+  exp: number;
+}

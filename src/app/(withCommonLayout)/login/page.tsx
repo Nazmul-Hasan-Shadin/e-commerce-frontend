@@ -4,7 +4,10 @@ import { Button } from "@nextui-org/react";
 import { SubmitHandler } from "react-hook-form";
 import EForm from "@/src/components/form/EForm";
 import EInput from "@/src/components/form/EInput";
-import { useLoginMutation } from "@/src/redux/feature/auth/auth.api";
+import {
+  useGetCurrentUserQuery,
+  useLoginMutation,
+} from "@/src/redux/feature/auth/auth.api";
 import { verifyToken } from "@/src/utils/verifyToke";
 import { TUser, setUser } from "@/src/redux/feature/auth/auth.slice";
 import { useAppDispatch } from "@/src/redux/hook";
@@ -13,6 +16,7 @@ import { usePathname, useRouter } from "next/navigation";
 
 const Login = () => {
   const [login] = useLoginMutation();
+  const { data: handleGetUser } = useGetCurrentUserQuery(undefined);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const navigate = usePathname();
@@ -26,17 +30,28 @@ const Login = () => {
 
     try {
       const res = await login(userData).unwrap();
-      const user = verifyToken(res.data.accessToken);
+      const user = verifyToken(res.data.accessToken) as {
+        email: string;
+        role: string;
+        iat: number;
+        exp: number;
+      };
 
       dispatch(setUser({ user, token: res.data.accessToken }));
 
       toast.success("Logged in successfully!", { id: toastId });
 
-      if (navigate === "/login") {
-        router.push(`/${user?.role}/dashboard/products/add-product`);
+      if (user.role === "vendor") {
+        if (navigate === "/login") {
+          if (handleGetUser?.data?.data?.shop == null) {
+            router.push(`${user.role}/dashboard/create-shop`);
+          }
+          router.push(`${user.role}/dashboard/products/add-product`);
+        }
+      } else {
+        router.push("/");
       }
     } catch (error) {
-      console.error("Login failed:", error);
       toast.error("Login failed. Please check your credentials.", {
         id: toastId,
       });

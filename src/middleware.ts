@@ -30,7 +30,12 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  const user = await verifyToken(token);
+  const user = verifyToken(token) as {
+    email: string;
+    role: string;
+    iat: number;
+    exp: number;
+  };
   console.log(user);
 
   if (!user) {
@@ -40,7 +45,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // Check the role-based route access
-  if (user.role && roleBasedRoutes[user.role as Role]) {
+  if (user?.role && roleBasedRoutes[user.role as Role]) {
     const routes = roleBasedRoutes[user.role as Role];
     console.log(routes, "role routes");
     if (routes.some((route) => pathname.match(route))) {
@@ -54,19 +59,22 @@ export async function middleware(request: NextRequest) {
 // Utility function to get user from token (this can be replaced with a real API call)
 async function getCurrentUserFromToken(token: string) {
   try {
-    const response = await fetch("http://localhost:3001/api/v1/user", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      "https://e-commerce-inky-alpha.vercel.app/api/v1/user",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to fetch user");
     }
 
     const data = await response.json();
-    return data; // assuming it returns the user object with a role
+    return data;
   } catch (error) {
     console.error("Error fetching user data:", error);
     return null;

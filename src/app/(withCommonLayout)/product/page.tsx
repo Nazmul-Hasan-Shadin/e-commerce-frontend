@@ -7,15 +7,20 @@ import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.category
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 
 import EForm from "@/src/components/form/EForm";
 import { CiFilter } from "react-icons/ci";
 import ESelect from "@/src/components/form/ESelect";
 import { Button } from "@nextui-org/button";
+import { TCategory } from "@/src/types";
 
-const ProductsPage = () => {
+type ProductFilterFormValues = {
+  categoryName: string;
+};
+
+const ProductsPageContent = () => {
   const searchParams = useSearchParams();
   const categoryNameFromQuery = searchParams.get("categoryName");
 
@@ -28,9 +33,12 @@ const ProductsPage = () => {
   // Load all categories
   const { data: categoryList } = useGetAllCategoryQuery(undefined);
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<ProductFilterFormValues> = (data) => {
     console.log(data, "Filters Applied");
-    setProductFilter(data);
+    setProductFilter((prev) => ({
+      ...prev,
+      categoryName: data.categoryName as string,
+    }));
   };
 
   useEffect(() => {
@@ -58,29 +66,11 @@ const ProductsPage = () => {
             <ESelect
               label="Category"
               name="categoryName"
-              options={categoryList?.data?.map((category) => ({
+              options={categoryList?.data?.map((category: TCategory) => ({
                 id: category.id,
                 name: category.name,
               }))}
               defaultValue={categoryNameFromQuery || ""}
-            />
-            <ESelect
-              label="Price Range"
-              name="priceRange"
-              options={[
-                { key: "1", label: "$0 - $50" },
-                { key: "2", label: "$51 - $100" },
-                { key: "3", label: "$101 - $200" },
-              ]}
-            />
-            <ESelect
-              label="Price Range"
-              name="priceRange"
-              options={[
-                { key: "1", label: "$0 - $50" },
-                { key: "2", label: "$51 - $100" },
-                { key: "3", label: "$101 - $200" },
-              ]}
             />
             <ESelect
               label="Price Range"
@@ -109,5 +99,17 @@ const ProductsPage = () => {
     </div>
   );
 };
+
+const ProductsPage = () => (
+  <Suspense fallback={<LoadingFallback />}>
+    <ProductsPageContent />
+  </Suspense>
+);
+
+const LoadingFallback = () => (
+  <div className="loading-container">
+    <p>Loading...</p>
+  </div>
+);
 
 export default ProductsPage;

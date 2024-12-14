@@ -52,7 +52,15 @@ const ESelect = ({
         </option>
         {options?.map((option, index) => {
           // Ensure proper key handling
-          const optionValue = option.key || option.id || option.value; // Fallback to `key`, `id`, or `value`
+          const optionValue =
+            typeof option.key === "string" || typeof option.key === "number"
+              ? option.key
+              : typeof option.id === "string" || typeof option.id === "number"
+                ? option.id
+                : typeof option.value === "string" ||
+                    typeof option.value === "number"
+                  ? option.value
+                  : undefined;
           const optionLabel = option.label || option.name || option.label;
 
           return (

@@ -26,12 +26,14 @@ const CheckOutForm = () => {
 
   const shopId = cartItems[0]?.shopId;
   const customerId = currentUser?.data?.id;
+  // https://e-commerce-inky-alpha.vercel.app/api/v1/user/login
+  // http://localhost:3001/api/v1/
 
   useEffect(() => {
     const fetchClientSecret = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3001/api/v1/create-payment-intent",
+          "https://e-commerce-inky-alpha.vercel.app/api/v1/create-payment-intent",
           {
             method: "POST",
             headers: {

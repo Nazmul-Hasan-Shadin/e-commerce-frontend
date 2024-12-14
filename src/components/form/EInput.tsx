@@ -24,8 +24,6 @@ const EInput = ({
     formState: { errors },
   } = useFormContext();
 
-  console.log(defaultValue, "jfkdkfdkj");
-
   return (
     <Input
       type={type}

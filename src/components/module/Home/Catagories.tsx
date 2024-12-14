@@ -5,9 +5,14 @@ import Link from "next/link";
 import React from "react";
 
 const Catagories = async () => {
-  const result = await fetch(`http://localhost:3001/api/v1/category`, {
-    cache: "force-cache",
-  });
+  // https://e-commerce-inky-alpha.vercel.app/api/v1/user/login
+  // http://localhost:3001/api/v1/
+  const result = await fetch(
+    `https://e-commerce-inky-alpha.vercel.app/api/v1/category`,
+    {
+      cache: "no-store",
+    }
+  );
   const categoryList = await result.json();
 
   console.log(categoryList, "iam categ");
@@ -16,7 +21,7 @@ const Catagories = async () => {
     <div className="w-full">
       <h3 className="text-2xl ml-10 font-bold mb-1">Shop By Categories</h3>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
-        {categoryList?.data?.slice(2, 6).map((category: TCategory) => {
+        {categoryList?.data?.slice(1, 6).map((category: TCategory) => {
           return (
             // Add return here
             <div key={category.id} className="flex flex-col items-center">

@@ -30,14 +30,22 @@ const BottomNav = () => {
   const token = useAppSelector((state) => state.auth.token);
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
-  const menuItems = [
-    { label: "Home", link: "/" },
-    { label: "Product", link: "/product" },
+  const menuItems = user?.role
+    ? [
+        { label: "Home", link: "/" },
+        { label: "Product", link: "/product" },
+        { label: "Dashboard", link: `/${user!.role}/dashboard` },
 
-    { label: "About", link: "/about" },
+        { label: "About", link: "/about" },
+      ]
+    : [
+        { label: "Home", link: "/" },
+        { label: "Product", link: "/product" },
 
-    { label: "Register", link: "/register" },
-  ];
+        { label: "About", link: "/about" },
+
+        { label: "Register", link: "/register" },
+      ];
 
   return (
     <div>
@@ -84,23 +92,36 @@ const BottomNav = () => {
               </Link>
             </NavbarItem>
           ))}
-
+          {/* 
           <NavbarItem key={"login"} className="text-white">
             {user?.role ? (
-              <Link href={user?.role} className="text-black">
+              <Link href={`/${user?.role}/dashboard`} className="text-black">
                 Dashboard
               </Link>
-            ) : null}
+            ) : (
+              "loading"
+            )}
+
             {token ? (
-              <Link href={"/login"} className="text-black">
-                <Button onClick={() => dispatch(logOut())}>LogOut</Button>
-              </Link>
+              <Button onClick={() => dispatch(logOut())}>LogOut</Button>
             ) : (
               <Link href={"/login"} className="text-black">
                 Login
               </Link>
             )}
-          </NavbarItem>
+          </NavbarItem> */}
+
+          {token ? (
+            <NavbarItem key="logout" className="text-white">
+              <Button onClick={() => dispatch(logOut())}>LogOut</Button>
+            </NavbarItem>
+          ) : (
+            <NavbarItem key="login" className="text-white">
+              <Link href="/login" className="text-black">
+                Login
+              </Link>
+            </NavbarItem>
+          )}
         </NavbarContent>
 
         {/* =========================for small device menu====================== */}

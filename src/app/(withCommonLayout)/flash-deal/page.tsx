@@ -1,4 +1,5 @@
 "use client";
+
 import EForm from "@/src/components/form/EForm";
 import ESelect from "@/src/components/form/ESelect";
 import Card from "@/src/components/ui/Card";
@@ -7,31 +8,28 @@ import PageHeaderwithBanner from "@/src/components/ui/PageHeaderwithBanner";
 import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import { Button } from "@nextui-org/button";
-import { useParams, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect, useState, Suspense } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { CiFilter } from "react-icons/ci";
 
-import { use } from "react";
-type Params = Promise<{}>;
-const FlashDeal = () => {
+const FlashDealContent = () => {
   const searchParams = useSearchParams();
   const isFlashQuery = searchParams.get("isFlash");
 
   const [flashProduct, setFlashProduct] = useState([]);
-  const [productFilter, setProuctFilter] = useState({}); //state for filter product based on categoryname and searchterm
+  const [productFilter, setProuctFilter] = useState({}); // State for filtering products
 
   const { data: productData } = useGetAllProductQuery({
     productFilter,
     isFlash: isFlashQuery,
   });
 
-  //  load all category
+  // Load all categories
   const { data: categoryList } = useGetAllCategoryQuery(undefined);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data, "finald");
-
     setProuctFilter({ ...data, isFlash: true });
   };
 
@@ -48,13 +46,12 @@ const FlashDeal = () => {
           <div className="w-4/5 mx-auto z-40 my-8">
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-1  mx-auto items-center ">
               <span className="  flex items-center  gap-3">
-                {" "}
                 <CiFilter className="text-3xl" /> <span>Filter By</span>
               </span>
               <ESelect
                 label="Category"
                 name="categoryName"
-                options={categoryList?.data}
+                options={categoryList?.data || []}
               />
               <ESelect
                 label="price"
@@ -65,7 +62,6 @@ const FlashDeal = () => {
                   { key: "3", label: "price" },
                 ]}
               />
-
               <ESelect
                 label="price"
                 name="price"
@@ -101,5 +97,17 @@ const FlashDeal = () => {
     </div>
   );
 };
+
+const FlashDeal = () => (
+  <Suspense fallback={<LoadingFallback />}>
+    <FlashDealContent />
+  </Suspense>
+);
+
+const LoadingFallback = () => (
+  <div className="loading-container">
+    <p>Loading...</p>
+  </div>
+);
 
 export default FlashDeal;

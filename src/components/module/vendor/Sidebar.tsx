@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import {
   FaTshirt,
-  FaCubes,
   FaWarehouse,
   FaShoppingCart,
   FaCog,
@@ -11,10 +10,8 @@ import {
   FaBoxOpen,
   FaClipboardList,
 } from "react-icons/fa";
-import Link from "next/link"; // Import Link from next/link
 import { SidebarItem } from "./SidebarItem";
 import { SidebarMenu } from "./SidbarMenu";
-import { selectCurrentUser } from "@/src/redux/feature/auth/auth.slice";
 import { useAppSelector } from "@/src/redux/hook";
 
 const Sidebar = () => {
@@ -27,7 +24,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="">
+    <div>
       <div
         className={`flex flex-col bg-gray-800 h-screen text-white ${
           isOpen ? "w-64" : "w-20"
@@ -74,20 +71,25 @@ const Sidebar = () => {
           />
 
           {/* Products */}
-          <SidebarMenu
-            label="Products"
-            icon={<FaTshirt />}
-            isOpen={isOpen}
-            isMenuOpen={openMenu === "products"}
-            onClick={() => toggleMenu("products")}
-            items={[
-              {
-                name: "create Products",
-                path: "/vendor/dashboard/products/add-product",
-              },
-              { name: "products", path: `/${user!.role}/dashboard/products` },
-            ]}
-          />
+          {user && (
+            <SidebarMenu
+              label="Products"
+              icon={<FaTshirt />}
+              isOpen={isOpen}
+              isMenuOpen={openMenu === "products"}
+              onClick={() => toggleMenu("products")}
+              items={[
+                {
+                  name: "Create Products",
+                  path: "/vendor/dashboard/products/add-product",
+                },
+                {
+                  name: "Products",
+                  path: `/${user.role}/dashboard/products`,
+                },
+              ]}
+            />
+          )}
 
           {/* Inventory */}
           <SidebarMenu
@@ -103,16 +105,18 @@ const Sidebar = () => {
           />
 
           {/* Orders */}
-          <SidebarMenu
-            label="Orders"
-            icon={<FaBoxOpen />}
-            isOpen={isOpen}
-            isMenuOpen={openMenu === "orders"}
-            onClick={() => toggleMenu("orders")}
-            items={[
-              { name: "All Orders", path: `/${user!.role}/dashboard/order` },
-            ]}
-          />
+          {user && (
+            <SidebarMenu
+              label="Orders"
+              icon={<FaBoxOpen />}
+              isOpen={isOpen}
+              isMenuOpen={openMenu === "orders"}
+              onClick={() => toggleMenu("orders")}
+              items={[
+                { name: "All Orders", path: `/${user.role}/dashboard/order` },
+              ]}
+            />
+          )}
 
           {/* Settings */}
           <SidebarItem

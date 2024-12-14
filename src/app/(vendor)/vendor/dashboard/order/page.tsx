@@ -1,5 +1,6 @@
 "use client";
 
+import { TorderItems } from "@/src/redux/feature/cart/cartSlice";
 import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
 import {
   Table,
@@ -34,8 +35,8 @@ const OrderTablePage = () => {
         <TableColumn>Image</TableColumn>
       </TableHeader>
       <TableBody>
-        {orderData?.data?.map((order) =>
-          order.orderItems?.map((item, index) => (
+        {orderData?.data?.map((order: TorderItems) =>
+          order.orderItems?.map((item: any, index: any) => (
             <TableRow key={`${order.id}-${index}`}>
               <TableCell>{order.id}</TableCell>
               <TableCell>{item?.product?.name || "N/A"}</TableCell>

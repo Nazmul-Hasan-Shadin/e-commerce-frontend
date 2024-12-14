@@ -18,12 +18,13 @@ type Params = Promise<{ shopId: string }>;
 interface Product {
   id: string;
   shopId: string;
-  name: string; // Product name
+  name: string;
   description: string;
   price: number;
   categoryId: string;
   inventoryCount: number;
   discount: number;
+  vendorId: string;
   images: string;
 }
 

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
+import { logOutFromServer } from "@/src/services/auth";
 
 export type TUser = {
   email: string;
@@ -32,6 +33,7 @@ export const authSlice = createSlice({
     logOut: (state) => {
       state.user = null;
       state.token = null;
+      logOutFromServer();
     },
   },
 });

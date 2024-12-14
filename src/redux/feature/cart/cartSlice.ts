@@ -9,6 +9,7 @@ export type TorderItems = {
   price: number;
   images?: string;
   name?: string;
+  orderItems: any;
   categoryId: string;
   inventoryCount: number;
   discount: number;
@@ -55,10 +56,21 @@ export const cartSlice = createSlice({
         }
       }
     },
+    replaceCart: (state, { payload }) => {
+      state.orderItems = [];
+      console.log(payload, "sir redyuc");
+
+      state.orderItems.push(payload);
+    },
+
+    clearCart: (state) => {
+      state.orderItems = [];
+    },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, replaceCart, clearCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;
 
 export const useGetCurrentCart = (state: RootState) => state?.cart?.orderItems;
