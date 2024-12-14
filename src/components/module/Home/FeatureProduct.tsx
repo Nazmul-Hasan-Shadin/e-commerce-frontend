@@ -12,13 +12,11 @@ const FeatureProduct = () => {
     isError,
   } = useGetAllProductQuery({ isFlash: true });
 
-  console.log(products, "iam produ");
-
   return (
     <div className="">
-      <h2 className="text-3xl text-black font-bold ml-12">
-        Feature Product{" "}
-        <span className="text-sm">
+      <h2 className="text-3xl text-black font-bold ml-12   ">
+        <span> Feature Product</span>
+        <span className="text-sm pl-12">
           {" "}
           <Link className="text-blue-700" href={`/flash-deal?isFlash=true`}>
             view all flash deal

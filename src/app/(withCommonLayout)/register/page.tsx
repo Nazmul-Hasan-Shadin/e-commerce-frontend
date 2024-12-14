@@ -31,14 +31,11 @@ const Register = () => {
 
     try {
       const res = await handleRegister(userData).unwrap();
-      console.log(res);
 
       toast.success("Account created succesfully");
       router.push("/login");
-      console.log(res, "login res");
     } catch (error: any) {
       toast.error(error.message);
-      console.log(error);
     }
   };
 

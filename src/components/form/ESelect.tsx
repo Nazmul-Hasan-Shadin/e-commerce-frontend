@@ -6,6 +6,8 @@ import { useFormContext } from "react-hook-form";
 interface IProps {
   name: string;
   label: string;
+
+  dropDownHeading?: string;
   options: {
     id?: string | boolean;
     name?: string;
@@ -26,6 +28,7 @@ const ESelect = ({
   required = false,
   disabled = false,
   className = "",
+  dropDownHeading,
   defaultValue,
 }: IProps) => {
   const {
@@ -48,7 +51,7 @@ const ESelect = ({
         defaultValue={defaultValue || ""} // Set default value
       >
         <option value="" disabled>
-          Select Category
+          {dropDownHeading || "select category"}
         </option>
         {options?.map((option, index) => {
           // Ensure proper key handling

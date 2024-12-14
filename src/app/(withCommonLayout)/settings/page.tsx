@@ -11,9 +11,7 @@ const ProfilePage = () => {
   const [handleChangePass] = useChangePasswordMutation();
 
   // Handler for updating profile information
-  const handleProfileSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log("Profile Updated:", data);
-  };
+  const handleProfileSubmit: SubmitHandler<FieldValues> = (data) => {};
 
   // Handler for updating the password
   const handlePasswordSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -23,8 +21,6 @@ const ProfilePage = () => {
         toast.success("password change successful");
       }
     } catch (error: any) {
-      console.log(error);
-
       toast.error(error.message || "something went wrong");
     }
   };

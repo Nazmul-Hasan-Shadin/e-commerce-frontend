@@ -26,8 +26,6 @@ const vendorApi = baseApi.injectEndpoints({
           params.isFlash = isFlash;
         }
 
-        console.log(categoryName, "fidfudiiiiiiiiiiiiiiiiiiiiiiiii");
-
         return {
           url: `/product`,
           method: "GET",

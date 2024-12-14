@@ -30,8 +30,6 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, { payload }) => {
-      console.log(payload.productId, "iam payload");
-
       const isExistIncart = state.orderItems.find(
         (cart) => cart.id === payload.id
       );
@@ -58,7 +56,6 @@ export const cartSlice = createSlice({
     },
     replaceCart: (state, { payload }) => {
       state.orderItems = [];
-      console.log(payload, "sir redyuc");
 
       state.orderItems.push(payload);
     },

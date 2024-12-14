@@ -33,12 +33,14 @@ const ProductsPageContent = () => {
   // Load all categories
   const { data: categoryList } = useGetAllCategoryQuery(undefined);
 
+  //   ========form submit handler for filter product=========
+
   const onSubmit: SubmitHandler<ProductFilterFormValues> = (data) => {
-    console.log(data, "Filters Applied");
     setProductFilter((prev) => ({
       ...prev,
       categoryName: data.categoryName as string,
     }));
+    console.log("form data", data);
   };
 
   useEffect(() => {

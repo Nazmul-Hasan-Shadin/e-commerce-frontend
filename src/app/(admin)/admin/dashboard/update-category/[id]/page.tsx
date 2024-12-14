@@ -12,18 +12,25 @@ import {
   useGetProductByIdQuery,
   useUpdateProductMutation,
 } from "@/src/redux/feature/vendor/vendor.api";
-import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
+import {
+  useGetAllCategoryQuery,
+  useGetCategoryByIdQuery,
+  useUpdateCategoryMutation,
+} from "@/src/redux/feature/admin/admin.categoryapi";
+import toast from "react-hot-toast";
 
 type Params = Promise<{ id: string }>;
 
-const UpdateProductPage = ({ params }: { params: Params }) => {
+const UpdateCategoryPage = ({ params }: { params: Params }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const id = use(params).id;
   const { data: categoryList } = useGetAllCategoryQuery(undefined);
 
-  const [handleUpdateProduct] = useUpdateProductMutation();
-  const { data: productDataOfSelectedProduct } = useGetProductByIdQuery(id);
+  const [handleUpdateCategory] = useUpdateCategoryMutation();
+  const { data: productDataOfSelectedProduct } = useGetCategoryByIdQuery(id);
+
+  console.log(productDataOfSelectedProduct, "categroysingle");
 
   // States for file and preview
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -44,18 +51,16 @@ const UpdateProductPage = ({ params }: { params: Params }) => {
     }
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = async (productInfo) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (categoryInfo) => {
     const formData = new FormData();
 
     // Append text fields
     const data = {
-      name: productInfo.name,
-      categoryId: productInfo.categoryId,
-      discount: productInfo.discount,
-      inventoryCount: productInfo.inventoryCount,
-      description: productInfo.description,
-      price: productInfo.price,
+      name: categoryInfo.name,
+      description: categoryInfo.description,
     };
+
+    console.log("latest categoryd aJJJJJJJa", data);
 
     formData.append("data", JSON.stringify(data));
 
@@ -64,23 +69,25 @@ const UpdateProductPage = ({ params }: { params: Params }) => {
     }
 
     try {
-      const response = await handleUpdateProduct({ id, data }).unwrap();
-    } catch (error) {}
+      const response = await handleUpdateCategory({ id, data }).unwrap();
+      if (response.success === true) {
+        toast.success("Category updaed");
+      }
+    } catch (error: any) {
+      toast.error(error.message || "Something went wrong");
+    }
   };
 
   return (
     <div className="w-3/4 mx-auto gap-5">
-      <h2 className="text-2xl font-bold mb-5">Update Product Info</h2>
+      <h2 className="text-2xl font-bold mb-5">Update Category Info</h2>
       <Divider />
       <EForm
         onSubmit={onSubmit}
         defaultValues={{
           name: productDataOfSelectedProduct?.data?.name,
-          price: productDataOfSelectedProduct?.data?.price,
-          category: productDataOfSelectedProduct?.data?.categoryId,
+
           description: productDataOfSelectedProduct?.data?.description,
-          discount: productDataOfSelectedProduct?.data?.discount,
-          inventoryCount: productDataOfSelectedProduct?.data?.inventoryCount,
         }}
       >
         <div
@@ -126,31 +133,7 @@ const UpdateProductPage = ({ params }: { params: Params }) => {
             label="Name"
             variant="bordered"
           />
-          <EInput
-            defaultValue={productDataOfSelectedProduct?.data?.price}
-            name="price"
-            type="number"
-            label="Price"
-            variant="bordered"
-          />
-          <ESelect
-            options={categoryList?.data}
-            name="category"
-            label="Category"
-          />
 
-          <EInput
-            name="discount"
-            type="number"
-            label="Discount"
-            variant="bordered"
-          />
-          <EInput
-            name="inventoryCount"
-            type="number"
-            label="Inventory Count"
-            variant="bordered"
-          />
           <FxTextArea
             name="description"
             label="Description"
@@ -168,4 +151,4 @@ const UpdateProductPage = ({ params }: { params: Params }) => {
   );
 };
 
-export default UpdateProductPage;
+export default UpdateCategoryPage;

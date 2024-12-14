@@ -23,8 +23,6 @@ const OrderTablePage = () => {
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading orders</div>;
 
-  console.log(orderData, "Order Data");
-
   return (
     <Table removeWrapper aria-label="Order Items Table">
       <TableHeader>

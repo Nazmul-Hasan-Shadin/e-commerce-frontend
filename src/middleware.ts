@@ -16,7 +16,6 @@ const roleBasedRoutes = {
 // Middleware to check authentication and role
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  console.log(pathname);
 
   const token = request.cookies.get("refreshToken")?.value;
 
@@ -36,7 +35,6 @@ export async function middleware(request: NextRequest) {
     iat: number;
     exp: number;
   };
-  console.log(user);
 
   if (!user) {
     return NextResponse.redirect(
@@ -47,7 +45,6 @@ export async function middleware(request: NextRequest) {
   // Check the role-based route access
   if (user?.role && roleBasedRoutes[user.role as Role]) {
     const routes = roleBasedRoutes[user.role as Role];
-    console.log(routes, "role routes");
     if (routes.some((route) => pathname.match(route))) {
       return NextResponse.next();
     }
@@ -83,5 +80,6 @@ async function getCurrentUserFromToken(token: string) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/dashboard", "/profile/:page*", "/admin", "/login"],
+  matcher: ["/dashboard", "/profile/:page*", "/login"],
+  // "/admin",
 };

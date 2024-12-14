@@ -18,11 +18,13 @@ import {
 } from "@/src/redux/feature/vendor/vendor.api";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
+import Image from "next/image";
 
 const primaryColor = "#4524DB";
 
-const GetAllProductPage = () => {
-  const { data: productList, isLoading } = useGetAllProductQuery("");
+const CategoryListPage = () => {
+  const { data: categroyList, isLoading } = useGetAllCategoryQuery("");
   const [handleUpdateProduct] = useUpdateProductMutation();
   const [handleDeleteProduct] = useDeleteProductMutation();
 
@@ -30,7 +32,7 @@ const GetAllProductPage = () => {
     return <div>Loading...</div>;
   }
 
-  const products = productList?.data || [];
+  const category = categroyList?.data || [];
 
   const handleEdit = (id: string) => {};
 
@@ -59,32 +61,44 @@ const GetAllProductPage = () => {
           marginBottom: "20px",
         }}
       >
-        Product Management
+        Category Management
       </h1>
       <Table aria-label="Product List">
         <TableHeader>
-          <TableColumn>PRODUCT NAME</TableColumn>
-          <TableColumn>PRICE</TableColumn>
-          <TableColumn>INVENTORY</TableColumn>
+          <TableColumn>Category NAME</TableColumn>
+          <TableColumn>Images</TableColumn>
+
           <TableColumn>ACTIONS</TableColumn>
         </TableHeader>
         <TableBody>
-          {products.map((product: any) => (
-            <TableRow key={product.id}>
-              <TableCell>{product.name}</TableCell>
-              <TableCell>${product.price.toFixed(2)}</TableCell>
-              <TableCell>{product.inventoryCount}</TableCell>
+          {category.map((category: any) => (
+            <TableRow key={category.id}>
+              <TableCell>{category.name}</TableCell>
+
+              <TableCell>
+                {category?.images ? (
+                  <Image
+                    src={category.images}
+                    width={80}
+                    height={80}
+                    alt="categor imageas"
+                    className="rounded-full"
+                  />
+                ) : (
+                  "N/A"
+                )}
+              </TableCell>
               <TableCell>
                 <div style={{ display: "flex", gap: "10px" }}>
                   <Link
-                    href={`/vendor/dashboard/products/update-product/${product.id}`}
+                    href={`/admin/dashboard/update-category/${category.id}`}
                   >
                     <Tooltip content="Edit Product" placement="top">
                       <MdEdit
                         size={20}
                         color={primaryColor}
                         style={{ cursor: "pointer" }}
-                        onClick={() => handleEdit(product.id)}
+                        onClick={() => handleEdit(category.id)}
                       />
                     </Tooltip>
                   </Link>
@@ -93,7 +107,7 @@ const GetAllProductPage = () => {
                       size={20}
                       color="red"
                       style={{ cursor: "pointer" }}
-                      onClick={() => handleDelete(product.id)}
+                      onClick={() => handleDelete(category.id)}
                     />
                   </Tooltip>
                 </div>
@@ -106,4 +120,4 @@ const GetAllProductPage = () => {
   );
 };
 
-export default GetAllProductPage;
+export default CategoryListPage;

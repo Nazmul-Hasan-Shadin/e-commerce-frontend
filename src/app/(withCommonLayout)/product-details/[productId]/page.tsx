@@ -31,15 +31,12 @@ type Params = Promise<{ productId: string }>;
 
 const ProductDetails = ({ params }: { params: Params }) => {
   const { productId } = use(params);
-  console.log(productId, "iam productId");
 
   const { data: productInfo, isLoading } = useGetProductByIdQuery(productId);
 
   if (isLoading) {
     return "loading";
   }
-
-  console.log(productInfo);
 
   // const productInfo = await fetch(
   //   `http://localhost:3001/api/v1/product/${productId}`

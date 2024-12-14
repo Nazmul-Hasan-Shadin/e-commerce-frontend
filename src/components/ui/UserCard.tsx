@@ -17,8 +17,6 @@ const UserCard = ({ review }: { review: IReview[] }) => {
   return (
     <div>
       {review!.map((review: IReview) => {
-        console.log(review, "iam fatatkisio");
-
         return (
           <Card key={review.id} className="max-w-[470px] mb-6 bg-[#e9eaef] ">
             <CardHeader className="justify-between">

@@ -17,8 +17,6 @@ const CheckOutForm = () => {
   const { data: currentUser, isLoading: isUserLoading } =
     useGetCurrentUserQuery("");
 
-  console.log(currentUser, "iamc rueent user");
-
   const totalAmount = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
@@ -71,7 +69,6 @@ const CheckOutForm = () => {
     });
 
     if (error) {
-      console.log("[error]", error);
       setError(
         error.message || "An error occurred while creating the payment method."
       );
@@ -89,7 +86,6 @@ const CheckOutForm = () => {
       });
 
     if (confirmError) {
-      console.log("confirm error", confirmError);
       setError(
         confirmError.message ||
           "An error occurred while confirming the payment."
@@ -115,8 +111,6 @@ const CheckOutForm = () => {
         await makeOrder(orderData).unwrap();
         toast.success("Order created successfully!");
       } catch (error: unknown) {
-        console.log("Order creation error:", error);
-
         if (typeof error === "object" && error !== null && "data" in error) {
           const err = error as { data: { message: string } };
           toast.error(err.data.message);

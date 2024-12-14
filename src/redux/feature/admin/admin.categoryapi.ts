@@ -19,8 +19,32 @@ const categoryApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getCategoryById: builder.query({
+      query: (id) => {
+        return {
+          url: `/category/${id}`,
+          method: "GET",
+        };
+      },
+    }),
+    updateCategory: builder.mutation({
+      query: ({ id, data }) => {
+        console.log("iam id ", id);
+        console.log("iam data", data);
+
+        return {
+          url: `/category/${id}`,
+          method: "PUT",
+          body: data,
+        };
+      },
+    }),
   }),
 });
 
-export const { useCreateCategoryMutation, useGetAllCategoryQuery } =
-  categoryApi;
+export const {
+  useCreateCategoryMutation,
+  useGetAllCategoryQuery,
+  useUpdateCategoryMutation,
+  useGetCategoryByIdQuery,
+} = categoryApi;

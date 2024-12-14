@@ -14,10 +14,17 @@ import {
 import Link from "next/link"; // Import Link from next/link
 import { SidebarItem } from "../vendor/SidebarItem";
 import { SidebarMenu } from "../vendor/SidbarMenu";
+import { useAppSelector } from "@/src/redux/hook";
+import { jwtDecode } from "jwt-decode";
+import { verifyToken } from "@/src/utils/verifyToke";
+import { ModifiedJwtPayload } from "@/src/types";
 
 const AdminSidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const token = useAppSelector((state) => state.auth.token);
+
+  const user = verifyToken(token as string) as ModifiedJwtPayload;
 
   const toggleMenu = (menu: string) => {
     setOpenMenu(openMenu === menu ? null : menu);
@@ -73,8 +80,14 @@ const AdminSidebar = () => {
             isMenuOpen={openMenu === "category"}
             onClick={() => toggleMenu("category")}
             items={[
-              { name: "All Categories", path: "/categories/all" },
-              { name: "Add Category", path: "/categories/add" },
+              {
+                name: "All Categories",
+                path: "/admin/dashboard/category-list",
+              },
+              {
+                name: "Add Category",
+                path: `/${user.role}/dashboard/category`,
+              },
             ]}
           />
 

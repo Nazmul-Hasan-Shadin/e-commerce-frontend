@@ -18,6 +18,7 @@ import disocuntImage from "@/src/assests/disountt.webp";
 import Footer from "@/src/components/module/Home/Footer";
 import TopSellProduct from "@/src/components/module/Home/TopSellProduct";
 import AccesoriesAd from "@/src/components/module/Home/AccesoriesAd";
+import WhyChooseUs from "@/src/components/module/Home/WhyChooseUs";
 
 export default function Home() {
   return (
@@ -39,6 +40,8 @@ export default function Home() {
       <FeatureProduct />
       <TopSellProduct />
       <AccesoriesAd />
+
+      <WhyChooseUs />
       <Footer />
     </div>
   );

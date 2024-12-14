@@ -121,6 +121,7 @@ const AddProductPage = () => {
             label="Category"
           />
           <ESelect
+            dropDownHeading="Is Flash Sell?"
             options={[
               { label: "Flash sell", id: true },
               { label: "Not Flash sell", id: false },

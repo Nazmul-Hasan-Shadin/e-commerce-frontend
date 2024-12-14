@@ -45,7 +45,6 @@ const getShortDescription = (description: string) => {
 const Card = ({ product }: { product: IProduct }) => {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.orderItems);
-  console.log(cartItems, "icartitkems");
 
   const handleAddToCart = () => {
     const isMultipleVendorDetect =

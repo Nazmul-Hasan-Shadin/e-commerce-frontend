@@ -32,7 +32,6 @@ const ShopPage = ({ params }: { params: Params }) => {
   const param = use(params);
 
   const shopId = param.shopId;
-  console.log("iam shop id ", shopId);
 
   const { data: userInformation } = useGetCurrentUserQuery(undefined);
 
@@ -41,7 +40,6 @@ const ShopPage = ({ params }: { params: Params }) => {
   const { data: shopData } = useGetShopInfoQuery(shopId);
   const { data: shopProduct } = useGetProducsByShopIdQuery(shopId);
   const [handleUnfollow] = useUnfollowShopMutation();
-  console.log(shopProduct, "isasm hsopd dat");
   const [handleCheckValidiyOfFollow] = useCheckValidityOfFollowMutation();
 
   const [isFollowing, setIsFollowing] = useState(false);
@@ -82,9 +80,7 @@ const ShopPage = ({ params }: { params: Params }) => {
         } else {
           setIsFollowing(false);
         }
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     };
 
     if (userInformation?.data?.id && shopId) {

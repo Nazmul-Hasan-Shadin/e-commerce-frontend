@@ -29,7 +29,6 @@ const FlashDealContent = () => {
   const { data: categoryList } = useGetAllCategoryQuery(undefined);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data, "finald");
     setProuctFilter({ ...data, isFlash: true });
   };
 
