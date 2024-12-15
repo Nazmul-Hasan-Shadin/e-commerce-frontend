@@ -5,6 +5,7 @@ import { SubmitHandler } from "react-hook-form";
 import EForm from "@/src/components/form/EForm";
 import EInput from "@/src/components/form/EInput";
 import {
+  useForgetPasswordMutation,
   useGetCurrentUserQuery,
   useLoginMutation,
 } from "@/src/redux/feature/auth/auth.api";
@@ -16,6 +17,7 @@ import { usePathname, useRouter } from "next/navigation";
 
 const Login = () => {
   const [login] = useLoginMutation();
+  const [handleForgetPassAndSendEmail] = useForgetPasswordMutation();
   const { data: handleGetUser } = useGetCurrentUserQuery(undefined);
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -58,6 +60,31 @@ const Login = () => {
     }
   };
 
+  const handleForgotPassword = async () => {
+    const emailInput = (
+      document.querySelector('input[name="email"]') as HTMLInputElement
+    )?.value;
+
+    if (!emailInput) {
+      toast.error("Please enter your email address first.");
+      return;
+    }
+
+    const toastId = toast.loading("Sending reset password email...");
+
+    try {
+      await handleForgetPassAndSendEmail({ email: emailInput }).unwrap();
+      toast.success("Reset password email sent successfully!", {
+        id: toastId,
+      });
+    } catch (error: any) {
+      toast.error(
+        error?.data?.message || "Failed to send reset password email.",
+        { id: toastId }
+      );
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
@@ -84,6 +111,17 @@ const Login = () => {
             >
               Login
             </Button>
+          </div>
+
+          {/* Forgot Password Link */}
+          <div className="text-center text-sm mb-4">
+            <button
+              type="button"
+              onClick={handleForgotPassword}
+              className="text-[#fd6506] hover:underline"
+            >
+              Forgot Password?
+            </button>
           </div>
 
           {/* Signup Redirect */}

@@ -14,15 +14,21 @@ import { MdEdit, MdDelete } from "react-icons/md";
 import {
   useDeleteProductMutation,
   useGetAllProductQuery,
+  useGetProducsByShopIdQuery,
   useUpdateProductMutation,
 } from "@/src/redux/feature/vendor/vendor.api";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 
 const primaryColor = "#4524DB";
 
 const GetAllProductPage = () => {
-  const { data: productList, isLoading } = useGetAllProductQuery("");
+  const { data: vendorInfo } = useGetCurrentUserQuery(undefined);
+  console.log(vendorInfo, "imam vendiorin info for vendorid");
+
+  const shopId = vendorInfo?.data?.shop?.id;
+  const { data: productList, isLoading } = useGetProducsByShopIdQuery(shopId);
   const [handleUpdateProduct] = useUpdateProductMutation();
   const [handleDeleteProduct] = useDeleteProductMutation();
 

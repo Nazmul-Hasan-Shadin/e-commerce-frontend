@@ -61,6 +61,7 @@ const vendorApi = baseApi.injectEndpoints({
           body: shopInfo,
         };
       },
+      invalidatesTags: ["createShop"],
     }),
     updateProduct: builder.mutation({
       query: ({ id, data }) => {

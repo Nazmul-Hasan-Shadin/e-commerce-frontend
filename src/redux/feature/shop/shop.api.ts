@@ -12,6 +12,7 @@ const shopApi = baseApi.injectEndpoints({
           body: userInfo,
         };
       },
+      invalidatesTags: ["getShopInfoById"],
     }),
 
     getShopInfo: builder.query({
@@ -23,6 +24,7 @@ const shopApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["getShopInfoById"],
     }),
 
     checkValidityOfFollow: builder.mutation({
@@ -47,7 +49,7 @@ const shopApi = baseApi.injectEndpoints({
           body: shopFollowInfo,
         };
       },
-      invalidatesTags: ["follow"],
+      invalidatesTags: ["follow", "getShopInfoById"],
     }),
   }),
 });

@@ -22,7 +22,7 @@ const Dashboard = () => {
         Good Morning, {shopOwnerInfo?.data?.username}{" "}
       </h1>
       <p className="text-gray-500 mb-6">
-        Here's what's happening with your store today.
+        Herecles whats happening with your store today.
       </p>
 
       {/* Date Picker and Add Product Button */}
@@ -50,9 +50,7 @@ const Dashboard = () => {
             <p className="text-green-500 font-medium">
               ↑ +{data.earnings.percentage} %
             </p>
-            <a href="#" className="text-blue-500 mt-2 inline-block">
-              View net earnings
-            </a>
+            <p className="text-blue-500 mt-2 inline-block">View net earnings</p>
           </CardBody>
         </Card>
 
@@ -64,9 +62,7 @@ const Dashboard = () => {
             <p className="text-red-500 font-medium">
               ↓ {data.orders.percentage} %
             </p>
-            <a href="#" className="text-blue-500 mt-2 inline-block">
-              View all orders
-            </a>
+            {/* <a  className="text-blue-500 mt-2 inline-block">View all orders</a> */}
           </CardBody>
         </Card>
 
@@ -80,9 +76,7 @@ const Dashboard = () => {
             <p className="text-green-500 font-medium">
               ↑ +{data.customers.percentage} %
             </p>
-            <a href="#" className="text-blue-500 mt-2 inline-block">
-              See details
-            </a>
+            <p className="text-blue-500 mt-2 inline-block">See details</p>
           </CardBody>
         </Card>
 
@@ -96,9 +90,7 @@ const Dashboard = () => {
             <p className="text-gray-400 font-medium">
               +{data.balance.percentage} %
             </p>
-            <a href="#" className="text-blue-500 mt-2 inline-block">
-              Withdraw money
-            </a>
+            <p className="text-blue-500 mt-2 inline-block">Withdraw money</p>
           </CardBody>
         </Card>
       </div>

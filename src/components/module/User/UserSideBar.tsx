@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import {
   FaTshirt,
-  FaCubes,
   FaWarehouse,
   FaShoppingCart,
   FaCog,
@@ -11,33 +10,22 @@ import {
   FaBoxOpen,
   FaClipboardList,
 } from "react-icons/fa";
-import Link from "next/link";
-import { SidebarItem } from "../vendor/SidebarItem";
-import { SidebarMenu } from "../vendor/SidbarMenu";
-import { useAppSelector } from "@/src/redux/hook";
-import { jwtDecode } from "jwt-decode";
-import { verifyToken } from "@/src/utils/verifyToke";
-import { ModifiedJwtPayload } from "@/src/types";
 
-const AdminSidebar = () => {
+import { useAppSelector } from "@/src/redux/hook";
+import { SidebarItem } from "@/src/components/module/vendor/SidebarItem";
+import { SidebarMenu } from "@/src/components/module/vendor/SidbarMenu";
+
+const UserSideBar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
-  const token = useAppSelector((state) => state.auth.token);
-
-  let user: ModifiedJwtPayload | null = null;
-
-  try {
-    user = token ? (verifyToken(token as string) as ModifiedJwtPayload) : null;
-  } catch (error: any) {
-    console.error("Token verification failed:", error.message);
-  }
+  const user = useAppSelector((state) => state.auth.user);
 
   const toggleMenu = (menu: string) => {
     setOpenMenu(openMenu === menu ? null : menu);
   };
 
   return (
-    <div className="">
+    <div>
       <div
         className={`flex flex-col bg-gray-800 h-screen text-white ${
           isOpen ? "w-64" : "w-20"
@@ -78,36 +66,19 @@ const AdminSidebar = () => {
             path="/dashboard"
           />
 
-          {/* Category */}
-          <SidebarMenu
-            label="Category"
-            icon={<FaCubes />}
-            isOpen={isOpen}
-            isMenuOpen={openMenu === "category"}
-            onClick={() => toggleMenu("category")}
-            items={[
-              {
-                name: "All Categories",
-                path: "/admin/dashboard/category-list",
-              },
-              {
-                name: "Add Category",
-                path: `/${user?.role || "admin"}/dashboard/category`,
-              },
-            ]}
-          />
-
           {/* Orders */}
-          <SidebarMenu
-            label="Orders"
-            icon={<FaBoxOpen />}
-            isOpen={isOpen}
-            isMenuOpen={openMenu === "orders"}
-            onClick={() => toggleMenu("orders")}
-            items={[
-              { name: "All Orders", path: `/${user?.role}/dashboard/order` },
-            ]}
-          />
+          {user && (
+            <SidebarMenu
+              label="Orders"
+              icon={<FaBoxOpen />}
+              isOpen={isOpen}
+              isMenuOpen={openMenu === "orders"}
+              onClick={() => toggleMenu("orders")}
+              items={[
+                { name: "All Orders", path: `/${user.role}/dashboard/order` },
+              ]}
+            />
+          )}
 
           {/* Settings */}
           <SidebarItem
@@ -122,4 +93,4 @@ const AdminSidebar = () => {
   );
 };
 
-export default AdminSidebar;
+export default UserSideBar;

@@ -29,6 +29,24 @@ const authApi = baseApi.injectEndpoints({
         };
       },
     }),
+    resetPassword: builder.mutation({
+      query: (userInfo) => {
+        return {
+          url: `/auth/reset-password?token=${userInfo.token}`,
+          method: "POST",
+          body: userInfo,
+        };
+      },
+    }),
+    forgetPassword: builder.mutation({
+      query: (userInfo) => {
+        return {
+          url: `/auth/forget-password`,
+          method: "POST",
+          body: userInfo,
+        };
+      },
+    }),
     getCurrentUser: builder.query({
       query: () => {
         return {
@@ -36,6 +54,7 @@ const authApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["createShop"],
     }),
   }),
 });
@@ -45,4 +64,6 @@ export const {
   useRegisterMutation,
   useGetCurrentUserQuery,
   useChangePasswordMutation,
+  useResetPasswordMutation,
+  useForgetPasswordMutation,
 } = authApi;

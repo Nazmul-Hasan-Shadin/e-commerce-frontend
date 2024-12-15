@@ -10,10 +10,8 @@ import toast from "react-hot-toast";
 const ProfilePage = () => {
   const [handleChangePass] = useChangePasswordMutation();
 
-  // Handler for updating profile information
   const handleProfileSubmit: SubmitHandler<FieldValues> = (data) => {};
 
-  // Handler for updating the password
   const handlePasswordSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const response = await handleChangePass(data).unwrap();

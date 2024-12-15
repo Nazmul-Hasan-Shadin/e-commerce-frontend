@@ -31,10 +31,12 @@ export const baseApi = createApi({
   tagTypes: [
     "post",
     "user",
+    "getShopInfoById",
     "follow",
     "shopProduct",
     "commentwithProduct",
     "categoryList",
+    "createShop",
   ],
 
   endpoints: (builder) => ({}),

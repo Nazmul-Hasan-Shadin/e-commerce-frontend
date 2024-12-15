@@ -13,6 +13,7 @@ import {
   useUpdateProductMutation,
 } from "@/src/redux/feature/vendor/vendor.api";
 import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
+import toast from "react-hot-toast";
 
 type Params = Promise<{ id: string }>;
 
@@ -65,7 +66,12 @@ const UpdateProductPage = ({ params }: { params: Params }) => {
 
     try {
       const response = await handleUpdateProduct({ id, data }).unwrap();
-    } catch (error) {}
+      if (response.success) {
+        toast.success("updated succesful");
+      }
+    } catch (error: any) {
+      toast.error(error.message || "update failed");
+    }
   };
 
   return (

@@ -16,6 +16,8 @@ import Image from "next/image";
 
 const AddProductPage = () => {
   const { isLoading, data: userData } = useGetCurrentUserQuery(undefined);
+  console.log(userData, "iam currenuserdata");
+
   const { data: categoryList } = useGetAllCategoryQuery(undefined);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -44,7 +46,7 @@ const AddProductPage = () => {
     const data = {
       name: productInfo?.name,
       shopId: userData?.data.shop?.id,
-      isFlash: productInfo.isFlash === "true",
+      isFlash: productInfo.isFlash === "Flash sell" ? true : false,
       price: Number(productInfo?.price),
       categoryId: productInfo?.category,
       discount: Number(productInfo?.discount),
@@ -63,6 +65,7 @@ const AddProductPage = () => {
       if (response.success) {
         toast.success("Product has been added!");
       }
+      console.log("hi");
     } catch (error) {
       toast.error("Error adding product.");
     }
