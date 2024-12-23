@@ -83,7 +83,7 @@ const ProductDetails = ({ params }: { params: Params }) => {
                     7 sold in last 17 hours
                   </p>
                   <Link href={`/shop/${shopId}`}>
-                    <p className="text-xl">See About Shop</p>
+                    <p className="text-xl text-primary-color">See About Shop</p>
                   </Link>
                   <p className="text-[18px]">
                     {description} Availability: In Stock

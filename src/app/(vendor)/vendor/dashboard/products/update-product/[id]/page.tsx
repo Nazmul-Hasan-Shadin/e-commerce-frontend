@@ -52,10 +52,10 @@ const UpdateProductPage = ({ params }: { params: Params }) => {
     const data = {
       name: productInfo.name,
       categoryId: productInfo.categoryId,
-      discount: productInfo.discount,
-      inventoryCount: productInfo.inventoryCount,
+      discount: Number(productInfo.discount),
+      inventoryCount: Number(productInfo.inventoryCount),
       description: productInfo.description,
-      price: productInfo.price,
+      price: Number(productInfo.price),
     };
 
     formData.append("data", JSON.stringify(data));
