@@ -37,7 +37,7 @@ export interface IProduct {
 const getShortDescription = (description: string) => {
   const words = description.split(" ");
   if (words.length > 20) {
-    return words.slice(0, 20).join(" ") + "...";
+    return words.slice(0, 5).join(" ") + "...";
   }
   return description;
 };
@@ -79,13 +79,13 @@ const Card = ({ product }: { product: IProduct }) => {
   };
 
   return (
-    <div className="max-w-[190px] sm:max-w-0 md:w-full">
+    <div className=" w-full max-w-[190px] sm:max-w-0 md:w-full">
       <NextCard
         isHoverable
-        className=" w-[168px] mr-3 md:w-[260px] md:p-6 h-auto shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
+        className=" w-[168px] mr-3 md:w-[260px] md:p-3 h-auto shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
       >
         {/* Image */}
-        <div className="relative h-32 md:h-56 w-full">
+        <div className="relative h-32 md:h-56 w-full mx-auto">
           <Image
             src={product?.images}
             alt={product?.name}
@@ -96,14 +96,14 @@ const Card = ({ product }: { product: IProduct }) => {
         </div>
 
         {/* Card Header */}
-        <CardHeader className="md:p-3">
+        <CardHeader className="md:p-1">
           <h3 className="text-[12px] md:text-xl font-semibold text-gray-800">
             {product?.name}
           </h3>
         </CardHeader>
 
         {/* Card Body */}
-        <CardBody className="md:p-3">
+        <CardBody className="md:p-1">
           <div className="flex flex-col md:gap-2">
             <div className="flex items-center space-x-2">
               <del className="text-lg text-gray-500">${product?.price}</del>
@@ -111,7 +111,7 @@ const Card = ({ product }: { product: IProduct }) => {
                 ${product?.price - product?.discount}
               </span>
             </div>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm  text-gray-600">
               {getShortDescription(product?.description)}
             </p>
           </div>
