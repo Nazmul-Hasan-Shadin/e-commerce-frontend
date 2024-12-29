@@ -65,9 +65,9 @@ const ProductDetails = ({ params }: { params: Params }) => {
             <div className="relative col-span-9 md:col-span-6">
               <Image
                 alt="Product image"
-                className="w-full h-full"
-                height={800}
-                width={700}
+                className="w h-ull"
+                height={600}
+                width={500}
                 src={images || laptop}
               />
             </div>
@@ -85,7 +85,7 @@ const ProductDetails = ({ params }: { params: Params }) => {
                   <Link href={`/shop/${shopId}`}>
                     <p className="text-xl text-primary-color">See About Shop</p>
                   </Link>
-                  <p className="text-[18px]">
+                  <p className="text-xs lg:text-sm text-gray-800">
                     {description} Availability: In Stock
                   </p>
                   <span className="text-xl font-bold flex gap-2">
@@ -109,7 +109,7 @@ const ProductDetails = ({ params }: { params: Params }) => {
 
                   <div className="flex items-center gap-5">
                     <Button
-                      className="w-3/4 rounded-lg bg-black text-white text-xl font-bold p-6"
+                      className="w-3/4 rounded-lg bg-black text-white text-lg font-bold p-4"
                       variant="bordered"
                     >
                       Add To Cart
@@ -123,14 +123,14 @@ const ProductDetails = ({ params }: { params: Params }) => {
                     </Checkbox>
                   </div>
 
-                  <div className="flex items-center gap-5">
+                  {/* <div className="flex items-center gap-5">
                     <Button
                       className="w-full rounded-lg bg-[#4524DB] text-white text-xl font-bold p-6"
                       variant="bordered"
                     >
                       Go For Payment
                     </Button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

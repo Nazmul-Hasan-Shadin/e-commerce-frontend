@@ -15,9 +15,9 @@ const TopSellProduct = () => {
       <h2 className="text-xl md:text-3xl text-black font-bold md:ml-12">
         Current top seller <span className="text-sm"> </span>{" "}
       </h2>
-      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 p-4">
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-6 p-4">
         {products?.data
-          .slice(1, 5)
+          .slice(1, 6)
           .map((product: any) => <Card key={product.id} product={product} />)}
       </div>
     </div>

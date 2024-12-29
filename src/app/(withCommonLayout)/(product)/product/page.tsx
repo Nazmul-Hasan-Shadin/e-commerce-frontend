@@ -54,11 +54,6 @@ const ProductsPageContent = () => {
 
   return (
     <div>
-      <PageHeaderwithBanner
-        bannerDescription="Explore products by category and filters."
-        title="Product List"
-      />
-
       <EForm onSubmit={onSubmit}>
         <div className="w-4/5 mx-auto z-40 my-8">
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-1 items-center">

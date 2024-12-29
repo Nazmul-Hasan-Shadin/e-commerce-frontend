@@ -48,7 +48,7 @@ const BottomNav = () => {
       ];
 
   return (
-    <div>
+    <div className="sticky top-0 z-20">
       <Navbar
         onMenuOpenChange={setIsMenuOpen}
         isMenuOpen={isMenuOpen}
@@ -92,24 +92,6 @@ const BottomNav = () => {
               </Link>
             </NavbarItem>
           ))}
-          {/* 
-          <NavbarItem key={"login"} className="text-white">
-            {user?.role ? (
-              <Link href={`/${user?.role}/dashboard`} className="text-black">
-                Dashboard
-              </Link>
-            ) : (
-              "loading"
-            )}
-
-            {token ? (
-              <Button onClick={() => dispatch(logOut())}>LogOut</Button>
-            ) : (
-              <Link href={"/login"} className="text-black">
-                Login
-              </Link>
-            )}
-          </NavbarItem> */}
 
           {token ? (
             <NavbarItem key="logout" className="text-white">
