@@ -25,19 +25,19 @@ export const SidebarMenu = ({
       tabIndex={0}
     >
       <div className="text-xl">{icon}</div>
-      {isOpen && <span className="ml-4">{label}</span>}
+      {isOpen && <span className="ml-4 text-sm md:text-lg">{label}</span>}
       {isOpen && (
         <FaChevronDown
-          className={`ml-auto transform ${isMenuOpen ? "rotate-180" : ""}`}
+          className={`ml-auto transform text-sm md:text-medium ${isMenuOpen ? "rotate-180" : ""}`}
         />
       )}
     </div>
     {isMenuOpen && (
-      <div className="ml-8 mt-2 space-y-1">
+      <div className="ml-8 mt-2 flex flex-col gap-4">
         {items.map((item) => (
           <Link key={item.name} href={item.path}>
             <div
-              className="text-sm hover:text-gray-400 cursor-pointer"
+              className="text-xs hover:text-gray-400 cursor-pointer"
               role="button"
               tabIndex={0}
               onKeyDown={(e) =>

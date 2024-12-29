@@ -11,7 +11,7 @@ import mainBanner2 from "@/src/assests/Banner/winter.webp";
 
 const Banner = () => {
   return (
-    <div className="grid gap-5  p-1 lg:grid-cols-12 ">
+    <div className="grid gap-5  max-h-[67vh] p-1 lg:grid-cols-12 ">
       <div className="grid col-span-10 lg:col-span-8">
         <Swiper
           spaceBetween={30}

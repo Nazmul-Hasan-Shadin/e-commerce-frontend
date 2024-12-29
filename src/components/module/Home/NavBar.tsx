@@ -102,8 +102,6 @@ const NavBar = () => {
           )}
         </NavbarContent>
 
-        <div></div>
-
         {/* ================icnons============ */}
 
         <NavbarContent justify="end">
@@ -118,6 +116,30 @@ const NavBar = () => {
               </div>
             </NavbarItem>
           ))}
+        </NavbarContent>
+        <NavbarContent style={{ opacity: 1 }} as="div" justify="end">
+          <Dropdown style={{ opacity: 1 }} placement="bottom-start">
+            <DropdownTrigger>
+              <Avatar
+                as="button"
+                className="transition-transform"
+                color="secondary"
+                name="Jason Hughes"
+                isBordered
+                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                size="sm"
+              />
+            </DropdownTrigger>
+            <DropdownMenu
+              style={{ opacity: 1 }}
+              aria-label="Profile Actions"
+              className="z-20 opacity-5"
+            >
+              <DropdownItem key={"profile"}>My Profile</DropdownItem>
+              <DropdownItem key={"h"}>My Profile</DropdownItem>
+              <DropdownItem key={"f"}>My Profile</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
         </NavbarContent>
 
         {/* =========================for small device menu====================== */}

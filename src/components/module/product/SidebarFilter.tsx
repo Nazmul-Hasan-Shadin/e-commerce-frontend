@@ -49,6 +49,32 @@ const SidebarFilter = () => {
             />
           </div>
         </div>
+
+        <div className=" ">
+          <Divider className="my-4 w-32" />
+        </div>
+        {/* ================product color ================ */}
+
+        <div className="space-y-3 mt-3">
+          <span> Color</span>
+          <div className="flex flex-col  gap-3">
+            <Checkbox size="sm">
+              <span className="text-[#757575]">Black</span>
+            </Checkbox>
+            <Checkbox size="sm">
+              <span className="text-[#757575]">Blue</span>
+            </Checkbox>
+            <Checkbox size="sm">
+              <span className="text-[#757575]">Red</span>
+            </Checkbox>
+            <Checkbox size="sm">
+              <span className="text-[#757575]">Gray</span>
+            </Checkbox>
+            <Checkbox size="sm">
+              <span className="text-[#757575]">Dark</span>
+            </Checkbox>
+          </div>
+        </div>
       </div>
     </div>
   );

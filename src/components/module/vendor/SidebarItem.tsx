@@ -11,11 +11,11 @@ export const SidebarItem = ({
   isOpen: boolean;
   path: string;
 }) => (
-  <div className="flex items-center  p-2 hover:bg-gray-700 cursor-pointer">
+  <div className=" p-2 hover:bg-gray-700 cursor-pointer">
     <Link href={path}>
       <div className="flex items-center">
         <div className="text-xl">{icon}</div>
-        {isOpen && <span className="ml-4">{label}</span>}
+        {isOpen && <span className="ml-4 text-sm md:text-lg">{label}</span>}
       </div>
     </Link>
   </div>

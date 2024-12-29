@@ -5,6 +5,7 @@ import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import Link from "next/link";
 import { useAppSelector } from "@/src/redux/hook";
 import BestSellingAndTopSellers from "./_Component/BesSellerandTopSellProduct";
+import { FaShoppingBag } from "react-icons/fa";
 
 const Dashboard = () => {
   const { data: shopOwnerInfo } = useGetCurrentUserQuery(undefined);
@@ -18,15 +19,17 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
-      <h1 className="text-2xl font-bold mb-2">
-        Good Morning, {shopOwnerInfo?.data?.username}{" "}
-      </h1>
-      <p className="text-gray-500 mb-6">
-        Herecles whats happening with your store today.
-      </p>
-
+      {/* ===============Greeting section============ */}
+      <div>
+        <h1 className="text-2xl font-bold mb-2">
+          Good Morning, {shopOwnerInfo?.data?.username}{" "}
+        </h1>
+        <p className="text-gray-500 mb-6">
+          Herecles whats happening with your store today.
+        </p>
+      </div>
       {/* Date Picker and Add Product Button */}
-      <div className="flex justify-between items-center mb-8">
+      {/* <div className="flex justify-between items-center mb-8">
         <Input
           type="date"
           className="w-[250px]"
@@ -36,7 +39,7 @@ const Dashboard = () => {
         <Button color="primary" className="bg-teal-300 text-white">
           <Link href={`/${user?.role}/create-product`}> Add Product </Link>
         </Button>
-      </div>
+      </div> */}
 
       {/* Cards */}
       <div className="grid grid-cols-4 gap-6">
