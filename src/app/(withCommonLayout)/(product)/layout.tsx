@@ -13,6 +13,7 @@ export default function layout({ children }: { children: ReactNode }) {
         <section className="col-span-2 pl-10">
           <SidebarFilter />
         </section>
+
         <main className="col-span-10">{children}</main>
       </section>
     </section>

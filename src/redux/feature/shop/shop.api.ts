@@ -27,6 +27,14 @@ const shopApi = baseApi.injectEndpoints({
       providesTags: ["getShopInfoById"],
     }),
 
+    getAllShopTopTen: builder.query({
+      query: () => {
+        return {
+          url: `/shop`,
+          method: "GET",
+        };
+      },
+    }),
     checkValidityOfFollow: builder.mutation({
       query: (shopFollowInfo) => {
         console.log(shopFollowInfo);
@@ -59,4 +67,5 @@ export const {
   useGetShopInfoQuery,
   useCheckValidityOfFollowMutation,
   useUnfollowShopMutation,
+  useGetAllShopTopTenQuery,
 } = shopApi;

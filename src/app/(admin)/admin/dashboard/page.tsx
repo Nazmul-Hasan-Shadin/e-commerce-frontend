@@ -1,17 +1,102 @@
 "use client";
 import React from "react";
-import { Card, CardBody, Button, Input } from "@nextui-org/react";
+import { Card, CardBody, Button } from "@nextui-org/react";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
-import Link from "next/link";
 import { useAppSelector } from "@/src/redux/hook";
 import { BsBagDash } from "react-icons/bs";
 import { FaDollarSign } from "react-icons/fa6";
 import { IoCubeOutline } from "react-icons/io5";
 import { FaSackDollar } from "react-icons/fa6";
+import {
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+  User,
+  Chip,
+} from "@nextui-org/react";
+import { useGetAllShopTopTenQuery } from "@/src/redux/feature/shop/shop.api";
 
-const AdminDashbaord = () => {
+import { PureComponent } from "react";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+
+const chartData = [
+  {
+    name: "Page A",
+    uv: 4000,
+    pv: 2400,
+    amt: 2400,
+  },
+  {
+    name: "Page B",
+    uv: 3000,
+    pv: 1398,
+    amt: 2210,
+  },
+  {
+    name: "Page C",
+    uv: 2000,
+    pv: 9800,
+    amt: 2290,
+  },
+  {
+    name: "Page D",
+    uv: 2780,
+    pv: 3908,
+    amt: 2000,
+  },
+  {
+    name: "Page E",
+    uv: 1890,
+    pv: 4800,
+    amt: 2181,
+  },
+  {
+    name: "Page F",
+    uv: 2390,
+    pv: 3800,
+    amt: 2500,
+  },
+  {
+    name: "Page G",
+    uv: 3490,
+    pv: 4300,
+    amt: 2100,
+  },
+];
+
+interface TableColumn {
+  name: string;
+  uid: keyof UserData;
+}
+
+interface UserData {
+  id: number;
+  name: string;
+  logo: string;
+  description: string;
+  email: string;
+  avatar: string;
+}
+
+const AdminDashbaord: React.FC = () => {
+  const { data: allshopTopTen } = useGetAllShopTopTenQuery(undefined);
   const { data: shopOwnerInfo } = useGetCurrentUserQuery(undefined);
   const user = useAppSelector((state) => state.auth.user);
+
+  console.log(allshopTopTen, "all shop");
+
   const data = {
     earnings: { value: 559250, percentage: 16.24 },
     orders: { value: 36894, percentage: -3.57 },
@@ -19,18 +104,49 @@ const AdminDashbaord = () => {
     balance: { value: 165890, percentage: 0.0 },
   };
 
+  const tableColumns: TableColumn[] = [
+    { name: "NAME", uid: "name" },
+    { name: "ACTIONS", uid: "actions" },
+  ];
+
+  const renderCell = (
+    user: UserData,
+    columnKey: "name" | "logo" | "actions"
+  ) => {
+    switch (columnKey) {
+      case "name":
+        return (
+          <User
+            avatarProps={{ src: user?.logo }}
+            name={user?.name}
+            description={user?.description}
+          />
+        );
+
+      case "actions":
+        return (
+          <div className="flex flex-col gap-2">
+            <p className="font-bold">100</p>
+            <p className="text-gray-400">sales</p>
+          </div>
+        );
+      default:
+        return user[columnKey as keyof UserData];
+    }
+  };
+
   return (
-    <div className="min-h-screen  z-10 p-8">
-      {/* ==========Greeeting section========== */}
+    <div className="min-h-screen z-10 p-8">
+      {/* ==========Greeting section========== */}
       <h1 className="text-2xl font-bold mb-2">
         Good Morning, {shopOwnerInfo?.data?.username}{" "}
       </h1>
       <p className="text-gray-500 mb-6">
-        Herecles whats happening with your store today.
+        Here's what's happening with your store today.
       </p>
 
       {/* Cards */}
-      <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 mb-7  md:grid-cols-3 lg:grid-cols-4 gap-6">
         {/* Earnings */}
         <Card shadow="sm" className="p-4">
           <CardBody>
@@ -111,6 +227,83 @@ const AdminDashbaord = () => {
             </div>
           </CardBody>
         </Card>
+      </div>
+
+      {/* ====================bar and pice chart================== */}
+
+      <div className="flex-col lg:flex lg:flex-row  gap-3">
+        <div className=" h-[300] lg:h-[400px] w-full flex-1">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              width={500}
+              className="w-full"
+              height={300}
+              data={chartData}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+              barSize={20}
+            >
+              <XAxis
+                dataKey="name"
+                scale="point"
+                padding={{ left: 10, right: 10 }}
+              />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <CartesianGrid strokeDasharray="3 3" />
+              <Bar dataKey="pv" fill="#8884d8" background={{ fill: "#eee" }} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="flex-1">anotehr</div>
+      </div>
+      {/* ===========Shop Table and Users Table============ */}
+      <div className="bg-[#FFFFFF]   ">
+        <div className="flex-col lg:flex lg:flex-row lg:justify-between gap-3 ">
+          <div className="flex-1">
+            <Table>
+              <TableHeader columns={tableColumns}>
+                {(column) => (
+                  <TableColumn key={column.uid}>{column.name}</TableColumn>
+                )}
+              </TableHeader>
+              <TableBody items={allshopTopTen?.data || []}>
+                {(user) => (
+                  <TableRow key={allshopTopTen?.id}>
+                    {(columnKey) => (
+                      <TableCell>{renderCell(user, columnKey)}</TableCell>
+                    )}
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+
+          <div className="flex-1">
+            <Table>
+              <TableHeader columns={tableColumns}>
+                {(column) => (
+                  <TableColumn key={column.uid}>{column.name}</TableColumn>
+                )}
+              </TableHeader>
+              <TableBody items={allshopTopTen?.data || []}>
+                {(user) => (
+                  <TableRow key={allshopTopTen?.id}>
+                    {(columnKey) => (
+                      <TableCell>{renderCell(user, columnKey)}</TableCell>
+                    )}
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+        </div>
       </div>
     </div>
   );

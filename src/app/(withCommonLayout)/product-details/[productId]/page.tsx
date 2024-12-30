@@ -117,11 +117,11 @@ const ProductDetails = ({ params }: { params: Params }) => {
                     <GiSelfLove className="text-5xl" />
                   </div>
 
-                  <div>
+                  {/* <div>
                     <Checkbox defaultSelected radius="full">
                       I agree with Terms & Conditions
                     </Checkbox>
-                  </div>
+                  </div> */}
 
                   {/* <div className="flex items-center gap-5">
                     <Button

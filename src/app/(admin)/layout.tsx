@@ -7,10 +7,12 @@ export default function layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="">
       <div className="flex  gap-5">
-        <div className="w-auto   z-30">
-          <AdminSidebar />
+        <div className="relative z-30">
+          <div className=" top-0 left-0">
+            <AdminSidebar />
+          </div>
         </div>
-        <main className="w-full absolute md:relative z-10">
+        <main className="w-full bg-[#F5F6FA] absolute md:relative z-10">
           <DashboardNavbar />
           {children}
         </main>
