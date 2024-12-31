@@ -12,13 +12,14 @@ import BottomNav from "@/src/components/module/Home/BottomNav";
 import Banner from "@/src/components/module/Home/Banner";
 import Card from "@/src/components/ui/Card";
 import FeatureProduct from "@/src/components/module/Home/FeatureProduct";
-import Catagories from "@/src/components/module/Home/Catagories";
+
 import Image from "next/image";
 import disocuntImage from "@/src/assests/disountt.webp";
 import Footer from "@/src/components/module/Home/Footer";
 import TopSellProduct from "@/src/components/module/Home/TopSellProduct";
 import AccesoriesAd from "@/src/components/module/Home/AccesoriesAd";
 import WhyChooseUs from "@/src/components/module/Home/WhyChooseUs";
+import Catagories from "@/src/components/module/Home/Catagories";
 
 export default function Home() {
   return (

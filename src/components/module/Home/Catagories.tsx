@@ -1,29 +1,62 @@
-import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
+"use client";
+import { useState, useEffect } from "react";
 import { TCategory } from "@/src/types";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import SkeletonCard from "../../ui/SkeletonCard";
 
-const Catagories = async () => {
-  // https://e-commerce-inky-alpha.vercel.app/api/v1/user/login
-  // http://localhost:3001/api/v1/
-  const result = await fetch(
-    `https://e-commerce-inky-alpha.vercel.app/api/v1/category`,
-    {
-      cache: "no-store",
-    }
-  );
-  const categoryList = await result.json();
+const Categories = () => {
+  const [categories, setCategories] = useState<TCategory[] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  console.log(categoryList, "iam categ");
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const result = await fetch(
+          "https://e-commerce-inky-alpha.vercel.app/api/v1/category",
+          {
+            cache: "no-store",
+          }
+        );
+
+        if (!result.ok) {
+          throw new Error(`HTTP error! status: ${result.status}`);
+        }
+        const categoryList = await result.json();
+        setCategories(categoryList.data);
+      } catch (err: any) {
+        setError(err.message || "Something went wrong");
+        console.error("Error fetching categories:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []); // Empty dependency array ensures this runs only once on mount
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!categories) {
+    return <div>No categories found.</div>; // Handle the null case
+  }
 
   return (
-    <div className="w-full">
+    <div className="w-full mt-20">
       <h3 className="text-2xl ml-10 font-bold mb-1">Shop By Categories</h3>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
-        {categoryList?.data?.slice(1, 6).map((category: TCategory) => {
-          return (
-            // Add return here
+        {isLoading ? (
+          <>
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+          </>
+        ) : (
+          categories.slice(1, 6).map((category: TCategory) => (
             <div key={category.id} className="flex flex-col items-center">
               <Link href={`/product?categoryName=${category.id}`}>
                 <Image
@@ -38,11 +71,11 @@ const Catagories = async () => {
               </Link>
               <h2 className="text-lg font-semibold">{category.name}</h2>
             </div>
-          );
-        })}
+          ))
+        )}
       </div>
     </div>
   );
 };
 
-export default Catagories;
+export default Categories;

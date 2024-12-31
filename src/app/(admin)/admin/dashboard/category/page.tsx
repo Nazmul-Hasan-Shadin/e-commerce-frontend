@@ -1,18 +1,18 @@
 "use client";
+import toast from "react-hot-toast";
 
-import EForm from "@/src/components/form/EForm";
-import EInput from "@/src/components/form/EInput";
-import FxTextArea from "@/src/components/form/ETextArea";
-import { useCreateCategoryMutation } from "@/src/redux/feature/admin/admin.categoryapi";
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/react";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import toast from "react-hot-toast";
+import FxTextArea from "@/src/components/form/ETextArea";
+import EForm from "@/src/components/form/EForm";
+import EInput from "@/src/components/form/EInput";
+import { useCreateCategoryMutation } from "@/src/redux/feature/admin/admin.categoryapi";
 
 const AddCategory = () => {
-  const [handleCreateCategory, { data, error }] = useCreateCategoryMutation();
+  const [handleCreateCategory] = useCreateCategoryMutation();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
 
@@ -56,7 +56,6 @@ const AddCategory = () => {
       setSelectedFile(file);
       setImagePreview(URL.createObjectURL(file));
     }
-    console.log(imagePreview, "ima selectefile");
   };
 
   return (
@@ -87,39 +86,39 @@ const AddCategory = () => {
 
           {imagePreview ? (
             <Image
-              src={imagePreview}
-              width={400}
-              height={400}
               alt="preview"
               className="max-w-full max-h-full object-cover"
+              height={400}
+              src={imagePreview}
+              width={400}
             />
           ) : (
             <div className="text-center text-gray-500">
-              <p>Droop Your image here or clcik to browse</p>
+              <p>Drop your image here or click to browse</p>
             </div>
           )}
         </div>
-        hi baby
+
         <div className="grid grid-cols-1 gap-6 mb-4">
           <EInput
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-[#fd6506] focus:outline-none"
+            label="Name"
             name="name"
             type="text"
-            label="Name"
             variant="bordered"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-[#fd6506] focus:outline-none"
           />
           <FxTextArea
-            name="description"
-            label="Description"
-            variant="bordered"
             className="w-full p-3 border border-gray-300 rounded-lg focus:ring-[#fd6506] focus:outline-none"
+            label="Description"
+            name="description"
+            variant="bordered"
           />
         </div>
         <div className="flex justify-end mt-4">
           <Button
             className="bg-[#fd6506] text-white py-2 px-6 rounded-lg hover:bg-[#f84f01] transition-all"
-            variant="flat"
             type="submit"
+            variant="flat"
           >
             Create Category
           </Button>

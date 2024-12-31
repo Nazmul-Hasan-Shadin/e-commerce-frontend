@@ -19,7 +19,6 @@ import {
 } from "@nextui-org/react";
 import { useGetAllShopTopTenQuery } from "@/src/redux/feature/shop/shop.api";
 
-import { PureComponent } from "react";
 import {
   BarChart,
   Bar,
@@ -87,15 +86,15 @@ interface UserData {
   logo: string;
   description: string;
   email: string;
+  action: string;
   avatar: string;
 }
 
-const AdminDashbaord: React.FC = () => {
+const AdminDashboard: React.FC = () => {
   const { data: allshopTopTen } = useGetAllShopTopTenQuery(undefined);
   const { data: shopOwnerInfo } = useGetCurrentUserQuery(undefined);
   const user = useAppSelector((state) => state.auth.user);
-
-  console.log(allshopTopTen, "all shop");
+  console.log(allshopTopTen, "iam shoall shop");
 
   const data = {
     earnings: { value: 559250, percentage: 16.24 },
@@ -106,7 +105,7 @@ const AdminDashbaord: React.FC = () => {
 
   const tableColumns: TableColumn[] = [
     { name: "NAME", uid: "name" },
-    { name: "ACTIONS", uid: "actions" },
+    { name: "ACTIONS", uid: "action" },
   ];
 
   const renderCell = (
@@ -118,8 +117,8 @@ const AdminDashbaord: React.FC = () => {
         return (
           <User
             avatarProps={{ src: user?.logo }}
-            name={user?.name}
             description={user?.description}
+            name={user?.name}
           />
         );
 
@@ -142,7 +141,7 @@ const AdminDashbaord: React.FC = () => {
         Good Morning, {shopOwnerInfo?.data?.username}{" "}
       </h1>
       <p className="text-gray-500 mb-6">
-        Here's what's happening with your store today.
+        Here&apos;s what&apos;s happening with your store today.
       </p>
 
       {/* Cards */}
@@ -229,7 +228,7 @@ const AdminDashbaord: React.FC = () => {
         </Card>
       </div>
 
-      {/* ====================bar and pice chart================== */}
+      {/* ====================bar and pie chart================== */}
 
       <div className="flex-col lg:flex lg:flex-row  gap-3">
         <div className=" h-[300] lg:h-[400px] w-full flex-1">
@@ -261,22 +260,23 @@ const AdminDashbaord: React.FC = () => {
           </ResponsiveContainer>
         </div>
 
-        <div className="flex-1">anotehr</div>
+        <div className="flex-1">another chart</div>
       </div>
+
       {/* ===========Shop Table and Users Table============ */}
       <div className="bg-[#FFFFFF]   ">
         <div className="flex-col lg:flex lg:flex-row lg:justify-between gap-3 ">
           <div className="flex-1">
-            <Table>
+            <Table aria-label="Shop Top Ten">
               <TableHeader columns={tableColumns}>
                 {(column) => (
                   <TableColumn key={column.uid}>{column.name}</TableColumn>
                 )}
               </TableHeader>
               <TableBody items={allshopTopTen?.data || []}>
-                {(user) => (
-                  <TableRow key={allshopTopTen?.id}>
-                    {(columnKey) => (
+                {(user: any) => (
+                  <TableRow key={user.id}>
+                    {(columnKey: any) => (
                       <TableCell>{renderCell(user, columnKey)}</TableCell>
                     )}
                   </TableRow>
@@ -286,16 +286,16 @@ const AdminDashbaord: React.FC = () => {
           </div>
 
           <div className="flex-1">
-            <Table>
+            <Table aria-label="User Table">
               <TableHeader columns={tableColumns}>
                 {(column) => (
                   <TableColumn key={column.uid}>{column.name}</TableColumn>
                 )}
               </TableHeader>
               <TableBody items={allshopTopTen?.data || []}>
-                {(user) => (
-                  <TableRow key={allshopTopTen?.id}>
-                    {(columnKey) => (
+                {(user: any) => (
+                  <TableRow key={user.id}>
+                    {(columnKey: any) => (
                       <TableCell>{renderCell(user, columnKey)}</TableCell>
                     )}
                   </TableRow>
@@ -309,4 +309,4 @@ const AdminDashbaord: React.FC = () => {
   );
 };
 
-export default AdminDashbaord;
+export default AdminDashboard;

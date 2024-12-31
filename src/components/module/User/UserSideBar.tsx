@@ -25,70 +25,58 @@ const UserSideBar = () => {
   };
 
   return (
-    <div>
-      <div
-        className={`flex flex-col bg-gray-800 h-screen text-white ${
-          isOpen ? "w-64" : "w-20"
-        } transition-all duration-300`}
-      >
-        {/* Logo Section */}
-        <div className="flex items-center justify-between p-4">
-          <div className="flex items-center space-x-2">
-            <div className="bg-orange-500 p-2 rounded-full">
-              <FaShoppingCart className="h-6 w-6 text-white" />
-            </div>
-            {isOpen && <h1 className="text-xl font-bold">Larkon</h1>}
+    <div
+      className={`flex flex-col bg-white text-black h-screen  transition-all duration-300 pl-3`}
+    >
+      {/* Logo Section */}
+      <div className="flex items-center justify-between p-4">
+        <div className="flex items-center space-x-2">
+          <div className="bg-orange-500 p-2 rounded-full">
+            <FaShoppingCart className="h-6 w-6 text-white" />
           </div>
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-400 hover:text-white"
-          >
-            <FaChevronDown
-              className={`h-6 w-6 transform ${isOpen ? "rotate-180" : ""}`}
-            />
-          </button>
+          {isOpen && <h1 className="text-xl font-bold">Larkon</h1>}
         </div>
-
-        {/* Navigation Links */}
-        <nav className="flex flex-col space-y-2 mt-6">
-          {/* Dashboard */}
-          <SidebarItem
-            label="Home"
-            icon={<FaClipboardList />}
-            isOpen={isOpen}
-            path="/"
-          />
-
-          <SidebarItem
-            label="Dashboard"
-            icon={<FaClipboardList />}
-            isOpen={isOpen}
-            path="/dashboard"
-          />
-
-          {/* Orders */}
-          {user && (
-            <SidebarMenu
-              label="Orders"
-              icon={<FaBoxOpen />}
-              isOpen={isOpen}
-              isMenuOpen={openMenu === "orders"}
-              onClick={() => toggleMenu("orders")}
-              items={[
-                { name: "All Orders", path: `/${user.role}/dashboard/order` },
-              ]}
-            />
-          )}
-
-          {/* Settings */}
-          <SidebarItem
-            label="Settings"
-            icon={<FaCog />}
-            isOpen={isOpen}
-            path="/settings"
-          />
-        </nav>
       </div>
+
+      {/* Navigation Links */}
+      <nav className="flex flex-col space-y-2 mt-6">
+        {/* Dashboard */}
+
+        <SidebarItem
+          label="Profile"
+          icon={<FaClipboardList />}
+          isOpen={isOpen}
+          path="/dashboard"
+        />
+        <SidebarItem
+          label="Order"
+          icon={<FaClipboardList />}
+          isOpen={isOpen}
+          path="/user/dashboard/order"
+        />
+
+        {/* Orders */}
+        {/* {user && (
+          <SidebarMenu
+            label="Orders"
+            icon={<FaBoxOpen />}
+            isOpen={isOpen}
+            isMenuOpen={openMenu === "orders"}
+            onClick={() => toggleMenu("orders")}
+            items={[
+              { name: "All Orders", path: `/${user.role}/dashboard/order` },
+            ]}
+          />
+        )} */}
+
+        {/* Settings */}
+        <SidebarItem
+          label="Settings"
+          icon={<FaCog />}
+          isOpen={isOpen}
+          path="/user/dashboard/settings"
+        />
+      </nav>
     </div>
   );
 };

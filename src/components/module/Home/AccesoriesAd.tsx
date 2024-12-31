@@ -11,6 +11,7 @@ import CategoryCard from "./ClothCategory";
 import Card from "../../ui/Card";
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import Container from "../../ui/Container";
+import SkeletonCard from "../../ui/SkeletonCard";
 
 const AccesoriesAd = () => {
   const { data: products, isLoading, isError } = useGetAllProductQuery({});
@@ -54,11 +55,20 @@ const AccesoriesAd = () => {
             modules={[Pagination]}
             className="mySwiper p-0"
           >
-            {products?.data.slice(1, 4).map((product: any, index: number) => (
-              <SwiperSlide key={index} className="md:p-4">
-                <Card key={product.id} product={product} />
+            {isLoading ? (
+              <SwiperSlide className="md:p-4 grid-cols-2 lg:grid-cols-3 ">
+                <SkeletonCard />
+                <SkeletonCard />
+                <SkeletonCard />
+                <SkeletonCard />
               </SwiperSlide>
-            ))}
+            ) : (
+              products?.data.slice(1, 4).map((product: any, index: number) => (
+                <SwiperSlide key={index} className="md:p-4">
+                  <Card key={product.id} product={product} />
+                </SwiperSlide>
+              ))
+            )}
           </Swiper>
         </div>
 

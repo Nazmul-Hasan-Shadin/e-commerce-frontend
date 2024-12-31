@@ -1,10 +1,8 @@
 "use client";
-
 import Card from "@/src/components/ui/Card";
 import Container from "@/src/components/ui/Container";
 import PageHeaderwithBanner from "@/src/components/ui/PageHeaderwithBanner";
 import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
-import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState, Suspense } from "react";
@@ -15,6 +13,8 @@ import { CiFilter } from "react-icons/ci";
 import ESelect from "@/src/components/form/ESelect";
 import { Button } from "@nextui-org/button";
 import { TCategory } from "@/src/types";
+import { useAppSelector } from "@/src/redux/hook";
+import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 
 type ProductFilterFormValues = {
   categoryName: string;
@@ -23,26 +23,37 @@ type ProductFilterFormValues = {
 const ProductsPageContent = () => {
   const searchParams = useSearchParams();
   const categoryNameFromQuery = searchParams.get("categoryName");
+  const categoryFilterState = useAppSelector((state) => state.category);
 
+  const categoryFilterByArray = categoryFilterState.categoryName;
+
+  // Set up product filter state
   const [productFilter, setProductFilter] = useState(() => ({
-    categoryName: categoryNameFromQuery || "",
+    categoryName: categoryNameFromQuery || null,
   }));
 
-  const { data: productData } = useGetAllProductQuery(productFilter);
+  console.log(productFilter, "iam productilter");
 
-  // Load all categories
+  // Fetch product data using the query
+  const { data: productData } = useGetAllProductQuery({
+    categoryFilterByArray,
+    categoryName: productFilter.categoryName || undefined,
+  });
+
+  console.log(productData, "iamproduct data");
+
+  // Fetch category data
   const { data: categoryList } = useGetAllCategoryQuery(undefined);
 
-  //   ========form submit handler for filter product=========
-
+  // Form submit handler for filter
   const onSubmit: SubmitHandler<ProductFilterFormValues> = (data) => {
     setProductFilter((prev) => ({
       ...prev,
-      categoryName: data.categoryName as string,
+      categoryName: data.categoryName || null,
     }));
-    console.log("form data", data);
   };
 
+  // Update product filter if categoryName is in the URL query
   useEffect(() => {
     if (categoryNameFromQuery) {
       setProductFilter((prev) => ({
@@ -54,7 +65,7 @@ const ProductsPageContent = () => {
 
   return (
     <div>
-      <EForm onSubmit={onSubmit}>
+      {/* <EForm onSubmit={onSubmit}>
         <div className="w-4/5 mx-auto z-40 my-8">
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-1 items-center">
             <span className="flex items-center gap-3">
@@ -83,12 +94,12 @@ const ProductsPageContent = () => {
             </Button>
           </div>
         </div>
-      </EForm>
+      </EForm> */}
 
       <Container>
         <h2 className="text-2xl text-primary-color ml-5">Products</h2>
         <div className="grid grid-cols-4 gap-4">
-          {productData?.data?.map((product: any) => (
+          {productData?.data.map((product: any) => (
             <Card key={product.id} product={product} />
           ))}
         </div>

@@ -79,7 +79,7 @@ const Card = ({ product }: { product: IProduct }) => {
   };
 
   return (
-    <div className=" w-full max-w-[190px] sm:max-w-0 md:w-full">
+    <div className=" relative w-full max-w-[190px] sm:max-w-0 md:w-full">
       <NextCard
         isHoverable
         className=" w-[168px] mr-3 md:w-[260px] md:p-3 h-auto shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
@@ -94,6 +94,9 @@ const Card = ({ product }: { product: IProduct }) => {
             className="rounded-t-lg w-[126px] md:w-[200px]"
           />
         </div>
+        <del className="text-lg absolute top-1 text-primary-color p-1 right-1">
+          ${product?.price}
+        </del>
 
         {/* Card Header */}
         <CardHeader className="md:p-1">
@@ -106,12 +109,11 @@ const Card = ({ product }: { product: IProduct }) => {
         <CardBody className="md:p-1">
           <div className="flex flex-col md:gap-2">
             <div className="flex items-center space-x-2">
-              <del className="text-lg text-gray-500">${product?.price}</del>
               <span className="text-xl font-bold text-[#e10600]">
                 ${product?.price - product?.discount}
               </span>
             </div>
-            <p className="text-sm  text-gray-600">
+            <p className="text-sm  text-gray-">
               {getShortDescription(product?.description)}
             </p>
           </div>
@@ -122,7 +124,7 @@ const Card = ({ product }: { product: IProduct }) => {
           <Button
             onClick={handleAddToCart}
             variant="bordered"
-            className="w-4 text-[13px] md:w-28"
+            className="w-4 text-[13px] md:w-28 bg-primary-color text-white"
           >
             Add to cart
           </Button>

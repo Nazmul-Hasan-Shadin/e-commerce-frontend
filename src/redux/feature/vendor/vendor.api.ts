@@ -12,13 +12,22 @@ const vendorApi = baseApi.injectEndpoints({
       },
     }),
     getAllProduct: builder.query({
-      query: ({ searchTerm, categoryName, isFlash = "" }) => {
+      query: ({
+        searchTerm,
+        categoryName = undefined,
+        categoryFilterByArray,
+        isFlash = "",
+      }) => {
+        console.log(categoryFilterByArray, "iam params inside reducer");
+
         const params: Record<string, string> = {};
 
         if (searchTerm) {
           params.searchTerm = searchTerm;
         }
-
+        if (categoryFilterByArray?.length) {
+          params.categoryFilter = categoryFilterByArray.join(",");
+        }
         if (categoryName) {
           params.categoryName = categoryName;
         }
