@@ -29,7 +29,7 @@ const Sidebar = () => {
     <div className={`${isOpen ? "md:w-[256] " : "w-20"}`}>
       <div className="fixed">
         <div
-          className={`flex flex-col bg-gray-800 h-screen text-white ${
+          className={`flex flex-col bg-white text-black h-screen  ${
             isOpen ? " md:block md:w-64 lg:w-64" : "w-0 md:w-20"
           } transition-all duration-300`}
         >
@@ -39,7 +39,7 @@ const Sidebar = () => {
               <div className="bg-orange-500 hidden md:block p-2 rounded-full">
                 <FaShoppingCart className="h-6  w-6 text-white" />
               </div>
-              {isOpen && <h1 className="text-xl font-bold">Larkon</h1>}
+              {isOpen && <h1 className="text-xl font-bold">Dashboard</h1>}
             </div>
             <button
               onClick={() => setIsOpen(!isOpen)} // arrow button for collaps sidebar
@@ -95,7 +95,7 @@ const Sidebar = () => {
             )}
 
             {/* Inventory */}
-            <SidebarMenu
+            {/* <SidebarMenu
               label="Inventory"
               icon={<FaWarehouse />}
               isOpen={isOpen}
@@ -105,10 +105,10 @@ const Sidebar = () => {
                 { name: "Warehouse", path: "/inventory/warehouse" },
                 { name: "Received Orders", path: "/inventory/received-orders" },
               ]}
-            />
+            /> */}
 
             {/* Orders */}
-            {user && (
+            {/* {user && (
               <SidebarMenu
                 label="Orders"
                 icon={<FaBoxOpen />}
@@ -118,6 +118,15 @@ const Sidebar = () => {
                 items={[
                   { name: "All Orders", path: `/${user.role}/dashboard/order` },
                 ]}
+              />
+            )} */}
+
+            {user && (
+              <SidebarItem
+                label="Order"
+                icon={<FaClipboardList />}
+                isOpen={isOpen}
+                path={`/${user.role}/dashboard/order`}
               />
             )}
 

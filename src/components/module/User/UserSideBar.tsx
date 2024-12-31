@@ -10,10 +10,12 @@ import {
   FaBoxOpen,
   FaClipboardList,
 } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
 
 import { useAppSelector } from "@/src/redux/hook";
 import { SidebarItem } from "@/src/components/module/vendor/SidebarItem";
-import { SidebarMenu } from "@/src/components/module/vendor/SidbarMenu";
+import { RiListOrdered2 } from "react-icons/ri";
+import Image from "next/image";
 
 const UserSideBar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -31,26 +33,31 @@ const UserSideBar = () => {
       {/* Logo Section */}
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center space-x-2">
-          <div className="bg-orange-500 p-2 rounded-full">
-            <FaShoppingCart className="h-6 w-6 text-white" />
+          <div>
+            <Image
+              src={"https://i.pravatar.cc/150?u=a042581f4e29026704d"}
+              width={90}
+              alt="user image"
+              height={100}
+              className="rounded-full"
+            />
           </div>
-          {isOpen && <h1 className="text-xl font-bold">Larkon</h1>}
         </div>
       </div>
 
       {/* Navigation Links */}
-      <nav className="flex flex-col space-y-2 mt-6">
+      <nav className="flex flex-col space-y-2 mt-6 pl-5">
         {/* Dashboard */}
 
         <SidebarItem
           label="Profile"
-          icon={<FaClipboardList />}
+          icon={<CgProfile className="text-2xl" />}
           isOpen={isOpen}
           path="/dashboard"
         />
         <SidebarItem
           label="Order"
-          icon={<FaClipboardList />}
+          icon={<RiListOrdered2 className="text-2xl" />}
           isOpen={isOpen}
           path="/user/dashboard/order"
         />

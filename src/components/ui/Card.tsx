@@ -30,7 +30,7 @@ export interface IProduct {
   inventoryCount: number;
   discount: number;
   vendorId?: string;
-  images: string;
+  images: string[];
 }
 
 // Function to limit description to 30 words
@@ -87,7 +87,7 @@ const Card = ({ product }: { product: IProduct }) => {
         {/* Image */}
         <div className="relative h-32 md:h-56 w-full mx-auto">
           <Image
-            src={product?.images}
+            src={product?.images[0]}
             alt={product?.name}
             layout="fill"
             objectFit="contain"

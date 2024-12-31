@@ -1,5 +1,6 @@
 "use client";
-import React from "react";
+
+import React, { useState } from "react";
 import { Button } from "@nextui-org/react";
 import { SubmitHandler } from "react-hook-form";
 import EForm from "@/src/components/form/EForm";
@@ -15,6 +16,16 @@ import { useAppDispatch } from "@/src/redux/hook";
 import toast from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
 
+// Define role type for stricter type checking
+type Role = "user" | "admin" | "vendor";
+
+// Default credentials for each role
+const roleCredentials: Record<Role, { email: string; password: string }> = {
+  user: { email: "user@gmail.com", password: "12345" },
+  admin: { email: "bani@gmail.com", password: "1234" },
+  vendor: { email: "vendor@gmail.com", password: "1234" },
+};
+
 const Login = () => {
   const [login] = useLoginMutation();
   const [handleForgetPassAndSendEmail] = useForgetPasswordMutation();
@@ -22,6 +33,21 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const navigate = usePathname();
+
+  const [selectedRole, setSelectedRole] = useState<Role>("user"); // Track selected role
+  const [credentials, setCredentials] = useState<{
+    email: string;
+    password: string;
+  }>({
+    email: roleCredentials[selectedRole].email,
+    password: roleCredentials[selectedRole].password,
+  });
+
+  // Handle role selection and update credentials
+  const handleRoleChange = (role: Role) => {
+    setSelectedRole(role);
+    setCredentials(roleCredentials[role]);
+  };
 
   const onSubmit: SubmitHandler<any> = async (formData) => {
     const toastId = toast.loading("Logging in...");
@@ -46,9 +72,9 @@ const Login = () => {
       if (user.role === "vendor") {
         if (navigate === "/login") {
           if (handleGetUser?.data?.data?.shop == null) {
-            router.push(`${user.role}/dashboard/create-shop`);
+            router.push(`$/{user.role}/dashboard/create-shop`);
           }
-          router.push(`${user.role}/dashboard/products/add-product`);
+          router.push(`/${user.role}/dashboard`);
         }
       } else {
         router.push("/");
@@ -92,15 +118,60 @@ const Login = () => {
           Login
         </h2>
 
+        {/* Role Selection Tabs */}
+        <div className="flex justify-between mb-6 border-b">
+          <button
+            className={`w-1/3 text-center py-2 ${selectedRole === "user" ? "font-bold text-[#fd6506]" : "text-gray-600"}`}
+            onClick={() => handleRoleChange("user")}
+          >
+            User
+          </button>
+          <button
+            className={`w-1/3 text-center py-2 ${selectedRole === "admin" ? "font-bold text-[#fd6506]" : "text-gray-600"}`}
+            onClick={() => handleRoleChange("admin")}
+          >
+            Admin
+          </button>
+          <button
+            className={`w-1/3 text-center py-2 ${selectedRole === "vendor" ? "font-bold text-[#fd6506]" : "text-gray-600"}`}
+            onClick={() => handleRoleChange("vendor")}
+          >
+            Vendor
+          </button>
+        </div>
+
+        {/* Display credentials for selected role */}
+        <div className="mb-6 text-center text-xs">
+          <p className="font-semibold">Credentials for {selectedRole}:</p>
+          <p>
+            Email: <span className="font-mono">{credentials.email}</span>
+          </p>
+          <p>
+            Password: <span className="font-mono">{credentials.password}</span>
+          </p>
+        </div>
+
         <EForm onSubmit={onSubmit}>
           {/* Email Input */}
           <div className="mb-4">
-            <EInput label="Email" name="email" required type="email" />
+            <EInput
+              label="Email"
+              name="email"
+              required
+              type="email"
+              defaultValue={credentials.email}
+            />
           </div>
 
           {/* Password Input */}
           <div className="mb-6">
-            <EInput label="Password" name="password" required type="password" />
+            <EInput
+              label="Password"
+              name="password"
+              required
+              type="password"
+              defaultValue={credentials.password}
+            />
           </div>
 
           {/* Submit Button */}

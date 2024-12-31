@@ -15,7 +15,7 @@ const SearchResultList = ({ searchResult }: { searchResult: IProduct[] }) => {
           >
             <div className="w-12 h-12 mr-3">
               <Image
-                src={product.images}
+                src={product.images[0]}
                 alt={product.name}
                 width={48}
                 height={48}

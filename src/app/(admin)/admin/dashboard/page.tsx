@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-import { Card, CardBody, Button } from "@nextui-org/react";
+import React, { useState } from "react";
+import { Card, CardBody, Button, Pagination } from "@nextui-org/react";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import { useAppSelector } from "@/src/redux/hook";
 import { BsBagDash } from "react-icons/bs";
@@ -15,7 +15,6 @@ import {
   TableRow,
   TableCell,
   User,
-  Chip,
 } from "@nextui-org/react";
 import { useGetAllShopTopTenQuery } from "@/src/redux/feature/shop/shop.api";
 
@@ -31,48 +30,13 @@ import {
 } from "recharts";
 
 const chartData = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
+  { name: "Page A", uv: 4000, pv: 2400, amt: 2400 },
+  { name: "Page B", uv: 3000, pv: 1398, amt: 2210 },
+  { name: "Page C", uv: 2000, pv: 9800, amt: 2290 },
+  { name: "Page D", uv: 2780, pv: 3908, amt: 2000 },
+  { name: "Page E", uv: 1890, pv: 4800, amt: 2181 },
+  { name: "Page F", uv: 2390, pv: 3800, amt: 2500 },
+  { name: "Page G", uv: 3490, pv: 4300, amt: 2100 },
 ];
 
 interface TableColumn {
@@ -94,7 +58,8 @@ const AdminDashboard: React.FC = () => {
   const { data: allshopTopTen } = useGetAllShopTopTenQuery(undefined);
   const { data: shopOwnerInfo } = useGetCurrentUserQuery(undefined);
   const user = useAppSelector((state) => state.auth.user);
-  console.log(allshopTopTen, "iam shoall shop");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
 
   const data = {
     earnings: { value: 559250, percentage: 16.24 },
@@ -105,24 +70,26 @@ const AdminDashboard: React.FC = () => {
 
   const tableColumns: TableColumn[] = [
     { name: "NAME", uid: "name" },
+    { name: "LOGO", uid: "logo" },
+    { name: "EMAIL", uid: "email" },
     { name: "ACTIONS", uid: "action" },
   ];
 
-  const renderCell = (
-    user: UserData,
-    columnKey: "name" | "logo" | "actions"
-  ) => {
+  const renderCell = (user: UserData, columnKey: keyof UserData) => {
     switch (columnKey) {
       case "name":
         return (
           <User
-            avatarProps={{ src: user?.logo }}
-            description={user?.description}
-            name={user?.name}
+            avatarProps={{ src: user.logo }}
+            description={user.description}
+            name={user.name}
           />
         );
-
-      case "actions":
+      case "logo":
+        return <img src={user.logo} alt={`${user.name}'s logo`} width="40" />;
+      case "email":
+        return <span>{user.email}</span>;
+      case "action":
         return (
           <div className="flex flex-col gap-2">
             <p className="font-bold">100</p>
@@ -130,8 +97,15 @@ const AdminDashboard: React.FC = () => {
           </div>
         );
       default:
-        return user[columnKey as keyof UserData];
+        return user[columnKey];
     }
+  };
+
+  // Paginate the data
+  const paginateData = (data: UserData[]) => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return data.slice(startIndex, endIndex);
   };
 
   return (
@@ -256,53 +230,34 @@ const AdminDashboard: React.FC = () => {
               <Legend />
               <CartesianGrid strokeDasharray="3 3" />
               <Bar dataKey="pv" fill="#8884d8" background={{ fill: "#eee" }} />
+              <Bar dataKey="uv" fill="#82ca9d" />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
-        <div className="flex-1">another chart</div>
-      </div>
-
-      {/* ===========Shop Table and Users Table============ */}
-      <div className="bg-[#FFFFFF]   ">
-        <div className="flex-col lg:flex lg:flex-row lg:justify-between gap-3 ">
-          <div className="flex-1">
-            <Table aria-label="Shop Top Ten">
-              <TableHeader columns={tableColumns}>
-                {(column) => (
-                  <TableColumn key={column.uid}>{column.name}</TableColumn>
-                )}
-              </TableHeader>
-              <TableBody items={allshopTopTen?.data || []}>
-                {(user: any) => (
-                  <TableRow key={user.id}>
-                    {(columnKey: any) => (
-                      <TableCell>{renderCell(user, columnKey)}</TableCell>
-                    )}
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </div>
-
-          <div className="flex-1">
-            <Table aria-label="User Table">
-              <TableHeader columns={tableColumns}>
-                {(column) => (
-                  <TableColumn key={column.uid}>{column.name}</TableColumn>
-                )}
-              </TableHeader>
-              <TableBody items={allshopTopTen?.data || []}>
-                {(user: any) => (
-                  <TableRow key={user.id}>
-                    {(columnKey: any) => (
-                      <TableCell>{renderCell(user, columnKey)}</TableCell>
-                    )}
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </div>
+        {/* Shop Table */}
+        <div className="flex-1 w-full h-full">
+          <Table aria-label="Shop Table">
+            <TableHeader>
+              {tableColumns.map((column) => (
+                <TableColumn key={column.name}>{column.name}</TableColumn>
+              ))}
+            </TableHeader>
+            <TableBody>
+              {paginateData(allshopTopTen?.data || []).map((user) => (
+                <TableRow key={user.id}>
+                  {tableColumns.map(({ uid }) => (
+                    <TableCell key={uid}>{renderCell(user, uid)}</TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          <Pagination
+            onChange={(page) => setCurrentPage(page)}
+            initialPage={currentPage}
+            total={Math.ceil(allshopTopTen?.data?.length || 0)} // Total pages
+          />
         </div>
       </div>
     </div>

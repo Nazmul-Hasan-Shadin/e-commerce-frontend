@@ -25,7 +25,7 @@ interface Product {
   inventoryCount: number;
   discount: number;
   vendorId: string;
-  images: string;
+  images: string[];
 }
 
 const ShopPage = ({ params }: { params: Params }) => {
@@ -91,21 +91,29 @@ const ShopPage = ({ params }: { params: Params }) => {
   return (
     <div className="max-w-6xl mx-auto p-6">
       {/* Shop Header */}
-      <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col md:flex-row md:items-center gap-4">
-        <div className="flex-1">
-          <h1 className="text-3xl font-bold text-gray-800">
+      <div
+        className="bg-white shadow-lg rounded-lg p-6 flex flex-col md:flex-row md:items-center gap-4 relative"
+        style={{
+          backgroundImage: `url(${shopData?.data?.logo || "/default-shop.jpg"})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/30 rounded-lg" />
+        <div className="relative z-10 flex-1">
+          <h1 className="text-3xl font-bold text-white">
             {shopData?.data?.name}
           </h1>
-          <p className="text-gray-600 mt-2">
-            {shopData?.data?.description} iam descrioption
+          <p className="text-white mt-2">
+            {shopData?.data?.description || "No description available"}
           </p>
-          <p className="text-sm text-gray-500 mt-1">
-            {shopData?.data.shopFollower.length} followers
+          <p className="text-sm text-white mt-1">
+            {shopData?.data?.shopFollower.length} followers
           </p>
         </div>
         <Button
           onPress={handleFollow}
-          className={`py-2 px-6 rounded-lg transition ${
+          className={`relative z-10 py-2 px-6 rounded-lg transition ${
             isFollowing
               ? "bg-gray-300 text-gray-700"
               : "bg-[#fd6506] text-white"

@@ -28,6 +28,9 @@ import { logOut } from "@/src/redux/feature/auth/auth.slice";
 const BottomNav = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const token = useAppSelector((state) => state.auth.token);
+
+  console.log(token, "iam token bro");
+
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
   const menuItems = user?.role
@@ -35,12 +38,14 @@ const BottomNav = () => {
         { label: "Home", link: "/" },
         { label: "Product", link: "/product" },
         { label: "Dashboard", link: `/${user!.role}/dashboard` },
+        { label: "Shop", link: "/shop" },
 
         { label: "About", link: "/about" },
       ]
     : [
         { label: "Home", link: "/" },
         { label: "Product", link: "/product" },
+        { label: "Shop", link: "/shop" },
 
         { label: "About", link: "/about" },
 
@@ -95,7 +100,7 @@ const BottomNav = () => {
 
           {token ? (
             <NavbarItem key="logout" className="text-white">
-              <Button onClick={() => dispatch(logOut())}>LogOut</Button>
+              <Button onPress={() => dispatch(logOut())}>LogOut</Button>
             </NavbarItem>
           ) : (
             <NavbarItem key="login" className="text-white">

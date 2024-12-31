@@ -135,9 +135,10 @@ const NavBar = () => {
               aria-label="Profile Actions"
               className="z-20 opacity-5"
             >
-              <DropdownItem key={"profile"}>My Profile</DropdownItem>
-              <DropdownItem key={"h"}>My Profile</DropdownItem>
-              <DropdownItem key={"f"}>My Profile</DropdownItem>
+              <DropdownItem href="/user/dashboard" key={"/user/profile"}>
+                My Profile
+              </DropdownItem>
+              <DropdownItem key={"f"}>Log Out</DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </NavbarContent>

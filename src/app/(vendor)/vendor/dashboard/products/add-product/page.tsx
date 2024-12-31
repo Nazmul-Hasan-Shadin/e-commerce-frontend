@@ -13,6 +13,7 @@ import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import { useCreateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
 import toast from "react-hot-toast";
 import Image from "next/image";
+import Container from "@/src/components/ui/Container";
 
 const AddProductPage = () => {
   const { isLoading, data: userData } = useGetCurrentUserQuery(undefined);
@@ -21,8 +22,8 @@ const AddProductPage = () => {
   const { data: categoryList } = useGetAllCategoryQuery(undefined);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string>("");
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]); // Updated to support multiple files
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]); // Updated to store multiple image previews
 
   const [handleCreateProduct] = useCreateProductMutation();
 
@@ -35,9 +36,11 @@ const AddProductPage = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && files.length > 0) {
-      const file = files[0];
-      setSelectedFile(file);
-      setImagePreview(URL.createObjectURL(file));
+      setSelectedFiles(Array.from(files));
+      const previews = Array.from(files).map((file) =>
+        URL.createObjectURL(file)
+      );
+      setImagePreviews(previews); // Set previews for each selected file
     }
   };
 
@@ -56,9 +59,14 @@ const AddProductPage = () => {
 
     formData.append("data", JSON.stringify(data));
 
-    if (selectedFile) {
-      formData.append("file", selectedFile);
-    }
+    // Append multiple files to formData
+    selectedFiles.forEach((file) => {
+      formData.append("files", file);
+    });
+
+    // for (let [key, values] of formData) {
+    //   console.log(key, values);
+    // }
 
     try {
       const response = await handleCreateProduct(formData).unwrap();
@@ -76,92 +84,106 @@ const AddProductPage = () => {
   }
 
   return (
-    <div className="w-3/4 mx-auto gap-5">
-      <h2 className="text-2xl font-bold mb-5">Add Product Info</h2>
-      <Divider />
-      <EForm onSubmit={onSubmit}>
-        <div
-          role="button"
-          tabIndex={0}
-          aria-label="Upload image"
-          className="flex items-center mb-5 justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition"
-          style={{ width: "100%", height: "200px" }}
-          onClick={handleUploadClick}
-          onKeyDown={(event) => {
-            if (["Enter", " "].includes(event.key)) {
-              handleUploadClick();
-            }
-          }}
-        >
-          <input
-            type="file"
-            accept="image/*"
-            ref={inputRef}
-            onChange={handleFileChange}
-            className="hidden"
-          />
-          {imagePreview ? (
-            <Image
-              src={imagePreview}
-              width={400}
-              height={500}
-              alt="Preview"
-              className="max-w-full max-h-full object-contain"
-            />
-          ) : (
-            <div className="text-center text-gray-500">
-              <p>Drop your image here, or click to browse</p>
-            </div>
-          )}
-        </div>
-
-        <div className="grid grid-cols-2 gap-5">
-          <EInput name="name" type="text" label="Name" variant="bordered" />
-          <EInput name="price" type="number" label="Price" variant="bordered" />
-          <ESelect
-            options={categoryList?.data || []}
-            name="category"
-            label="Category"
-          />
-          <ESelect
-            dropDownHeading="Is Flash Sell?"
-            options={[
-              { label: "Flash sell", id: true },
-              { label: "Not Flash sell", id: false },
-            ]}
-            name="isFlash"
-            label="Flash Sale"
-          />
-          <EInput
-            name="discount"
-            type="number"
-            label="Discount"
-            variant="bordered"
-          />
-          <EInput
-            name="inventoryCount"
-            type="number"
-            label="Inventory Count"
-            variant="bordered"
-          />
-          <FxTextArea
-            name="description"
-            label="Detailed Description"
-            variant="bordered"
-          />
-        </div>
-
-        <div className="flex justify-end">
-          <Button
-            className="bg-primary-color text-white"
-            variant="bordered"
-            type="submit"
+    <Container>
+      <div className="w-3/4 mx-auto gap-5 bg-[#FFFFFF] p-5 mt-3">
+        <h2 className="text-2xl font-bold mb-5">Add Product Info</h2>
+        <Divider />
+        <EForm onSubmit={onSubmit}>
+          <div
+            role="button"
+            tabIndex={0}
+            aria-label="Upload images"
+            className="flex items-center mb-5 justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition"
+            style={{ width: "100%", height: "200px" }}
+            onClick={handleUploadClick}
+            onKeyDown={(event) => {
+              if (["Enter", " "].includes(event.key)) {
+                handleUploadClick();
+              }
+            }}
           >
-            Create Product
-          </Button>
-        </div>
-      </EForm>
-    </div>
+            <input
+              type="file"
+              accept="image/*"
+              ref={inputRef}
+              onChange={handleFileChange}
+              className="hidden"
+              multiple // Allow multiple file selection
+            />
+            {imagePreviews.length > 0 ? (
+              <div className="flex gap-4">
+                {imagePreviews.map((preview, index) => (
+                  <div key={index} className="w-1/4 h-auto">
+                    <Image
+                      src={preview}
+                      alt={`Preview ${index}`}
+                      width={100}
+                      height={100}
+                      className="object-contain"
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center text-gray-500">
+                <p>Drop your images here, or click to browse</p>
+              </div>
+            )}
+          </div>
+
+          <div className="grid grid-cols-2 gap-5">
+            <EInput name="name" type="text" label="Name" variant="bordered" />
+            <EInput
+              name="price"
+              type="number"
+              label="Price"
+              variant="bordered"
+            />
+            <ESelect
+              options={categoryList?.data || []}
+              name="category"
+              label="Category"
+            />
+            <ESelect
+              dropDownHeading="Is Flash Sell?"
+              options={[
+                { label: "Flash sell", id: true },
+                { label: "Not Flash sell", id: false },
+              ]}
+              name="isFlash"
+              label="Flash Sale"
+            />
+            <EInput
+              name="discount"
+              type="number"
+              label="Discount"
+              variant="bordered"
+            />
+            <EInput
+              name="inventoryCount"
+              type="number"
+              label="Inventory Count"
+              variant="bordered"
+            />
+            <FxTextArea
+              name="description"
+              label="Detailed Description"
+              variant="bordered"
+            />
+          </div>
+
+          <div className="flex justify-end">
+            <Button
+              className="bg-primary-color text-white"
+              variant="bordered"
+              type="submit"
+            >
+              Create Product
+            </Button>
+          </div>
+        </EForm>
+      </div>
+    </Container>
   );
 };
 

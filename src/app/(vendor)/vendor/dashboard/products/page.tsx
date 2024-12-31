@@ -9,27 +9,24 @@ import {
   TableRow,
   TableCell,
   Tooltip,
+  Button,
 } from "@nextui-org/react";
 import { MdEdit, MdDelete } from "react-icons/md";
 import {
   useDeleteProductMutation,
-  useGetAllProductQuery,
   useGetProducsByShopIdQuery,
-  useUpdateProductMutation,
 } from "@/src/redux/feature/vendor/vendor.api";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
+import { FaPlus } from "react-icons/fa6";
 
 const primaryColor = "#4524DB";
 
 const GetAllProductPage = () => {
   const { data: vendorInfo } = useGetCurrentUserQuery(undefined);
-  console.log(vendorInfo, "imam vendiorin info for vendorid");
-
   const shopId = vendorInfo?.data?.shop?.id;
   const { data: productList, isLoading } = useGetProducsByShopIdQuery(shopId);
-  const [handleUpdateProduct] = useUpdateProductMutation();
   const [handleDeleteProduct] = useDeleteProductMutation();
 
   if (isLoading) {
@@ -38,8 +35,6 @@ const GetAllProductPage = () => {
 
   const products = productList?.data || [];
 
-  const handleEdit = (id: string) => {};
-
   const handleDelete = async (id: string) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this product?"
@@ -47,26 +42,26 @@ const GetAllProductPage = () => {
     if (confirmDelete) {
       try {
         await handleDeleteProduct({ id });
-        toast.success("Product deleted successful");
+        toast.success("Product deleted successfully");
       } catch (error) {
         console.error("Error deleting product:", error);
-        toast.error("failed to deletee");
+        toast.error("Failed to delete");
       }
     }
   };
 
   return (
     <div className="p-6">
-      <h1
-        style={{
-          fontSize: "24px",
-          fontWeight: "bold",
-          color: primaryColor,
-          marginBottom: "20px",
-        }}
-      >
-        Product Management
-      </h1>
+      <div className="mb-5 space-y-1">
+        <h1 className="text-2xl font-bold">Product Management</h1>
+        <p className="text-medium">Create product or delete</p>
+      </div>
+      <div className="flex justify-end mx-8 my-4">
+        <Button className="bg-primary-color text-white p-3">
+          {" "}
+          <FaPlus className="text-xl" /> Add Product
+        </Button>
+      </div>
       <Table aria-label="Product List">
         <TableHeader>
           <TableColumn>PRODUCT NAME</TableColumn>
@@ -75,30 +70,47 @@ const GetAllProductPage = () => {
           <TableColumn>ACTIONS</TableColumn>
         </TableHeader>
         <TableBody>
-          {products.map((product: any) => (
+          {products.map((product: any, index: number) => (
             <TableRow key={product.id}>
-              <TableCell>{product.name}</TableCell>
+              <TableCell className="text-medium">{product.name}</TableCell>
               <TableCell>${product.price.toFixed(2)}</TableCell>
               <TableCell>{product.inventoryCount}</TableCell>
               <TableCell>
-                <div style={{ display: "flex", gap: "10px" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    justifyContent: "center",
+                  }}
+                >
                   <Link
                     href={`/vendor/dashboard/products/update-product/${product.id}`}
                   >
                     <Tooltip content="Edit Product" placement="top">
                       <MdEdit
-                        size={20}
+                        size={40}
                         color={primaryColor}
-                        style={{ cursor: "pointer" }}
-                        onClick={() => handleEdit(product.id)}
+                        style={{
+                          cursor: "pointer",
+                          padding: "8px",
+                          borderRadius: "8px",
+                          transition: "background-color 0.3s ease",
+                          backgroundColor: "rgba(69, 36, 219, 0.1)",
+                        }}
                       />
                     </Tooltip>
                   </Link>
                   <Tooltip content="Delete Product" placement="top">
                     <MdDelete
-                      size={20}
+                      size={40}
                       color="red"
-                      style={{ cursor: "pointer" }}
+                      style={{
+                        cursor: "pointer",
+                        padding: "8px",
+                        borderRadius: "8px",
+                        transition: "background-color 0.3s ease",
+                        backgroundColor: "rgba(255, 0, 0, 0.1)",
+                      }}
                       onClick={() => handleDelete(product.id)}
                     />
                   </Tooltip>
