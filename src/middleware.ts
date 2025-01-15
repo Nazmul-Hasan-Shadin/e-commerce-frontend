@@ -8,7 +8,7 @@ const AuthRoutes = ["/login", "/register"];
 type Role = keyof typeof roleBasedRoutes;
 
 const roleBasedRoutes = {
-  // user: [/^\/user/],
+  user: [/^\/user/],
   admin: [/^\/admin/],
   vendor: [/^\/vendor/],
 };
@@ -21,6 +21,8 @@ export async function middleware(request: NextRequest) {
 
   if (!token) {
     if (AuthRoutes.includes(pathname)) {
+      console.log("hi tomken");
+
       return NextResponse.next();
     } else {
       return NextResponse.redirect(
@@ -45,7 +47,12 @@ export async function middleware(request: NextRequest) {
   // Check the role-based route access
   if (user?.role && roleBasedRoutes[user.role as Role]) {
     const routes = roleBasedRoutes[user.role as Role];
+    console.log("hi bro ");
+
     if (routes.some((route) => pathname.match(route))) {
+      console.log(pathname, "99999999999999999999999999999999999999999");
+      console.log("kfdjjjjjjjjjjjjjjjjjjjjjjjjiiiiiiiiiiirrrrrrrrrrrr");
+
       return NextResponse.next();
     }
   }
@@ -80,6 +87,6 @@ async function getCurrentUserFromToken(token: string) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/dashboard", "/profile/:page*", "/login"],
+  matcher: ["/dashboard", "/profile/:page*", "/login", "/user/:path*"],
   // "/admin",
 };

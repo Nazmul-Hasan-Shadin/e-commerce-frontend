@@ -4,8 +4,8 @@ import toast from "react-hot-toast";
 import { RootState } from "../store";
 
 const baseQuery = fetchBaseQuery({
-  // baseUrl: "http://localhost:3001/api/v1",
-  baseUrl: "https://e-commerce-inky-alpha.vercel.app/api/v1",
+  baseUrl: "http://localhost:3001/api/v1",
+  // baseUrl: "https://e-commerce-inky-alpha.vercel.app/api/v1",
   credentials: "include",
 
   prepareHeaders: (headers, { getState }) => {
