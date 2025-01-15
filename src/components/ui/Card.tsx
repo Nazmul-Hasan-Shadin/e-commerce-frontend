@@ -41,6 +41,13 @@ const getShortDescription = (description: string) => {
   }
   return description;
 };
+const getShortName = (description: string) => {
+  const words = description.split(" ");
+  if (words.length > 20) {
+    return words.slice(0, 4).join(" ");
+  }
+  return description;
+};
 
 const Card = ({ product }: { product: IProduct }) => {
   const dispatch = useAppDispatch();
@@ -89,31 +96,31 @@ const Card = ({ product }: { product: IProduct }) => {
           <Image
             src={product?.images[0]}
             alt={product?.name}
-            layout="fill"
-            objectFit="contain"
-            className="rounded-t-lg w-[126px] md:w-[200px]"
+            width={140}
+            height={120}
+            className="rounded-t-lg w-[120px] object-contain md:w-[200px]"
           />
         </div>
-        <del className="text-lg absolute top-1 text-primary-color p-1 right-1">
+        <del className="md:text-lg absolute top-1 text-primary-color p-1 right-1">
           ${product?.price}
         </del>
 
         {/* Card Header */}
-        <CardHeader className="md:p-1">
-          <h3 className="text-[12px] md:text-xl font-semibold text-gray-800">
-            {product?.name}
+        <CardHeader className="p-2 md:p-1">
+          <h3 className="text-[12px] md:text-xl  font-semibold text-gray-800">
+            {getShortName(product?.name)}
           </h3>
         </CardHeader>
 
         {/* Card Body */}
-        <CardBody className="md:p-1">
+        <CardBody className="p-2 md:p-1">
           <div className="flex flex-col md:gap-2">
             <div className="flex items-center space-x-2">
               <span className="text-xl font-bold text-[#e10600]">
                 ${product?.price - product?.discount}
               </span>
             </div>
-            <p className="text-sm  text-gray-">
+            <p className="text-[10px] md:text-sm p-0  text-gray-">
               {getShortDescription(product?.description)}
             </p>
           </div>

@@ -11,7 +11,7 @@ import {
   FaBoxOpen,
   FaClipboardList,
 } from "react-icons/fa";
-import Link from "next/link";
+import { GoChecklist } from "react-icons/go";
 
 import { useAppSelector } from "@/src/redux/hook";
 import { jwtDecode } from "jwt-decode";
@@ -21,6 +21,7 @@ import { IoHomeOutline } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { SidebarItem } from "@/src/components/module/vendor/SidebarItem";
 import { SidebarMenu } from "@/src/components/module/vendor/SidbarMenu";
+import { FaPlus } from "react-icons/fa6";
 
 const AdminSidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -70,47 +71,40 @@ const AdminSidebar = () => {
           <nav className="flex flex-col space-y-4 mt-6 pl-4 ">
             {/* Dashboard */}
             <SidebarItem
-              label="Home"
-              icon={<IoHomeOutline />}
-              isOpen={isOpen}
-              path="/"
-            />
-            <SidebarItem
               label="Dashboard"
               icon={<FaClipboardList />}
               isOpen={isOpen}
               path="/dashboard"
             />
+            <SidebarItem
+              label="Home"
+              icon={<IoHomeOutline />}
+              isOpen={isOpen}
+              path="/"
+            />
 
             {/* Category */}
-            <SidebarMenu
-              label="Category"
-              icon={<FaCubes />}
+
+            <SidebarItem
+              label="Add Category"
+              icon={<FaPlus />}
               isOpen={isOpen}
-              isMenuOpen={openMenu === "category"}
-              onClick={() => toggleMenu("category")}
-              items={[
-                {
-                  name: "All Categories",
-                  path: "/admin/dashboard/category-list",
-                },
-                {
-                  name: "Add Category",
-                  path: `/${user?.role || "admin"}/dashboard/category`,
-                },
-              ]}
+              path={`/${user?.role || "admin"}/dashboard/category`}
+            />
+            <SidebarItem
+              label="Category"
+              icon={<FaClipboardList />}
+              isOpen={isOpen}
+              path="/admin/dashboard/category-list"
             />
 
             {/* Orders */}
-            <SidebarMenu
-              label="Orders"
-              icon={<FaBoxOpen />}
+
+            <SidebarItem
+              label="Order"
+              icon={<GoChecklist />}
               isOpen={isOpen}
-              isMenuOpen={openMenu === "orders"}
-              onClick={() => toggleMenu("orders")}
-              items={[
-                { name: "All Orders", path: `/${user?.role}/dashboard/order` },
-              ]}
+              path={`/${user?.role}/dashboard/order`}
             />
 
             {/* Settings */}

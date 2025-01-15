@@ -73,7 +73,7 @@ const AccesoriesAd = () => {
         </div>
 
         {/* Right Section */}
-        <div className="col-span-12 lg:col-span-2">
+        <div className="col-span-12 lg:col-span-2 overflow-hidden">
           <CategoryCard />
         </div>
       </div>

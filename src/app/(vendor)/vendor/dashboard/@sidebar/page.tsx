@@ -15,6 +15,7 @@ import { useAppSelector } from "@/src/redux/hook";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { SidebarItem } from "@/src/components/module/vendor/SidebarItem";
 import { SidebarMenu } from "@/src/components/module/vendor/SidbarMenu";
+import { FaPlus } from "react-icons/fa6";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -70,10 +71,23 @@ const Sidebar = () => {
               label="Dashboard"
               icon={<FaClipboardList />}
               isOpen={isOpen}
-              path="/dashboard"
+              path="/vendor/dashboard"
             />
 
-            {/* Products */}
+            <SidebarItem
+              label="Add Product"
+              icon={<FaPlus />}
+              isOpen={isOpen}
+              path="/vendor/dashboard/products/add-product"
+            />
+            <SidebarItem
+              label=" Products"
+              icon={<FaPlus />}
+              isOpen={isOpen}
+              path={`/${user?.role}/dashboard/products`}
+            />
+
+            {/* Products
             {user && (
               <SidebarMenu
                 label="Products"
@@ -92,7 +106,7 @@ const Sidebar = () => {
                   },
                 ]}
               />
-            )}
+            )} */}
 
             {/* Inventory */}
             {/* <SidebarMenu

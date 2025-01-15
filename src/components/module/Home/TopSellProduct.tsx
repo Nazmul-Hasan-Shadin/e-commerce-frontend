@@ -5,31 +5,36 @@ import Card from "../../ui/Card";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import SkeletonCard from "../../ui/SkeletonCard";
+import Container from "../../ui/Container";
 
 const TopSellProduct = () => {
   const { data: products, isLoading, isError } = useGetAllProductQuery({});
 
   return (
-    <div className="my-4">
-      <h2 className="text-xl md:text-3xl text-black font-bold md:ml-12">
-        Current top seller <span className="text-sm"> </span>{" "}
-      </h2>
-      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 p-4">
-        {isLoading ? (
-          <>
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-          </>
-        ) : (
-          products?.data
-            .slice(1, 5)
-            .map((product: any) => <Card key={product.id} product={product} />)
-        )}
+    <Container>
+      <div className="my-4">
+        <h2 className="text-xl md:text-3xl text-black font-bold ml-3 md:ml-0">
+          Current top seller <span className="text-sm"> </span>{" "}
+        </h2>
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-2 lg:grid-cols-4 md:gap-6 p-4">
+          {isLoading ? (
+            <>
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
+            </>
+          ) : (
+            products?.data
+              .slice(1, 5)
+              .map((product: any) => (
+                <Card key={product.id} product={product} />
+              ))
+          )}
+        </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

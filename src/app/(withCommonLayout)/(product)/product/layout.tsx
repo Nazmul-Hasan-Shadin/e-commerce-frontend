@@ -15,7 +15,9 @@ export default function layout({
         title="Product List"
       />
       <section className="grid grid-cols-12 justify-items- ">
-        <section className="col-span-2 pl-10">{productfiltersidebar}</section>
+        <section className="col-span-2 hidden md:block pl-10">
+          {productfiltersidebar}
+        </section>
 
         <main className="col-span-10">{children}</main>
       </section>

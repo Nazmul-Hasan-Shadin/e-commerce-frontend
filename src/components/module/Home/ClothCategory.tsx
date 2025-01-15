@@ -30,7 +30,7 @@ const categories = [
 const CategoryCard = () => {
   return (
     <div className="max-w-full">
-      <div className=" flex  gap-3 md:items-center justify-between  md:justify-between  md:flex-row  lg:flex-col space-y-6">
+      <div className=" flex  gap-3 md:items-center  justify-between overflow-scroll  md:justify-between  md:flex-row  lg:flex-col space-y-6">
         {categories.map((category) => (
           <div
             key={category.id}

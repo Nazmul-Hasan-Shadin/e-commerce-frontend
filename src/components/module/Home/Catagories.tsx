@@ -4,6 +4,7 @@ import { TCategory } from "@/src/types";
 import Image from "next/image";
 import Link from "next/link";
 import SkeletonCard from "../../ui/SkeletonCard";
+import Container from "../../ui/Container";
 
 const Categories = () => {
   const [categories, setCategories] = useState<TCategory[] | null>(null);
@@ -45,36 +46,40 @@ const Categories = () => {
   }
 
   return (
-    <div className="w-full mt-20">
-      <h3 className="text-2xl ml-10 font-bold mb-1">Shop By Categories</h3>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
-        {isLoading ? (
-          <>
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-          </>
-        ) : (
-          categories.slice(1, 6).map((category: TCategory) => (
-            <div key={category.id} className="flex flex-col items-center">
-              <Link href={`/product?categoryName=${category.id}`}>
-                <Image
-                  src={
-                    category?.images ||
-                    "https://via.placeholder.com/160x180?text=No+Image"
-                  }
-                  alt={`${category.name} image`}
-                  width={160}
-                  height={180}
-                />
-              </Link>
-              <h2 className="text-lg font-semibold">{category.name}</h2>
-            </div>
-          ))
-        )}
+    <Container>
+      <div className="w-full mt-[400px] md:my-20">
+        <h3 className="text-2xl ml-10 md:ml-0 font-bold mb-1">
+          Shop By Categories
+        </h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
+          {isLoading ? (
+            <>
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
+            </>
+          ) : (
+            categories.slice(1, 6).map((category: TCategory) => (
+              <div key={category.id} className="flex flex-col items-center">
+                <Link href={`/product?categoryName=${category.id}`}>
+                  <Image
+                    src={
+                      category?.images ||
+                      "https://via.placeholder.com/160x180?text=No+Image"
+                    }
+                    alt={`${category.name} image`}
+                    width={160}
+                    height={180}
+                  />
+                </Link>
+                <h2 className="text-lg font-semibold">{category.name}</h2>
+              </div>
+            ))
+          )}
+        </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
