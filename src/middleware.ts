@@ -1,4 +1,3 @@
-import { jwtDecode } from "jwt-decode";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { verifyToken } from "./utils/verifyToke";
@@ -21,8 +20,6 @@ export async function middleware(request: NextRequest) {
 
   if (!token) {
     if (AuthRoutes.includes(pathname)) {
-      console.log("hi tomken");
-
       return NextResponse.next();
     } else {
       return NextResponse.redirect(
@@ -37,6 +34,7 @@ export async function middleware(request: NextRequest) {
     iat: number;
     exp: number;
   };
+  console.log("iam user", user);
 
   if (!user) {
     return NextResponse.redirect(
@@ -47,12 +45,9 @@ export async function middleware(request: NextRequest) {
   // Check the role-based route access
   if (user?.role && roleBasedRoutes[user.role as Role]) {
     const routes = roleBasedRoutes[user.role as Role];
-    console.log("hi bro ");
+    console.log("iam hited role", routes);
 
     if (routes.some((route) => pathname.match(route))) {
-      console.log(pathname, "99999999999999999999999999999999999999999");
-      console.log("kfdjjjjjjjjjjjjjjjjjjjjjjjjiiiiiiiiiiirrrrrrrrrrrr");
-
       return NextResponse.next();
     }
   }
@@ -60,33 +55,14 @@ export async function middleware(request: NextRequest) {
   return NextResponse.redirect(new URL("/", request.url));
 }
 
-// Utility function to get user from token (this can be replaced with a real API call)
-async function getCurrentUserFromToken(token: string) {
-  try {
-    const response = await fetch(
-      "https://e-commerce-inky-alpha.vercel.app/api/v1/user",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch user");
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-    return null;
-  }
-}
-
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/dashboard", "/profile/:page*", "/login", "/user/:path*"],
-  // "/admin",
+  matcher: [
+    "/dashboard",
+    "/login",
+    "/register",
+    "/user/:page*",
+    "/admin/:page*",
+    "/vendor/:page*",
+  ],
 };

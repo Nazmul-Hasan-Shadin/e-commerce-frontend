@@ -18,6 +18,9 @@ const AccesoriesAd = () => {
 
   return (
     <Container>
+      <h2 className="text-xl py-2 md:text-3xl text-black font-bold ml-3  md:ml-0   ">
+        <span> Top Discount</span>
+      </h2>
       <div className="grid grid-cols-12  items-center gap-8 w-full md:px-4">
         {/* Left Image */}
         <div className="max-w-[248px]  col-span-12 md:col-span-3 lg:col-span-2">

@@ -136,13 +136,11 @@ const Card = ({ product }: { product: IProduct }) => {
             Add to cart
           </Button>
           <Link href={`/product-details/${product.id}`}>
-            <Button variant="bordered" className="w-4 text-[13px] md:w-28">
-              Details
-            </Button>
+            <button>Details</button>
           </Link>
         </CardFooter>
 
-        <CardFooter className="md:p-3 md:hidden flex justify-between gap-2">
+        {/* <CardFooter className="md:p-3 md:hidden flex justify-between gap-2">
           <Button onClick={handleAddToCart} variant="bordered" size="sm">
             Add to cart
           </Button>
@@ -154,8 +152,8 @@ const Card = ({ product }: { product: IProduct }) => {
             >
               Details
             </Button>
-          </Link>
-        </CardFooter>
+          </Link> */}
+        {/* </CardFooter> */}
       </NextCard>
     </div>
   );
