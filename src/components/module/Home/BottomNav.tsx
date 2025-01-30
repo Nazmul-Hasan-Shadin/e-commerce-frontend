@@ -8,6 +8,7 @@ import {
   NavbarMenu,
   Button,
 } from "@nextui-org/react";
+import styles from "./bottomNav.module.css";
 import Link from "next/link";
 
 import { IoSearchOutline } from "react-icons/io5";
@@ -24,12 +25,15 @@ import logo from "@/src/assests/icon/bottomnavlogo.avif";
 import Image from "next/image.js";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import { logOut } from "@/src/redux/feature/auth/auth.slice";
+import { usePathname } from "next/navigation";
 
 const BottomNav = () => {
+  const pathname = usePathname();
+  console.log(pathname);
+
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = React.useState(false);
   const token = useAppSelector((state) => state.auth.token);
-
 
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
@@ -187,9 +191,13 @@ const BottomNav = () => {
         <NavbarContent className="gap-20 hidden  lg:flex" justify="center">
           {menuItems.map((menu, index) => (
             <NavbarItem key={index} className="text-white">
-              <Link href={menu.link} className="text-black">
-                {menu.label}
-              </Link>
+              <li
+                className={`${styles.navItem} ${pathname === menu.link ? styles.active : ""}`}
+              >
+                <Link href={menu.link} className="text-black">
+                  {menu.label}
+                </Link>
+              </li>
             </NavbarItem>
           ))}
 
