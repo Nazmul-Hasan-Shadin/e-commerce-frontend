@@ -7,6 +7,7 @@ import { useParams } from "next/navigation";
 import { divider } from "@nextui-org/theme";
 import SkeletonCard from "../../ui/SkeletonCard";
 import Container from "../../ui/Container";
+import styles from "./bottomNav.module.css";
 
 const FeatureProduct = () => {
   const {
@@ -19,15 +20,12 @@ const FeatureProduct = () => {
     return <div>loading</div>;
   }
 
-  console.log(products, "iam products");
-
   return (
     <Container>
-      <div className="">
+      <div>
         <h2 className="text-xl py-2 md:text-3xl text-black font-bold ml-3  md:ml-0   ">
           <span> Feature Product</span>
           <span className="text-sm pl-12">
-            {" "}
             <Link className="text-blue-700" href={`/flash-deal?isFlash=true`}>
               view all flash deal
             </Link>{" "}
