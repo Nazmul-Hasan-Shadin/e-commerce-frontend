@@ -31,7 +31,7 @@ const CheckOutForm = () => {
     const fetchClientSecret = async () => {
       try {
         const response = await fetch(
-          "https://e-commerce-inky-alpha.vercel.app/api/v1/create-payment-intent",
+          "https://swift-mart-bd.vercel.app/api/v1/create-payment-intent",
           {
             method: "POST",
             headers: {

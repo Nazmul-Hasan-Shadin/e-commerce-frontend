@@ -15,6 +15,7 @@ import { TUser, setUser } from "@/src/redux/feature/auth/auth.slice";
 import { useAppDispatch } from "@/src/redux/hook";
 import toast from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
+import { loginHandler } from "@/src/services/auth";
 
 // Define role type for stricter type checking
 type Role = "user" | "admin" | "vendor";
@@ -34,7 +35,7 @@ const Login = () => {
   const router = useRouter();
   const navigate = usePathname();
 
-  const [selectedRole, setSelectedRole] = useState<Role>("user"); // Track selected role
+  const [selectedRole, setSelectedRole] = useState<Role>("user");
   const [credentials, setCredentials] = useState<{
     email: string;
     password: string;
@@ -57,7 +58,9 @@ const Login = () => {
     };
 
     try {
-      const res = await login(userData).unwrap();
+      const res = await loginHandler(userData);
+      console.log("login res", res);
+
       const user = verifyToken(res.data.accessToken) as {
         email: string;
         role: string;
@@ -72,8 +75,12 @@ const Login = () => {
       if (user.role === "vendor") {
         if (navigate === "/login") {
           if (handleGetUser?.data?.data?.shop == null) {
-            router.push(`$/{user.role}/dashboard/create-shop`);
+            router.push(`/${user.role}/dashboard/create-shop`);
           }
+          router.push(`/${user.role}/dashboard`);
+        }
+      } else if (user.role === "user") {
+        if (navigate === "/login") {
           router.push(`/${user.role}/dashboard`);
         }
       } else {

@@ -15,7 +15,7 @@ const Categories = () => {
     const fetchCategories = async () => {
       try {
         const result = await fetch(
-          "https://e-commerce-inky-alpha.vercel.app/api/v1/category",
+          "https://swift-mart-bd.vercel.app/api/v1/category",
           {
             cache: "no-store",
           }

@@ -20,6 +20,10 @@ const initialState: TAuthState = {
   token: null,
 };
 
+const clearCookie = (refreshToken: string) => {
+  document.cookie = `${(refreshToken = "")}`;
+};
+
 export const authSlice = createSlice({
   name: "auth",
 
@@ -33,7 +37,8 @@ export const authSlice = createSlice({
     logOut: (state) => {
       state.user = null;
       state.token = null;
-      logOutFromServer();
+      // // logOutFromServer();
+      // clearCookie('refreshToken')
     },
   },
 });

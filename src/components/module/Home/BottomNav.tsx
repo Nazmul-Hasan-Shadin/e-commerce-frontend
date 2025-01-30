@@ -27,10 +27,9 @@ import { logOut } from "@/src/redux/feature/auth/auth.slice";
 
 const BottomNav = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [isMegaMenuOpen, setIsMegaMenuOpen] = React.useState(false); // Mega Menu state
+  const [isMegaMenuOpen, setIsMegaMenuOpen] = React.useState(false);
   const token = useAppSelector((state) => state.auth.token);
 
-  console.log(token, "iam token bro");
 
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
