@@ -131,11 +131,20 @@ const Card = ({ product }: { product: IProduct }) => {
         </CardBody>
 
         {/* Card Footer */}
-        <CardFooter className="md:p-3   md:flex gap-2 justify-around  md:justify-between">
+        <CardFooter className="md:p-3 md:flex gap-2 justify-around  md:justify-between">
           <Button
             onClick={handleAddToCart}
             variant="bordered"
-            className="w text-[13px]  md:w-28 bg-primary-color text-white"
+            size="sm"
+            className=" md:hidden text-[13px]  md:w-28 bg-primary-color text-white"
+          >
+            Add to cart
+          </Button>
+          {/* ==============add to cart for medium device======== */}
+          <Button
+            onClick={handleAddToCart}
+            variant="bordered"
+            className="text-[13px] hidden md:block  md:w-28 bg-primary-color text-white"
           >
             Add to cart
           </Button>

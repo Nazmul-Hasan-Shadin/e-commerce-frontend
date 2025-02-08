@@ -15,7 +15,7 @@ const TopSellProduct = () => {
   return (
     <Container>
       <div className="my-4 px-1">
-        <h2 className="text-xl md:text-3xl text-black font-bold  md:ml-0">
+        <h2 className="text-xl md:text-2xl text-black font-bold  md:ml-0">
           Current top seller <span className="text-sm"> </span>{" "}
         </h2>
         <Dividers />

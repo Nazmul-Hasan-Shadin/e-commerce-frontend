@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import { Pagination } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 import discountOnCloth from "@/src/assests/accesories/disounttcloth.webp";
 import Image from "next/image";
 import CategoryCard from "./ClothCategory";
@@ -13,6 +13,7 @@ import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import Container from "../../ui/Container";
 import SkeletonCard from "../../ui/SkeletonCard";
 import { Divider } from "@nextui-org/react";
+import { delay } from "framer-motion";
 
 const AccesoriesAd = () => {
   const { data: products, isLoading, isError } = useGetAllProductQuery({});
@@ -23,7 +24,7 @@ const AccesoriesAd = () => {
         <span> Top Discount</span>
         <Divider className="bg-primary-color h-[2px] w-48 mt-3" />
       </h2>
-      <div className="grid grid-cols-12  gap-9 w-full md:px-4">
+      <div className="grid grid-cols-12  md:gap-9 w-full md:px-4">
         {/* Left Image */}
         <div className="max-w-[248px]  col-span-12 md:col-span-3 lg:col-span-2">
           <Image
@@ -36,9 +37,13 @@ const AccesoriesAd = () => {
         </div>
 
         {/* Swiper Section */}
-        <div className="col-span-12 md:col-span-9  lg:col-span-8">
+        <div className="col-span-12  md:col-span-9   lg:col-span-8">
           <Swiper
             slidesPerView={1}
+            autoplay={{
+              delay: 2000,
+              disableOnInteraction: false,
+            }}
             spaceBetween={10}
             pagination={{
               clickable: true,
@@ -57,7 +62,7 @@ const AccesoriesAd = () => {
                 spaceBetween: 2,
               },
             }}
-            modules={[Pagination]}
+            modules={[Pagination, Autoplay]}
             className="mySwiper p-0"
           >
             {isLoading ? (

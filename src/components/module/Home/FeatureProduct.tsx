@@ -25,13 +25,13 @@ const FeatureProduct = () => {
   return (
     <Container className="px-1 md:px-0">
       <div>
-        <h2 className="text-xl py-2 md:text-3xl text-black font-bold   md:ml-0   ">
+        <h2 className="text-xl py-2 md:text-2xl text-black font-bold   md:ml-0   ">
           <span> Feature Product</span>
           <span className="text-sm pl-12">
             <Link className="text-orange-700" href={`/flash-deal?isFlash=true`}>
               view all flash deal
-            </Link>{" "}
-          </span>{" "}
+            </Link>
+          </span>
         </h2>
 
         <Dividers />

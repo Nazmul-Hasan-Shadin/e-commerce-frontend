@@ -40,7 +40,7 @@ export default function Home() {
 
       <FeatureProduct />
       <TopSellProduct />
-      {/* <AccesoriesAd /> */}
+      <AccesoriesAd />
 
       <WhyChooseUs />
       <Footer />
