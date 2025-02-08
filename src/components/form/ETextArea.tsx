@@ -21,16 +21,16 @@ const FxTextArea = ({
     <Textarea
       {...register(name)}
       label={label}
-      minRows={6}
+      minRows={5}
       placeholder={placeholder}
       endContent={
         icon && (
           <button type="submit">
-            <IoSendSharp className="absolute bottom-1 right-2 text-2xl text-green-600" />
+            <IoSendSharp className="absolute bottom-1 right-2 text-2xl text-primary-color" />
           </button>
         )
       }
-      className="w-full"
+      className=" w-full md:max-w-[600px] h-52"
       variant={variant}
     />
   );

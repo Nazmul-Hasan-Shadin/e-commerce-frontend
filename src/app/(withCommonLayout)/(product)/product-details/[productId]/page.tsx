@@ -15,6 +15,8 @@ import Link from "next/link";
 import { IReview } from "@/src/interface/review";
 import { useGetProductByIdQuery } from "@/src/redux/feature/vendor/vendor.api";
 import { useParams } from "next/navigation";
+import { FaStar, FaStarHalfStroke, FaStarOfLife } from "react-icons/fa6";
+import { FaStarHalf } from "react-icons/fa";
 
 interface ProductData {
   name: string;
@@ -45,6 +47,8 @@ const ProductDetails = ({ params }: { params: Params }) => {
     review = [],
     shopId = "",
   }: ProductData = productInfo?.data || {};
+
+  console.log(productInfo.data);
 
   // Handle thumbnail click
   const handleThumbnailClick = (image: string) => {
@@ -77,13 +81,9 @@ const ProductDetails = ({ params }: { params: Params }) => {
   }
 
   return (
-    <div className="px-9">
-      <Card
-        isBlurred
-        className="border-none bg-background/60 dark:bg-default-100/50 max-w-full"
-        shadow="sm"
-      >
-        <CardBody>
+    <div className="px-9 mt-10">
+      <div>
+        <div>
           <div className="grid grid-cols-6 md:grid-cols-12 gap-6 md:gap-12 justify-center">
             {/* Main Product Image */}
             <div className="relative col-span-9 md:col-span-6">
@@ -92,12 +92,12 @@ const ProductDetails = ({ params }: { params: Params }) => {
                   alt="Main Product image"
                   height={600}
                   width={500}
+                  className="mt-16"
                   src={mainImage || laptop}
                 />
               </div>
 
-              {/* Thumbnails Below the Main Image */}
-              <div className="col-span-9 md:col-span-6 flex justify gap-6 mt-4">
+              <div className="col-span-9 md:col-span-6 flex items-center gap-6 mt-12 ">
                 {images.map((image, index) => (
                   <div
                     key={index}
@@ -123,13 +123,30 @@ const ProductDetails = ({ params }: { params: Params }) => {
               </div>
             </div>
 
-            {/* Product Description */}
+            {/* ==========Product Description========== */}
             <div className="flex flex-col col-span-3 md:col-span-5">
               <div className="flex justify-between items-start">
-                <div className="flex flex-col gap-0 space-y-6">
-                  <h3 className="font-semibold text-foreground/90 text-2xl">
+                <div className="flex flex-col gap-0 space-y-3">
+                  <h3 className="font-semibold text-foreground/90  md:text-2xl">
                     {name || "No name available"}
                   </h3>
+
+                  <span className="text-xl font-bold flex gap-2">
+                    <del className="text-xl font-bold text-gray-700">$443</del>
+                    <span className="text-[#e10600]">${price}</span>
+                  </span>
+
+                  <p>
+                    <span className="font-bold">Brand</span>: Samsung
+                  </p>
+                  <p>
+                    <span className="font-bold">Stock</span>: {inventoryCount}
+                  </p>
+                  <p>
+                    <span className="font-bold">Status</span>:{" "}
+                    {inventoryCount ? "In Stock" : "Out of Stock"}
+                  </p>
+
                   <p className="text-small text-primary-color text-foreground/80">
                     7 sold in last 17 hours
                   </p>
@@ -139,18 +156,11 @@ const ProductDetails = ({ params }: { params: Params }) => {
                   <p className="text-xs lg:text-sm text-gray-800">
                     {description} Availability: In Stock
                   </p>
-                  <span className="text-xl font-bold flex gap-2">
-                    <del className="text-xl font-bold text-gray-700">$443</del>
-                    <span className="text-[#e10600]">${price}</span>
-                  </span>
-                  <h1 className="text-large font-medium mt-2">
-                    Please hurry! Only {inventoryCount} left in stock
-                  </h1>
 
                   {/* Quantity Field */}
                   <div className="space-y-2">
-                    <p>Quantity</p>
-                    <div className="flex items-center">
+                    <div className="flex items-center gap-4">
+                      <p>Quantity</p>
                       <FiMinus
                         className="text-3xl text-primary-color cursor-pointer"
                         onClick={handleDecreaseQuantity}
@@ -158,7 +168,7 @@ const ProductDetails = ({ params }: { params: Params }) => {
                       <Input
                         value={quantity.toString()}
                         readOnly
-                        className="max-w-[120px] border text-center"
+                        className="w-20 md:w-[120px] border text-center"
                       />
                       <GoPlus
                         className="text-3xl text-primary-color cursor-pointer"
@@ -180,13 +190,13 @@ const ProductDetails = ({ params }: { params: Params }) => {
               </div>
             </div>
           </div>
-        </CardBody>
-      </Card>
+        </div>
+      </div>
 
-      <Divider className="my-4" />
+      {/* <Divider className="my-4" /> */}
 
       {/* Review and Comment Section */}
-      <div className="flex flex-col justify-center px-12">
+      <div className="flex flex-col justify-start md:px-12">
         <ReviewTab review={review} />
 
         <CommentBox productId={productId} />

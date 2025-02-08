@@ -11,14 +11,18 @@ const ReviewTab = ({ review }: { review: IReview[] }) => {
       <Tabs
         aria-label="Options"
         selectedKey={selected}
-        className="flex justify-center"
+        className="flex  "
         variant="underlined"
         onSelectionChange={(key: string | number) => setSelected(key as string)}
       >
-        <Tab key="reviews" className=" text-2xl" title="reviews">
+        <Tab
+          key="reviews"
+          className=" text-xl  text-primary-color "
+          title="reviews"
+        >
           <UserCard review={review} />
         </Tab>
-        <Tab className=" text-2xl" key="music" title="Music">
+        <Tab className=" text-xl" key="music" title="Description">
           <Card>
             <CardBody>
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -28,13 +32,8 @@ const ReviewTab = ({ review }: { review: IReview[] }) => {
             </CardBody>
           </Card>
         </Tab>
-        <Tab className=" text-2xl" key="videos" title="Videos">
-          <Card>
-            <CardBody>
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-              officia deserunt mollit anim id est laborum.
-            </CardBody>
-          </Card>
+        <Tab className=" text-xl" key="videos" title="Videos">
+          <Card>coming sooon</Card>
         </Tab>
       </Tabs>
     </div>

@@ -107,7 +107,7 @@ const Card = ({ product }: { product: IProduct }) => {
 
         {/* Card Header */}
         <CardHeader className="p-3   md:h-full md:p-1">
-          <h3 className="text-lg font-semibold md:text-xl  md:font-semibold text-gray-800">
+          <h3 className="text-sm font-semibold md:text-xl  md:font-semibold text-gray-800">
             {getShortName(product?.name)}
           </h3>
           <br />
@@ -144,7 +144,7 @@ const Card = ({ product }: { product: IProduct }) => {
           <Button
             onClick={handleAddToCart}
             variant="bordered"
-            className="text-[13px] hidden md:block  md:w-28 bg-primary-color text-white"
+            className="text-sm hidden md:block   md:w-28 bg-primary-color text-white"
           >
             Add to cart
           </Button>
