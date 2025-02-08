@@ -28,7 +28,7 @@ export default function Home() {
 
       <Catagories />
 
-      <div className="w-3/4 mx-auto my-5">
+      <div className="w-3/4 mx-auto md:my-5">
         <Image
           alt="discount banner"
           height={300}

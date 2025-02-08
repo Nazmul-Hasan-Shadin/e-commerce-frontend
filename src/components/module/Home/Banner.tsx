@@ -14,8 +14,8 @@ import Container from "../../ui/Container";
 const Banner = () => {
   return (
     <Container>
-      <div className="grid gap-5  max-h-[70vh] p-1 lg:grid-cols-12 ">
-        <div className="grid col-span-10 lg:col-span-8">
+      <div className="grid   gap-5  h-[70vh] p-1 lg:grid-cols-12 ">
+        <div className="grid col-span-12 lg:col-span-8">
           <Swiper
             spaceBetween={30}
             centeredSlides={true}
@@ -49,34 +49,34 @@ const Banner = () => {
 
         {/* ===============disocunt =image ================== */}
 
-        <div className="col-span-10 lg:col-span-4">
-          <div className="grid grid-cols-2  lg:gap-y- gap-x-4 ">
+        <div className="col-span-12 lg:col-span-4">
+          <div className="grid grid-cols-2  md:gap-x-4 ">
             <div>
               <Image
                 src={slidBanner1}
                 alt="discount bannserkj"
-                className="w-full h-full"
+                className="w-3/4 md:w-full h-full"
               />
             </div>
             <div>
               <Image
                 src={slidBanner1}
                 alt="discount bannserkj"
-                className="w-full h-full"
+                className="w-3/4 h-auto md:w-full md:h-full"
               />
             </div>
             <div>
               <Image
                 src={slidBanner1}
                 alt="discount bannserkj"
-                className="w-full h-full"
+                className="w-3/4 h-auto md:w-full md:h-full"
               />
             </div>
             <div>
               <Image
                 src={slidBanner1}
                 alt="discount bannserkj"
-                className="w-full h-full"
+                className="w-3/4 h-auot md:w-full md:h-full"
               />
             </div>
           </div>

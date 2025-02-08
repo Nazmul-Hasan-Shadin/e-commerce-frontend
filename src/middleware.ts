@@ -15,17 +15,12 @@ const roleBasedRoutes = {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Get the current user (from token or session)
-  const user = await getCurrentUser();
+  const user = await getCurrentUser(); //role and email
 
-  console.log("I am user inside middleware", user);
-
-  // If the user is not authenticated and is not trying to access auth routes
   if (!user) {
     if (AuthRoutes.includes(pathname)) {
       return NextResponse.next(); // Allow access to login/register
     } else {
-      console.log("User not found, redirecting to login");
       return NextResponse.redirect(
         new URL(`/login?redirect=${encodeURIComponent(pathname)}`, request.url)
       ); // Redirect to login, with original path as redirect URL
@@ -39,11 +34,10 @@ export async function middleware(request: NextRequest) {
 
     // Check if the current route matches the user's role-based route
     if (routes.some((route) => pathname.match(route))) {
-      return NextResponse.next(); // Allow access to role-based routes
+      return NextResponse.next();
     }
   }
 
-  // If the user doesn't have access to the route, redirect to home
   return NextResponse.redirect(new URL("/", request.url));
 }
 

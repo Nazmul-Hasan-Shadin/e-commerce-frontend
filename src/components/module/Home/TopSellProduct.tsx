@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import SkeletonCard from "../../ui/SkeletonCard";
 import Container from "../../ui/Container";
+import { Divider } from "@nextui-org/react";
 
 const TopSellProduct = () => {
   const { data: products, isLoading, isError } = useGetAllProductQuery({});
@@ -16,6 +17,7 @@ const TopSellProduct = () => {
         <h2 className="text-xl md:text-3xl text-black font-bold ml-3 md:ml-0">
           Current top seller <span className="text-sm"> </span>{" "}
         </h2>
+        <Divider className="bg-primary-color h-[2px] w-48 mt-3" />
         <div className="grid grid-cols-2 gap-10 md:grid-cols-2 lg:grid-cols-4 md:gap-6 p-4">
           {isLoading ? (
             <>

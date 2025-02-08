@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import SkeletonCard from "../../ui/SkeletonCard";
 import Container from "../../ui/Container";
+import { Divider } from "@nextui-org/react";
+import Dividers from "../../ui/Divider";
 
 const Categories = () => {
   const [categories, setCategories] = useState<TCategory[] | null>(null);
@@ -35,22 +37,24 @@ const Categories = () => {
     };
 
     fetchCategories();
-  }, []); // Empty dependency array ensures this runs only once on mount
+  }, []);
 
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   if (!categories) {
-    return <div>No categories found.</div>; // Handle the null case
+    return <div>No categories found.</div>;
   }
 
   return (
     <Container>
-      <div className="w-full mt-[400px] md:my-20">
+      <div className="w-full  md:mt-[400px] md:my-20">
         <h3 className="text-2xl ml-10 md:ml-0 font-bold mb-1">
           Shop By Categories
         </h3>
+        <Dividers />
+
         <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
           {isLoading ? (
             <>
@@ -71,9 +75,12 @@ const Categories = () => {
                     alt={`${category.name} image`}
                     width={160}
                     height={180}
+                    className="w-20 h-20 lg:w-[160px] lg:h-[180px]"
                   />
                 </Link>
-                <h2 className="text-lg font-semibold">{category.name}</h2>
+                <h2 className="text-lg font-medium md:font-semibold">
+                  {category.name}
+                </h2>
               </div>
             ))
           )}

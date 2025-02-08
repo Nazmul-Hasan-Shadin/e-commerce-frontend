@@ -9,7 +9,7 @@
   width: 0px;
   height: 2px;
   background-color: orange;
-  bottom: -4;
+  bottom: 0;
 }
 
 /* .navItem:hover::before {

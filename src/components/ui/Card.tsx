@@ -43,7 +43,7 @@ const getShortDescription = (description: string) => {
 };
 const getShortName = (description: string) => {
   const words = description.split(" ");
-  if (words.length > 20) {
+  if (words.length > 4) {
     return words.slice(0, 4).join(" ");
   }
   return description;
@@ -89,7 +89,7 @@ const Card = ({ product }: { product: IProduct }) => {
     <div className=" relative w-full max-w-[190px] sm:max-w-0 md:w-full">
       <NextCard
         isHoverable
-        className=" w-[168px] mr-3 md:w-[260px] md:p-3 h-auto shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
+        className=" w-[168px] mr-3 md:w-[260px] md:p-3 h-auto  shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
       >
         {/* Image */}
         <div className="relative h-32 md:h-56 w-full mx-auto">
@@ -98,7 +98,7 @@ const Card = ({ product }: { product: IProduct }) => {
             alt={product?.name}
             width={140}
             height={120}
-            className="rounded-t-lg w-[120px] object-contain md:w-[200px]"
+            className="rounded-t-lg w-[120px] h-full object-contain md:w-[200px]"
           />
         </div>
         <del className="md:text-lg absolute top-1 text-primary-color p-1 right-1">
@@ -106,32 +106,36 @@ const Card = ({ product }: { product: IProduct }) => {
         </del>
 
         {/* Card Header */}
-        <CardHeader className="p-2 md:p-1">
-          <h3 className="text-[12px] md:text-xl  font-semibold text-gray-800">
+        <CardHeader className="p-3   md:h-full md:p-1">
+          <h3 className="text-lg font-semibold md:text-xl  md:font-semibold text-gray-800">
             {getShortName(product?.name)}
           </h3>
+          <br />
         </CardHeader>
 
         {/* Card Body */}
-        <CardBody className="p-2 md:p-1">
+        <CardBody className="p-2  h-3/4  md:p-1">
           <div className="flex flex-col md:gap-2">
             <div className="flex items-center space-x-2">
-              <span className="text-xl font-bold text-[#e10600]">
+              {/* <span className="md:text-xl hidden font-bold text-[#e10600]">
                 ${product?.price - product?.discount}
-              </span>
+              </span> */}
+              <p className="md:text-xl -mt-3 md:mt-0 text-xl  font-bold text-[#e10600]">
+                ${product?.price - product?.discount}
+              </p>
             </div>
-            <p className="text-[10px] md:text-sm p-0  text-gray-">
+            <p className="text-[10px] hidden md:block md:text-sm p-0  text-gray-">
               {getShortDescription(product?.description)}
             </p>
           </div>
         </CardBody>
 
         {/* Card Footer */}
-        <CardFooter className="md:p-3 hidden  md:flex gap-2  justify-between">
+        <CardFooter className="md:p-3   md:flex gap-2 justify-around  md:justify-between">
           <Button
             onClick={handleAddToCart}
             variant="bordered"
-            className="w-4 text-[13px] md:w-28 bg-primary-color text-white"
+            className="w text-[13px]  md:w-28 bg-primary-color text-white"
           >
             Add to cart
           </Button>

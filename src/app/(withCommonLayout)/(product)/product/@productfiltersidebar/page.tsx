@@ -1,4 +1,5 @@
 "use client";
+
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import { selectCategory } from "@/src/redux/feature/vendor/vendor.slice";
 import { useAppDispatch } from "@/src/redux/hook";
@@ -6,16 +7,16 @@ import { Divider, Input } from "@nextui-org/react";
 import React, { useState } from "react";
 
 const SidebarFilter = () => {
-  const [categoryName, setcategory] = useState<string[]>([]);
+  const [categoryName, setCategory] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   // const { data: productData } = useGetAllProductQuery({ categoryName });
 
-  console.log("iam categoryname", categoryName);
+  console.log("I am categoryName", categoryName);
 
   const dispatch = useAppDispatch();
 
   const handleBrandChange = (brand: string) => {
-    setcategory((prev) => {
+    setCategory((prev) => {
       const updatedCategory = prev.includes(brand)
         ? prev.filter((item) => item !== brand)
         : [...prev, brand];
@@ -39,7 +40,7 @@ const SidebarFilter = () => {
       <div className="p-2">
         {/* Brand Filter */}
         <div className="space-y-3">
-          <span> Brand</span>
+          <span>Brand</span>
           <div className="flex flex-col gap-3">
             {["Pc", "Android", "Tv", "Electronics", "Hp"].map((brand) => (
               <div key={brand} className="flex items-center space-x-2">
@@ -58,9 +59,7 @@ const SidebarFilter = () => {
           </div>
         </div>
 
-        <div>
-          <Divider className="my-4 w-32" />
-        </div>
+        <Divider className="my-4 w-32" />
 
         {/* Price Range Filter */}
         <div className="space-y-2">
@@ -81,13 +80,11 @@ const SidebarFilter = () => {
           </div>
         </div>
 
-        <div>
-          <Divider className="my-4 w-32" />
-        </div>
+        <Divider className="my-4 w-32" />
 
         {/* Color Filter */}
         <div className="space-y-3 mt-3">
-          <span> Color</span>
+          <span>Color</span>
           <div className="flex flex-col gap-3">
             {["Black", "Blue", "Red", "Gray", "Dark"].map((color) => (
               <div key={color} className="flex items-center space-x-2">

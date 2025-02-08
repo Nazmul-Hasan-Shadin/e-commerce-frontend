@@ -194,14 +194,13 @@ const BottomNav = () => {
 
           <NavbarContent className="gap-20 hidden  lg:flex" justify="center">
             {menuItems.map((menu, index) => (
-              <NavbarItem key={index} className="text-white">
-                <li
-                  className={`${styles.navItem} ${pathname === menu.link ? styles.active : ""}`}
-                >
-                  <Link href={menu.link} className="text-black">
-                    {menu.label}
-                  </Link>
-                </li>
+              <NavbarItem
+                className={`${styles.navItem} ${pathname === menu.link ? styles.active : ""}`}
+                key={index}
+              >
+                <Link href={menu.link} className="text-black">
+                  {menu.label}
+                </Link>
               </NavbarItem>
             ))}
 

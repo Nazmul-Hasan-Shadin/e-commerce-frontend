@@ -31,46 +31,38 @@ const categories = [
 const CategoryCard = () => {
   return (
     <div className="max-w-full">
-      <div className=" flex  gap-3 md:items-center  justify-between overflow-scroll  md:justify-between  md:flex-row  lg:flex-col space-y-6">
+      <div className=" flex   gap-2 md:items-center  justify-between   md:justify-between  md:flex-row  lg:flex-col space-y-4">
         {categories.map((category) => (
-          <div
-            key={category.id}
-            className="flex w-64   justify-around  items-center bg-white rounded-lg shadow-md md:p-4 hover:shadow-lg transition-shadow "
-          >
+          <div key={category.id} className="">
             {/* Category Image */}
-            <div className=" h-20 relative">
-              <Image
-                src={category.image}
-                alt={category.title}
-                height={60}
-                width={70}
-                className="object-contain rounded-md w-12 h-16"
-              />
-            </div>
+            <div className="flex flex-row-reverse w-60 justify-around items-center bg-white rounded-lg shadow-md md:p-2 hover:shadow-lg transition-shadow">
+              <div className=" h-20 relative">
+                <Image
+                  src={category.image}
+                  alt={category.title}
+                  height={60}
+                  width={70}
+                  className="object-contain rounded-md w-12 h-16"
+                />
+              </div>
 
-            {/* Category Details */}
-            <div className=" ">
-              <h3 className=" text-[10px] md:text-sm font-bold ">
-                {category.title}
-              </h3>
-              <a
-                href={category.link}
-                className="text-sm text-blue-500 hover:underline"
-              >
-                Shop now
-              </a>
+              {/* Category Details */}
+              <div className=" ">
+                <h3 className=" text-[10px] md:text-sm font-bold ">
+                  {category.title}
+                </h3>
+                <a href={category.link} className="text-sm  hover:underline">
+                  Shop now
+                </a>
+              </div>
             </div>
           </div>
         ))}
-        {/* View All Categories
-      <div className="text-center">
-        <a
-          href="/shop/categories"
-          className="text-blue-500 hover:underline text-sm font-medium"
-        >
-          View all categories
-        </a>
-      </div> */}
+        {/* View All Categories */}
+
+        <div className="flex flex-row-reverse w-60 h-20 justify-around items-center bg-white rounded-lg shadow-md md:p-2 hover:shadow-lg transition-shadow">
+          view all category
+        </div>
       </div>
     </div>
   );

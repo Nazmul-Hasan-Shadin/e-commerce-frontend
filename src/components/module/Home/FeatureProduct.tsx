@@ -8,6 +8,7 @@ import { divider } from "@nextui-org/theme";
 import SkeletonCard from "../../ui/SkeletonCard";
 import Container from "../../ui/Container";
 import styles from "./bottomNav.module.css";
+import { Divider } from "@nextui-org/react";
 
 const FeatureProduct = () => {
   const {
@@ -31,6 +32,7 @@ const FeatureProduct = () => {
             </Link>{" "}
           </span>{" "}
         </h2>
+        <Divider className="bg-primary-color h-[2px] w-48 mt-3" />
         <div className="grid grid-cols-2 gap-2  lg:grid-cols-4 md:gap-6  p-1 md:p-4">
           {isLoading ? (
             <>
