@@ -49,13 +49,13 @@ const Banner = () => {
 
         {/* ===============disocunt =image ================== */}
 
-        <div className="col-span-12 lg:col-span-4">
-          <div className="grid grid-cols-2  md:gap-x-4 ">
+        <div className="col-span-12  lg:col-span-4">
+          <div className="grid grid-cols-2  md:gap-x-4">
             <div>
               <Image
                 src={slidBanner1}
                 alt="discount bannserkj"
-                className="w-3/4 md:w-full h-full"
+                className="w-3/4  md:w-full h-full"
               />
             </div>
             <div>

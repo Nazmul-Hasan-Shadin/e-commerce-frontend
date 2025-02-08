@@ -48,11 +48,9 @@ const Categories = () => {
   }
 
   return (
-    <Container>
-      <div className="w-full  md:mt-[400px] md:my-20">
-        <h3 className="text-2xl ml-10 md:ml-0 font-bold mb-1">
-          Shop By Categories
-        </h3>
+    <Container className="mt-20 px-1 md:px-0 ">
+      <div className="w-full md:my-20">
+        <h3 className="text-xl  md:ml-0 font-bold mb-1">Shop By Categories</h3>
         <Dividers />
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
@@ -65,7 +63,7 @@ const Categories = () => {
             </>
           ) : (
             categories.slice(1, 6).map((category: TCategory) => (
-              <div key={category.id} className="flex flex-col items-center">
+              <div key={category.id} className="flex flex-col mx-auto">
                 <Link href={`/product?categoryName=${category.id}`}>
                   <Image
                     src={

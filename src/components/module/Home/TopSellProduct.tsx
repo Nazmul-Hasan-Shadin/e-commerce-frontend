@@ -7,18 +7,19 @@ import { useParams } from "next/navigation";
 import SkeletonCard from "../../ui/SkeletonCard";
 import Container from "../../ui/Container";
 import { Divider } from "@nextui-org/react";
+import Dividers from "../../ui/Divider";
 
 const TopSellProduct = () => {
   const { data: products, isLoading, isError } = useGetAllProductQuery({});
 
   return (
     <Container>
-      <div className="my-4">
-        <h2 className="text-xl md:text-3xl text-black font-bold ml-3 md:ml-0">
+      <div className="my-4 px-1">
+        <h2 className="text-xl md:text-3xl text-black font-bold  md:ml-0">
           Current top seller <span className="text-sm"> </span>{" "}
         </h2>
-        <Divider className="bg-primary-color h-[2px] w-48 mt-3" />
-        <div className="grid grid-cols-2 gap-10 md:grid-cols-2 lg:grid-cols-4 md:gap-6 p-4">
+        <Dividers />
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-2 lg:grid-cols-4 md:gap-6 md:p-4">
           {isLoading ? (
             <>
               <SkeletonCard />
