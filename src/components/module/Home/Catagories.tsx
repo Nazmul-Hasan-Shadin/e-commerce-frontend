@@ -46,7 +46,7 @@ const Categories = () => {
   }
 
   return (
-    <Container className="my-10 px-1 md:px-0 ">
+    <Container className=" lg:my-10 px-1 md:px-0 ">
       <div>
         <h3 className="text-xl md:text-2xl md:ml-0 font-bold mb-1">
           Shop By Categories

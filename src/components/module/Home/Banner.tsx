@@ -18,7 +18,7 @@ import mainBanner3 from "@/src/assests/Banner/mainbanner.webp";
 const Banner = () => {
   return (
     <Container>
-      <div className="grid gap-5 h-[65vh] p-1 lg:grid-cols-12 ">
+      <div className="grid gap-5 h-[70vh] lg:h-[65vh] p-1 lg:grid-cols-12">
         {/* ============slider of banner =========== */}
         <div className="grid col-span-12  lg:col-span-8">
           <Swiper
@@ -27,7 +27,7 @@ const Banner = () => {
               disableOnInteraction: false,
             }}
             centeredSlides={true}
-            className="mySwiper  w-full   md:w-500  lg:w-full"
+            className="mySwiper sm:h-full  w-full lg:w-full"
             height={400}
             modules={[Autoplay, Pagination, Navigation]}
             navigation={true}
@@ -36,17 +36,17 @@ const Banner = () => {
             }}
             spaceBetween={30}
           >
-            <SwiperSlide>
+            <SwiperSlide className="border">
               <Image
                 alt="special discount banner"
-                className="  w-full lg:w-full lg:h-full"
+                className=" w-full h-full lg:w-full lg:h-full"
                 src={mainBanner3}
               />
             </SwiperSlide>
             <SwiperSlide>
               <Image
                 alt="special discount banner"
-                className="  w-full lg:w-full lg:h-full"
+                className="  w-full h-full lg:w-full lg:h-full"
                 src={mainBanner2}
               />
             </SwiperSlide>
@@ -55,17 +55,18 @@ const Banner = () => {
 
         {/* ===============disocunt =image ================== */}
 
-        <div className="col-span-12  lg:col-span-4 border border-red-500">
-          <div className="flex flex-col  border-4 border-red-500 h-full gap-1">
+        <div className="col-span-12 border-red-500   lg:col-span-4 border">
+          <div className="flex flex-col  border-4  h-full border-x-red-500 gap-1">
             <div
-              className="w-full flex-1 h-64 bg-cover bg-center flex flex-col justify-center p-8"
+              className="w-full flex-1  flex flex-col justify-center p-3 lg:p-8"
               style={{
                 backgroundImage: `url(${slidBanner1.src})`,
                 backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
               }}
             >
               <div>
-                <h3 className="text-xl font-bold">30% discount </h3>
+                <h3 className="sm:text-xl font-bold">30% discount </h3>
                 <Button
                   className="bg-black text-primary-50 rounded-none"
                   size="sm"
@@ -74,15 +75,16 @@ const Banner = () => {
                 </Button>
               </div>
             </div>
+
             <div
-              className="flex flex-1 h-full flex-col justify-center  items-start p-8"
+              className="flex   flex-1 flex-col justify-center  items-start p-3 lg:p-8"
               style={{
                 backgroundImage: `url(${slidBanner2.src})`,
-                backgroundSize: "cover",
+                objectFit: "fill",
               }}
             >
               <div className="">
-                <h3 className="text-xl font-bold">
+                <h3 className="sm:text-xl font-bold">
                   Neutral <span className="text-primary-color">Juice</span>
                   Offer
                 </h3>

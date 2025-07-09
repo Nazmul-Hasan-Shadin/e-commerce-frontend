@@ -88,7 +88,7 @@ const Card = ({ product }: { product: IProduct }) => {
     <div className=" relative sm:max-w-0 md:w-full">
       <NextCard
         isHoverable
-        className=" w-[168px] mr-3 md:w-[200px] lg:w-[300px]  md:p-3 h-auto  shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
+        className=" w-[168px] mr-3 md:w-[250px] lg:w-[270px]  md:p-3 h-auto  shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
       >
         {/* Image */}
         <div className="relative h-32 md:h-56  w-full mx-auto">
