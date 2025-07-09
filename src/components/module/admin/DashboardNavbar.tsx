@@ -21,9 +21,9 @@ const DashboardNavbar = () => {
       {/* Left Section: Search Input */}
       <NavbarContent>
         <Input
+          className="w-64 hidden md:block"
           endContent={<IoSearchOutline className="text-gray-500" />}
           placeholder="Search here"
-          className="w-64 hidden md:block"
         />
       </NavbarContent>
 
@@ -55,8 +55,8 @@ const DashboardNavbar = () => {
           </DropdownTrigger>
           <DropdownMenu
             aria-label="Profile Actions"
-            variant="flat"
             className="visiblebro"
+            variant="flat"
           >
             <DropdownItem key="profile" className="h-14 gap-2">
               <p className="font-semibold">Signed in as</p>

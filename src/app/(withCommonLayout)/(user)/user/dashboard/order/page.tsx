@@ -1,8 +1,5 @@
 "use client";
 
-import Container from "@/src/components/ui/Container";
-import { TorderItems } from "@/src/redux/feature/cart/cartSlice";
-import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
 import {
   Table,
   TableHeader,
@@ -12,6 +9,10 @@ import {
   TableCell,
 } from "@nextui-org/react";
 import Image from "next/image";
+
+import Container from "@/src/components/ui/Container";
+import { TorderItems } from "@/src/redux/feature/cart/cartSlice";
+import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
 
 const UserOrderPage = () => {
   // Fetch order data using Redux Query
@@ -46,11 +47,11 @@ const UserOrderPage = () => {
                   {item?.product?.images ? (
                     <div className="flex justify-center items-center">
                       <Image
+                        alt="Order product image"
+                        className="rounded-full"
+                        height={50} // Adjust the height as per your needs
                         src={item?.product?.images || "/default-image.png"} // Fallback to a placeholder
                         width={50} // Adjust the width as per your needs
-                        height={50} // Adjust the height as per your needs
-                        className="rounded-full"
-                        alt="Order product image"
                       />
                     </div>
                   ) : (
@@ -58,7 +59,7 @@ const UserOrderPage = () => {
                   )}
                 </TableCell>
               </TableRow>
-            ))
+            )),
           )}
         </TableBody>
       </Table>

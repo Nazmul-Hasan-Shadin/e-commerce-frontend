@@ -1,13 +1,5 @@
 "use client";
 import Swal from "sweetalert2";
-
-import {
-  addToCart,
-  clearCart,
-  replaceCart,
-  useGetCurrentCart,
-} from "@/src/redux/feature/cart/cartSlice";
-import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import { Button } from "@nextui-org/button";
 import {
   Card as NextCard,
@@ -19,6 +11,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import toast from "react-hot-toast";
+
+import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
+import { addToCart, replaceCart } from "@/src/redux/feature/cart/cartSlice";
 
 export interface IProduct {
   id: string;
@@ -36,16 +31,20 @@ export interface IProduct {
 // Function to limit description to 30 words
 const getShortDescription = (description: string) => {
   const words = description.split(" ");
+
   if (words.length > 20) {
     return words.slice(0, 5).join(" ") + "...";
   }
+
   return description;
 };
 const getShortName = (description: string) => {
   const words = description.split(" ");
+
   if (words.length > 4) {
     return words.slice(0, 4).join(" ");
   }
+
   return description;
 };
 
@@ -86,19 +85,19 @@ const Card = ({ product }: { product: IProduct }) => {
   };
 
   return (
-    <div className=" relative w-full max-w-[190px] sm:max-w-0 md:w-full">
+    <div className=" relative sm:max-w-0 md:w-full">
       <NextCard
         isHoverable
-        className=" w-[168px] mr-3 md:w-[260px] md:p-3 h-auto  shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
+        className=" w-[168px] mr-3 md:w-[200px] lg:w-[300px]  md:p-3 h-auto  shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
       >
         {/* Image */}
-        <div className="relative h-32 md:h-56 w-full mx-auto">
+        <div className="relative h-32 md:h-56  w-full mx-auto">
           <Image
-            src={product?.images[0]}
             alt={product?.name}
-            width={140}
+            className="rounded-t-lg w-[120px] h-full object-contain md:w-[200px] lg:w-[300px]"
             height={120}
-            className="rounded-t-lg w-[120px] h-full object-contain md:w-[200px]"
+            src={product?.images[0]}
+            width={140}
           />
         </div>
         <del className="md:text-lg absolute top-1 text-primary-color p-1 right-1">
@@ -133,18 +132,18 @@ const Card = ({ product }: { product: IProduct }) => {
         {/* Card Footer */}
         <CardFooter className="md:p-3 md:flex gap-2 justify-around  md:justify-between">
           <Button
-            onClick={handleAddToCart}
-            variant="bordered"
-            size="sm"
             className=" md:hidden text-[13px]  md:w-28 bg-primary-color text-white"
+            size="sm"
+            variant="bordered"
+            onClick={handleAddToCart}
           >
             Add to cart
           </Button>
           {/* ==============add to cart for medium device======== */}
           <Button
-            onClick={handleAddToCart}
-            variant="bordered"
             className="text-sm hidden md:block   md:w-28 bg-primary-color text-white"
+            variant="bordered"
+            onClick={handleAddToCart}
           >
             Add to cart
           </Button>

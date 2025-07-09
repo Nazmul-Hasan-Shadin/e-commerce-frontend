@@ -1,8 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Card, CardBody, Button, Pagination } from "@nextui-org/react";
-import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
-import { useAppSelector } from "@/src/redux/hook";
+import { Card, CardBody, Pagination } from "@nextui-org/react";
 import { BsBagDash } from "react-icons/bs";
 import { FaDollarSign } from "react-icons/fa6";
 import { IoCubeOutline } from "react-icons/io5";
@@ -16,8 +14,6 @@ import {
   TableCell,
   User,
 } from "@nextui-org/react";
-import { useGetAllShopTopTenQuery } from "@/src/redux/feature/shop/shop.api";
-
 import {
   BarChart,
   Bar,
@@ -28,6 +24,10 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+
+import { useGetAllShopTopTenQuery } from "@/src/redux/feature/shop/shop.api";
+import { useAppSelector } from "@/src/redux/hook";
+import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 
 const chartData = [
   { name: "Page A", uv: 4000, pv: 2400, amt: 2400 },
@@ -86,7 +86,7 @@ const AdminDashboard: React.FC = () => {
           />
         );
       case "logo":
-        return <img src={user.logo} alt={`${user.name}'s logo`} width="40" />;
+        return <img alt={`${user.name}'s logo`} src={user.logo} width="40" />;
       case "email":
         return <span>{user.email}</span>;
       case "action":
@@ -105,6 +105,7 @@ const AdminDashboard: React.FC = () => {
   const paginateData = (data: UserData[]) => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
+
     return data.slice(startIndex, endIndex);
   };
 
@@ -121,7 +122,7 @@ const AdminDashboard: React.FC = () => {
       {/* Cards */}
       <div className="grid grid-cols-1 mb-7  md:grid-cols-3 lg:grid-cols-4 gap-6">
         {/* Earnings */}
-        <Card shadow="sm" className="p-4">
+        <Card className="p-4" shadow="sm">
           <CardBody>
             <div className="flex  gap-4">
               <span className="block w-10 h-10 bg-[#8B7EFF] rounded-full flex items-center justify-center">
@@ -142,7 +143,7 @@ const AdminDashboard: React.FC = () => {
         </Card>
 
         {/* Orders */}
-        <Card shadow="sm" className="p-4">
+        <Card className="p-4" shadow="sm">
           <CardBody>
             <div className="flex gap-4">
               <span className="block w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
@@ -158,7 +159,7 @@ const AdminDashboard: React.FC = () => {
         </Card>
 
         {/* Customers */}
-        <Card shadow="sm" className="p-4">
+        <Card className="p-4" shadow="sm">
           <CardBody>
             <div className="flex gap-4">
               <span className="block w-10 h-10 bg-[#8B7EFF] rounded-full flex items-center justify-center">
@@ -179,7 +180,7 @@ const AdminDashboard: React.FC = () => {
         </Card>
 
         {/* Balance */}
-        <Card shadow="sm" className="p-4">
+        <Card className="p-4" shadow="sm">
           <CardBody>
             <div className="flex gap-4">
               <span className="block w-10 h-10 bg-[#2E8EF7] rounded-full flex items-center justify-center">
@@ -206,30 +207,30 @@ const AdminDashboard: React.FC = () => {
 
       <div className="flex-col lg:flex lg:flex-row  gap-3">
         <div className=" h-[300] lg:h-[400px] w-full flex-1">
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer height="100%" width="100%">
             <BarChart
-              width={500}
+              barSize={20}
               className="w-full"
-              height={300}
               data={chartData}
+              height={300}
               margin={{
                 top: 5,
                 right: 30,
                 left: 20,
                 bottom: 5,
               }}
-              barSize={20}
+              width={500}
             >
               <XAxis
                 dataKey="name"
-                scale="point"
                 padding={{ left: 10, right: 10 }}
+                scale="point"
               />
               <YAxis />
               <Tooltip />
               <Legend />
               <CartesianGrid strokeDasharray="3 3" />
-              <Bar dataKey="pv" fill="#8884d8" background={{ fill: "#eee" }} />
+              <Bar background={{ fill: "#eee" }} dataKey="pv" fill="#8884d8" />
               <Bar dataKey="uv" fill="#82ca9d" />
             </BarChart>
           </ResponsiveContainer>
@@ -254,9 +255,9 @@ const AdminDashboard: React.FC = () => {
             </TableBody>
           </Table>
           <Pagination
-            onChange={(page) => setCurrentPage(page)}
             initialPage={currentPage}
             total={Math.ceil(allshopTopTen?.data?.length || 0)} // Total pages
+            onChange={(page) => setCurrentPage(page)}
           />
         </div>
       </div>

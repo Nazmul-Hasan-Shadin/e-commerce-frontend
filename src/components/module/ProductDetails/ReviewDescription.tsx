@@ -1,17 +1,20 @@
 "use client";
 import { Tabs, Tab, CardBody, Card } from "@nextui-org/react";
 import React from "react";
+
 import UserCard from "../../ui/UserCard";
+
 import { IReview } from "@/src/interface/review";
 
 const ReviewTab = ({ review }: { review: IReview[] }) => {
   const [selected, setSelected] = React.useState("reviews");
+
   return (
     <div className="flex w-full flex-col ">
       <Tabs
         aria-label="Options"
-        selectedKey={selected}
         className="flex  "
+        selectedKey={selected}
         variant="underlined"
         onSelectionChange={(key: string | number) => setSelected(key as string)}
       >
@@ -22,7 +25,7 @@ const ReviewTab = ({ review }: { review: IReview[] }) => {
         >
           <UserCard review={review} />
         </Tab>
-        <Tab className=" text-xl" key="music" title="Description">
+        <Tab key="music" className=" text-xl" title="Description">
           <Card>
             <CardBody>
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -32,7 +35,7 @@ const ReviewTab = ({ review }: { review: IReview[] }) => {
             </CardBody>
           </Card>
         </Tab>
-        <Tab className=" text-xl" key="videos" title="Videos">
+        <Tab key="videos" className=" text-xl" title="Videos">
           <Card>coming sooon</Card>
         </Tab>
       </Tabs>

@@ -9,6 +9,7 @@ const ImageUpload = () => {
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     const files = e.dataTransfer.files;
+
     if (files && files[0]) {
       setImage(files[0]);
     }
@@ -17,6 +18,7 @@ const ImageUpload = () => {
   // Handle file browse
   const handleBrowse = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+
     if (file) {
       setImage(file);
     }
@@ -29,23 +31,23 @@ const ImageUpload = () => {
       </h2>
 
       <div
-        onDrop={handleDrop}
-        onDragOver={(e) => e.preventDefault()}
         className="border-2 border-dashed border-gray-300 p-8 flex flex-col items-center justify-center cursor-pointer"
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={handleDrop}
       >
         {/* Hidden file input */}
         <input
-          type="file"
           accept="image/*"
           className="hidden"
+          type="file"
           onChange={handleBrowse}
         />
 
         {/* Upload icon */}
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Cloud_upload_icon.svg/1024px-Cloud_upload_icon.svg.png"
           alt="upload icon"
           className="mb-4 w-12 h-12"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Cloud_upload_icon.svg/1024px-Cloud_upload_icon.svg.png"
         />
         <p className="text-lg text-gray-700">Drop your images here, or</p>
         <p className="text-lg text-orange-500 font-semibold">click to browse</p>
@@ -61,9 +63,9 @@ const ImageUpload = () => {
             Selected Image:
           </h3>
           <img
-            src={URL.createObjectURL(image)}
             alt="Selected"
             className="mt-2 rounded-lg max-w-full h-auto"
+            src={URL.createObjectURL(image)}
           />
         </div>
       )}

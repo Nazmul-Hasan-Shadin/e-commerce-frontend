@@ -12,4 +12,5 @@ const commentApi = baseApi.injectEndpoints({
     }),
   }),
 });
+
 export const { useCreateCommentMutation } = commentApi;

@@ -1,5 +1,6 @@
-import PageHeaderwithBanner from "@/src/components/ui/PageHeaderwithBanner";
 import { ReactNode } from "react";
+
+import PageHeaderwithBanner from "@/src/components/ui/PageHeaderwithBanner";
 
 export default function layout({
   children,

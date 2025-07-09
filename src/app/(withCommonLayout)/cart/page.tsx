@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
-import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import Image from "next/image";
 import { Button } from "@nextui-org/button";
-import { removeFromCart } from "@/src/redux/feature/cart/cartSlice";
 import Link from "next/link";
+
+import { removeFromCart } from "@/src/redux/feature/cart/cartSlice";
+import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 
 const CartPage = () => {
   const cartItems = useAppSelector((state) => state.cart.orderItems);
@@ -18,7 +19,7 @@ const CartPage = () => {
   // Calculate total price
   const totalAmount = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
-    0
+    0,
   );
 
   return (
@@ -33,7 +34,7 @@ const CartPage = () => {
             Your cart is empty. Start shopping to add items to your cart.
           </p>
           <Link href="/products">
-            <Button size="lg" color="primary">
+            <Button color="primary" size="lg">
               Browse Products
             </Button>
           </Link>
@@ -48,11 +49,11 @@ const CartPage = () => {
               {/* Product Image */}
               <div className="w-28 h-28 relative flex-shrink-0 border border-gray-200 rounded-md overflow-hidden">
                 <Image
-                  src={item.images || "/placeholder.jpg"} // Fallback to a placeholder image
                   alt={item.name || "Product Image"}
+                  className="rounded-md"
                   layout="fill"
                   objectFit="cover"
-                  className="rounded-md"
+                  src={item.images || "/placeholder.jpg"} // Fallback to a placeholder image
                 />
               </div>
 
@@ -76,10 +77,10 @@ const CartPage = () => {
                   <p className="text-lg font-semibold">{item.quantity}</p>
                 </div>
                 <Button
-                  variant="bordered"
-                  size="sm"
-                  color="danger"
                   className="hover:bg-red-100"
+                  color="danger"
+                  size="sm"
+                  variant="bordered"
                   onClick={() => handleRemoveFromCart(item.productId)}
                 >
                   Remove
@@ -99,7 +100,7 @@ const CartPage = () => {
               <span className="text-[#fd6506]">${totalAmount.toFixed(2)}</span>
             </p>
             <Link href="/payment">
-              <Button size="lg" color="success" className="px-6 py-3">
+              <Button className="px-6 py-3" color="success" size="lg">
                 Proceed to Checkout
               </Button>
             </Link>

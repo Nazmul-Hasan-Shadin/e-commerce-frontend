@@ -1,13 +1,11 @@
 "use client"; // Use client-side rendering since RTK Query is client-based
 
-import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import Card from "../../ui/Card";
-import Link from "next/link";
-import { useParams } from "next/navigation";
 import SkeletonCard from "../../ui/SkeletonCard";
 import Container from "../../ui/Container";
-import { Divider } from "@nextui-org/react";
 import Dividers from "../../ui/Divider";
+
+import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 
 const TopSellProduct = () => {
   const { data: products, isLoading, isError } = useGetAllProductQuery({});

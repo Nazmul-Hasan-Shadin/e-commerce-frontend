@@ -1,21 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  FaTshirt,
-  FaWarehouse,
-  FaShoppingCart,
-  FaCog,
-  FaChevronDown,
-  FaBoxOpen,
-  FaClipboardList,
-} from "react-icons/fa";
+import { FaCog } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
+import { RiListOrdered2 } from "react-icons/ri";
+import Image from "next/image";
 
 import { useAppSelector } from "@/src/redux/hook";
 import { SidebarItem } from "@/src/components/module/vendor/SidebarItem";
-import { RiListOrdered2 } from "react-icons/ri";
-import Image from "next/image";
 
 const UserSideBar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -35,11 +27,11 @@ const UserSideBar = () => {
         <div className="flex items-center space-x-2">
           <div>
             <Image
+              alt="user image"
+              className="rounded-full"
+              height={100}
               src={"https://i.pravatar.cc/150?u=a042581f4e29026704d"}
               width={90}
-              alt="user image"
-              height={100}
-              className="rounded-full"
             />
           </div>
         </div>
@@ -50,15 +42,15 @@ const UserSideBar = () => {
         {/* Dashboard */}
 
         <SidebarItem
-          label="Profile"
           icon={<CgProfile className="text-2xl" />}
           isOpen={isOpen}
+          label="Profile"
           path="/dashboard"
         />
         <SidebarItem
-          label="Order"
           icon={<RiListOrdered2 className="text-2xl" />}
           isOpen={isOpen}
+          label="Order"
           path="/user/dashboard/order"
         />
 
@@ -78,9 +70,9 @@ const UserSideBar = () => {
 
         {/* Settings */}
         <SidebarItem
-          label="Settings"
           icon={<FaCog />}
           isOpen={isOpen}
+          label="Settings"
           path="/user/dashboard/settings"
         />
       </nav>

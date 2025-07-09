@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+
 import { IProduct } from "../../ui/Card";
 
 const SearchResultList = ({ searchResult }: { searchResult: IProduct[] }) => {
@@ -15,11 +16,11 @@ const SearchResultList = ({ searchResult }: { searchResult: IProduct[] }) => {
           >
             <div className="w-12 h-12 mr-3">
               <Image
-                src={product.images[0]}
                 alt={product.name}
-                width={48}
-                height={48}
                 className="rounded"
+                height={48}
+                src={product.images[0]}
+                width={48}
               />
             </div>
             <div className="text-sm text-black">{product.name}</div>

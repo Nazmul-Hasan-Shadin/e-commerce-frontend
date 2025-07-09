@@ -9,8 +9,6 @@ import {
   Chip,
   Pagination,
 } from "@nextui-org/react";
-import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
-import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 
 const BestSellingAndTopSellers = () => {
   //   const { data: currentUser } = useGetCurrentUserQuery();
@@ -149,7 +147,7 @@ const BestSellingAndTopSellers = () => {
             ))}
           </TableBody>
         </Table>
-        <Pagination total={5} initialPage={2} className="mt-4" />
+        <Pagination className="mt-4" initialPage={2} total={5} />
       </div>
 
       {/* Top Sellers */}
@@ -178,7 +176,7 @@ const BestSellingAndTopSellers = () => {
             ))}
           </TableBody>
         </Table>
-        <Pagination total={5} initialPage={2} className="mt-4" />
+        <Pagination className="mt-4" initialPage={2} total={5} />
       </div>
     </div>
   );

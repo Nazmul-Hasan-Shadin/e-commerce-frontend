@@ -1,8 +1,9 @@
 "use client";
 
-import { useGetAllShopTopTenQuery } from "@/src/redux/feature/shop/shop.api";
 import Link from "next/link";
 import React from "react";
+
+import { useGetAllShopTopTenQuery } from "@/src/redux/feature/shop/shop.api";
 
 type Shop = {
   id: string;
@@ -38,9 +39,9 @@ const ShopPage = () => {
             {/* Shop Details */}
             <div className="flex flex-col items-center p-4">
               <img
-                src={shop.logo || "/default-logo.png"}
                 alt={`${shop.name || "Shop"} logo`}
                 className="w-16 h-16 object-cover rounded-full mb-4"
+                src={shop.logo || "/default-logo.png"}
               />
               <h2 className="text-lg font-bold text-gray-800">
                 {shop.name || "Unnamed Shop"}
@@ -58,8 +59,8 @@ const ShopPage = () => {
 
             {/* View Shop Button */}
             <Link
-              href={`/shop/${shop.id}`}
               className="block text-center py-2 bg-[#fd6506] text-white font-semibold hover:bg-orange-600 transition"
+              href={`/shop/${shop.id}`}
             >
               View Shop
             </Link>

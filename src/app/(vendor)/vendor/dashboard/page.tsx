@@ -1,8 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Card, CardBody, Button } from "@nextui-org/react";
-import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
-import { useAppSelector } from "@/src/redux/hook";
+import { Card, CardBody } from "@nextui-org/react";
 import { BsBagDash } from "react-icons/bs";
 import { FaDollarSign } from "react-icons/fa6";
 import { IoCubeOutline } from "react-icons/io5";
@@ -15,12 +13,14 @@ import {
   TableRow,
   TableCell,
   User,
-  Chip,
   Pagination,
 } from "@nextui-org/react";
+import { Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+
 import { useGetAllShopTopTenQuery } from "@/src/redux/feature/shop/shop.api";
 import { useGetProducsByShopIdQuery } from "@/src/redux/feature/vendor/vendor.api";
-import { Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import { useAppSelector } from "@/src/redux/hook";
+import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import Container from "@/src/components/ui/Container";
 
 interface TableColumn {
@@ -42,7 +42,7 @@ const AdminDashboard: React.FC = () => {
   const { data: allshopTopTen } = useGetAllShopTopTenQuery(undefined);
   const { data: shopOwnerInfo } = useGetCurrentUserQuery(undefined);
   const { data: shopPorductList } = useGetProducsByShopIdQuery(
-    shopOwnerInfo?.data?.shop?.id
+    shopOwnerInfo?.data?.shop?.id,
   );
   const user = useAppSelector((state) => state.auth.user);
 
@@ -60,7 +60,7 @@ const AdminDashboard: React.FC = () => {
 
   const renderCell = (
     user: UserData,
-    columnKey: "name" | "logo" | "actions"
+    columnKey: "name" | "logo" | "actions",
   ) => {
     switch (columnKey) {
       case "name":
@@ -92,13 +92,13 @@ const AdminDashboard: React.FC = () => {
   const productStartIndex = (productPage - 1) * itemsPerPage;
   const paginatedProducts = shopPorductList?.data.slice(
     productStartIndex,
-    productStartIndex + itemsPerPage
+    productStartIndex + itemsPerPage,
   );
 
   const shopStartIndex = (shopPage - 1) * itemsPerPage;
   const paginatedShops = allshopTopTen?.data.slice(
     shopStartIndex,
-    shopStartIndex + itemsPerPage
+    shopStartIndex + itemsPerPage,
   );
 
   const chartDataofSale = [
@@ -159,7 +159,7 @@ const AdminDashboard: React.FC = () => {
       {/* Cards */}
       <div className="grid grid-cols-1 mb-7  md:grid-cols-3 lg:grid-cols-4 gap-6">
         {/* Earnings */}
-        <Card shadow="sm" className="p-4">
+        <Card className="p-4" shadow="sm">
           <CardBody>
             <div className="flex  gap-4">
               <span className="block w-10 h-10 bg-[#8B7EFF] rounded-full flex items-center justify-center">
@@ -180,7 +180,7 @@ const AdminDashboard: React.FC = () => {
         </Card>
 
         {/* Orders */}
-        <Card shadow="sm" className="p-4">
+        <Card className="p-4" shadow="sm">
           <CardBody>
             <div className="flex gap-4">
               <span className="block w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
@@ -198,7 +198,7 @@ const AdminDashboard: React.FC = () => {
         </Card>
 
         {/* Customers */}
-        <Card shadow="sm" className="p-4">
+        <Card className="p-4" shadow="sm">
           <CardBody>
             <div className="flex gap-4">
               <span className="block w-10 h-10 bg-[#8B7EFF] rounded-full flex items-center justify-center">
@@ -219,7 +219,7 @@ const AdminDashboard: React.FC = () => {
         </Card>
 
         {/* Balance */}
-        <Card shadow="sm" className="p-4">
+        <Card className="p-4" shadow="sm">
           <CardBody>
             <div className="flex gap-4">
               <span className="block w-10 h-10 bg-[#2E8EF7] rounded-full flex items-center justify-center">
@@ -247,13 +247,13 @@ const AdminDashboard: React.FC = () => {
         <div className="grid  grid-cols-12">
           <div className="col-span-11 md:col-span-7 w-full h-[300px]">
             <h2 className="text-xl font-bold my-3 pl-2 ">Sell summery</h2>
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart width={300} height={100} data={chartDataofSale}>
+            <ResponsiveContainer height="100%" width="100%">
+              <LineChart data={chartDataofSale} height={100} width={300}>
                 <Line
-                  type="monotone"
                   dataKey="pv"
                   stroke="#8884d8"
                   strokeWidth={2}
+                  type="monotone"
                 />
                 <YAxis />
                 <XAxis dataKey="name" />
@@ -287,10 +287,10 @@ const AdminDashboard: React.FC = () => {
             <Pagination
               className="mt-4"
               color="success"
-              total={Math.ceil(
-                (shopPorductList?.data.length || 0) / itemsPerPage
-              )}
               initialPage={productPage}
+              total={Math.ceil(
+                (shopPorductList?.data.length || 0) / itemsPerPage,
+              )}
               onChange={(page) => setProductPage(page)}
             />
           </div>
@@ -316,10 +316,10 @@ const AdminDashboard: React.FC = () => {
             <Pagination
               className="mt-4"
               color="success"
-              total={Math.ceil(
-                (allshopTopTen?.data.length || 0) / itemsPerPage
-              )}
               initialPage={shopPage}
+              total={Math.ceil(
+                (allshopTopTen?.data.length || 0) / itemsPerPage,
+              )}
               onChange={(page) => setShopPage(page)}
             />
           </div>

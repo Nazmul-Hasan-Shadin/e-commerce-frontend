@@ -1,11 +1,12 @@
 "use client";
-import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
-import { useCreateOrderMutation } from "@/src/redux/feature/payment/order.api";
-import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
-import { RootState } from "@/src/redux/store";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+
+import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
+import { useCreateOrderMutation } from "@/src/redux/feature/payment/order.api";
+import { useAppSelector } from "@/src/redux/hook";
+import { RootState } from "@/src/redux/store";
 
 const CheckOutForm = () => {
   const [makeOrder] = useCreateOrderMutation();
@@ -19,7 +20,7 @@ const CheckOutForm = () => {
 
   const totalAmount = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
-    0
+    0,
   );
 
   const shopId = cartItems[0]?.shopId;
@@ -38,9 +39,10 @@ const CheckOutForm = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({ price: totalAmount * 100 }),
-          }
+          },
         );
         const data = await response.json();
+
         setClientSecret(data.clientSecret);
       } catch (error) {
         console.error("Error fetching client secret:", error);
@@ -59,6 +61,7 @@ const CheckOutForm = () => {
     }
 
     const card = elements.getElement(CardElement);
+
     if (card == null) {
       return;
     }
@@ -70,8 +73,9 @@ const CheckOutForm = () => {
 
     if (error) {
       setError(
-        error.message || "An error occurred while creating the payment method."
+        error.message || "An error occurred while creating the payment method.",
       );
+
       return;
     }
 
@@ -88,8 +92,9 @@ const CheckOutForm = () => {
     if (confirmError) {
       setError(
         confirmError.message ||
-          "An error occurred while confirming the payment."
+          "An error occurred while confirming the payment.",
       );
+
       return;
     }
 
@@ -113,6 +118,7 @@ const CheckOutForm = () => {
       } catch (error: unknown) {
         if (typeof error === "object" && error !== null && "data" in error) {
           const err = error as { data: { message: string } };
+
           toast.error(err.data.message);
         } else {
           toast.error("An unknown error occurred while creating the order.");
@@ -127,9 +133,10 @@ const CheckOutForm = () => {
 
   return (
     <div className="max-w-lg mx-auto mt-10 p-6 border rounded-md shadow-md bg-white">
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form className="space-y-4" onSubmit={handleSubmit}>
         <div>
           <CardElement
+            className="p-3 border rounded-md w-full"
             options={{
               style: {
                 base: {
@@ -144,13 +151,12 @@ const CheckOutForm = () => {
                 },
               },
             }}
-            className="p-3 border rounded-md w-full"
           />
         </div>
         <button
-          type="submit"
-          disabled={!stripe || !clientSecret}
           className="w-full py-3 px-6 bg-green-600 text-white font-bold rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-300 disabled:bg-green-400"
+          disabled={!stripe || !clientSecret}
+          type="submit"
         >
           Pay Now
         </button>

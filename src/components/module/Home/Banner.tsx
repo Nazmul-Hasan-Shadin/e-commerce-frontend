@@ -5,43 +5,49 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import Image from "next/image";
-import slidBanner1 from "@/src/assests/Banner/slideBanner1.png";
-import mainBanner1 from "@/src/assests/Banner/tv.jpg";
+import { Button } from "@nextui-org/button";
+
+import Container from "../../ui/Container";
+import slidBanner1 from "../../../assests/Banner/sideBanner1.jpg";
+import slidBanner2 from "../../../assests/Banner/sideBanner2.jpg";
+
 import mainBanner2 from "@/src/assests/Banner/winter.webp";
 import mainBanner3 from "@/src/assests/Banner/mainbanner.webp";
-import Container from "../../ui/Container";
+import Link from "next/link";
 
 const Banner = () => {
   return (
     <Container>
-      <div className="grid   gap-5  h-[70vh] p-1 lg:grid-cols-12 ">
-        <div className="grid col-span-12 lg:col-span-8">
+      <div className="grid gap-5 h-[65vh] p-1 lg:grid-cols-12 ">
+        {/* ============slider of banner =========== */}
+        <div className="grid col-span-12  lg:col-span-8">
           <Swiper
-            spaceBetween={30}
-            centeredSlides={true}
             autoplay={{
               delay: 2500,
               disableOnInteraction: false,
             }}
+            centeredSlides={true}
+            className="mySwiper  w-full   md:w-500  lg:w-full"
+            height={400}
+            modules={[Autoplay, Pagination, Navigation]}
+            navigation={true}
             pagination={{
               clickable: true,
             }}
-            navigation={true}
-            modules={[Autoplay, Pagination, Navigation]}
-            className="mySwiper  w-full   md:w-500  lg:w-full"
+            spaceBetween={30}
           >
             <SwiperSlide>
               <Image
-                src={mainBanner3}
                 alt="special discount banner"
                 className="  w-full lg:w-full lg:h-full"
+                src={mainBanner3}
               />
             </SwiperSlide>
             <SwiperSlide>
               <Image
-                src={mainBanner2}
                 alt="special discount banner"
                 className="  w-full lg:w-full lg:h-full"
+                src={mainBanner2}
               />
             </SwiperSlide>
           </Swiper>
@@ -49,35 +55,43 @@ const Banner = () => {
 
         {/* ===============disocunt =image ================== */}
 
-        <div className="col-span-12  lg:col-span-4">
-          <div className="grid grid-cols-2  md:gap-x-4">
-            <div>
-              <Image
-                src={slidBanner1}
-                alt="discount bannserkj"
-                className="w-3/4  md:w-full h-full"
-              />
+        <div className="col-span-12  lg:col-span-4 border border-red-500">
+          <div className="flex flex-col  border-4 border-red-500 h-full gap-1">
+            <div
+              className="w-full flex-1 h-64 bg-cover bg-center flex flex-col justify-center p-8"
+              style={{
+                backgroundImage: `url(${slidBanner1.src})`,
+                backgroundSize: "cover",
+              }}
+            >
+              <div>
+                <h3 className="text-xl font-bold">30% discount </h3>
+                <Button
+                  size="sm"
+                  className="bg-black text-primary-50 rounded-none"
+                >
+                  Shop Now
+                </Button>
+              </div>
             </div>
-            <div>
-              <Image
-                src={slidBanner1}
-                alt="discount bannserkj"
-                className="w-3/4 h-auto md:w-full md:h-full"
-              />
-            </div>
-            <div>
-              <Image
-                src={slidBanner1}
-                alt="discount bannserkj"
-                className="w-3/4 h-auto md:w-full md:h-full"
-              />
-            </div>
-            <div>
-              <Image
-                src={slidBanner1}
-                alt="discount bannserkj"
-                className="w-3/4 h-auot md:w-full md:h-full"
-              />
+            <div
+              className="flex flex-1 h-full flex-col justify-center  items-start p-8"
+              style={{
+                backgroundImage: `url(${slidBanner2.src})`,
+                backgroundSize: "cover",
+              }}
+            >
+              <div className="">
+                <h3 className="text-xl font-bold">
+                  Neutral <span className="text-primary-color">Juice</span>
+                  Offer
+                </h3>
+
+                <Link href="/home" className="underline">
+                  {" "}
+                  Shop Now
+                </Link>
+              </div>
             </div>
           </div>
         </div>

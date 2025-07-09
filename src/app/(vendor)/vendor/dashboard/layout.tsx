@@ -1,6 +1,6 @@
-import NavBar from "@/src/components/module/Home/NavBar";
-import DashboardNavbar from "@/src/components/module/admin/DashboardNavbar";
 import { ReactNode } from "react";
+
+import DashboardNavbar from "@/src/components/module/admin/DashboardNavbar";
 
 export default function layout({
   children,

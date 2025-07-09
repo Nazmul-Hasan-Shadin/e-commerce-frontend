@@ -1,6 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authSlice from "./feature/auth/auth.slice";
-import { baseApi } from "./api/baseApi";
 import {
   persistStore,
   persistReducer,
@@ -12,6 +10,9 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+
+import authSlice from "./feature/auth/auth.slice";
+import { baseApi } from "./api/baseApi";
 import { cartSlice } from "./feature/cart/cartSlice";
 import { categoryFilterSlice } from "./feature/vendor/vendor.slice";
 
@@ -29,7 +30,7 @@ const persistedReducer = persistReducer(persistConfig, authSlice);
 
 const persistedCartReducer = persistReducer(
   cartPersistConfig,
-  cartSlice.reducer
+  cartSlice.reducer,
 );
 
 export const store = configureStore({

@@ -2,10 +2,11 @@
 import React, { Suspense } from "react";
 import { Button } from "@nextui-org/react";
 import { SubmitHandler } from "react-hook-form";
-import EForm from "@/src/components/form/EForm";
-import EInput from "@/src/components/form/EInput";
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
+
+import EForm from "@/src/components/form/EForm";
+import EInput from "@/src/components/form/EInput";
 import { useResetPasswordMutation } from "@/src/redux/feature/auth/auth.api";
 
 const ResetPasswordForm = () => {
@@ -22,6 +23,7 @@ const ResetPasswordForm = () => {
 
     if (!token || !email) {
       toast.error("Invalid or expired reset link.", { id: toastId });
+
       return;
     }
 
@@ -42,7 +44,7 @@ const ResetPasswordForm = () => {
     } catch (error: any) {
       toast.error(
         error?.data?.message || "Failed to update password. Please try again.",
-        { id: toastId }
+        { id: toastId },
       );
     }
   };
@@ -58,22 +60,22 @@ const ResetPasswordForm = () => {
           {/* New Password Input */}
           <div className="mb-4">
             <EInput
+              required
               label="New Password"
               name="password"
-              required
-              type="password"
               placeholder="Enter new password"
+              type="password"
             />
           </div>
 
           {/* Confirm New Password Input */}
           <div className="mb-6">
             <EInput
+              required
               label="Confirm Password"
               name="confirmPassword"
-              required
-              type="password"
               placeholder="Re-enter new password"
+              type="password"
             />
           </div>
 
@@ -90,7 +92,7 @@ const ResetPasswordForm = () => {
           {/* Redirect to Login */}
           <div className="text-center text-sm">
             <span>Remember your password?</span>
-            <a href="/login" className="text-[#fd6506] hover:underline ml-1">
+            <a className="text-[#fd6506] hover:underline ml-1" href="/login">
               Login
             </a>
           </div>

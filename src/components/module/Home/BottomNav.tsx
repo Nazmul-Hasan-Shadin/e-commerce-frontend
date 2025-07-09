@@ -8,28 +8,29 @@ import {
   NavbarMenu,
   Button,
 } from "@nextui-org/react";
-import styles from "./bottomNav.module.css";
 import Link from "next/link";
-
 import { IoSearchOutline } from "react-icons/io5";
-
 import React from "react";
-import { GiSelfLove } from "react-icons/gi";
 import { RxAvatar } from "react-icons/rx";
 import { IoCartOutline } from "react-icons/io5";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { FcCustomerSupport } from "react-icons/fc";
 import { LiaFlagUsaSolid } from "react-icons/lia";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import logo from "@/src/assests/icon/bottomnavlogo.avif";
 import Image from "next/image.js";
-import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
-import { logOut } from "@/src/redux/feature/auth/auth.slice";
 import { usePathname } from "next/navigation";
+
 import Container from "../../ui/Container";
+
+import styles from "./bottomNav.module.css";
+
+import { logOut } from "@/src/redux/feature/auth/auth.slice";
+import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
+import logo from "@/src/assests/icon/bottomnavlogo.avif";
 
 const BottomNav = () => {
   const pathname = usePathname();
+
   console.log(pathname);
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -61,15 +62,15 @@ const BottomNav = () => {
     <div className="sticky top-0 z-20">
       <Container>
         <Navbar
-          onMenuOpenChange={setIsMenuOpen}
-          isMenuOpen={isMenuOpen}
           className="bg-[#ffffff] p-0  text-white "
+          isMenuOpen={isMenuOpen}
           maxWidth="full"
+          onMenuOpenChange={setIsMenuOpen}
         >
           <NavbarContent className="text-black flex gap-12 lg:hidden">
             <NavbarMenuToggle
-              className="text-block"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              className="text-block"
             />
 
             <NavbarItem>
@@ -186,7 +187,7 @@ const BottomNav = () => {
 
           <NavbarBrand className="flex  lg:hidden gap-0 -p-16">
             {logo ? (
-              <Image alt="Navbar logo" src={logo} width={150} height={50} />
+              <Image alt="Navbar logo" height={50} src={logo} width={150} />
             ) : null}
           </NavbarBrand>
 
@@ -195,10 +196,10 @@ const BottomNav = () => {
           <NavbarContent className="gap-20 hidden  lg:flex" justify="center">
             {menuItems.map((menu, index) => (
               <NavbarItem
-                className={`${styles.navItem} ${pathname === menu.link ? styles.active : ""}`}
                 key={index}
+                className={`${styles.navItem} ${pathname === menu.link ? styles.active : ""}`}
               >
-                <Link href={menu.link} className="text-black">
+                <Link className="text-black" href={menu.link}>
                   {menu.label}
                 </Link>
               </NavbarItem>
@@ -210,7 +211,7 @@ const BottomNav = () => {
               </NavbarItem>
             ) : (
               <NavbarItem key="login" className="text-white">
-                <Link href="/login" className="text-black">
+                <Link className="text-black" href="/login">
                   Login
                 </Link>
               </NavbarItem>
@@ -223,7 +224,7 @@ const BottomNav = () => {
             <NavbarMenu>
               {menuItems.map((menu, index) => (
                 <NavbarItem key={index} className="text-white">
-                  <Link href={menu.link} className="text-black">
+                  <Link className="text-black" href={menu.link}>
                     {menu.label}
                   </Link>
                 </NavbarItem>

@@ -1,22 +1,18 @@
 "use client";
 import { Button } from "@nextui-org/button";
-import { Card, CardBody } from "@nextui-org/card";
 import Image from "next/image";
 import React, { use, useEffect, useState } from "react";
-import laptop from "@/src/assests/test.jpg";
 import { Input } from "@nextui-org/input";
 import { GoPlus } from "react-icons/go";
 import { FiMinus } from "react-icons/fi";
 import { GiSelfLove } from "react-icons/gi";
-import { Divider } from "@nextui-org/react";
+import Link from "next/link";
+
 import ReviewTab from "@/src/components/module/ProductDetails/ReviewDescription";
 import CommentBox from "@/src/components/ui/CommentBox";
-import Link from "next/link";
 import { IReview } from "@/src/interface/review";
 import { useGetProductByIdQuery } from "@/src/redux/feature/vendor/vendor.api";
-import { useParams } from "next/navigation";
-import { FaStar, FaStarHalfStroke, FaStarOfLife } from "react-icons/fa6";
-import { FaStarHalf } from "react-icons/fa";
+import laptop from "@/src/assests/test.jpg";
 
 interface ProductData {
   name: string;
@@ -47,8 +43,6 @@ const ProductDetails = ({ params }: { params: Params }) => {
     review = [],
     shopId = "",
   }: ProductData = productInfo?.data || {};
-
-  console.log(productInfo.data);
 
   // Handle thumbnail click
   const handleThumbnailClick = (image: string) => {
@@ -90,10 +84,10 @@ const ProductDetails = ({ params }: { params: Params }) => {
               <div>
                 <Image
                   alt="Main Product image"
-                  height={600}
-                  width={500}
                   className="mt-16"
+                  height={600}
                   src={mainImage || laptop}
+                  width={500}
                 />
               </div>
 
@@ -101,9 +95,9 @@ const ProductDetails = ({ params }: { params: Params }) => {
                 {images.map((image, index) => (
                   <div
                     key={index}
+                    className="cursor-pointer"
                     role="button"
                     tabIndex={0}
-                    className="cursor-pointer"
                     onClick={() => handleThumbnailClick(image)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" || e.key === " ") {
@@ -113,10 +107,10 @@ const ProductDetails = ({ params }: { params: Params }) => {
                   >
                     <Image
                       alt={`Thumbnail ${index + 1}`}
+                      className="object-contain"
+                      height={60}
                       src={image || laptop}
                       width={60}
-                      height={60}
-                      className="object-contain"
                     />
                   </div>
                 ))}
@@ -166,9 +160,9 @@ const ProductDetails = ({ params }: { params: Params }) => {
                         onClick={handleDecreaseQuantity}
                       />
                       <Input
-                        value={quantity.toString()}
                         readOnly
                         className="w-20 md:w-[120px] border text-center"
+                        value={quantity.toString()}
                       />
                       <GoPlus
                         className="text-3xl text-primary-color cursor-pointer"

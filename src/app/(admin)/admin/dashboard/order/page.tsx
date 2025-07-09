@@ -1,7 +1,5 @@
 "use client";
 
-import { TorderItems } from "@/src/redux/feature/cart/cartSlice";
-import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
 import {
   Table,
   TableHeader,
@@ -13,6 +11,9 @@ import {
 } from "@nextui-org/react";
 import Image from "next/image";
 import { useState } from "react";
+
+import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
+import { TorderItems } from "@/src/redux/feature/cart/cartSlice";
 
 const AdminOrderTables = () => {
   const {
@@ -31,7 +32,7 @@ const AdminOrderTables = () => {
   const totalItems =
     orderData?.data?.reduce(
       (acc: number, order: TorderItems) => acc + order.orderItems?.length,
-      0
+      0,
     ) || 0;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
@@ -75,11 +76,11 @@ const AdminOrderTables = () => {
                 <TableCell>
                   {item?.product?.images ? (
                     <Image
+                      alt="Order product image"
+                      className="rounded-full"
+                      height={30}
                       src={item?.product?.images[0] || "/default-image.png"}
                       width={30}
-                      height={30}
-                      className="rounded-full"
-                      alt="Order product image"
                     />
                   ) : (
                     "N/A"

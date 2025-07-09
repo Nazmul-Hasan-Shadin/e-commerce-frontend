@@ -11,18 +11,15 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import { MdEdit, MdDelete } from "react-icons/md";
-import {
-  useDeleteProductMutation,
-  useGetAllProductQuery,
-  useUpdateProductMutation,
-} from "@/src/redux/feature/vendor/vendor.api";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import Image from "next/image";
+
 import {
   useDeleteCategoryMutation,
   useGetAllCategoryQuery,
 } from "@/src/redux/feature/admin/admin.categoryapi";
-import Image from "next/image";
+import { useUpdateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
 
 const primaryColor = "#4524DB";
 
@@ -41,8 +38,9 @@ const CategoryListPage = () => {
 
   const handleDelete = async (id: string) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?"
+      "Are you sure you want to delete this product?",
     );
+
     if (confirmDelete) {
       try {
         await handleDeleteCategory(id);
@@ -81,11 +79,11 @@ const CategoryListPage = () => {
               <TableCell>
                 {category?.images ? (
                   <Image
-                    src={category.images}
-                    width={80}
-                    height={80}
                     alt="categor imageas"
                     className="rounded-full"
+                    height={80}
+                    src={category.images}
+                    width={80}
                   />
                 ) : (
                   "N/A"
@@ -98,8 +96,8 @@ const CategoryListPage = () => {
                   >
                     <Tooltip content="Edit Product" placement="top">
                       <MdEdit
-                        size={20}
                         color={primaryColor}
+                        size={20}
                         style={{ cursor: "pointer" }}
                         onClick={() => handleEdit(category.id)}
                       />
@@ -107,8 +105,8 @@ const CategoryListPage = () => {
                   </Link>
                   <Tooltip content="Delete Product" placement="top">
                     <MdDelete
-                      size={20}
                       color="red"
+                      size={20}
                       style={{ cursor: "pointer" }}
                       onClick={() => handleDeleteCategory(category.id)}
                     />

@@ -1,15 +1,14 @@
 "use client";
 
-import { IReview } from "@/src/interface/review";
-import { useCreateCommentMutation } from "@/src/redux/feature/comment/comment.api";
-import { Textarea } from "@nextui-org/input";
-import React, { useState } from "react";
+import React from "react";
 import toast from "react-hot-toast";
-import { IoSendSharp } from "react-icons/io5";
+import { SubmitHandler } from "react-hook-form";
+
 import EForm from "../form/EForm";
 import FxTextArea from "../form/ETextArea";
+
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
-import { SubmitHandler } from "react-hook-form";
+import { useCreateCommentMutation } from "@/src/redux/feature/comment/comment.api";
 const CommentBox = ({ productId }: { productId: string }) => {
   const [handleCreate] = useCreateCommentMutation();
   const { data: userData } = useGetCurrentUserQuery(undefined);
@@ -26,6 +25,7 @@ const CommentBox = ({ productId }: { productId: string }) => {
 
     try {
       const res = await handleCreate(userCommentinfo).unwrap();
+
       if (res.success) {
         toast.success("Comment created successful");
       }
@@ -39,8 +39,8 @@ const CommentBox = ({ productId }: { productId: string }) => {
       <EForm onSubmit={handleComment}>
         <FxTextArea
           icon={true}
-          placeholder="write your review here......"
           name="comment"
+          placeholder="write your review here......"
         />
       </EForm>
     </div>

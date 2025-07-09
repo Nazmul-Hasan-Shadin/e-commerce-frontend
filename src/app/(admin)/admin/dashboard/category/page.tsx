@@ -1,11 +1,11 @@
 "use client";
 import toast from "react-hot-toast";
-
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/react";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+
 import FxTextArea from "@/src/components/form/ETextArea";
 import EForm from "@/src/components/form/EForm";
 import EInput from "@/src/components/form/EInput";
@@ -31,6 +31,7 @@ const AddCategory = () => {
 
     try {
       const response = await handleCreateCategory(formData).unwrap();
+
       if (response.success === true) {
         toast.success(`${categoryInfo.name} has been created successfully!`);
       } else {
@@ -53,6 +54,7 @@ const AddCategory = () => {
 
     if (files && files.length > 0) {
       const file = files[0];
+
       setSelectedFile(file);
       setImagePreview(URL.createObjectURL(file));
     }
@@ -64,11 +66,11 @@ const AddCategory = () => {
       <Divider />
       <EForm onSubmit={onSubmit}>
         <div
-          role="button"
-          tabIndex={0}
           aria-label="Upload image"
           className="flex items-center mb-5 justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition"
+          role="button"
           style={{ width: "100%", height: "200px" }}
+          tabIndex={0}
           onClick={handleUploadClick}
           onKeyDown={(event) => {
             if (["Enter", " "].includes(event.key)) {
@@ -77,11 +79,11 @@ const AddCategory = () => {
           }}
         >
           <input
-            type="file"
-            accept="image/*"
             ref={inputRef}
-            onChange={handleFileChange}
+            accept="image/*"
             className="hidden"
+            type="file"
+            onChange={handleFileChange}
           />
 
           {imagePreview ? (

@@ -1,11 +1,11 @@
 "use client";
-import Card from "@/src/components/ui/Card";
-import Container from "@/src/components/ui/Container";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState, Suspense } from "react";
+
+import Card from "@/src/components/ui/Card";
+import Container from "@/src/components/ui/Container";
 import { useAppSelector } from "@/src/redux/hook";
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
-import { Button } from "@nextui-org/button";
 
 const ProductsPageContent = () => {
   return (

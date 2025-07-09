@@ -55,12 +55,12 @@ const ShopPage = () => {
           </p>
         </div>
         <Button
-          onPress={handleFollow}
           className={`py-2 px-6 rounded-lg transition ${
             isFollowing
               ? "bg-gray-300 text-gray-700"
               : "bg-[#fd6506] text-white"
           }`}
+          onPress={handleFollow}
         >
           {isFollowing ? "Unfollow" : "Follow"}
         </Button>
@@ -76,9 +76,9 @@ const ShopPage = () => {
             className="p-4 bg-white shadow-md rounded-lg hover:shadow-lg transition"
           >
             <Image
-              src={product.image}
               alt={product.name}
               className="w-full h-48 object-cover rounded-md"
+              src={product.image}
             />
             <h2 className="text-lg font-semibold text-gray-800 mt-4">
               {product.name}

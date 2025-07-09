@@ -1,4 +1,3 @@
-import Image from "next/image";
 import whychooseuseimg from "@/src/assests/why-chooseus.jpg";
 
 const WhyChooseUs = () => {
@@ -40,7 +39,7 @@ const WhyChooseUs = () => {
       }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-blue-500 opacity-80 z-0"></div>
+      <div className="absolute inset-0 bg-blue-500 opacity-80 z-0" />
 
       {/* Content */}
       <div className="relative z-10 text-center text-white max-w-6xl mx-auto">

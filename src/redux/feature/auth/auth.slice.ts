@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+
 import { RootState } from "../../store";
+
 import { logOutFromServer } from "@/src/services/auth";
 
 export type TUser = {
@@ -31,6 +32,7 @@ export const authSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       const { user, token } = action.payload;
+
       (state.user = user), (state.token = token);
     },
 

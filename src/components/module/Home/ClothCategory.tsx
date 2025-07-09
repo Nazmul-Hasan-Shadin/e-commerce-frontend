@@ -2,7 +2,6 @@
 
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 
 const categories = [
   {
@@ -38,11 +37,11 @@ const CategoryCard = () => {
             <div className="flex flex-row-revers w-36 md:w-60 justify-around  items-center bg-white rounded-lg shadow-md md:p-2 hover:shadow-lg transition-shadow">
               <div className=" h-20 relative">
                 <Image
-                  src={category.image}
                   alt={category.title}
-                  height={60}
-                  width={70}
                   className="object-contain rounded-md w-12 h-16"
+                  height={60}
+                  src={category.image}
+                  width={70}
                 />
               </div>
 
@@ -51,7 +50,7 @@ const CategoryCard = () => {
                 <h3 className=" text-[10px] md:text-sm font-bold ">
                   {category.title}
                 </h3>
-                <a href={category.link} className="text-sm  hover:underline">
+                <a className="text-sm  hover:underline" href={category.link}>
                   Shop now
                 </a>
               </div>

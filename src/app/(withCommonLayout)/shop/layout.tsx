@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import SidebarFilter from "../(product)/product/@productfiltersidebar/page";
 
 export default function layout({ children }: { children: React.ReactNode }) {

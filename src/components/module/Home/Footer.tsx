@@ -17,10 +17,10 @@ const Footer = () => {
             </p>
             <div className="flex items-center space-x-2">
               <Input
-                aria-label="Enter your email address"
-                placeholder="Enter your email address"
                 fullWidth
+                aria-label="Enter your email address"
                 className="max-w-[300px]"
+                placeholder="Enter your email address"
               />
               <Button className="bg-orange-500 text-white">Submit</Button>
             </div>
@@ -129,19 +129,19 @@ const Footer = () => {
           {/* Social Icons */}
           <div className="flex space-x-4 text-lg">
             <Link href="#">
-              <i className="fab fa-facebook"></i>
+              <i className="fab fa-facebook" />
             </Link>
             <Link href="#">
-              <i className="fab fa-instagram"></i>
+              <i className="fab fa-instagram" />
             </Link>
             <Link href="#">
-              <i className="fab fa-pinterest"></i>
+              <i className="fab fa-pinterest" />
             </Link>
             <Link href="#">
-              <i className="fab fa-twitter"></i>
+              <i className="fab fa-twitter" />
             </Link>
             <Link href="#">
-              <i className="fab fa-snapchat"></i>
+              <i className="fab fa-snapchat" />
             </Link>
           </div>
         </div>

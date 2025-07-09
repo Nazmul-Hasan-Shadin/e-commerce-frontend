@@ -1,8 +1,9 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import { Textarea } from "@nextui-org/input";
-import { IInput } from "@/src/types";
 import { IoSendSharp } from "react-icons/io5";
+
+import { IInput } from "@/src/types";
 
 interface IProps extends IInput {
   type?: string;
@@ -17,12 +18,11 @@ const FxTextArea = ({
   placeholder,
 }: IProps) => {
   const { register } = useFormContext();
+
   return (
     <Textarea
       {...register(name)}
-      label={label}
-      minRows={5}
-      placeholder={placeholder}
+      className=" w-full md:max-w-[600px] h-52"
       endContent={
         icon && (
           <button type="submit">
@@ -30,7 +30,9 @@ const FxTextArea = ({
           </button>
         )
       }
-      className=" w-full md:max-w-[600px] h-52"
+      label={label}
+      minRows={5}
+      placeholder={placeholder}
       variant={variant}
     />
   );

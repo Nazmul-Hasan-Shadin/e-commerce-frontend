@@ -12,14 +12,15 @@ import {
   Button,
 } from "@nextui-org/react";
 import { MdEdit, MdDelete } from "react-icons/md";
+import toast from "react-hot-toast";
+import Link from "next/link";
+import { FaPlus } from "react-icons/fa6";
+
+import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import {
   useDeleteProductMutation,
   useGetProducsByShopIdQuery,
 } from "@/src/redux/feature/vendor/vendor.api";
-import toast from "react-hot-toast";
-import Link from "next/link";
-import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
-import { FaPlus } from "react-icons/fa6";
 
 const primaryColor = "#4524DB";
 
@@ -37,8 +38,9 @@ const GetAllProductPage = () => {
 
   const handleDelete = async (id: string) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?"
+      "Are you sure you want to delete this product?",
     );
+
     if (confirmDelete) {
       try {
         await handleDeleteProduct({ id });
@@ -88,8 +90,8 @@ const GetAllProductPage = () => {
                   >
                     <Tooltip content="Edit Product" placement="top">
                       <MdEdit
-                        size={40}
                         color={primaryColor}
+                        size={40}
                         style={{
                           cursor: "pointer",
                           padding: "8px",
@@ -102,8 +104,8 @@ const GetAllProductPage = () => {
                   </Link>
                   <Tooltip content="Delete Product" placement="top">
                     <MdDelete
-                      size={40}
                       color="red"
+                      size={40}
                       style={{
                         cursor: "pointer",
                         padding: "8px",

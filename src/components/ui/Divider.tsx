@@ -1,6 +1,7 @@
 import React from "react";
-import Container from "@/src/components/ui/Container";
 import { Divider } from "@nextui-org/react";
+
+import Container from "@/src/components/ui/Container";
 
 const Dividers = ({ className }: { className?: string }) => {
   return (

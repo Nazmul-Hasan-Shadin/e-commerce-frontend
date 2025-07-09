@@ -1,5 +1,11 @@
 "use client";
 
+import { Button } from "@nextui-org/button";
+import { useSearchParams } from "next/navigation";
+import React, { useState, Suspense } from "react";
+import { FieldValues, SubmitHandler } from "react-hook-form";
+import { CiFilter } from "react-icons/ci";
+
 import EForm from "@/src/components/form/EForm";
 import ESelect from "@/src/components/form/ESelect";
 import Card from "@/src/components/ui/Card";
@@ -7,11 +13,6 @@ import Container from "@/src/components/ui/Container";
 import PageHeaderwithBanner from "@/src/components/ui/PageHeaderwithBanner";
 import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
-import { Button } from "@nextui-org/button";
-import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState, Suspense } from "react";
-import { FieldValues, SubmitHandler } from "react-hook-form";
-import { CiFilter } from "react-icons/ci";
 
 const FlashDealContent = () => {
   const searchParams = useSearchParams();

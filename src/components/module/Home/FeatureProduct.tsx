@@ -1,15 +1,13 @@
 "use client";
 
-import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
-import Card from "../../ui/Card";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { divider } from "@nextui-org/theme";
+
 import SkeletonCard from "../../ui/SkeletonCard";
 import Container from "../../ui/Container";
-import styles from "./bottomNav.module.css";
-import { Divider } from "@nextui-org/react";
+import Card from "../../ui/Card";
 import Dividers from "../../ui/Divider";
+
+import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 
 const FeatureProduct = () => {
   const {
@@ -35,7 +33,7 @@ const FeatureProduct = () => {
         </h2>
 
         <Dividers />
-        <div className="grid grid-cols-2 gap-2  lg:grid-cols-4 md:gap-6  p-1 md:p-4">
+        <div className="grid grid-cols-2 gap-2  lg:grid-cols-5 md:gap-6  p-1 md:p-4">
           {isLoading ? (
             <>
               <SkeletonCard />

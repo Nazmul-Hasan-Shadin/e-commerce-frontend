@@ -4,20 +4,16 @@ import React, { use, useRef, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/react";
+import toast from "react-hot-toast";
+
 import EForm from "@/src/components/form/EForm";
 import EInput from "@/src/components/form/EInput";
-import ESelect from "@/src/components/form/ESelect";
 import FxTextArea from "@/src/components/form/ETextArea";
-import {
-  useGetProductByIdQuery,
-  useUpdateProductMutation,
-} from "@/src/redux/feature/vendor/vendor.api";
 import {
   useGetAllCategoryQuery,
   useGetCategoryByIdQuery,
   useUpdateCategoryMutation,
 } from "@/src/redux/feature/admin/admin.categoryapi";
-import toast from "react-hot-toast";
 
 type Params = Promise<{ id: string }>;
 
@@ -44,8 +40,10 @@ const UpdateCategoryPage = ({ params }: { params: Params }) => {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
+
     if (files && files.length > 0) {
       const file = files[0];
+
       setSelectedFile(file);
       setImagePreview(URL.createObjectURL(file));
     }
@@ -70,6 +68,7 @@ const UpdateCategoryPage = ({ params }: { params: Params }) => {
 
     try {
       const response = await handleUpdateCategory({ id, data }).unwrap();
+
       if (response.success === true) {
         toast.success("Category updaed");
       }
@@ -83,19 +82,19 @@ const UpdateCategoryPage = ({ params }: { params: Params }) => {
       <h2 className="text-2xl font-bold mb-5">Update Category Info</h2>
       <Divider />
       <EForm
-        onSubmit={onSubmit}
         defaultValues={{
           name: productDataOfSelectedProduct?.data?.name,
 
           description: productDataOfSelectedProduct?.data?.description,
         }}
+        onSubmit={onSubmit}
       >
         <div
-          role="button"
-          tabIndex={0}
           aria-label="Upload image"
           className="flex items-center mb-5 justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition"
+          role="button"
           style={{ width: "100%", height: "200px" }}
+          tabIndex={0}
           onClick={handleUploadClick}
           onKeyPress={(event) => {
             if (event.key === "Enter" || event.key === " ") {
@@ -104,19 +103,19 @@ const UpdateCategoryPage = ({ params }: { params: Params }) => {
           }}
         >
           <input
-            type="file"
-            accept="image/*"
             ref={inputRef}
-            onChange={handleFileChange}
-            defaultValue={productDataOfSelectedProduct?.data.name}
+            accept="image/*"
             className="hidden"
+            defaultValue={productDataOfSelectedProduct?.data.name}
+            type="file"
+            onChange={handleFileChange}
           />
 
           {imagePreview ? (
             <img
-              src={imagePreview}
               alt="Preview"
               className="max-w-full max-h-full object-contain"
+              src={imagePreview}
             />
           ) : (
             <div className="text-center text-gray-500">
@@ -128,15 +127,15 @@ const UpdateCategoryPage = ({ params }: { params: Params }) => {
         <div className="grid grid-cols-2 gap-5">
           <EInput
             defaultValue={productDataOfSelectedProduct?.data?.name}
+            label="Name"
             name="name"
             type="text"
-            label="Name"
             variant="bordered"
           />
 
           <FxTextArea
-            name="description"
             label="Description"
+            name="description"
             variant="bordered"
           />
         </div>

@@ -3,6 +3,9 @@
 import React, { useState } from "react";
 import { Button } from "@nextui-org/react";
 import { SubmitHandler } from "react-hook-form";
+import toast from "react-hot-toast";
+import { usePathname, useRouter } from "next/navigation";
+
 import EForm from "@/src/components/form/EForm";
 import EInput from "@/src/components/form/EInput";
 import {
@@ -11,10 +14,8 @@ import {
   useLoginMutation,
 } from "@/src/redux/feature/auth/auth.api";
 import { verifyToken } from "@/src/utils/verifyToke";
-import { TUser, setUser } from "@/src/redux/feature/auth/auth.slice";
+import { setUser } from "@/src/redux/feature/auth/auth.slice";
 import { useAppDispatch } from "@/src/redux/hook";
-import toast from "react-hot-toast";
-import { usePathname, useRouter } from "next/navigation";
 import { loginHandler } from "@/src/services/auth";
 
 // Define role type for stricter type checking
@@ -59,8 +60,6 @@ const Login = () => {
 
     try {
       const res = await loginHandler(userData);
-      console.log("login res", res);
-
       const user = verifyToken(res.data.accessToken) as {
         email: string;
         role: string;
@@ -87,6 +86,8 @@ const Login = () => {
         router.push("/");
       }
     } catch (error) {
+      console.log(error);
+
       toast.error("Login failed. Please check your credentials.", {
         id: toastId,
       });
@@ -100,6 +101,7 @@ const Login = () => {
 
     if (!emailInput) {
       toast.error("Please enter your email address first.");
+
       return;
     }
 
@@ -113,7 +115,7 @@ const Login = () => {
     } catch (error: any) {
       toast.error(
         error?.data?.message || "Failed to send reset password email.",
-        { id: toastId }
+        { id: toastId },
       );
     }
   };
@@ -162,22 +164,22 @@ const Login = () => {
           {/* Email Input */}
           <div className="mb-4">
             <EInput
+              required
+              defaultValue={credentials.email}
               label="Email"
               name="email"
-              required
               type="email"
-              defaultValue={credentials.email}
             />
           </div>
 
           {/* Password Input */}
           <div className="mb-6">
             <EInput
+              required
+              defaultValue={credentials.password}
               label="Password"
               name="password"
-              required
               type="password"
-              defaultValue={credentials.password}
             />
           </div>
 
@@ -194,9 +196,9 @@ const Login = () => {
           {/* Forgot Password Link */}
           <div className="text-center text-sm mb-4">
             <button
+              className="text-[#fd6506] hover:underline"
               type="button"
               onClick={handleForgotPassword}
-              className="text-[#fd6506] hover:underline"
             >
               Forgot Password?
             </button>
@@ -205,7 +207,7 @@ const Login = () => {
           {/* Signup Redirect */}
           <div className="text-center text-sm">
             <span>Don&apos;t have an account?</span>
-            <a href="/signup" className="text-[#fd6506] hover:underline ml-1">
+            <a className="text-[#fd6506] hover:underline ml-1" href="/signup">
               Sign Up
             </a>
           </div>

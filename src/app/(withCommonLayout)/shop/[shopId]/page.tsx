@@ -1,5 +1,10 @@
 "use client";
 
+import { Button } from "@nextui-org/button";
+import { Divider } from "@nextui-org/react";
+import React, { use, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+
 import Card from "@/src/components/ui/Card";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import {
@@ -9,11 +14,7 @@ import {
   useUnfollowShopMutation,
 } from "@/src/redux/feature/shop/shop.api";
 import { useGetProducsByShopIdQuery } from "@/src/redux/feature/vendor/vendor.api";
-import { Button } from "@nextui-org/button";
 
-import { Divider } from "@nextui-org/react";
-import React, { use, useEffect, useState } from "react";
-import toast from "react-hot-toast";
 type Params = Promise<{ shopId: string }>;
 interface Product {
   id: string;
@@ -112,12 +113,12 @@ const ShopPage = ({ params }: { params: Params }) => {
           </p>
         </div>
         <Button
-          onPress={handleFollow}
           className={`relative z-10 py-2 px-6 rounded-lg transition ${
             isFollowing
               ? "bg-gray-300 text-gray-700"
               : "bg-[#fd6506] text-white"
           }`}
+          onPress={handleFollow}
         >
           {isFollowing ? "Unfollow" : "Follow"}
         </Button>
@@ -128,7 +129,7 @@ const ShopPage = ({ params }: { params: Params }) => {
       {/* Product List */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {shopProduct?.data.map((product: Product) => (
-          <Card product={product} key={product.id}></Card>
+          <Card key={product.id} product={product} />
         ))}
       </div>
     </div>

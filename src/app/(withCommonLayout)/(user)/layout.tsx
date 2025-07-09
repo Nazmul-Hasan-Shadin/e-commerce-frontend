@@ -1,5 +1,6 @@
-import UserSideBar from "@/src/components/module/User/UserSideBar";
 import React from "react";
+
+import UserSideBar from "@/src/components/module/User/UserSideBar";
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (

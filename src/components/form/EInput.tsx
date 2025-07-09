@@ -1,8 +1,9 @@
 "use client";
-import { IInput } from "@/src/types";
 import { Input } from "@nextui-org/input";
 import React from "react";
 import { useFormContext } from "react-hook-form";
+
+import { IInput } from "@/src/types";
 
 interface Iprops extends IInput {
   defaultValue?: any;
@@ -26,14 +27,14 @@ const EInput = ({
 
   return (
     <Input
-      type={type}
-      required={required}
       placeholder={placeholder}
+      required={required}
+      type={type}
       {...register(name)}
-      label={label}
-      size={size}
       className=""
       errorMessage={errors[name] ? (errors[name]?.message as string) : ""}
+      label={label}
+      size={size}
     />
   );
 };

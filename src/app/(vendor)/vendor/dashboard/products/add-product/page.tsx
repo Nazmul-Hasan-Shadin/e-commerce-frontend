@@ -4,6 +4,9 @@ import React, { useRef, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/react";
+import toast from "react-hot-toast";
+import Image from "next/image";
+
 import EForm from "@/src/components/form/EForm";
 import EInput from "@/src/components/form/EInput";
 import ESelect from "@/src/components/form/ESelect";
@@ -11,12 +14,11 @@ import FxTextArea from "@/src/components/form/ETextArea";
 import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import { useCreateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
-import toast from "react-hot-toast";
-import Image from "next/image";
 import Container from "@/src/components/ui/Container";
 
 const AddProductPage = () => {
   const { isLoading, data: userData } = useGetCurrentUserQuery(undefined);
+
   console.log(userData, "iam currenuserdata");
 
   const { data: categoryList } = useGetAllCategoryQuery(undefined);
@@ -35,11 +37,13 @@ const AddProductPage = () => {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
+
     if (files && files.length > 0) {
       setSelectedFiles(Array.from(files));
       const previews = Array.from(files).map((file) =>
-        URL.createObjectURL(file)
+        URL.createObjectURL(file),
       );
+
       setImagePreviews(previews); // Set previews for each selected file
     }
   };
@@ -70,6 +74,7 @@ const AddProductPage = () => {
 
     try {
       const response = await handleCreateProduct(formData).unwrap();
+
       if (response.success) {
         toast.success("Product has been added!");
       }
@@ -90,11 +95,11 @@ const AddProductPage = () => {
         <Divider />
         <EForm onSubmit={onSubmit}>
           <div
-            role="button"
-            tabIndex={0}
             aria-label="Upload images"
             className="flex items-center mb-5 justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition"
+            role="button"
             style={{ width: "100%", height: "200px" }}
+            tabIndex={0}
             onClick={handleUploadClick}
             onKeyDown={(event) => {
               if (["Enter", " "].includes(event.key)) {
@@ -103,23 +108,23 @@ const AddProductPage = () => {
             }}
           >
             <input
-              type="file"
-              accept="image/*"
               ref={inputRef}
-              onChange={handleFileChange}
-              className="hidden"
               multiple // Allow multiple file selection
+              accept="image/*"
+              className="hidden"
+              type="file"
+              onChange={handleFileChange}
             />
             {imagePreviews.length > 0 ? (
               <div className="flex gap-4">
                 {imagePreviews.map((preview, index) => (
                   <div key={index} className="w-1/4 h-auto">
                     <Image
-                      src={preview}
                       alt={`Preview ${index}`}
-                      width={100}
-                      height={100}
                       className="object-contain"
+                      height={100}
+                      src={preview}
+                      width={100}
                     />
                   </div>
                 ))}
@@ -132,42 +137,42 @@ const AddProductPage = () => {
           </div>
 
           <div className="grid grid-cols-2 gap-5">
-            <EInput name="name" type="text" label="Name" variant="bordered" />
+            <EInput label="Name" name="name" type="text" variant="bordered" />
             <EInput
+              label="Price"
               name="price"
               type="number"
-              label="Price"
               variant="bordered"
             />
             <ESelect
-              options={categoryList?.data || []}
-              name="category"
               label="Category"
+              name="category"
+              options={categoryList?.data || []}
             />
             <ESelect
               dropDownHeading="Is Flash Sell?"
+              label="Flash Sale"
+              name="isFlash"
               options={[
                 { label: "Flash sell", id: true },
                 { label: "Not Flash sell", id: false },
               ]}
-              name="isFlash"
-              label="Flash Sale"
             />
             <EInput
+              label="Discount"
               name="discount"
               type="number"
-              label="Discount"
               variant="bordered"
             />
             <EInput
+              label="Inventory Count"
               name="inventoryCount"
               type="number"
-              label="Inventory Count"
               variant="bordered"
             />
             <FxTextArea
-              name="description"
               label="Detailed Description"
+              name="description"
               variant="bordered"
             />
           </div>
@@ -175,8 +180,8 @@ const AddProductPage = () => {
           <div className="flex justify-end">
             <Button
               className="bg-primary-color text-white"
-              variant="bordered"
               type="submit"
+              variant="bordered"
             >
               Create Product
             </Button>

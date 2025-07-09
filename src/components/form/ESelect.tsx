@@ -38,7 +38,7 @@ const ESelect = ({
 
   return (
     <div className={`flex flex-col ${className}`}>
-      <label htmlFor={name} className="mb-1 text-sm font-medium text-gray-700">
+      <label className="mb-1 text-sm font-medium text-gray-700" htmlFor={name}>
         {required && <span className="text-red-500"> *</span>}
       </label>
       <select
@@ -47,10 +47,10 @@ const ESelect = ({
         className={`p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white ${
           errors[name] ? "border-red-500" : "border-gray-300"
         }`}
-        disabled={disabled}
         defaultValue={defaultValue || ""} // Set default value
+        disabled={disabled}
       >
-        <option value="" disabled>
+        <option disabled value="">
           {dropDownHeading || "select category"}
         </option>
         {options?.map((option, index) => {
@@ -67,7 +67,7 @@ const ESelect = ({
           const optionLabel = option.label || option.name || option.label;
 
           return (
-            <option className="text-black" key={index} value={optionValue}>
+            <option key={index} className="text-black" value={optionValue}>
               {optionLabel}
             </option>
           );

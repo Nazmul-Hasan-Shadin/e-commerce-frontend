@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+
 import { RootState } from "../../store";
 
 export type TorderItems = {
@@ -31,7 +31,7 @@ export const cartSlice = createSlice({
   reducers: {
     addToCart: (state, { payload }) => {
       const isExistIncart = state.orderItems.find(
-        (cart) => cart.id === payload.id
+        (cart) => cart.id === payload.id,
       );
 
       if (isExistIncart) {
@@ -42,8 +42,9 @@ export const cartSlice = createSlice({
     },
     removeFromCart: (state, { payload }) => {
       const itemIndex = state.orderItems.findIndex(
-        (item) => item.productId === payload.productId
+        (item) => item.productId === payload.productId,
       );
+
       if (itemIndex !== -1) {
         const item = state.orderItems[itemIndex];
 

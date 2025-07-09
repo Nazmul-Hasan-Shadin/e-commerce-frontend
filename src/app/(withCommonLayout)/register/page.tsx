@@ -1,18 +1,15 @@
 "use client";
 import React from "react";
-import EInput from "@/src/components/form/EInput"; // Assuming EInput is located at this path
 import { Button } from "@nextui-org/react";
 import { SubmitHandler } from "react-hook-form";
-import EForm from "@/src/components/form/EForm"; // Assuming EForm is located at this path
-import { useFormContext } from "react-hook-form";
-import {
-  useLoginMutation,
-  useRegisterMutation,
-} from "@/src/redux/feature/auth/auth.api";
-import { useAppDispatch } from "@/src/redux/hook";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Link from "next/link";
+
+import { useAppDispatch } from "@/src/redux/hook";
+import { useRegisterMutation } from "@/src/redux/feature/auth/auth.api";
+import EForm from "@/src/components/form/EForm"; // Assuming EForm is located at this path
+import EInput from "@/src/components/form/EInput"; // Assuming EInput is located at this path
 import ESelect from "@/src/components/form/ESelect";
 
 const Register = () => {
@@ -48,16 +45,16 @@ const Register = () => {
 
         <EForm onSubmit={onSubmit}>
           <div className="mb-4">
-            <EInput name="username" label="User Name" type="text" required />
+            <EInput required label="User Name" name="username" type="text" />
           </div>
           <div className="mb-4">
-            <EInput name="email" label="Email" type="email" required />
+            <EInput required label="Email" name="email" type="email" />
           </div>
 
           <div className="mb-4">
             <ESelect
-              name="role"
               label=" ROle"
+              name="role"
               options={[
                 { id: "user", label: "user" },
                 { id: "vendor", label: "vendor" },
@@ -66,22 +63,22 @@ const Register = () => {
           </div>
 
           <div className="mb-4">
-            <EInput name="password" label="Password" type="password" required />
+            <EInput required label="Password" name="password" type="password" />
           </div>
 
           <div className="mb-4">
             <EInput
-              name="confirmPassword"
-              label="Confirm Password"
-              type="password"
               required
+              label="Confirm Password"
+              name="confirmPassword"
+              type="password"
             />
           </div>
 
           <div className="mb-6 flex justify-between items-center">
             <Button
-              type="submit"
               className="w-full bg-[#fd6506] hover:bg-[#e94e00] text-white"
+              type="submit"
             >
               Register
             </Button>
@@ -89,7 +86,7 @@ const Register = () => {
 
           <div className="text-center text-sm">
             <span>Already have an account?</span>
-            <Link href="/login" className="text-[#fd6506] hover:underline ml-1">
+            <Link className="text-[#fd6506] hover:underline ml-1" href="/login">
               Login
             </Link>
           </div>

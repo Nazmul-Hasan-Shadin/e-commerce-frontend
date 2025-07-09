@@ -1,7 +1,7 @@
 "use client";
-import Payment from "@/src/app/(withCommonLayout)/payment/Payment";
-
 import React from "react";
+
+import Payment from "@/src/app/(withCommonLayout)/payment/Payment";
 
 const CheckOutPage = () => {
   return (

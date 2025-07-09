@@ -1,8 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../store";
-import { logOutFromServer } from "@/src/services/auth";
-import { stat } from "fs";
+
+import { createSlice } from "@reduxjs/toolkit";
 
 export type TCategoryFilter = {
   categoryName: string[];

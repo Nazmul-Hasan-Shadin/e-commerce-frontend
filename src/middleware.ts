@@ -1,5 +1,7 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+
+import { NextResponse } from "next/server";
+
 import { getCurrentUser } from "./services/auth";
 
 const AuthRoutes = ["/login", "/register"];
@@ -22,7 +24,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next(); // Allow access to login/register
     } else {
       return NextResponse.redirect(
-        new URL(`/login?redirect=${encodeURIComponent(pathname)}`, request.url)
+        new URL(`/login?redirect=${encodeURIComponent(pathname)}`, request.url),
       ); // Redirect to login, with original path as redirect URL
     }
   }
@@ -30,6 +32,7 @@ export async function middleware(request: NextRequest) {
   // If the user is authenticated, check role-based access
   if (user?.role && roleBasedRoutes[user.role as Role]) {
     const routes = roleBasedRoutes[user.role as Role];
+
     console.log("Role matched", routes);
 
     // Check if the current route matches the user's role-based route

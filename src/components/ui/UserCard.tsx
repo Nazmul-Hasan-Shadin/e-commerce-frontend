@@ -1,15 +1,15 @@
 "use client";
 
-import { IReview } from "@/src/interface/review";
 import {
   Card,
   CardHeader,
   CardBody,
   CardFooter,
   Avatar,
-  Button,
 } from "@nextui-org/react";
 import React from "react";
+
+import { IReview } from "@/src/interface/review";
 
 const UserCard = ({ review }: { review: IReview[] }) => {
   const [isFollowed, setIsFollowed] = React.useState(false);
@@ -40,7 +40,7 @@ const UserCard = ({ review }: { review: IReview[] }) => {
             <CardBody className="px-3 py-0 text-small text-default-800 overflow-hidden">
               <p className="text-black">{review?.comment}</p>
               <span className="pt-2">
-                <span className="py-2" aria-label="computer" role="img">
+                <span aria-label="computer" className="py-2" role="img">
                   {review?.comment}
                 </span>
               </span>

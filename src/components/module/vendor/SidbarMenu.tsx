@@ -19,10 +19,10 @@ export const SidebarMenu = ({
   <nav>
     <div
       className="flex items-center p-2 hover:bg-gray-700 cursor-pointer"
-      onClick={onClick}
-      onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onClick()}
       role="button"
       tabIndex={0}
+      onClick={onClick}
+      onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onClick()}
     >
       <div className="text-xl">{icon}</div>
       {isOpen && <span className="ml-4 text-sm md:text-lg">{label}</span>}

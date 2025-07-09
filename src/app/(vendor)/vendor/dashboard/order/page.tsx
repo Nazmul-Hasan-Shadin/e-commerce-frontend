@@ -1,7 +1,5 @@
 "use client";
 
-import { TorderItems } from "@/src/redux/feature/cart/cartSlice";
-import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
 import {
   Table,
   TableHeader,
@@ -11,6 +9,9 @@ import {
   TableCell,
 } from "@nextui-org/react";
 import Image from "next/image";
+
+import { TorderItems } from "@/src/redux/feature/cart/cartSlice";
+import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
 
 const OrderTablePage = () => {
   // Fetch order data using Redux Query
@@ -43,18 +44,18 @@ const OrderTablePage = () => {
               <TableCell>
                 {item?.product?.images ? (
                   <Image
+                    alt="Order product image"
+                    className="rounded-full"
+                    height={30}
                     src={item?.product?.images || "/default-image.png"} // Fallback to a placeholder
                     width={30}
-                    height={30}
-                    className="rounded-full"
-                    alt="Order product image"
                   />
                 ) : (
                   "N/A"
                 )}
               </TableCell>
             </TableRow>
-          ))
+          )),
         )}
       </TableBody>
     </Table>

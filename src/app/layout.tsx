@@ -1,15 +1,12 @@
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
-import { Link } from "@nextui-org/link";
-import clsx from "clsx";
+import { Toaster } from "react-hot-toast";
+
+import ReduxProviders from "../lib/Providers";
 
 import { Providers } from "./providers";
 
 import { siteConfig } from "@/src/config/site";
-
-import ReduxProviders from "../lib/Providers";
-import { store } from "../redux/store";
-import toast, { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: {
