@@ -119,13 +119,13 @@ const Card = ({ product }: { product: IProduct }) => {
               {/* <span className="md:text-xl hidden font-bold text-[#e10600]">
                 ${product?.price - product?.discount}
               </span> */}
-              <p className="md:text-xl -mt-3 md:mt-0 text-xl  font-bold text-[#e10600]">
+              <p className="md:text-xl -mt-3 md:mt-0 text-xl font-semibold text-[#e10600]">
                 ${product?.price - product?.discount}
               </p>
             </div>
-            <p className="text-[10px] hidden md:block md:text-sm p-0  text-gray-">
+            {/* <p className="text-[10px] hidden md:block md:text-sm p-0  text-gray-">
               {getShortDescription(product?.description)}
-            </p>
+            </p> */}
           </div>
         </CardBody>
 

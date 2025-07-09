@@ -1,8 +1,5 @@
-import Image from "next/image";
-
 import Banner from "@/src/components/module/Home/Banner";
 import FeatureProduct from "@/src/components/module/Home/FeatureProduct";
-import disocuntImage from "@/src/assests/disountt.webp";
 import Footer from "@/src/components/module/Home/Footer";
 import TopSellProduct from "@/src/components/module/Home/TopSellProduct";
 import AccesoriesAd from "@/src/components/module/Home/AccesoriesAd";
@@ -16,7 +13,7 @@ export default function Home() {
 
       <Catagories />
 
-      <div className="w-3/4 mx-auto md:my-5">
+      {/* <div className="w-3/4 mx-auto md:my-5">
         <Image
           alt="discount banner"
           className="w-full"
@@ -24,7 +21,7 @@ export default function Home() {
           src={disocuntImage}
           width={400}
         />
-      </div>
+      </div> */}
 
       <FeatureProduct />
       <TopSellProduct />

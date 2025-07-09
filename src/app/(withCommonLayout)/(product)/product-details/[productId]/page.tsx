@@ -49,7 +49,6 @@ const ProductDetails = ({ params }: { params: Params }) => {
     setMainImage(image);
   };
 
-  // Ensure the hook runs only when images are available
   useEffect(() => {
     if (images.length > 0) {
       setMainImage(images[0]);
@@ -193,7 +192,7 @@ const ProductDetails = ({ params }: { params: Params }) => {
       <div className="flex flex-col justify-start md:px-12">
         <ReviewTab review={review} />
 
-        <CommentBox productId={productId} />
+        {/* <CommentBox productId={productId} /> */}
       </div>
     </div>
   );

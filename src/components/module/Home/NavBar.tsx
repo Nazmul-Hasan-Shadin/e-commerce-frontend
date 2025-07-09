@@ -25,10 +25,10 @@ import SearchResultList from "./SearchResultList";
 
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import logo from "@/src/assests/icon/logo.png";
+import UserDropDownMenu from "./UserDropDownMenu";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
   const [searchQuery, setSearchQuery] = useState<string | null>();
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState<
     string | null
@@ -39,7 +39,6 @@ const NavBar = () => {
     { Icon: UserIcon, label: "signin" },
     { Icon: CartIcon, label: "cart", path: "/cart" },
   ];
-
   const handeSearch = (e: any) => {
     const searchValue = e.target.value;
 
@@ -55,7 +54,7 @@ const NavBar = () => {
   }, [searchQuery]);
 
   const { data: searchResult } = useGetAllProductQuery(
-    debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken,
+    debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken
   );
 
   return (
@@ -87,7 +86,7 @@ const NavBar = () => {
 
             <NavbarContent className="hidden md:flex relative">
               <Input
-                className="rouded-full bg-white rounded-full "
+                className=" bg-white rounded-full "
                 classNames={{
                   base: "max-w-full",
                   inputWrapper:
@@ -113,49 +112,26 @@ const NavBar = () => {
                   <div className="text-white flex flex-col justify-center items-center  mx-auto">
                     <icon.Icon className="text-4xl" />
                     <Link className="text-white" href={icon?.path}>
-                      {" "}
                       <span> {icon.label}</span>
                     </Link>
                   </div>
                 </NavbarItem>
               ))}
             </NavbarContent>
-            <NavbarContent as="div" justify="end" style={{ opacity: 1 }}>
-              <Dropdown placement="bottom-start" style={{ opacity: 1 }}>
-                <DropdownTrigger>
-                  <Avatar
-                    isBordered
-                    as="button"
-                    className="transition-transform"
-                    color="secondary"
-                    name="Jason Hughes"
-                    size="sm"
-                    src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                  />
-                </DropdownTrigger>
-                <DropdownMenu
-                  aria-label="Profile Actions"
-                  className="z-20 opacity-5"
-                  style={{ opacity: 1 }}
-                >
-                  <DropdownItem key={"/user/profile"} href="/user/dashboard">
-                    My Profile
-                  </DropdownItem>
-                  <DropdownItem key={"f"}>Log Out</DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </NavbarContent>
+            {/* ===============user dropDown menue */}
+            <UserDropDownMenu />
 
             {/* =========================for small device menu====================== */}
             {/* 
-        <NavbarMenu className="z-20 ">
+        <NavbarMenu className="z-20 ">∏
           {menuItems.map((menu, index) => (
             <NavbarItem key={index} className="text-white">
               <Link href={menu.link} className="text-black">
                 {menu.label}
               </Link>
             </NavbarItem>
-          ))}
+          ))}∏
+          ∏
         </NavbarMenu> */}
 
             {/* ==================Navbar rightside content=========== */}

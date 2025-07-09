@@ -1,5 +1,3 @@
-import whychooseuseimg from "@/src/assests/why-chooseus.jpg";
-
 const WhyChooseUs = () => {
   const cards = [
     {
@@ -30,20 +28,14 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <div
-      className="relative w-full py-16"
-      style={{
-        backgroundImage: `url(${whychooseuseimg})`,
-        backgroundSize: "contain",
-        backgroundPosition: "center",
-      }}
-    >
+    <div className="relative w-full py-16 bg-primary-color">
       {/* Overlay */}
-      <div className="absolute inset-0 bg-blue-500 opacity-80 z-0" />
 
       {/* Content */}
       <div className="relative z-10 text-center text-white max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold mb-8">Why Shop With Us?</h2>
+        <h2 className="text-3xl z-10 font-bold text-white mb-8">
+          Why Shop With Us?
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {cards.map((card, index) => (
             <div

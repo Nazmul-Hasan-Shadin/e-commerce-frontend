@@ -6,6 +6,7 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import Image from "next/image";
 import { Button } from "@nextui-org/button";
+import Link from "next/link";
 
 import Container from "../../ui/Container";
 import slidBanner1 from "../../../assests/Banner/sideBanner1.jpg";
@@ -13,7 +14,6 @@ import slidBanner2 from "../../../assests/Banner/sideBanner2.jpg";
 
 import mainBanner2 from "@/src/assests/Banner/winter.webp";
 import mainBanner3 from "@/src/assests/Banner/mainbanner.webp";
-import Link from "next/link";
 
 const Banner = () => {
   return (
@@ -67,8 +67,8 @@ const Banner = () => {
               <div>
                 <h3 className="text-xl font-bold">30% discount </h3>
                 <Button
-                  size="sm"
                   className="bg-black text-primary-50 rounded-none"
+                  size="sm"
                 >
                   Shop Now
                 </Button>
@@ -87,7 +87,7 @@ const Banner = () => {
                   Offer
                 </h3>
 
-                <Link href="/home" className="underline">
+                <Link className="underline" href="/home">
                   {" "}
                   Shop Now
                 </Link>

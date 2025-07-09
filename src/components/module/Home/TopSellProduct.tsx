@@ -12,12 +12,12 @@ const TopSellProduct = () => {
 
   return (
     <Container>
-      <div className="my-4 px-1">
+      <div className="mt-10 px-1">
         <h2 className="text-xl md:text-2xl text-black font-bold  md:ml-0">
           Current top seller <span className="text-sm"> </span>{" "}
         </h2>
         <Dividers />
-        <div className="grid grid-cols-2 gap-2 md:grid-cols-2 lg:grid-cols-4 md:gap-6 md:p-4">
+        <div className="grid grid-cols-2 mt-10  gap-2 md:grid-cols-2 lg:grid-cols-4 md:gap-6 md:p-4">
           {isLoading ? (
             <>
               <SkeletonCard />

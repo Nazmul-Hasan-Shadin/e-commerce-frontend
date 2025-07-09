@@ -18,8 +18,6 @@ const vendorApi = baseApi.injectEndpoints({
         categoryFilterByArray,
         isFlash = "",
       }) => {
-        console.log(categoryFilterByArray, "iam params inside reducer");
-
         const params: Record<string, string> = {};
 
         if (searchTerm) {

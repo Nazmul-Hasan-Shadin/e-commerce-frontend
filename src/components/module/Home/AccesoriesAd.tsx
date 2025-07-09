@@ -20,12 +20,12 @@ const AccesoriesAd = () => {
   const { data: products, isLoading, isError } = useGetAllProductQuery({});
 
   return (
-    <Container>
+    <Container className="my-10">
       <h2 className="text-xl py-2 md:text-3xl text-black font-bold ml-3  md:ml-0   ">
         <span> Top Discount</span>
         <Divider className="bg-primary-color h-[2px] w-48 mt-3" />
       </h2>
-      <div className="grid grid-cols-12  md:gap-9 w-full md:px-4">
+      <div className="grid grid-cols-12 mt-10  md:gap-9 w-full md:px-4">
         {/* Left Image */}
         <div className="max-w-[248px]  col-span-12 md:col-span-3 lg:col-span-2">
           <Image
