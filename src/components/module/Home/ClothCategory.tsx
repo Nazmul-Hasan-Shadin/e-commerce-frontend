@@ -29,13 +29,13 @@ const categories = [
 
 const CategoryCard = () => {
   return (
-    <div className="max-w-full">
-      <div className=" flex items-center  gap-2 md:items-center  justify-between   md:justify-between  md:flex-row  lg:flex-col space-y-4">
+    <div className="max-w-full border">
+      <div className=" flex items-center  gap-2 md:items-center  justify-between   md:justify-between  md:flex-row  xl:flex-col space-y-4">
         {categories.map((category) => (
           <div key={category.id} className="">
             {/* Category Image */}
-            <div className="flex flex-row-revers w-36 md:w-60 justify-around  items-center bg-white rounded-lg shadow-md md:p-2 hover:shadow-lg transition-shadow">
-              <div className=" h-20 relative">
+            <div className="flex flex-row-revers  w-48 lg:w-60 justify-around  items-center bg-white rounded-lg shadow-md md:p-2 hover:shadow-lg transition-shadow">
+              <div className="relative">
                 <Image
                   alt={category.title}
                   className="object-contain rounded-md w-12 h-16"
@@ -59,8 +59,8 @@ const CategoryCard = () => {
         ))}
         {/* View All Categories */}
 
-        <div className="flex hidden md:block flex-row-reverse w-60 h-20 justify-around items-center bg-white rounded-lg shadow-md md:p-2 hover:shadow-lg transition-shadow">
-          view all category
+        <div className="text-center hidden sm:block flex-row-reverse w-60 h-20 justify-around items-center bg-white rounded-lg shadow-md md:p-2 hover:shadow-lg transition-shadow">
+          <p> view all category</p>
         </div>
       </div>
     </div>

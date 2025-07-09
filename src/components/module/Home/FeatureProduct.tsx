@@ -33,7 +33,7 @@ const FeatureProduct = () => {
         </h2>
 
         <Dividers />
-        <div className="grid grid-cols-2 gap-2 mt-10  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 md:gap-6  p-1 md:p-4">
+        <div className="grid grid-cols-2 gap-2 mt-10  sm:grid-cols-3 md:grid-cols-3  lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 md:gap-10 p-1 md:p-4">
           {isLoading ? (
             <>
               <SkeletonCard />

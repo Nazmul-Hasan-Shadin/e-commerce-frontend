@@ -17,7 +17,7 @@ const TopSellProduct = () => {
           Current top seller <span className="text-sm"> </span>{" "}
         </h2>
         <Dividers />
-        <div className="grid grid-cols-2 mt-10  gap-2 sm:grid-cols-3  md:grid-cols-4  lg:grid-cols-4 md:gap-6 md:p-4">
+        <div className="grid grid-cols-2 mt-10  gap-2 sm:grid-cols-3 md:grid-cols-3  lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 md:gap-6 md:p-4">
           {isLoading ? (
             <>
               <SkeletonCard />
