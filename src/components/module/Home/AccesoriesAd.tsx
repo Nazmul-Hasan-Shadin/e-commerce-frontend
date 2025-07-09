@@ -6,7 +6,7 @@ import "swiper/css/pagination";
 
 import { Pagination, Autoplay } from "swiper/modules";
 import Image from "next/image";
-import { Divider } from "@nextui-org/react";
+import { Divider } from "@heroui/react";
 
 import Card from "../../ui/Card";
 import Container from "../../ui/Container";

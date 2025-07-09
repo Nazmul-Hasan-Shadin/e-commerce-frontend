@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Card, CardBody } from "@nextui-org/react";
+import { Card, CardBody } from "@heroui/react";
 import { BsBagDash } from "react-icons/bs";
 import { FaDollarSign } from "react-icons/fa6";
 import { IoCubeOutline } from "react-icons/io5";
@@ -14,7 +14,7 @@ import {
   TableCell,
   User,
   Pagination,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 import { useGetAllShopTopTenQuery } from "@/src/redux/feature/shop/shop.api";

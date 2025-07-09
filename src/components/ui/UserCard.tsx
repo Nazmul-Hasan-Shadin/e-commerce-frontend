@@ -7,7 +7,7 @@ import {
   CardFooter,
   Avatar,
   Divider,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import React from "react";
 import { AiTwotoneLike } from "react-icons/ai";
 

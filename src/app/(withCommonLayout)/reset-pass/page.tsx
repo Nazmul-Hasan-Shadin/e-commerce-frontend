@@ -1,6 +1,6 @@
 "use client";
 import React, { Suspense } from "react";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";

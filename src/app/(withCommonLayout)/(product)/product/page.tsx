@@ -18,27 +18,22 @@ const ProductsPageContent = () => {
 const ProductsPage = () => {
   const searchParams = useSearchParams();
   const categoryNameFromQuery = searchParams.get("categoryName");
-  const categoryFilterState = useAppSelector((state) => state.category);
-  const categoryFilterByArray = categoryFilterState.categoryName;
+  const brandFilterState = useAppSelector((state) => state.category.brandName); //[brandname,brandnaem,]
+
+  const categoryState = useAppSelector((state) => state.category.categoryName);
+  const [category, setCategory] = useState("");
 
   const [productFilter, setProductFilter] = useState(() => ({
-    categoryName: categoryNameFromQuery || null,
+    categoryName: "",
   }));
 
   // Fetch product data using the query
   const { data: productData, isLoading } = useGetAllProductQuery({
-    categoryFilterByArray,
-    categoryName: productFilter.categoryName || undefined,
+    categoryName: categoryNameFromQuery || categoryState || null,
+    brandFilterByArray: brandFilterState,
   });
 
-  useEffect(() => {
-    if (categoryNameFromQuery) {
-      setProductFilter((prev) => ({
-        ...prev,
-        categoryName: categoryNameFromQuery,
-      }));
-    }
-  }, [categoryNameFromQuery]);
+  console.log(productFilter, "iam prdocut filter");
 
   if (isLoading) {
     return <h2>Loading bro</h2>;
@@ -47,8 +42,7 @@ const ProductsPage = () => {
   return (
     <div>
       <Container>
-        <h2 className="text-2xl text-primary-color ml-5">Products</h2>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4">
           {productData?.data.map((product: any) => (
             <Card key={product.id} product={product} />
           ))}

@@ -5,7 +5,7 @@ import {
   DropdownMenu,
   DropdownTrigger,
   NavbarContent,
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 const UserDropDownMenu = () => {
   return (

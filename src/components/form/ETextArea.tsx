@@ -1,6 +1,6 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { Textarea } from "@nextui-org/input";
+import { Textarea } from "@heroui/input";
 import { IoSendSharp } from "react-icons/io5";
 
 import { IInput } from "@/src/types";

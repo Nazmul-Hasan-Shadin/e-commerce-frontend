@@ -8,7 +8,7 @@ import {
   TableCell,
   Chip,
   Pagination,
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 const BestSellingAndTopSellers = () => {
   //   const { data: currentUser } = useGetCurrentUserQuery();

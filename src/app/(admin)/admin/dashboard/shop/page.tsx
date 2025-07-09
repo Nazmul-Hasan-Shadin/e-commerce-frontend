@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@nextui-org/button";
-import { Card } from "@nextui-org/card";
-import { Divider } from "@nextui-org/react";
+import { Button } from "@heroui/button";
+import { Card } from "@heroui/card";
+import { Divider } from "@heroui/react";
 import Image from "next/image";
 import React, { useState } from "react";
 

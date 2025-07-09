@@ -1,6 +1,6 @@
 "use client";
-import { Input } from "@nextui-org/input";
-import { Navbar, NavbarContent, NavbarItem } from "@nextui-org/navbar";
+import { Input } from "@heroui/input";
+import { Navbar, NavbarContent, NavbarItem } from "@heroui/navbar";
 import React from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { CiShoppingCart } from "react-icons/ci";
@@ -12,7 +12,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { GoSearch } from "react-icons/go";
 
 const DashboardNavbar = () => {

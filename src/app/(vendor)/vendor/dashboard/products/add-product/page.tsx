@@ -2,8 +2,8 @@
 
 import React, { useRef, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import { Button } from "@nextui-org/button";
-import { Divider } from "@nextui-org/react";
+import { Button } from "@heroui/button";
+import { Divider } from "@heroui/react";
 import toast from "react-hot-toast";
 import Image from "next/image";
 

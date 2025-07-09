@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { useSearchParams } from "next/navigation";
 import React, { useState, Suspense } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";

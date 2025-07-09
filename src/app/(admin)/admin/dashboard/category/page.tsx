@@ -1,7 +1,7 @@
 "use client";
 import toast from "react-hot-toast";
-import { Button } from "@nextui-org/button";
-import { Divider } from "@nextui-org/react";
+import { Button } from "@heroui/button";
+import { Divider } from "@heroui/react";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";

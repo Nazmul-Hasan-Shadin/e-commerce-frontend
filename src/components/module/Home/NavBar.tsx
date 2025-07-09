@@ -12,7 +12,7 @@ import {
   DropdownMenu,
   Avatar,
   NavbarMenuToggle,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { IoSearchOutline } from "react-icons/io5";
 import Image from "next/image.js";
 import React, { useEffect, useState } from "react";

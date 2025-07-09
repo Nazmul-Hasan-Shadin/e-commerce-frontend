@@ -1,5 +1,5 @@
 "use client";
-import { Divider, Input } from "@nextui-org/react";
+import { Divider, Input } from "@heroui/react";
 import React, { useState } from "react";
 
 import { selectCategory } from "@/src/redux/feature/vendor/vendor.slice";

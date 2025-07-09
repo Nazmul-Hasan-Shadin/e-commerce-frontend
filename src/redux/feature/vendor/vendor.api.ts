@@ -15,7 +15,7 @@ const vendorApi = baseApi.injectEndpoints({
       query: ({
         searchTerm,
         categoryName = undefined,
-        categoryFilterByArray,
+        brandFilterByArray, //[pc,mobiles,electronics]
         isFlash = "",
       }) => {
         const params: Record<string, string> = {};
@@ -23,8 +23,8 @@ const vendorApi = baseApi.injectEndpoints({
         if (searchTerm) {
           params.searchTerm = searchTerm;
         }
-        if (categoryFilterByArray?.length) {
-          params.categoryFilter = categoryFilterByArray.join(",");
+        if (brandFilterByArray?.length) {
+          params.brandFilter = brandFilterByArray.join(",");
         }
         if (categoryName) {
           params.categoryName = categoryName;
@@ -32,7 +32,8 @@ const vendorApi = baseApi.injectEndpoints({
         if (isFlash) {
           params.isFlash = isFlash;
         }
-
+       console.log(categoryName,'insaided api');
+       
         return {
           url: `/product`,
           method: "GET",

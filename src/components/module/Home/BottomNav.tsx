@@ -7,7 +7,7 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   Button,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import Link from "next/link";
 import { IoSearchOutline } from "react-icons/io5";
 import React from "react";

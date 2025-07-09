@@ -3,11 +3,13 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
 export type TCategoryFilter = {
-  categoryName: string[];
+  brandName: string[];
+  categoryName:string
 };
 
 const initialState: TCategoryFilter = {
-  categoryName: [],
+  brandName: [],
+  categoryName:""
 };
 
 export const categoryFilterSlice = createSlice({
@@ -15,12 +17,16 @@ export const categoryFilterSlice = createSlice({
 
   initialState,
   reducers: {
-    selectCategory: (state, action: PayloadAction<string[]>) => {
-      state.categoryName = action.payload;
+    selectBrand: (state, action: PayloadAction<string[]>) => {
+      state.brandName = action.payload;
     },
+    selectCategory:(state,action)=>{
+      state.categoryName=action.payload
+    }
+    
   },
 });
 
-export const { selectCategory } = categoryFilterSlice.actions;
+export const { selectBrand ,selectCategory} = categoryFilterSlice.actions;
 
 export default categoryFilterSlice.reducer;

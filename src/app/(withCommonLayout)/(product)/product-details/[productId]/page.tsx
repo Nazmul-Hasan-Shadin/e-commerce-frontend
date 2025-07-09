@@ -1,8 +1,8 @@
 "use client";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import Image from "next/image";
 import React, { use, useEffect, useState } from "react";
-import { Input } from "@nextui-org/input";
+import { Input } from "@heroui/input";
 import { GoPlus } from "react-icons/go";
 import { FiMinus } from "react-icons/fi";
 import { GiSelfLove } from "react-icons/gi";

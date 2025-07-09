@@ -5,7 +5,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import Image from "next/image";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import Link from "next/link";
 
 import Container from "../../ui/Container";

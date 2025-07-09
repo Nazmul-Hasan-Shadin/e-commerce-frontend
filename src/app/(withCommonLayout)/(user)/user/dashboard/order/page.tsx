@@ -7,7 +7,7 @@ import {
   TableBody,
   TableRow,
   TableCell,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import Image from "next/image";
 
 import Container from "@/src/components/ui/Container";

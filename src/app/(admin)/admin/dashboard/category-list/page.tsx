@@ -9,7 +9,7 @@ import {
   TableRow,
   TableCell,
   Tooltip,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { MdEdit, MdDelete } from "react-icons/md";
 import toast from "react-hot-toast";
 import Link from "next/link";

@@ -1,12 +1,12 @@
 "use client";
 import Swal from "sweetalert2";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import {
   Card as NextCard,
   CardHeader,
   CardBody,
   CardFooter,
-} from "@nextui-org/card";
+} from "@heroui/card";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -85,28 +85,29 @@ const Card = ({ product }: { product: IProduct }) => {
   };
 
   return (
-    <div className="relative md:w-full p">
+    <div className="relative md:w-full p-1">
       <NextCard
         isHoverable
-        className="p-1 md:w-[250px] lg:w-[270px]  lg:p-3 h-auto  shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
+        className="p-1  max-w-2xl  lg:p-3 h-auto  shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
       >
+        {/* md:w-[200px] lg:w-[270px] */}
         {/* Image */}
-        <div className="relative  h-32 md:h-56">
+        <div className="relative flex items-center  h-32 md:h-56">
           <Image
             alt={product?.name}
-            className="rounded-t-lg mx-auto  h-full object-fill lg:w-[300px]"
+            className="rounded-t-lg mx-auto h-[90px] sm:h-full object-fill sm:w-[220px] md:h-[140px]"
             height={120}
             src={product?.images[0]}
             width={140}
           />
         </div>
-        <del className="md:text-lg absolute top-1 text-primary-color p-1 right-1">
+        <del className=" text-sm md:text-lg absolute top-0 text-primary-color p-1 right-1">
           ${product?.price}
         </del>
 
         {/* Card Header */}
         <CardHeader className="md:h-full p-2  md:p-1">
-          <h3 className="font-semibold md:text-xl  md:font-semibold text-gray-800">
+          <h3 className="font-semibold md:text-medium  md:font-semibold 2xl:text-xl text-gray-800">
             {getShortName(product?.name)}
           </h3>
           <br />
@@ -119,7 +120,7 @@ const Card = ({ product }: { product: IProduct }) => {
               {/* <span className="md:text-xl hidden font-bold text-[#e10600]">
                 ${product?.price - product?.discount}
               </span> */}
-              <p className="md:text-xl -mt-3 md:mt-0 lg:text-xl font-semibold text-[#e10600]">
+              <p className="md:text-medium 2xl:text-xl -mt-3 md:mt-0 lg:text-xl font-semibold text-[#e10600]">
                 ${product?.price - product?.discount}
               </p>
             </div>
@@ -130,10 +131,11 @@ const Card = ({ product }: { product: IProduct }) => {
         </CardBody>
 
         {/* Card Footer */}
-        <CardFooter className="p-1 md:flex gap-2  md:justify-between">
+        <CardFooter className="p-1  sm:flex md:gap-3 sm:justify-between md:flex 2xl:flex 2xl:justify-between gap-2  md:justify-between">
           <Button
-            className=" md:hidden rounded-none text-[13px]  md:w-28 bg-primary-color text-white"
+            className=" md:hidden rounded-none text-[13px] sm:p-5 sm:w-32 sm:text-medium md:text-sm bg-primary-color text-white"
             size="sm"
+            
             variant="bordered"
             onClick={handleAddToCart}
           >
@@ -141,14 +143,14 @@ const Card = ({ product }: { product: IProduct }) => {
           </Button>
           {/* ==============add to cart for medium device======== */}
           <Button
-            className="text-sm sm:text-medium rounded-sm hidden md:block   md:w-28 bg-primary-color text-white"
+            className="text-sm sm:text-medium md:text-sm md:flex-1 2xl:flex-1 rounded-sm hidden md:block   bg-primary-color text-white"
             variant="bordered"
             onClick={handleAddToCart}
           >
             Add to cart
           </Button>
           <Link href={`/product-details/${product.id}`}>
-            <button className="text-sm md:text-medium">Details</button>
+            <button className="text-sm sm:text-medium md:text-sm 2xl:text-medium ">Details</button>
           </Link>
         </CardFooter>
 

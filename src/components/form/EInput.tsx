@@ -1,5 +1,5 @@
 "use client";
-import { Input } from "@nextui-org/input";
+import { Input } from "@heroui/input";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 

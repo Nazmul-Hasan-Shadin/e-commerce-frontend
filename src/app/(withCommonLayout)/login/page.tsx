@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";

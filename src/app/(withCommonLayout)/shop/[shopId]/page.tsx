@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@nextui-org/button";
-import { Divider } from "@nextui-org/react";
+import { Button } from "@heroui/button";
+import { Divider } from "@heroui/react";
 import React, { use, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 

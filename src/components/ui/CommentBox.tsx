@@ -9,7 +9,7 @@ import FxTextArea from "../form/ETextArea";
 
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import { useCreateCommentMutation } from "@/src/redux/feature/comment/comment.api";
-import { Divider } from "@nextui-org/react";
+import { Divider } from "@heroui/react";
 const CommentBox = ({ productId }: { productId: string }) => {
   const [handleCreate] = useCreateCommentMutation();
   const { data: userData } = useGetCurrentUserQuery(undefined);
