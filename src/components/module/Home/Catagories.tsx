@@ -46,14 +46,14 @@ const Categories = () => {
   }
 
   return (
-    <Container className=" lg:my-10 px-1 md:px-0 ">
+    <Container className="sm:my-10 lg:my-10 px-1 md:px-0 ">
       <div>
         <h3 className="text-xl md:text-2xl md:ml-0 font-bold mb-1">
           Shop By Categories
         </h3>
         <Dividers />
 
-        <div className="grid grid-cols-2 md:grid-cols-4 mt-10 gap-1">
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 mt-10 gap-1">
           {isLoading ? (
             <>
               <SkeletonCard />

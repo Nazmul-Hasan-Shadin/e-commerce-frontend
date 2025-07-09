@@ -85,16 +85,16 @@ const Card = ({ product }: { product: IProduct }) => {
   };
 
   return (
-    <div className=" relative sm:max-w-0 md:w-full">
+    <div className="relative md:w-full p">
       <NextCard
         isHoverable
-        className=" w-[168px] mr-3 md:w-[250px] lg:w-[270px]  md:p-3 h-auto  shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
+        className="p-1 md:w-[250px] lg:w-[270px]  lg:p-3 h-auto  shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
       >
         {/* Image */}
-        <div className="relative h-32 md:h-56  w-full mx-auto">
+        <div className="relative  h-32 md:h-56">
           <Image
             alt={product?.name}
-            className="rounded-t-lg w-[120px] h-full object-contain md:w-[200px] lg:w-[300px]"
+            className="rounded-t-lg mx-auto  h-full object-fill lg:w-[300px]"
             height={120}
             src={product?.images[0]}
             width={140}
@@ -105,21 +105,21 @@ const Card = ({ product }: { product: IProduct }) => {
         </del>
 
         {/* Card Header */}
-        <CardHeader className="p-3   md:h-full md:p-1">
-          <h3 className="text-sm font-semibold md:text-xl  md:font-semibold text-gray-800">
+        <CardHeader className="md:h-full p-2  md:p-1">
+          <h3 className="font-semibold md:text-xl  md:font-semibold text-gray-800">
             {getShortName(product?.name)}
           </h3>
           <br />
         </CardHeader>
 
         {/* Card Body */}
-        <CardBody className="p-2  h-3/4  md:p-1">
+        <CardBody className="h-3/4 p-2 md:p-1">
           <div className="flex flex-col md:gap-2">
             <div className="flex items-center space-x-2">
               {/* <span className="md:text-xl hidden font-bold text-[#e10600]">
                 ${product?.price - product?.discount}
               </span> */}
-              <p className="md:text-xl -mt-3 md:mt-0 text-xl font-semibold text-[#e10600]">
+              <p className="md:text-xl -mt-3 md:mt-0 lg:text-xl font-semibold text-[#e10600]">
                 ${product?.price - product?.discount}
               </p>
             </div>
@@ -130,9 +130,9 @@ const Card = ({ product }: { product: IProduct }) => {
         </CardBody>
 
         {/* Card Footer */}
-        <CardFooter className="md:p-3 md:flex gap-2 justify-around  md:justify-between">
+        <CardFooter className="p-1 md:flex gap-2  md:justify-between">
           <Button
-            className=" md:hidden text-[13px]  md:w-28 bg-primary-color text-white"
+            className=" md:hidden rounded-none text-[13px]  md:w-28 bg-primary-color text-white"
             size="sm"
             variant="bordered"
             onClick={handleAddToCart}
@@ -141,14 +141,14 @@ const Card = ({ product }: { product: IProduct }) => {
           </Button>
           {/* ==============add to cart for medium device======== */}
           <Button
-            className="text-sm hidden md:block   md:w-28 bg-primary-color text-white"
+            className="text-sm sm:text-medium rounded-sm hidden md:block   md:w-28 bg-primary-color text-white"
             variant="bordered"
             onClick={handleAddToCart}
           >
             Add to cart
           </Button>
           <Link href={`/product-details/${product.id}`}>
-            <button>Details</button>
+            <button className="text-sm md:text-medium">Details</button>
           </Link>
         </CardFooter>
 

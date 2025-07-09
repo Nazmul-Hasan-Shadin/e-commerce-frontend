@@ -36,7 +36,7 @@ const WhyChooseUs = () => {
         <h2 className="text-3xl z-10 font-bold text-white mb-8">
           Why Shop With Us?
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {cards.map((card, index) => (
             <div
               key={index}

@@ -21,7 +21,7 @@ const FeatureProduct = () => {
   }
 
   return (
-    <Container className="px-1 md:px-0">
+    <Container className="px-1 sm:my-10 md:px-0">
       <div>
         <h2 className="text-xl py-2 md:text-2xl text-black font-bold   md:ml-0   ">
           <span> Feature Product</span>
@@ -33,7 +33,7 @@ const FeatureProduct = () => {
         </h2>
 
         <Dividers />
-        <div className="grid grid-cols-2 gap-2 mt-10  lg:grid-cols-5 md:gap-6  p-1 md:p-4">
+        <div className="grid grid-cols-2 gap-2 mt-10  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 md:gap-6  p-1 md:p-4">
           {isLoading ? (
             <>
               <SkeletonCard />

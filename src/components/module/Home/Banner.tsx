@@ -56,7 +56,7 @@ const Banner = () => {
         {/* ===============disocunt =image ================== */}
 
         <div className="col-span-12 border-red-500   lg:col-span-4 border">
-          <div className="flex flex-col  border-4  h-full border-x-red-500 gap-1">
+          <div className="flex flex-col sm:flex-row md:flex-col border-4  h-full border-x-red-500 gap-1">
             <div
               className="w-full flex-1  flex flex-col justify-center p-3 lg:p-8"
               style={{
