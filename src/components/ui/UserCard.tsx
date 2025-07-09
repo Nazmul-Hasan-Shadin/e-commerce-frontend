@@ -9,6 +9,7 @@ import {
   Divider,
 } from "@nextui-org/react";
 import React from "react";
+import { AiTwotoneLike } from "react-icons/ai";
 
 import { FaCommentAlt } from "react-icons/fa";
 
@@ -21,18 +22,15 @@ const UserCard = ({ review }: { review: IReview[] }) => {
   return (
     <div className="text-black bg-white border p-5">
       <h3>Review</h3>
-      <Divider />
+      <Divider className="my-4" />
 
-      <div className={`border h-64`}>
+      <div className={` h-64 ${review.length ? "h-auto" : ""}`}>
         {review && review.length ? (
           review.map((review: IReview) => {
             return (
-              <div
-                key={review.id}
-                className=" flex flex-col items-center justify-center text-black h-full "
-              >
-                <div className="flex flex-col items-center">
-                  <Card className="max-w-[470px]  mb-6 bg-[#e9eaef] ">
+              <div key={review.id} className=" text-black h-auto ">
+                <div>
+                  <Card className=" mb-6 border-none ">
                     <CardHeader className="justify-between">
                       <div className="flex gap-5">
                         <Avatar
@@ -50,6 +48,7 @@ const UserCard = ({ review }: { review: IReview[] }) => {
                           </h5>
                         </div>
                       </div>
+                      <span className="text-sm p-2">4 hour ago</span>
                     </CardHeader>
                     <CardBody className="px-3 py-0 text-small text-default-800 overflow-hidden">
                       <p className="text-black">{review?.comment}</p>
@@ -59,20 +58,11 @@ const UserCard = ({ review }: { review: IReview[] }) => {
                         </span>
                       </span>
                     </CardBody>
-                    <CardFooter className="gap-3">
+                    <CardFooter className="gap-4 mt-4">
                       <div className="flex gap-1">
-                        <p className="font-semibold text-default-600 text-small">
-                          4
-                        </p>
-                        <p className=" text-default-600 text-small">
-                          Following
-                        </p>
+                        <AiTwotoneLike />
                       </div>
                       <div className="flex gap-1">
-                        <p className="font-semibold text-default-600 text-small">
-                          97.1K
-                        </p>
-                        <p className="text-default-600 text-small">Followers</p>
                         <p className="text-default-600 text-small">Replay</p>
                       </div>
                     </CardFooter>

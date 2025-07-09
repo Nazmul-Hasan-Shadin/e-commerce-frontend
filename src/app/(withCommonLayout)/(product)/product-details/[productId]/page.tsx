@@ -192,7 +192,7 @@ const ProductDetails = ({ params }: { params: Params }) => {
       <div className="flex flex-col justify-start md:px-12">
         <ReviewTab review={review} />
 
-        {/* <CommentBox productId={productId} /> */}
+        <CommentBox productId={productId} />
       </div>
     </div>
   );

@@ -22,7 +22,7 @@ const FxTextArea = ({
   return (
     <Textarea
       {...register(name)}
-      className=" w-full md:max-w-[600px] h-52"
+      className=" w-full h-52"
       endContent={
         icon && (
           <button type="submit">
@@ -31,7 +31,8 @@ const FxTextArea = ({
         )
       }
       label={label}
-      minRows={5}
+      minRows={10}
+      maxRows={50}
       placeholder={placeholder}
       variant={variant}
     />
