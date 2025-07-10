@@ -72,7 +72,7 @@ const SidebarFilter = () => {
               {["Pc", "Android", "Tv", "Electronics", "Hp"].map((brand) => (
                 <div key={brand} className="flex items-center space-x-2">
                   <input
-                    checked={categoryName.includes(brand)}
+                    // checked={categoryName.includes(brand)}
                     className="h-4 w-4 rounded border-gray-400 text-blue-500 focus:ring-2 focus:ring-blue-500"
                     id={brand}
                     type="checkbox"

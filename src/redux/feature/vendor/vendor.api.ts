@@ -12,32 +12,36 @@ const vendorApi = baseApi.injectEndpoints({
       },
     }),
     getAllProduct: builder.query({
-      query: ({
-        searchTerm,
-        categoryName = undefined,
-        brandFilterByArray, //[pc,mobiles,electronics]
-        isFlash = "",
-      }) => {
-        const params: Record<string, string> = {};
+      query: (queryObj) => {
+        const params = new URLSearchParams();
 
-        if (searchTerm) {
-          params.searchTerm = searchTerm;
+        if (queryObj) {
+          for (let key in queryObj) {
+            if (Array.isArray(queryObj[key])) {
+              params.append(key, queryObj[key].join(","));
+            } else {
+              params.append(key, queryObj[key]);
+            }
+          }
         }
-        if (brandFilterByArray?.length) {
-          params.brandFilter = brandFilterByArray.join(",");
-        }
-        if (categoryName) {
-          params.categoryName = categoryName;
-        }
-        if (isFlash) {
-          params.isFlash = isFlash;
-        }
-       console.log(categoryName,'insaided api');
-       
+
+        // if (searchTerm) {
+        //   params.searchTerm = searchTerm;
+        // }
+        // if (brandFilterByArray?.length) {
+        //   params.brandFilter = brandFilterByArray.join(",");
+        // }
+        // if (categoryName) {
+        //   params.categoryName = categoryName;
+        // }
+        // if (isFlash) {
+        //   params.isFlash = isFlash;
+        // }
+
         return {
           url: `/product`,
           method: "GET",
-          params: Object.keys(params).length ? params : undefined,
+          params: params,
         };
       },
     }),

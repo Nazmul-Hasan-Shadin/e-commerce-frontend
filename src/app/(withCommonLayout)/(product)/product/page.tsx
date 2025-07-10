@@ -30,10 +30,8 @@ const ProductsPage = () => {
   // Fetch product data using the query
   const { data: productData, isLoading } = useGetAllProductQuery({
     categoryName: categoryNameFromQuery || categoryState || null,
-    brandFilterByArray: brandFilterState,
+    brandFilter: brandFilterState,
   });
-
-  console.log(productFilter, "iam prdocut filter");
 
   if (isLoading) {
     return <h2>Loading bro</h2>;
@@ -43,7 +41,7 @@ const ProductsPage = () => {
     <div>
       <Container>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4">
-          {productData?.data.map((product: any) => (
+          {productData?.data?.data.map((product: any) => (
             <Card key={product.id} product={product} />
           ))}
         </div>
