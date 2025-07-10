@@ -25,19 +25,6 @@ const vendorApi = baseApi.injectEndpoints({
           }
         }
 
-        // if (searchTerm) {
-        //   params.searchTerm = searchTerm;
-        // }
-        // if (brandFilterByArray?.length) {
-        //   params.brandFilter = brandFilterByArray.join(",");
-        // }
-        // if (categoryName) {
-        //   params.categoryName = categoryName;
-        // }
-        // if (isFlash) {
-        //   params.isFlash = isFlash;
-        // }
-
         return {
           url: `/product`,
           method: "GET",

@@ -6,6 +6,7 @@ import Card from "@/src/components/ui/Card";
 import Container from "@/src/components/ui/Container";
 import { useAppSelector } from "@/src/redux/hook";
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
+import { Pagination } from "@heroui/react";
 
 const ProductsPageContent = () => {
   return (
@@ -22,16 +23,28 @@ const ProductsPage = () => {
 
   const categoryState = useAppSelector((state) => state.category.categoryName);
   const [category, setCategory] = useState("");
+  const [page, setPage] = useState<number>();
+  const [limit, setLimit] = useState<number>(2);
 
   const [productFilter, setProductFilter] = useState(() => ({
     categoryName: "",
   }));
 
+  const handlePagination = (value) => {
+    setPage(value);
+  };
+
   // Fetch product data using the query
   const { data: productData, isLoading } = useGetAllProductQuery({
     categoryName: categoryNameFromQuery || categoryState || null,
     brandFilter: brandFilterState,
+    page,
   });
+  console.log(productData);
+
+  const total = Math.ceil(productData?.data?.meta.total / productData?.data?.meta.limit);
+  console.log(total,'h');
+  
 
   if (isLoading) {
     return <h2>Loading bro</h2>;
@@ -44,6 +57,18 @@ const ProductsPage = () => {
           {productData?.data?.data.map((product: any) => (
             <Card key={product.id} product={product} />
           ))}
+        </div>
+        <div className="my-12 flex justify-end w-[80%]">
+          <Pagination
+            color="default"
+            onChange={(value) => handlePagination(value)}
+            isCompact
+            size="lg"
+            showControls
+            initialPage={productData?.data?.meta?.page}
+            total={total}
+          />
+          ;
         </div>
       </Container>
     </div>
