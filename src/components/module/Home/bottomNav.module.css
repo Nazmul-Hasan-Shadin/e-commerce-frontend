@@ -1,3 +1,14 @@
+@keyframes openBottomNav {
+  0% {
+    opacity: 0;
+    bottom: 47px;
+  }
+
+    100% {
+    bottom:-47px;
+    opacity: 1;
+  }
+}
 .navItem {
   position: relative;
 }
@@ -42,3 +53,13 @@
     width: 100%;
   }
 } */
+
+.triggerBottomNavForOpen {
+  animation-name: openBottomNav;
+  animation-duration: 1s;
+   bottom: -47px;
+   animation-fill-mode: forwards;
+   left: 0;
+   right: 0;
+
+}

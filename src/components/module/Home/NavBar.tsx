@@ -67,7 +67,7 @@ const NavBar = () => {
             maxWidth="full"
             onMenuOpenChange={setIsMenuOpen}
           >
-            {/* logo */}
+            {/* Menu toggle for small device */}
 
             <NavbarContent className="sm:hidden">
               <NavbarMenuToggle
@@ -84,7 +84,7 @@ const NavBar = () => {
               <p>091 234-ELLA</p>
             </NavbarContent>
 
-            <NavbarContent className="hidden md:flex relative">
+            <NavbarContent className="hidden md:flex relative border">
               <Input
                 className=" bg-white rounded-full "
                 classNames={{
@@ -99,9 +99,11 @@ const NavBar = () => {
                 onChange={(e) => handeSearch(e)}
               />
 
-              {searchResult && (
+              {debouncedSearchQuery && searchResult?.data.length && (
                 <SearchResultList searchResult={searchResult?.data} />
               )}
+
+              <UserDropDownMenu />
             </NavbarContent>
 
             {/* ================icnons============ */}
@@ -119,7 +121,6 @@ const NavBar = () => {
               ))}
             </NavbarContent>
             {/* ===============user dropDown menue */}
-            <UserDropDownMenu />
 
             {/* =========================for small device menu====================== */}
             {/* 

@@ -7,10 +7,11 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   Button,
+  Input,
 } from "@heroui/react";
 import Link from "next/link";
 import { IoSearchOutline } from "react-icons/io5";
-import React from "react";
+import React, { useState } from "react";
 import { RxAvatar } from "react-icons/rx";
 import { IoCartOutline } from "react-icons/io5";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
@@ -35,8 +36,9 @@ const BottomNav = () => {
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = React.useState(false);
+  const [isSearcIconClick, setIsSearchIconClick] = useState<boolean>(false);
   const token = useAppSelector((state) => state.auth.token);
-
+  console.log(isSearcIconClick, "click");
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
   const menuItems = user?.role
@@ -60,9 +62,9 @@ const BottomNav = () => {
 
   return (
     <div className="sticky top-0 z-20">
-      <Container>
+      <Container className="">
         <Navbar
-          className="bg-[#ffffff] p-0  text-white "
+          className="bg-[#ffffff] p-0  text-white relative "
           isMenuOpen={isMenuOpen}
           maxWidth="full"
           onMenuOpenChange={setIsMenuOpen}
@@ -74,8 +76,18 @@ const BottomNav = () => {
             />
 
             <NavbarItem>
-              <IoSearchOutline className="text-black font-bold text-3xl" />
+              <IoSearchOutline
+                onClick={() => setIsSearchIconClick(!isSearcIconClick)}
+                className="text-black font-bold text-3xl"
+              />
             </NavbarItem>
+
+            {isSearcIconClick && (
+              <Input
+                className={`absolute max-w-[98%] left-0 right-0 mx-auto ${isSearcIconClick ? styles.triggerBottomNavForOpen : ""}`}
+                placeholder="search here"
+              />
+            )}
           </NavbarContent>
 
           {/* ==========logo for big devie=========== */}
