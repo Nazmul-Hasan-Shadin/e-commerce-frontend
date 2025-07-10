@@ -11,7 +11,7 @@ import {
 } from "@heroui/react";
 import Link from "next/link";
 import { IoSearchOutline } from "react-icons/io5";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RxAvatar } from "react-icons/rx";
 import { IoCartOutline } from "react-icons/io5";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
@@ -28,17 +28,20 @@ import styles from "./bottomNav.module.css";
 import { logOut } from "@/src/redux/feature/auth/auth.slice";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import logo from "@/src/assests/icon/bottomnavlogo.avif";
+import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
+import { skipToken } from "@reduxjs/toolkit/query";
+import SearchResultList from "./SearchResultList";
 
 const BottomNav = () => {
   const pathname = usePathname();
-
-  console.log(pathname);
-
+  const [searchQuery, setSearchQuery] = useState<string | null>();
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState<
+    string | null
+  >();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = React.useState(false);
   const [isSearcIconClick, setIsSearchIconClick] = useState<boolean>(false);
   const token = useAppSelector((state) => state.auth.token);
-  console.log(isSearcIconClick, "click");
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
   const menuItems = user?.role
@@ -59,6 +62,25 @@ const BottomNav = () => {
 
         { label: "Register", link: "/register" },
       ];
+  // =================manage search system for small device
+
+  const handeSearch = (e: any) => {
+    const searchValue = e.target.value;
+
+    setSearchQuery(searchValue);
+  };
+
+  useEffect(() => {
+    const debounceTimeout = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 300);
+
+    return () => clearTimeout(debounceTimeout);
+  }, [searchQuery]);
+
+  const { data: searchResult } = useGetAllProductQuery(
+    debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken
+  );
 
   return (
     <div className="sticky top-0 z-20">
@@ -84,8 +106,16 @@ const BottomNav = () => {
 
             {isSearcIconClick && (
               <Input
+                onChange={(e) => handeSearch(e)}
                 className={`absolute max-w-[98%] left-0 right-0 mx-auto ${isSearcIconClick ? styles.triggerBottomNavForOpen : ""}`}
                 placeholder="search here"
+              />
+            )}
+
+            {debouncedSearchQuery && searchResult?.data.length && (
+              <SearchResultList
+                dynamicStyle={isSearcIconClick}
+                searchResult={searchResult?.data}
               />
             )}
           </NavbarContent>

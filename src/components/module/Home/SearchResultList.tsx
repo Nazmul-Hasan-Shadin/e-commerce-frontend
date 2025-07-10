@@ -4,9 +4,18 @@ import Image from "next/image";
 
 import { IProduct } from "../../ui/Card";
 
-const SearchResultList = ({ searchResult }: { searchResult: IProduct[] }) => {
+const SearchResultList = ({
+  searchResult,
+  dynamicStyle,
+}: {
+  searchResult: IProduct[];
+  dynamicStyle?: string;
+}) => {
   return (
-    <div className="absolute w-full mt-80 z-40 bg-white shadow-lg rounded-lg max-h-60 overflow-y-auto">
+    <div
+      className={`absolute border ${dynamicStyle ? "-top-[204px] lg:-top-0" : ""} border-red-500  w-[98%] left-0 md:w-full mt-80 z-40 bg-white shadow-lg rounded-lg max-h-60 overflow-y-auto
+    `}
+    >
       {/* Render the search results */}
       {searchResult && searchResult.length > 0 ? (
         searchResult.map((product) => (

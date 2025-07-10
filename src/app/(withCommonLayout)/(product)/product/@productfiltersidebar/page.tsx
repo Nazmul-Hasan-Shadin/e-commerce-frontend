@@ -61,7 +61,7 @@ const SidebarFilter = () => {
   };
 
   return (
-    <div className="w-full border p-4">
+    <div className="w-full border p-4 sticky top-16">
       <Container>
         <div className="p-2">
           {/* Brand Filter */}

@@ -84,7 +84,7 @@ const NavBar = () => {
               <p>091 234-ELLA</p>
             </NavbarContent>
 
-            <NavbarContent className="hidden md:flex relative border">
+            <NavbarContent className="hidden md:flex relative ">
               <Input
                 className=" bg-white rounded-full "
                 classNames={{
