@@ -10,7 +10,7 @@ import Link from "next/link";
 
 import ReviewTab from "@/src/components/module/ProductDetails/ReviewDescription";
 import CommentBox from "@/src/components/ui/CommentBox";
-import { IReview } from "@/src/interface/review";
+import { IReview } from "@/src/interface";
 import { useGetProductByIdQuery } from "@/src/redux/feature/vendor/vendor.api";
 import laptop from "@/src/assests/test.jpg";
 

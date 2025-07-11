@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 
 import PageHeaderwithBanner from "@/src/components/ui/PageHeaderwithBanner";
-import Container from "@/src/components/ui/Container";
 
 export default function layout({
   children,
@@ -22,7 +21,9 @@ export default function layout({
           {productfiltersidebar}
         </section>
 
-        <main className="col-span-12 border sm:col-span-7  md:col-span-8 2xl:col-span-9 border">{children}</main>
+        <main className="col-span-12 border sm:col-span-7  md:col-span-8 2xl:col-span-9 border">
+          {children}
+        </main>
       </section>
     </section>
   );

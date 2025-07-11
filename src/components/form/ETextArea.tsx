@@ -31,8 +31,8 @@ const FxTextArea = ({
         )
       }
       label={label}
-      minRows={10}
       maxRows={50}
+      minRows={10}
       placeholder={placeholder}
       variant={variant}
     />

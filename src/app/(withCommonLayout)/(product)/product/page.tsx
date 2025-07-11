@@ -1,12 +1,12 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState, Suspense } from "react";
+import React, { useState, Suspense } from "react";
+import { Pagination } from "@heroui/react";
 
 import Card from "@/src/components/ui/Card";
 import Container from "@/src/components/ui/Container";
 import { useAppSelector } from "@/src/redux/hook";
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
-import { Pagination } from "@heroui/react";
 
 const ProductsPageContent = () => {
   return (
@@ -40,11 +40,10 @@ const ProductsPage = () => {
     brandFilter: brandFilterState,
     page,
   });
-  console.log(productData);
 
-  const total = Math.ceil(productData?.data?.meta.total / productData?.data?.meta.limit);
-  console.log(total,'h');
-  
+  const total = Math.ceil(
+    productData?.data?.meta.total / productData?.data?.meta.limit,
+  );
 
   if (isLoading) {
     return <h2>Loading bro</h2>;
@@ -60,13 +59,13 @@ const ProductsPage = () => {
         </div>
         <div className="my-12 flex justify-end w-[80%]">
           <Pagination
-            color="default"
-            onChange={(value) => handlePagination(value)}
             isCompact
-            size="lg"
             showControls
+            color="default"
             initialPage={productData?.data?.meta?.page}
+            size="lg"
             total={total}
+            onChange={(value) => handlePagination(value)}
           />
           ;
         </div>

@@ -4,12 +4,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export type TCategoryFilter = {
   brandName: string[];
-  categoryName:string
+  categoryName: string;
 };
 
 const initialState: TCategoryFilter = {
   brandName: [],
-  categoryName:""
+  categoryName: "",
 };
 
 export const categoryFilterSlice = createSlice({
@@ -20,13 +20,12 @@ export const categoryFilterSlice = createSlice({
     selectBrand: (state, action: PayloadAction<string[]>) => {
       state.brandName = action.payload;
     },
-    selectCategory:(state,action)=>{
-      state.categoryName=action.payload
-    }
-    
+    selectCategory: (state, action) => {
+      state.categoryName = action.payload;
+    },
   },
 });
 
-export const { selectBrand ,selectCategory} = categoryFilterSlice.actions;
+export const { selectBrand, selectCategory } = categoryFilterSlice.actions;
 
 export default categoryFilterSlice.reducer;

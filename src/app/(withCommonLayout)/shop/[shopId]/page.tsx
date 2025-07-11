@@ -13,33 +13,23 @@ import {
   useGetShopInfoQuery,
   useUnfollowShopMutation,
 } from "@/src/redux/feature/shop/shop.api";
-import { useGetProducsByShopIdQuery } from "@/src/redux/feature/vendor/vendor.api";
+import { useGetProductByShopIdQuery } from "@/src/redux/feature/vendor/vendor.api";
+import { Pagingation } from "@/src/utils/pagination";
+import { IProduct } from "@/src/interface";
 
 type Params = Promise<{ shopId: string }>;
-interface Product {
-  id: string;
-  shopId: string;
-  name: string;
-  description: string;
-  price: number;
-  categoryId: string;
-  inventoryCount: number;
-  discount: number;
-  vendorId: string;
-  images: string[];
-}
 
 const ShopPage = ({ params }: { params: Params }) => {
+  const [page, setPage] = useState<number>();
   const param = use(params);
-
   const shopId = param.shopId;
-
   const { data: userInformation } = useGetCurrentUserQuery(undefined);
 
-  const [handleFollowShop, { data, error }] = useFollowShopMutation();
-
+  const [handleFollowShop] = useFollowShopMutation();
   const { data: shopData } = useGetShopInfoQuery(shopId);
-  const { data: shopProduct } = useGetProducsByShopIdQuery(shopId);
+
+  const { data: shopProduct } = useGetProductByShopIdQuery({ page, shopId });
+
   const [handleUnfollow] = useUnfollowShopMutation();
   const [handleCheckValidiyOfFollow] = useCheckValidityOfFollowMutation();
 
@@ -128,10 +118,12 @@ const ShopPage = ({ params }: { params: Params }) => {
 
       {/* Product List */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {shopProduct?.data.map((product: Product) => (
+        {shopProduct?.data?.data.map((product: IProduct) => (
           <Card key={product.id} product={product} />
         ))}
       </div>
+
+      <Pagingation productData={shopProduct} setPage={setPage} />
     </div>
   );
 };

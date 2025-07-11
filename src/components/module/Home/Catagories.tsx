@@ -5,10 +5,9 @@ import Link from "next/link";
 
 import SkeletonCard from "../../ui/SkeletonCard";
 import Container from "../../ui/Container";
-import Dividers from "../../ui/Divider";
+import { HomeTitle } from "../../ui/HomeTitle";
 
 import { TCategory } from "@/src/types";
-import { HomeTitle } from "../../ui/HomeTitle";
 
 const Categories = () => {
   const [categories, setCategories] = useState<TCategory[] | null>(null);
@@ -49,7 +48,7 @@ const Categories = () => {
   return (
     <Container className="sm:my-10 lg:my-10 px-1 md:px-0 ">
       <div>
-        <HomeTitle title="Categories"/>
+        <HomeTitle title="Categories" />
         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 mt-10 gap-1">
           {isLoading ? (
             <>

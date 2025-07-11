@@ -10,13 +10,13 @@ import {
 } from "@heroui/react";
 import React from "react";
 import { AiTwotoneLike } from "react-icons/ai";
-
 import { FaCommentAlt } from "react-icons/fa";
 
-import { IReview } from "@/src/interface/review";
+import { IReview } from "@/src/interface";
 
 const UserCard = ({ review }: { review: IReview[] }) => {
   const [isFollowed, setIsFollowed] = React.useState(false);
+
   console.log(review, "iam review");
 
   return (

@@ -20,17 +20,17 @@ import { LiaFlagUsaSolid } from "react-icons/lia";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import Image from "next/image.js";
 import { usePathname } from "next/navigation";
+import { skipToken } from "@reduxjs/toolkit/query";
 
 import Container from "../../ui/Container";
 
 import styles from "./bottomNav.module.css";
+import SearchResultList from "./SearchResultList";
 
 import { logOut } from "@/src/redux/feature/auth/auth.slice";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import logo from "@/src/assests/icon/bottomnavlogo.avif";
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
-import { skipToken } from "@reduxjs/toolkit/query";
-import SearchResultList from "./SearchResultList";
 
 const BottomNav = () => {
   const pathname = usePathname();
@@ -79,7 +79,7 @@ const BottomNav = () => {
   }, [searchQuery]);
 
   const { data: searchResult } = useGetAllProductQuery(
-    debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken
+    debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken,
   );
 
   return (
@@ -99,16 +99,16 @@ const BottomNav = () => {
 
             <NavbarItem>
               <IoSearchOutline
-                onClick={() => setIsSearchIconClick(!isSearcIconClick)}
                 className="text-black font-bold text-3xl"
+                onClick={() => setIsSearchIconClick(!isSearcIconClick)}
               />
             </NavbarItem>
 
             {isSearcIconClick && (
               <Input
-                onChange={(e) => handeSearch(e)}
                 className={`absolute max-w-[98%] left-0 right-0 mx-auto ${isSearcIconClick ? styles.triggerBottomNavForOpen : ""}`}
                 placeholder="search here"
+                onChange={(e) => handeSearch(e)}
               />
             )}
 

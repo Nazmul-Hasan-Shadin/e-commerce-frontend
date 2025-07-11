@@ -6,16 +6,15 @@ import "swiper/css/pagination";
 
 import { Pagination, Autoplay } from "swiper/modules";
 import Image from "next/image";
-import { Divider } from "@heroui/react";
 
 import Card from "../../ui/Card";
 import Container from "../../ui/Container";
+import { HomeTitle } from "../../ui/HomeTitle";
 
 import CategoryCard from "./ClothCategory";
 
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import discountOnCloth from "@/src/assests/accesories/disounttcloth.webp";
-import { HomeTitle } from "../../ui/HomeTitle";
 
 const AccesoriesAd = () => {
   const { data: products, isLoading, isError } = useGetAllProductQuery({});

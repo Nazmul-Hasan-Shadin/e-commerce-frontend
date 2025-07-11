@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 
 import { useGetAllShopTopTenQuery } from "@/src/redux/feature/shop/shop.api";
 
@@ -18,6 +19,7 @@ type Shop = {
 
 const ShopPage = () => {
   const { data: shops, isLoading, error } = useGetAllShopTopTenQuery(undefined);
+  console.log(shops, "iam shop bro");
 
   if (isLoading) return <p>Loading shops...</p>;
   if (error) return <p>Failed to load shops. Please try again later.</p>;
@@ -38,10 +40,12 @@ const ShopPage = () => {
           >
             {/* Shop Details */}
             <div className="flex flex-col items-center p-4">
-              <img
+              <Image
                 alt={`${shop.name || "Shop"} logo`}
-                className="w-16 h-16 object-cover rounded-full mb-4"
+                className="object-cover rounded-full mb-4"
+                height={400}
                 src={shop.logo || "/default-logo.png"}
+                width={200}
               />
               <h2 className="text-lg font-bold text-gray-800">
                 {shop.name || "Unnamed Shop"}

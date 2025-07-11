@@ -3,18 +3,19 @@
 import React from "react";
 import toast from "react-hot-toast";
 import { SubmitHandler } from "react-hook-form";
+import { Divider } from "@heroui/react";
 
 import EForm from "../form/EForm";
 import FxTextArea from "../form/ETextArea";
 
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import { useCreateCommentMutation } from "@/src/redux/feature/comment/comment.api";
-import { Divider } from "@heroui/react";
 const CommentBox = ({ productId }: { productId: string }) => {
   const [handleCreate] = useCreateCommentMutation();
   const { data: userData } = useGetCurrentUserQuery(undefined);
- console.log(userData,'currenuserdaata');
- 
+
+  console.log(userData, "currenuserdaata");
+
   const handleComment: SubmitHandler<any> = async (data) => {
     console.log(data);
 
@@ -39,7 +40,7 @@ const CommentBox = ({ productId }: { productId: string }) => {
   return (
     <div className="border p-5">
       <h3 className="text-xl">Drop Your Review here </h3>
-      <Divider className="my-4"/>
+      <Divider className="my-4" />
       <EForm onSubmit={handleComment}>
         <FxTextArea
           icon={true}

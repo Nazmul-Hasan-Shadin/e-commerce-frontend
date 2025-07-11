@@ -4,7 +4,7 @@ import React from "react";
 
 import UserCard from "../../ui/UserCard";
 
-import { IReview } from "@/src/interface/review";
+import { IReview } from "@/src/interface";
 
 const ReviewTab = ({ review }: { review: IReview[] }) => {
   const [selected, setSelected] = React.useState("reviews");

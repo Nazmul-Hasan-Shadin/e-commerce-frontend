@@ -135,7 +135,6 @@ const Card = ({ product }: { product: IProduct }) => {
           <Button
             className=" md:hidden rounded-none text-[13px] sm:p-5 sm:w-32 sm:text-medium md:text-sm bg-primary-color text-white"
             size="sm"
-            
             variant="bordered"
             onClick={handleAddToCart}
           >
@@ -150,7 +149,9 @@ const Card = ({ product }: { product: IProduct }) => {
             Add to cart
           </Button>
           <Link href={`/product-details/${product.id}`}>
-            <button className="text-sm sm:text-medium md:text-sm 2xl:text-medium ">Details</button>
+            <button className="text-sm sm:text-medium md:text-sm 2xl:text-medium ">
+              Details
+            </button>
           </Link>
         </CardFooter>
 

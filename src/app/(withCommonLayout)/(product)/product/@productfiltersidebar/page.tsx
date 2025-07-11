@@ -9,8 +9,6 @@ import {
 } from "@/src/redux/feature/vendor/vendor.slice";
 import { useAppDispatch } from "@/src/redux/hook";
 import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
-
-import { isPending } from "@reduxjs/toolkit";
 import Container from "@/src/components/ui/Container";
 
 interface ICategory {
@@ -58,7 +56,7 @@ const SidebarFilter = () => {
     setSelectedColors((prev) =>
       prev.includes(color)
         ? prev.filter((item) => item !== color)
-        : [...prev, color]
+        : [...prev, color],
     );
   };
 
@@ -92,8 +90,8 @@ const SidebarFilter = () => {
 
           <section className="border">
             <Select
-              isDisabled={isLoading}
               className="max-w-xs"
+              isDisabled={isLoading}
               label="Select Category"
               onChange={(e) => handleCategorySelect(e.target.value)}
             >

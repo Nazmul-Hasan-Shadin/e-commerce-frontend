@@ -33,11 +33,14 @@ const vendorApi = baseApi.injectEndpoints({
       },
     }),
 
-    getProducsByShopId: builder.query({
-      query: (shopId: string) => {
+    getProductByShopId: builder.query({
+      query: (shopQuery) => {
         return {
-          url: `/product/shop/products/${shopId}`,
+          url: `/product/shop/products/${shopQuery.shopId}`,
           method: "GET",
+          params: {
+            page: shopQuery.page,
+          },
         };
       },
       providesTags: ["shopProduct"],
@@ -88,7 +91,7 @@ export const {
   useUpdateProductMutation,
   useCreateShopMutation,
   useGetAllProductQuery,
-  useGetProducsByShopIdQuery,
+  useGetProductByShopIdQuery,
   useDeleteProductMutation,
   useGetProductByIdQuery,
 } = vendorApi;

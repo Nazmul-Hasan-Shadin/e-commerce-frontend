@@ -6,11 +6,6 @@ import {
   NavbarItem,
   Link,
   Input,
-  DropdownItem,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  Avatar,
   NavbarMenuToggle,
 } from "@heroui/react";
 import { IoSearchOutline } from "react-icons/io5";
@@ -22,10 +17,10 @@ import { CartIcon, UserIcon, WatchListIcon } from "../../icons";
 import Container from "../../ui/Container";
 
 import SearchResultList from "./SearchResultList";
+import UserDropDownMenu from "./UserDropDownMenu";
 
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import logo from "@/src/assests/icon/logo.png";
-import UserDropDownMenu from "./UserDropDownMenu";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -54,7 +49,7 @@ const NavBar = () => {
   }, [searchQuery]);
 
   const { data: searchResult } = useGetAllProductQuery(
-    debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken
+    debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken,
   );
 
   return (
