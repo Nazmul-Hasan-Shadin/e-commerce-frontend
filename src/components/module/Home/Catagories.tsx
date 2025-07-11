@@ -8,6 +8,7 @@ import Container from "../../ui/Container";
 import Dividers from "../../ui/Divider";
 
 import { TCategory } from "@/src/types";
+import { HomeTitle } from "../../ui/HomeTitle";
 
 const Categories = () => {
   const [categories, setCategories] = useState<TCategory[] | null>(null);
@@ -48,11 +49,7 @@ const Categories = () => {
   return (
     <Container className="sm:my-10 lg:my-10 px-1 md:px-0 ">
       <div>
-        <h3 className="text-xl md:text-2xl md:ml-0 font-bold mb-1">
-          Shop By Categories
-        </h3>
-        <Dividers />
-
+        <HomeTitle title="Categories"/>
         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 mt-10 gap-1">
           {isLoading ? (
             <>

@@ -6,7 +6,9 @@ import Container from "@/src/components/ui/Container";
 const Dividers = ({ className }: { className?: string }) => {
   return (
     <Container>
-      <Divider className={`bg-primary-color h-[2px] w-48  mt-1 ${className}`} />
+      <Divider
+        className={`bg-primary-color h-[2px] w-full  mt-1 ${className}`}
+      />
     </Container>
   );
 };

@@ -8,6 +8,7 @@ import Card from "../../ui/Card";
 import Dividers from "../../ui/Divider";
 
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
+import { HomeTitle } from "../../ui/HomeTitle";
 
 const FeatureProduct = () => {
   const {
@@ -23,16 +24,17 @@ const FeatureProduct = () => {
   return (
     <Container className="px-1 sm:my-10 md:px-0">
       <div>
-        <h2 className="text-xl py-2 md:text-2xl text-black font-bold   md:ml-0   ">
-          <span> Feature Product</span>
-          <span className="text-sm pl-12">
+
+         <div>
+          <HomeTitle title="Feature Product"/>
+
+           <span className="text-sm pl-12">
             <Link className="text-orange-700" href={`/flash-deal?isFlash=true`}>
               view all flash deal
             </Link>
           </span>
-        </h2>
-
-        <Dividers />
+         </div>
+         
         <div className="grid grid-cols-2 gap-2 mt-10  sm:grid-cols-3 md:grid-cols-3  lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 md:gap-10 p-1 md:p-4">
           {isLoading ? (
             <>
@@ -42,7 +44,7 @@ const FeatureProduct = () => {
               <SkeletonCard />
             </>
           ) : (
-            products?.data
+            products?.data?.data
               .slice(0, 5)
               .map((product: any) => (
                 <Card key={product.id} product={product} />

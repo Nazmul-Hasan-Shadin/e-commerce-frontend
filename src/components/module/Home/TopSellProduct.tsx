@@ -6,6 +6,7 @@ import Container from "../../ui/Container";
 import Dividers from "../../ui/Divider";
 
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
+import { HomeTitle } from "../../ui/HomeTitle";
 
 const TopSellProduct = () => {
   const { data: products, isLoading, isError } = useGetAllProductQuery({});
@@ -13,10 +14,7 @@ const TopSellProduct = () => {
   return (
     <Container>
       <div className="mt-10 px-1">
-        <h2 className="text-xl md:text-2xl text-black font-bold  md:ml-0">
-          Current top seller <span className="text-sm"> </span>{" "}
-        </h2>
-        <Dividers />
+        <HomeTitle title="Top Sell Product"/>
         <div className="grid grid-cols-2 mt-10  gap-2 sm:grid-cols-3 md:grid-cols-3  lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 md:gap-6 md:p-4">
           {isLoading ? (
             <>
@@ -28,7 +26,7 @@ const TopSellProduct = () => {
             </>
           ) : (
             products?.data
-              .slice(1, 5)
+              ?.data.slice(1, 5)
               .map((product: any) => (
                 <Card key={product.id} product={product} />
               ))

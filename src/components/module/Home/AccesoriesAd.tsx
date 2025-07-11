@@ -15,17 +15,14 @@ import CategoryCard from "./ClothCategory";
 
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import discountOnCloth from "@/src/assests/accesories/disounttcloth.webp";
+import { HomeTitle } from "../../ui/HomeTitle";
 
 const AccesoriesAd = () => {
   const { data: products, isLoading, isError } = useGetAllProductQuery({});
 
   return (
     <Container className="my-10">
-      <h2 className="text-xl  py-2 md:text-3xl text-black font-bold ml-3  md:ml-0   ">
-        <span> Top Discount</span>
-        <Divider className="bg-primary-color h-[2px] w-48 mt-3" />
-      </h2>
-
+      <HomeTitle title="Discount Product" />
 
       <div className="grid grid-cols-12 mt-10  md:gap-9 w-full md:px-4">
         {/* Left Image */}
@@ -73,11 +70,13 @@ const AccesoriesAd = () => {
                 <h3>Loading</h3>
               </SwiperSlide>
             ) : (
-              products?.data.slice(1, 4).map((product: any, index: number) => (
-                <SwiperSlide key={index} className="">
-                  <Card key={product.id} product={product} />
-                </SwiperSlide>
-              ))
+              products?.data?.data
+                .slice(1, 4)
+                .map((product: any, index: number) => (
+                  <SwiperSlide key={index} className="">
+                    <Card key={product.id} product={product} />
+                  </SwiperSlide>
+                ))
             )}
           </Swiper>
         </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Select, SelectItem, Divider, Input } from "@heroui/react";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import {
   selectBrand,
@@ -26,6 +26,8 @@ const SidebarFilter = () => {
   const [brands, setBrands] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [categoryName, setCategoryName] = useState<string>("");
+  const sidebarRef = useRef<HTMLDivElement | null>(null);
+
   // const { data: productData } = useGetAllProductQuery({ categoryName });
 
   const dispatch = useAppDispatch();
