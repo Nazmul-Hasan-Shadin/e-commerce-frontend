@@ -30,6 +30,8 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, { payload }) => {
+    
+      
       const isExistIncart = state.orderItems.find(
         (cart) => cart.id === payload.id,
       );
@@ -41,11 +43,13 @@ export const cartSlice = createSlice({
       }
     },
     removeFromCart: (state, { payload }) => {
+        console.log(state.orderItems,'iam state');
+
       const itemIndex = state.orderItems.findIndex(
-        (item) => item.productId === payload.productId,
+        (item) => item.id === payload.productId,
       );
- console.log({payload},'j');
- 
+      console.log(itemIndex,'iam itemIndex');
+      
       if (itemIndex !== -1) {
         const item = state.orderItems[itemIndex];
 

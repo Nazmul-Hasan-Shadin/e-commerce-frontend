@@ -4,7 +4,6 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Link,
   Input,
   NavbarMenuToggle,
 } from "@heroui/react";
@@ -21,6 +20,7 @@ import UserDropDownMenu from "./UserDropDownMenu";
 
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import logo from "@/src/assests/icon/logo.png";
+import Link from "next/link";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -31,7 +31,7 @@ const NavBar = () => {
 
   const icons = [
     { Icon: WatchListIcon, label: "watchlist" },
-    { Icon: UserIcon, label: "signin" },
+    { Icon: UserIcon, label: "signin", path: "/login" },
     { Icon: CartIcon, label: "cart", path: "/cart" },
   ];
   const handeSearch = (e: any) => {
@@ -49,7 +49,7 @@ const NavBar = () => {
   }, [searchQuery]);
 
   const { data: searchResult } = useGetAllProductQuery(
-    debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken,
+    debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken
   );
 
   return (
@@ -108,7 +108,7 @@ const NavBar = () => {
                 <NavbarItem key={index}>
                   <div className="text-white flex flex-col justify-center items-center  mx-auto">
                     <icon.Icon className="text-4xl" />
-                    <Link className="text-white" href={icon?.path}>
+                    <Link className="text-white" href={`${icon?.path}`}>
                       <span> {icon.label}</span>
                     </Link>
                   </div>

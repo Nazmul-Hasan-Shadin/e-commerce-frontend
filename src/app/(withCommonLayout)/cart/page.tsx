@@ -22,7 +22,7 @@ const CartPage = () => {
     dispatch(removeFromCart({ productId }));
   };
 
-  console.log(cartItems,'cartItems');
+  console.log(cartItems,'cartItems from  state inside cart page');
   
   // Calculate total price
   const totalAmount = cartItems.reduce(
@@ -103,18 +103,20 @@ const CartPage = () => {
         <div className="col-span-12 sm:col-span-3 2xl:col-span-3 border p-3">
           <h2 className="text-xl font-bold ">Order Summary</h2>
           <div className="space-y-2">
-            <p>Total before VAT: </p>
+            <p>Total before VAT: {totalAmount} </p>
             <p>VAT</p>
-            <p className="font-bold">Total including VAT</p>
+            <p className="font-bold">Total including VAT {totalAmount}</p>
             <Divider />
-            <p className="text-medium font-bold">Discount</p>
-            <Divider/>
-            <p className="font-bold">Total</p>
+            <p className="text-medium font-bold">Discount 0</p>
+            <Divider/> 
+            <p className="font-bold">Total {totalAmount}</p>
          
           </div>
-          <Button className="bg-primary-color text-white w-full my-3">
+          
+          <Link href={'/payment'}>
+           <Button className="bg-primary-color text-white w-full my-3">
             Proceed to Checkout
-          </Button>
+          </Button></Link>
         </div>
       </section>
 
