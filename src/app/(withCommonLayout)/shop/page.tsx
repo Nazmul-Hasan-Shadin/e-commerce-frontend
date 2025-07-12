@@ -19,7 +19,6 @@ type Shop = {
 
 const ShopPage = () => {
   const { data: shops, isLoading, error } = useGetAllShopTopTenQuery(undefined);
-  console.log(shops, "iam shop bro");
 
   if (isLoading) return <p>Loading shops...</p>;
   if (error) return <p>Failed to load shops. Please try again later.</p>;

@@ -4,8 +4,6 @@ const shopApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     followShop: builder.mutation({
       query: (userInfo) => {
-        console.log(userInfo, "iam useerInfo");
-
         return {
           url: "/shop/follow",
           method: "POST",
@@ -17,8 +15,6 @@ const shopApi = baseApi.injectEndpoints({
 
     getShopInfo: builder.query({
       query: (shopId: string) => {
-        console.log(shopId);
-
         return {
           url: `/shop/${shopId}`,
           method: "GET",
@@ -37,8 +33,6 @@ const shopApi = baseApi.injectEndpoints({
     }),
     checkValidityOfFollow: builder.mutation({
       query: (shopFollowInfo) => {
-        console.log(shopFollowInfo);
-
         return {
           url: `/shop/check-validity-follow`,
           method: "post",
@@ -49,8 +43,6 @@ const shopApi = baseApi.injectEndpoints({
 
     unfollowShop: builder.mutation({
       query: (shopFollowInfo) => {
-        console.log(shopFollowInfo);
-
         return {
           url: `/shop/unfollow`,
           method: "post",

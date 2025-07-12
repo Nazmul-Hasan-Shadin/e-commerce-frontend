@@ -44,7 +44,8 @@ export const cartSlice = createSlice({
       const itemIndex = state.orderItems.findIndex(
         (item) => item.productId === payload.productId,
       );
-
+ console.log({payload},'j');
+ 
       if (itemIndex !== -1) {
         const item = state.orderItems[itemIndex];
 

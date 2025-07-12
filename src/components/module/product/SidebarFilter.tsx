@@ -10,7 +10,7 @@ const SidebarFilter = () => {
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   // const { data: productData } = useGetAllProductQuery({ categoryName });
 
-  console.log("iam categoryname", categoryName);
+
 
   const dispatch = useAppDispatch();
 
@@ -36,7 +36,7 @@ const SidebarFilter = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full  top-16">
       <div className="p-2">
         {/* Brand Filter */}
         <div className="space-y-3">

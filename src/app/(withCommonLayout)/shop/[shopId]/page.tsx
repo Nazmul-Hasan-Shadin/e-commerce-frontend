@@ -117,7 +117,7 @@ const ShopPage = ({ params }: { params: Params }) => {
       <Divider className="my-8" />
 
       {/* Product List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
         {shopProduct?.data?.data.map((product: IProduct) => (
           <Card key={product.id} product={product} />
         ))}

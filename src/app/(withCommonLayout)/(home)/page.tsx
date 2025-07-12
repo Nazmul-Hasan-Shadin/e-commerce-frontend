@@ -4,14 +4,14 @@ import Footer from "@/src/components/module/Home/Footer";
 import TopSellProduct from "@/src/components/module/Home/TopSellProduct";
 import AccesoriesAd from "@/src/components/module/Home/AccesoriesAd";
 import WhyChooseUs from "@/src/components/module/Home/WhyChooseUs";
-import Catagories from "@/src/components/module/Home/Catagories";
+import Categories from "@/src/components/module/Home/Catagories";
 
 export default function Home() {
   return (
     <div>
       <Banner />
 
-      <Catagories />
+      <Categories />
 
       {/* <div className="w-3/4 mx-auto md:my-5">
         <Image
