@@ -4,11 +4,11 @@ import UserSideBar from "@/src/components/module/User/UserSideBar";
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex  flex-col md:flex md:flex-row  gap-5">
-      <div className="w-80">
+    <div className="flex  bg-[#F4F4F4] flex-col md:flex md:flex-row 2xl:justify-center  gap-5">
+      <div className="md:w-96 border">
         <UserSideBar />
       </div>
-      <main className="w-full max-w-7xl mx-auto px-5">{children}</main>
+      <main className="w-full max-w-8xl mx-auto px-2 bg-white">{children}</main>
     </div>
   );
 }

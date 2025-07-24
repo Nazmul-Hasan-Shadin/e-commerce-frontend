@@ -20,7 +20,7 @@ const UserSideBar = () => {
 
   return (
     <div
-      className={`flex flex-col bg-white text-black h-screen  transition-all duration-300 pl-3`}
+      className={`flex flex-col bg-white text-black h-auto transition-all duration-300 `}
     >
       {/* Logo Section */}
       <div className="flex items-center justify-between p-4">
@@ -38,7 +38,7 @@ const UserSideBar = () => {
       </div>
 
       {/* Navigation Links */}
-      <nav className="flex flex-col space-y-2 mt-6 pl-5">
+      <nav className="flex flex-col space-y-2 mt-6">
         {/* Dashboard */}
 
         <SidebarItem
@@ -53,20 +53,6 @@ const UserSideBar = () => {
           label="Order"
           path="/user/dashboard/order"
         />
-
-        {/* Orders */}
-        {/* {user && (
-          <SidebarMenu
-            label="Orders"
-            icon={<FaBoxOpen />}
-            isOpen={isOpen}
-            isMenuOpen={openMenu === "orders"}
-            onClick={() => toggleMenu("orders")}
-            items={[
-              { name: "All Orders", path: `/${user.role}/dashboard/order` },
-            ]}
-          />
-        )} */}
 
         {/* Settings */}
         <SidebarItem
