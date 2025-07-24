@@ -49,7 +49,7 @@ const CartPage = () => {
             </div>
             <Divider className="w-[97%] mx-auto mb-4" />
 
-            {cartItems.length > 1 ? (
+            {cartItems.length >= 0 ? (
               <div>
                 {cartItems.map((cart, index) => (
                   <div key={cart?.id}>

@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import Container from "@/src/components/ui/Container";
 import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
-import { RxCross1 } from "react-icons/rx";
+
 
 const UserOrderPage = () => {
   const {
@@ -24,7 +24,7 @@ const UserOrderPage = () => {
 
         <div className="border rounded-lg overflow-x-auto">
           {/* ======== TABLE HEADER ======== */}
-          <div className="grid grid-cols-8 hidden md:block font-semibold text-center p-4 bg-gray-100 text-sm">
+          <div className="lg:grid grid-cols-8 hidden lg:flex-row font-semibold text-center p-4 bg-gray-100 text-sm">
             <div className="col-span-1">Image</div>
             <div className="col-span-3">Total Product</div>
             <div className="col-span-3">Price</div>
@@ -69,7 +69,7 @@ const UserOrderPage = () => {
 
               {/* ===============for small device only========= */}
               {orderData?.data.map((orderData) => (
-                <div key={orderData?.id} className="p-2">
+                <div key={orderData?.id} className="p-2 md:hidden">
                   <div className="flex gap-4 mb-4">
                     <figure>
                       <Image
@@ -83,7 +83,7 @@ const UserOrderPage = () => {
                       />
                     </figure>
                     <div className="font-normal">
-                      <h3 className="text-sm ">Mini laptop del inslprion 35</h3>
+                      <h3 className="text-sm ">Mini laptop del inspiron 35</h3>
                       <p className="text-xs text-gray-400">
                         color family : black
                       </p>

@@ -29,6 +29,9 @@ const CheckOutForm = () => {
     (total, item) => total + item.price * item.quantity,
     0
   );
+console.log({totalAmount});
+
+
 
   const shopId = cartItems[0]?.shopId;
   const customerId = currentUser?.data?.id;
@@ -119,11 +122,11 @@ const CheckOutForm = () => {
             price: item.price,
           })),
         };
-
+        
         const createOrder = await makeOrder(orderData).unwrap();
-       console.log(createOrder,'order creating');
-       
-        if (createOrder) {
+        console.log(createOrder, "order creating");
+
+        if (createOrder.success === true) {
           dispatch(replaceCart(undefined));
         }
       } catch (error: unknown) {

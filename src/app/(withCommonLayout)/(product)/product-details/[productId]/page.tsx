@@ -11,7 +11,10 @@ import Link from "next/link";
 import ReviewTab from "@/src/components/module/ProductDetails/ReviewDescription";
 import CommentBox from "@/src/components/ui/CommentBox";
 import { IReview } from "@/src/interface";
-import { useGetProductByIdQuery } from "@/src/redux/feature/vendor/vendor.api";
+import {
+  useGetProductByIdQuery,
+  useUpdateViewCountMutation,
+} from "@/src/redux/feature/vendor/vendor.api";
 import laptop from "@/src/assests/test.jpg";
 
 interface ProductData {
@@ -30,6 +33,7 @@ const ProductDetails = ({ params }: { params: Params }) => {
   const { productId } = use(params);
 
   const { data: productInfo, isLoading } = useGetProductByIdQuery(productId);
+  const [handleUpdateView] = useUpdateViewCountMutation();
   const [mainImage, setMainImage] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1); // State for product quantity
 
@@ -54,6 +58,10 @@ const ProductDetails = ({ params }: { params: Params }) => {
       setMainImage(images[0]);
     }
   }, [images]);
+
+  useEffect(() => {
+    handleUpdateView({ id: productId });
+  }, [productId]);
 
   // Handle quantity increase
   const handleIncreaseQuantity = () => {

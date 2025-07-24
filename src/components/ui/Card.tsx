@@ -54,8 +54,8 @@ const Card = ({ product }: { product: IProduct }) => {
 
   const handleAddToCart = () => {
     const isMultipleVendorDetect =
-      cartItems.length > 0 &&
-      !cartItems.every((cart) => cart.shopId === product.shopId);
+      cartItems.length >= 0 &&
+      !cartItems.every((cart) => cart?.shopId === product?.shopId);
 
     if (isMultipleVendorDetect) {
       Swal.fire({
@@ -136,7 +136,7 @@ const Card = ({ product }: { product: IProduct }) => {
             className=" md:hidden rounded-none text-[13px] sm:p-5 sm:w-32 sm:text-medium md:text-sm bg-primary-color text-white"
             size="sm"
             variant="bordered"
-            onClick={handleAddToCart}
+            onPress={handleAddToCart}
           >
             Add to cart
           </Button>

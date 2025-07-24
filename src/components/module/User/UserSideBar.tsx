@@ -20,7 +20,7 @@ const UserSideBar = () => {
 
   return (
     <div
-      className={`flex flex-col bg-white text-black h-auto transition-all duration-300 `}
+      className={`flex flex-col bg-white text-black h-auto md:h-screen transition-all duration-300 `}
     >
       {/* Logo Section */}
       <div className="flex items-center justify-between p-4">

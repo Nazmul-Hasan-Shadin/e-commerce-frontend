@@ -8,7 +8,17 @@ import { HomeTitle } from "../../ui/HomeTitle";
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 
 const TopSellProduct = () => {
-  const { data: products, isLoading, isError } = useGetAllProductQuery({});
+  const {
+    data: products,
+    isLoading,
+    isError,
+  } = useGetAllProductQuery({
+    sortBy: "salesCount",
+    orderBy: "desc",
+  });
+
+  console.log(products,'top sell product');
+  
 
   return (
     <Container>
@@ -25,7 +35,7 @@ const TopSellProduct = () => {
             </>
           ) : (
             products?.data?.data
-              .slice(1, 5)
+              .slice(0, 5)
               .map((product: any) => (
                 <Card key={product.id} product={product} />
               ))

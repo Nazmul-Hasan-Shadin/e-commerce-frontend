@@ -83,6 +83,17 @@ const vendorApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["shopProduct"],
     }),
+
+    //=========update prodcut view count based on ip userId
+
+    updateViewCount: builder.mutation({
+      query: ({id}) => {
+        return {
+          url: `/product/${id}/view`,
+          method: "POST",
+        };
+      },
+    }),
   }),
 });
 
@@ -94,5 +105,5 @@ export const {
   useGetProductByShopIdQuery,
   useDeleteProductMutation,
   useGetProductByIdQuery,
-  
+  useUpdateViewCountMutation
 } = vendorApi;
