@@ -22,221 +22,205 @@ interface SidebarFilterProps {
   scrollDirection: "up" | "down" | null;
 }
 
-const SidebarFilter = forwardRef<HTMLDivElement, SidebarFilterProps>(
-  (
-    {
-      scrollDirection,
-      isSticky,
-      isUpVisible,
-      isBottomVisible,
-      topOffset,
-      downOffset,
-    },
-    sideBarRef
-  ) => {
-    console.log(
-      { isBottomVisible },
-      { isUpVisible },
-      { topOffset },
-      { downOffset }
+const SidebarFilter = forwardRef<HTMLDivElement>(() => {
+  const { data: categoryData, isLoading } = useGetAllCategoryQuery(undefined);
+  const [brands, setBrands] = useState<string[]>([]);
+  const [selectedColors, setSelectedColors] = useState<string[]>([]);
+  const [categoryName, setCategoryName] = useState<string>("");
+
+  const dispatch = useAppDispatch();
+
+  const handleBrandChange = (brand: string) => {
+    setBrands((prev) => {
+      const updateBrand = prev.includes(brand)
+        ? prev.filter((item) => item !== brand)
+        : [...prev, brand];
+
+      dispatch(selectBrand(updateBrand));
+
+      return updateBrand;
+    });
+  };
+
+  const handleCategorySelect = (categoryId: string) => {
+    setCategoryName(categoryId);
+    dispatch(selectCategory(categoryId));
+  };
+
+  const handleColorChange = (color: string) => {
+    setSelectedColors((prev) =>
+      prev.includes(color)
+        ? prev.filter((item) => item !== color)
+        : [...prev, color]
     );
+  };
+  // // ${
+  //       isBottomVisible || isUpVisible ? "sticky" : ""
+  //     }
 
-    const { data: categoryData, isLoading } = useGetAllCategoryQuery(undefined);
-    const [brands, setBrands] = useState<string[]>([]);
-    const [selectedColors, setSelectedColors] = useState<string[]>([]);
-    const [categoryName, setCategoryName] = useState<string>("");
-
-    const dispatch = useAppDispatch();
-
-    const handleBrandChange = (brand: string) => {
-      setBrands((prev) => {
-        const updateBrand = prev.includes(brand)
-          ? prev.filter((item) => item !== brand)
-          : [...prev, brand];
-
-        dispatch(selectBrand(updateBrand));
-        return updateBrand;
-      });
-    };
-
-    const handleCategorySelect = (categoryId: string) => {
-      setCategoryName(categoryId);
-      dispatch(selectCategory(categoryId));
-    };
-
-    const handleColorChange = (color: string) => {
-      setSelectedColors((prev) =>
-        prev.includes(color)
-          ? prev.filter((item) => item !== color)
-          : [...prev, color]
-      );
-    };
-
-    //${scrollDirection === "up" && isSticky ? "fixed top-0" : scrollDirection === "down" && isSticky == false ? "sticky top-16" : ""}
-    return (
-      <div
-        ref={sideBarRef}
-        className={`w-full border p-4 transition-all duration-200 ${
-          isBottomVisible || isUpVisible ? "sticky" : ""
-        }`}
-        style={{
-          top: isBottomVisible
-            ? `${topOffset}px` // down scroll এর সময় offset অনুযায়ী sticky
-            : isUpVisible
-              ? `0px` // up scroll এ top fully visible হলে just top 0
-              : undefined,
-        }}
-      >
-        <Container>
-          <div className="p-2">
-            {/* Brand Filter */}
-            <div className="space-y-3">
-              <span>Brand</span>
-              <div className="flex flex-col gap-3">
-                {["Pc", "Android", "Tv", "Electronics", "Hp"].map((brand) => (
-                  <div key={brand} className="flex items-center space-x-2">
-                    <input
-                      className="h-4 w-4 rounded border-gray-400 text-blue-500 focus:ring-2 focus:ring-blue-500"
-                      id={brand}
-                      type="checkbox"
-                      onChange={() => handleBrandChange(brand)}
-                    />
-                    <label className="text-[#757575]" htmlFor={brand}>
-                      {brand}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <Divider className="my-4 w-32" />
-
-            {/* Category Filter */}
-            <section className="border">
-              <Select
-                className="max-w-xs"
-                isDisabled={isLoading}
-                label="Select Category"
-                onChange={(e) => handleCategorySelect(e.target.value)}
-              >
-                {categoryData?.data.length ? (
-                  categoryData.data.map((categoryItem: ICategory) => (
-                    <SelectItem key={categoryItem.id}>
-                      {categoryItem.name}
-                    </SelectItem>
-                  ))
-                ) : (
-                  <SelectItem key={"f"}>No categories available</SelectItem>
-                )}
-              </Select>
-            </section>
-
-            {/* Price Range Filter */}
-            <div className="space-y-2">
-              <span className="text-lg">Price</span>
-              <div className="flex gap-3">
-                <Input
-                  className="w-16 border"
-                  placeholder="Min"
-                  size="sm"
-                  type="number"
-                />
-                <Input
-                  className="w-16 border"
-                  placeholder="Max"
-                  size="sm"
-                  type="number"
-                />
-              </div>
-            </div>
-
-            <Divider className="my-4 w-32" />
-
-            {/* Color Filter */}
-            <div className="space-y-3 mt-3">
-              <span>Color</span>
-              <div className="flex flex-col gap-3">
-                {["Black", "Blue", "Red", "Gray", "Dark"].map((color) => (
-                  <div key={color} className="flex items-center space-x-2">
-                    <input
-                      checked={selectedColors.includes(color)}
-                      className="h-4 w-4 rounded border-gray-400 text-blue-500 focus:ring-2 focus:ring-blue-500"
-                      id={color}
-                      type="checkbox"
-                      onChange={() => handleColorChange(color)}
-                    />
-                    <label className="text-[#757575]" htmlFor={color}>
-                      {color}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="space-y-3 mt-3">
-              <span>Color</span>
-              <div className="flex flex-col gap-3">
-                {["Black", "Blue", "Red", "Gray", "Dark"].map((color) => (
-                  <div key={color} className="flex items-center space-x-2">
-                    <input
-                      checked={selectedColors.includes(color)}
-                      className="h-4 w-4 rounded border-gray-400 text-blue-500 focus:ring-2 focus:ring-blue-500"
-                      id={color}
-                      type="checkbox"
-                      onChange={() => handleColorChange(color)}
-                    />
-                    <label className="text-[#757575]" htmlFor={color}>
-                      {color}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-3 mt-3">
-              <span>Color</span>
-              <div className="flex flex-col gap-3">
-                {["Black", "Blue", "Red", "Gray", "Dark"].map((color) => (
-                  <div key={color} className="flex items-center space-x-2">
-                    <input
-                      checked={selectedColors.includes(color)}
-                      className="h-4 w-4 rounded border-gray-400 text-blue-500 focus:ring-2 focus:ring-blue-500"
-                      id={color}
-                      type="checkbox"
-                      onChange={() => handleColorChange(color)}
-                    />
-                    <label className="text-[#757575]" htmlFor={color}>
-                      {color}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-3 mt-3">
-              <span>Color</span>
-              <div className="flex flex-col gap-3">
-                {["Black", "Blue", "Red", "Gray", "Dark"].map((color) => (
-                  <div key={color} className="flex items-center space-x-2">
-                    <input
-                      checked={selectedColors.includes(color)}
-                      className="h-4 w-4 rounded border-gray-400 text-blue-500 focus:ring-2 focus:ring-blue-500"
-                      id={color}
-                      type="checkbox"
-                      onChange={() => handleColorChange(color)}
-                    />
-                    <label className="text-[#757575]" htmlFor={color}>
-                      {color}
-                    </label>
-                  </div>
-                ))}
-              </div>
+  //${scrollDirection === "up" && isSticky ? "fixed top-0" : scrollDirection === "down" && isSticky == false ? "sticky top-16" : ""}
+  return (
+    <div
+      // ref={sideBarRef}
+      className={`w-full border p-4 transition-all duration-200 `}
+      //
+      // style={{
+      //   top: isBottomVisible
+      //     ? `${topOffset}px` // down scroll এর সময় offset অনুযায়ী sticky
+      //     : isUpVisible
+      //       ? `0px` // up scroll এ top fully visible হলে just top 0
+      //       : undefined,
+      // }}
+    >
+      <Container>
+        <div className="p-2">
+          {/* Brand Filter */}
+          <div className="space-y-3">
+            <span>Brand</span>
+            <div className="flex flex-col gap-3">
+              {["Pc", "Android", "Tv", "Electronics", "Hp"].map((brand) => (
+                <div key={brand} className="flex items-center space-x-2">
+                  <input
+                    className="h-4 w-4 rounded border-gray-400 text-blue-500 focus:ring-2 focus:ring-blue-500"
+                    id={brand}
+                    type="checkbox"
+                    onChange={() => handleBrandChange(brand)}
+                  />
+                  <label className="text-[#757575]" htmlFor={brand}>
+                    {brand}
+                  </label>
+                </div>
+              ))}
             </div>
           </div>
-        </Container>
-      </div>
-    );
-  }
-);
+
+          <Divider className="my-4 w-32" />
+
+          {/* Category Filter */}
+          <section className="border">
+            <Select
+              className="max-w-xs"
+              isDisabled={isLoading}
+              label="Select Category"
+              onChange={(e) => handleCategorySelect(e.target.value)}
+            >
+              {categoryData?.data.length ? (
+                categoryData.data.map((categoryItem: ICategory) => (
+                  <SelectItem key={categoryItem.id}>
+                    {categoryItem.name}
+                  </SelectItem>
+                ))
+              ) : (
+                <SelectItem key={"f"}>No categories available</SelectItem>
+              )}
+            </Select>
+          </section>
+
+          {/* Price Range Filter */}
+          <div className="space-y-2">
+            <span className="text-lg">Price</span>
+            <div className="flex gap-3">
+              <Input
+                className="w-16 border"
+                placeholder="Min"
+                size="sm"
+                type="number"
+              />
+              <Input
+                className="w-16 border"
+                placeholder="Max"
+                size="sm"
+                type="number"
+              />
+            </div>
+          </div>
+
+          <Divider className="my-4 w-32" />
+
+          {/* Color Filter */}
+          <div className="space-y-3 mt-3">
+            <span>Color</span>
+            <div className="flex flex-col gap-3">
+              {["Black", "Blue", "Red", "Gray", "Dark"].map((color) => (
+                <div key={color} className="flex items-center space-x-2">
+                  <input
+                    checked={selectedColors.includes(color)}
+                    className="h-4 w-4 rounded border-gray-400 text-blue-500 focus:ring-2 focus:ring-blue-500"
+                    id={color}
+                    type="checkbox"
+                    onChange={() => handleColorChange(color)}
+                  />
+                  <label className="text-[#757575]" htmlFor={color}>
+                    {color}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="space-y-3 mt-3">
+            <span>Color</span>
+            <div className="flex flex-col gap-3">
+              {["Black", "Blue", "Red", "Gray", "Dark"].map((color) => (
+                <div key={color} className="flex items-center space-x-2">
+                  <input
+                    checked={selectedColors.includes(color)}
+                    className="h-4 w-4 rounded border-gray-400 text-blue-500 focus:ring-2 focus:ring-blue-500"
+                    id={color}
+                    type="checkbox"
+                    onChange={() => handleColorChange(color)}
+                  />
+                  <label className="text-[#757575]" htmlFor={color}>
+                    {color}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-3 mt-3">
+            <span>Color</span>
+            <div className="flex flex-col gap-3">
+              {["Black", "Blue", "Red", "Gray", "Dark"].map((color) => (
+                <div key={color} className="flex items-center space-x-2">
+                  <input
+                    checked={selectedColors.includes(color)}
+                    className="h-4 w-4 rounded border-gray-400 text-blue-500 focus:ring-2 focus:ring-blue-500"
+                    id={color}
+                    type="checkbox"
+                    onChange={() => handleColorChange(color)}
+                  />
+                  <label className="text-[#757575]" htmlFor={color}>
+                    {color}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-3 mt-3">
+            <span>Color</span>
+            <div className="flex flex-col gap-3">
+              {["Black", "Blue", "Red", "Gray", "Dark"].map((color) => (
+                <div key={color} className="flex items-center space-x-2">
+                  <input
+                    checked={selectedColors.includes(color)}
+                    className="h-4 w-4 rounded border-gray-400 text-blue-500 focus:ring-2 focus:ring-blue-500"
+                    id={color}
+                    type="checkbox"
+                    onChange={() => handleColorChange(color)}
+                  />
+                  <label className="text-[#757575]" htmlFor={color}>
+                    {color}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Container>
+    </div>
+  );
+});
 
 SidebarFilter.displayName = "SidebarFilter";
 

@@ -94,4 +94,5 @@ export const {
   useGetProductByShopIdQuery,
   useDeleteProductMutation,
   useGetProductByIdQuery,
+  
 } = vendorApi;

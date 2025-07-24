@@ -9,7 +9,7 @@ const SearchResultList = ({
   dynamicStyle,
 }: {
   searchResult: IProduct[];
-  dynamicStyle?: string;
+  dynamicStyle?: boolean;
 }) => {
   return (
     <div

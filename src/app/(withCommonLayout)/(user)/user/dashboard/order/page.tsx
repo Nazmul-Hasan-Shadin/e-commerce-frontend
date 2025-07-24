@@ -1,21 +1,13 @@
 "use client";
 
-import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-} from "@heroui/react";
+import { Divider, Button } from "@heroui/react";
 import Image from "next/image";
 
 import Container from "@/src/components/ui/Container";
-import { TorderItems } from "@/src/redux/feature/cart/cartSlice";
 import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
+import { RxCross1 } from "react-icons/rx";
 
 const UserOrderPage = () => {
-  // Fetch order data using Redux Query
   const {
     data: orderData,
     isLoading,
@@ -27,42 +19,69 @@ const UserOrderPage = () => {
 
   return (
     <Container className="mx-auto">
-      <Table removeWrapper aria-label="Order Items Table">
-        <TableHeader>
-          <TableColumn>Order ID</TableColumn>
-          <TableColumn>Product Name</TableColumn>
-          <TableColumn>Quantity</TableColumn>
-          <TableColumn>Price</TableColumn>
-          <TableColumn>Image</TableColumn>
-        </TableHeader>
-        <TableBody>
-          {orderData?.data?.map((order: TorderItems) =>
-            order.orderItems?.map((item: any, index: any) => (
-              <TableRow key={`${order.id}-${index}`}>
-                <TableCell>{order.id}</TableCell>
-                <TableCell>{item?.product?.name || "N/A"}</TableCell>
-                <TableCell>{item.quantity || "N/A"}</TableCell>
-                <TableCell>${item.price || "N/A"}</TableCell>
-                <TableCell>
-                  {item?.product?.images ? (
-                    <div className="flex justify-center items-center">
+      <div className="font-bold p-5">
+        <h1 className="text-xl my-4">Your Orders</h1>
+
+        <div className="border rounded-lg overflow-x-auto">
+          {/* ======== TABLE HEADER ======== */}
+          <div className="grid grid-cols-8 font-semibold text-center p-4 bg-gray-100 text-sm">
+            <div className="col-span-1">Image</div>
+            <div className="col-span-3">Total Product</div>
+            <div className="col-span-3">Price</div>
+            <div className="col-span-1">Remove</div>
+          </div>
+
+          <Divider className="w-[97%] mx-auto mb-4" />
+
+          {/* ======== TABLE CONTENT ======== */}
+          {orderData?.data.length ? (
+            <div>
+              {orderData.data.map((cart) => (
+                <div key={cart.id}>
+                  <div className="grid grid-cols-8 justify-items-center items-center my-4 px-2 text-sm">
+                    {/* Product image */}
+                    <figure className="col-span-1">
                       <Image
-                        alt="Order product image"
-                        className="rounded-full"
-                        height={50} // Adjust the height as per your needs
-                        src={item?.product?.images || "/default-image.png"} // Fallback to a placeholder
-                        width={50} // Adjust the width as per your needs
+                        alt="cart product image"
+                        src={
+                          cart?.orderItems?.[0]?.product?.images?.[0] ||
+                          "/no-image.jpg"
+                        }
+                        width={70}
+                        height={70}
+                        className="object-contain rounded"
                       />
+                    </figure>
+
+                    {/* Total product count */}
+                    <h2 className="col-span-3 text-center font-medium">
+                      {cart?.orderItems.length} product(s)
+                    </h2>
+
+                    {/* Total amount */}
+                    <p className="col-span-3 text-center font-semibold">
+                      ${cart?.totalAmount}
+                    </p>
+
+                    {/* Remove button */}
+                    <div className="col-span-1 flex justify-center">
+                      <Button size="sm" variant="ghost" color="danger">
+                        <RxCross1 />
+                      </Button>
                     </div>
-                  ) : (
-                    "N/A"
-                  )}
-                </TableCell>
-              </TableRow>
-            )),
+                  </div>
+
+                  <Divider className="w-[97%] mx-auto" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="h-52 flex justify-center items-center">
+              <h3>Product not found</h3>
+            </div>
           )}
-        </TableBody>
-      </Table>
+        </div>
+      </div>
     </Container>
   );
 };

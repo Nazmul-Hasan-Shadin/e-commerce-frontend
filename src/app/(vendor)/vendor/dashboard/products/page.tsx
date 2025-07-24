@@ -19,7 +19,7 @@ import { FaPlus } from "react-icons/fa6";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import {
   useDeleteProductMutation,
-  useGetProducsByShopIdQuery,
+  useGetProductByShopIdQuery,
 } from "@/src/redux/feature/vendor/vendor.api";
 
 const primaryColor = "#4524DB";
@@ -27,7 +27,7 @@ const primaryColor = "#4524DB";
 const GetAllProductPage = () => {
   const { data: vendorInfo } = useGetCurrentUserQuery(undefined);
   const shopId = vendorInfo?.data?.shop?.id;
-  const { data: productList, isLoading } = useGetProducsByShopIdQuery(shopId);
+  const { data: productList, isLoading } = useGetProductByShopIdQuery(shopId);
   const [handleDeleteProduct] = useDeleteProductMutation();
 
   if (isLoading) {

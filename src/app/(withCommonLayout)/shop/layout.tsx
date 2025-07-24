@@ -158,13 +158,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <section className="grid grid-cols-12 mt-4 2xl:mt-8 sm:grid-cols-12 2xl:grid-cols-12 mx-auto w-[96%] gap-4 2xl:gap-x-8">
         <section className="col-span-12    sm:col-span-5 md:col-span-4 lg:col-span-3 2xl:col-span-3">
           <SidebarFilter
-            isSticky={isSticky}
-            isUpVisible={upVisible}
-            isBottomVisible={bottomVisible}
-            topOffset={topOffset}
-            downOffset={downOffset}
-            ref={sideBarRef}
-            scrollDirection={scrollDirection}
+            // isSticky={isSticky}
+            // isUpVisible={upVisible}
+            // isBottomVisible={bottomVisible}
+            // topOffset={topOffset}
+            // downOffset={downOffset}
+            // ref={sideBarRef}
+            // scrollDirection={scrollDirection}
           />
         </section>
 

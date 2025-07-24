@@ -7,7 +7,7 @@ export type TorderItems = {
   productId: string;
   quantity: number;
   price: number;
-  images?: string;
+  images: string;
   name?: string;
   orderItems: any;
   categoryId: string;
@@ -30,10 +30,8 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, { payload }) => {
-    
-      
       const isExistIncart = state.orderItems.find(
-        (cart) => cart.id === payload.id,
+        (cart) => cart.id === payload.id
       );
 
       if (isExistIncart) {
@@ -43,13 +41,10 @@ export const cartSlice = createSlice({
       }
     },
     removeFromCart: (state, { payload }) => {
-        console.log(state.orderItems,'iam state');
-
       const itemIndex = state.orderItems.findIndex(
-        (item) => item.id === payload.productId,
+        (item) => item.id === payload.productId
       );
-      console.log(itemIndex,'iam itemIndex');
-      
+
       if (itemIndex !== -1) {
         const item = state.orderItems[itemIndex];
 

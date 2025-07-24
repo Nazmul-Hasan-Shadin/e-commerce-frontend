@@ -5,22 +5,29 @@ import toast from "react-hot-toast";
 
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import { useCreateOrderMutation } from "@/src/redux/feature/payment/order.api";
-import { useAppSelector } from "@/src/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import { RootState } from "@/src/redux/store";
+import { replaceCart } from "@/src/redux/feature/cart/cartSlice";
 
 const CheckOutForm = () => {
   const [makeOrder] = useCreateOrderMutation();
+
   const [clientSecret, setClientSecret] = useState("");
   const [error, setError] = useState<string | null>(null);
   const stripe = useStripe();
   const elements = useElements();
+
+  const dispatch = useAppDispatch();
+
+  //======cart items======
   const cartItems = useAppSelector((state: RootState) => state.cart.orderItems);
+
   const { data: currentUser, isLoading: isUserLoading } =
     useGetCurrentUserQuery("");
 
   const totalAmount = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
-    0,
+    0
   );
 
   const shopId = cartItems[0]?.shopId;
@@ -32,14 +39,14 @@ const CheckOutForm = () => {
     const fetchClientSecret = async () => {
       try {
         const response = await fetch(
-          "https://swift-mart-bd.vercel.app/api/v1/create-payment-intent",
+          " http://localhost:3001/api/v1/create-payment-intent",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({ price: totalAmount * 100 }),
-          },
+          }
         );
         const data = await response.json();
 
@@ -73,7 +80,7 @@ const CheckOutForm = () => {
 
     if (error) {
       setError(
-        error.message || "An error occurred while creating the payment method.",
+        error.message || "An error occurred while creating the payment method."
       );
 
       return;
@@ -92,7 +99,7 @@ const CheckOutForm = () => {
     if (confirmError) {
       setError(
         confirmError.message ||
-          "An error occurred while confirming the payment.",
+          "An error occurred while confirming the payment."
       );
 
       return;
@@ -113,8 +120,12 @@ const CheckOutForm = () => {
           })),
         };
 
-        await makeOrder(orderData).unwrap();
-        toast.success("Order created successfully!");
+        const createOrder = await makeOrder(orderData).unwrap();
+       console.log(createOrder,'order creating');
+       
+        if (createOrder) {
+          dispatch(replaceCart(undefined));
+        }
       } catch (error: unknown) {
         if (typeof error === "object" && error !== null && "data" in error) {
           const err = error as { data: { message: string } };

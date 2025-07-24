@@ -18,10 +18,10 @@ import {
 import { Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 import { useGetAllShopTopTenQuery } from "@/src/redux/feature/shop/shop.api";
-import { useGetProducsByShopIdQuery } from "@/src/redux/feature/vendor/vendor.api";
 import { useAppSelector } from "@/src/redux/hook";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import Container from "@/src/components/ui/Container";
+import { useGetProductByShopIdQuery } from "@/src/redux/feature/vendor/vendor.api";
 
 interface TableColumn {
   name: string;
@@ -41,7 +41,7 @@ interface UserData {
 const AdminDashboard: React.FC = () => {
   const { data: allshopTopTen } = useGetAllShopTopTenQuery(undefined);
   const { data: shopOwnerInfo } = useGetCurrentUserQuery(undefined);
-  const { data: shopPorductList } = useGetProducsByShopIdQuery(
+  const { data: shopPorductList } = useGetProductByShopIdQuery(
     shopOwnerInfo?.data?.shop?.id,
   );
   const user = useAppSelector((state) => state.auth.user);

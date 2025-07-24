@@ -24,13 +24,14 @@ const ProductsPage = () => {
   const categoryState = useAppSelector((state) => state.category.categoryName);
   const [category, setCategory] = useState("");
   const [page, setPage] = useState<number>();
+
   const [limit, setLimit] = useState<number>(2);
 
   const [productFilter, setProductFilter] = useState(() => ({
     categoryName: "",
   }));
 
-  const handlePagination = (value) => {
+  const handlePagination = (value:number) => {
     setPage(value);
   };
 
