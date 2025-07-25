@@ -28,7 +28,7 @@ const FollowedShopProduct = () => {
       <div className="mt-10 px-1">
         <HomeTitle title="From Your Favorite Shops" />
         <Swiper
-          slidesPerView={4}
+          slidesPerView={5}
           autoplay={{
             delay: 2000,
             disableOnInteraction: false,
@@ -36,6 +36,26 @@ const FollowedShopProduct = () => {
           spaceBetween={30}
           pagination={{
             clickable: true,
+          }}
+          breakpoints={{
+            0:{
+                slidesPerView:2,
+            },
+            640:{
+                slidesPerView:3
+            },
+            768:{
+                slidesPerView:3
+            },
+            1024:{
+                slidesPerView:3
+            },
+            1280:{
+                slidesPerView:4
+            },
+            1536:{
+                slidesPerView:5
+            }
           }}
           modules={[Pagination, Autoplay]}
         >
@@ -49,8 +69,8 @@ const FollowedShopProduct = () => {
                 <SkeletonCard />
               </>
             ) : (
-              products?.data.slice(0, 5).map((product: any) => (
-                <SwiperSlide key={product.id}>
+              products?.data.map((product: any) => (
+                <SwiperSlide className="" key={product.id}>
                   <Card product={product} />
                 </SwiperSlide>
               ))
