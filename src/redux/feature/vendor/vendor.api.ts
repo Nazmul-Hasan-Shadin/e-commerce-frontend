@@ -87,10 +87,28 @@ const vendorApi = baseApi.injectEndpoints({
     //=========update prodcut view count based on ip userId
 
     updateViewCount: builder.mutation({
-      query: ({id}) => {
+      query: ({ id, userInfo }) => {
         return {
           url: `/product/${id}/view`,
           method: "POST",
+          body: { userInfo },
+        };
+      },
+    }),
+    getFollowedShopProduct: builder.query({
+      query: (queryData) => {
+        let params = new URLSearchParams();
+
+        if (queryData) {
+          for (let [key, value] of Object.entries(queryData)) {
+            params.append(key, value as string);
+          }
+        }
+
+        return {
+          url: `/product/user/following/products`,
+          method: "GET",
+          params,
         };
       },
     }),
@@ -105,5 +123,6 @@ export const {
   useGetProductByShopIdQuery,
   useDeleteProductMutation,
   useGetProductByIdQuery,
-  useUpdateViewCountMutation
+  useUpdateViewCountMutation,
+  useGetFollowedShopProductQuery,
 } = vendorApi;

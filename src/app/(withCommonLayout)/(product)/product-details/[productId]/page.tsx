@@ -16,6 +16,7 @@ import {
   useUpdateViewCountMutation,
 } from "@/src/redux/feature/vendor/vendor.api";
 import laptop from "@/src/assests/test.jpg";
+import { useAppSelector } from "@/src/redux/hook";
 
 interface ProductData {
   name: string;
@@ -31,7 +32,7 @@ type Params = Promise<{ productId: string }>;
 
 const ProductDetails = ({ params }: { params: Params }) => {
   const { productId } = use(params);
-
+  const userToken = useAppSelector((state) => state.auth.token);
   const { data: productInfo, isLoading } = useGetProductByIdQuery(productId);
   const [handleUpdateView] = useUpdateViewCountMutation();
   const [mainImage, setMainImage] = useState<string>("");
@@ -60,7 +61,7 @@ const ProductDetails = ({ params }: { params: Params }) => {
   }, [images]);
 
   useEffect(() => {
-    handleUpdateView({ id: productId });
+    handleUpdateView({ id: productId ,userInfo:userToken});
   }, [productId]);
 
   // Handle quantity increase

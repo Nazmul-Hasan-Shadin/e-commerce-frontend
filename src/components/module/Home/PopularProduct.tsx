@@ -26,12 +26,6 @@ const PopularProduct = () => {
       <div>
         <div>
           <HomeTitle title="Popular Product" />
-
-          <span className="text-sm pl-12">
-            <Link className="text-orange-700" href={`/flash-deal?isFlash=true`}>
-              view all flash deal
-            </Link>
-          </span>
         </div>
 
         <div className="grid grid-cols-2 gap-2 mt-10  sm:grid-cols-3 md:grid-cols-3  lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 md:gap-10 p-1 md:p-4">

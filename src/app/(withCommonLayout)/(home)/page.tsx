@@ -6,6 +6,7 @@ import AccesoriesAd from "@/src/components/module/Home/AccesoriesAd";
 import WhyChooseUs from "@/src/components/module/Home/WhyChooseUs";
 import Categories from "@/src/components/module/Home/Catagories";
 import PopularProduct from "@/src/components/module/Home/PopularProduct";
+import FollowedShopProduct from "@/src/components/module/Home/FollowedShopProduct";
 
 export default function Home() {
   return (
@@ -23,8 +24,9 @@ export default function Home() {
           width={400}
         />
       </div> */}
-
+      
       <FeatureProduct />
+      <FollowedShopProduct/>
       <PopularProduct />
       <TopSellProduct />
       <AccesoriesAd />

@@ -5,24 +5,24 @@ import SkeletonCard from "../../ui/SkeletonCard";
 import Container from "../../ui/Container";
 import { HomeTitle } from "../../ui/HomeTitle";
 
-import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
+import { useGetFollowedShopProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 
-const TopSellProduct = () => {
+const FollowedShopProduct = () => {
   const {
     data: products,
     isLoading,
     isError,
-  } = useGetAllProductQuery({
+  } = useGetFollowedShopProductQuery({
     sortBy: "salesCount",
     orderBy: "desc",
   });
 
-  console.log(products, "top sell product");
+  console.log(products, "From Your Favorite Shops");
 
   return (
     <Container>
       <div className="mt-10 px-1">
-        <HomeTitle title="Top Sell Product" />
+        <HomeTitle title="From Your Favorite Shops" />
         <div className="grid grid-cols-2 mt-10  gap-2 sm:grid-cols-3 md:grid-cols-3  lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 md:gap-6 md:p-4">
           {isLoading ? (
             <>
@@ -33,7 +33,7 @@ const TopSellProduct = () => {
               <SkeletonCard />
             </>
           ) : (
-            products?.data?.data
+            products?.data
               .slice(0, 5)
               .map((product: any) => (
                 <Card key={product.id} product={product} />
@@ -45,4 +45,4 @@ const TopSellProduct = () => {
   );
 };
 
-export default TopSellProduct;
+export default FollowedShopProduct;
