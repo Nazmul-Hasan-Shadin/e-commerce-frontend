@@ -26,12 +26,20 @@ const cartPersistConfig = {
   key: "cart",
   storage,
 };
+const comparePersistConfig = {
+  key: "compareItems",
+  storage,
+};
 
 const persistedReducer = persistReducer(persistConfig, authSlice);
 
 const persistedCartReducer = persistReducer(
   cartPersistConfig,
-  cartSlice.reducer,
+  cartSlice.reducer
+);
+const comparePersistedReducer = persistReducer(
+  comparePersistConfig,
+  compareSlice.reducer
 );
 
 export const store = configureStore({
@@ -39,7 +47,7 @@ export const store = configureStore({
     auth: persistedReducer,
     cart: persistedCartReducer,
     category: categoryFilterSlice.reducer,
-    compareItem:compareSlice.reducer,
+    compareItem: comparePersistedReducer,
     [baseApi.reducerPath]: baseApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
