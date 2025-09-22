@@ -11,14 +11,20 @@ const commentApi = baseApi.injectEndpoints({
       invalidatesTags: ["commentwithProduct"],
     }),
 
-    getReviewById: builder.query({
-      query: () => ({
-        url: "/review",
+    getMyReview: builder.infiniteQuery({
+      infiniteQueryOptions: {
+        initialPageParam: 1,
+        getNextPageParam: (lastPage, allPage, lastPageParam) =>
+          lastPageParam + 1,
+      },
+      query: ({pageParam}) => ({
+        url:`/review/my-review?page=${pageParam}`,
         method: "GET",
       }),
       keepUnusedDataFor: 30,
+      transformResponse: (response) => response.data,
     }),
   }),
 });
 
-export const { useCreateCommentMutation } = commentApi;
+export const { useCreateCommentMutation, useGetMyReviewInfiniteQuery } = commentApi;

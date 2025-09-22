@@ -7,6 +7,11 @@ export interface IReview {
   user?: {
     username: string;
   };
+  product: {
+    images: string[];
+    name:string
+  };
+  createdAt:string
 }
 
 export interface IProduct {
@@ -20,4 +25,31 @@ export interface IProduct {
   discount: number;
   vendorId: string;
   images: string[];
+}
+
+interface IOrder {
+  id: string;
+  shopId: string;
+  shop: {
+    name: string;
+    logo: string;
+    id: string;
+  };
+  customerId: string;
+
+  status: string;
+  totalAmount: number;
+  orderItems: IOrderItems[];
+}
+
+interface IOrderItems {
+  id: string;
+  product: {
+    images: string[];
+    name: string;
+    quantity: number;
+    price: number;
+  };
+  price: number;
+  quantity: number;
 }

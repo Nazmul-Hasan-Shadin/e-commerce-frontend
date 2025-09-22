@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import Container from "@/src/components/ui/Container";
 import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
-
+import Link from "next/link";
 
 interface IOrder {
   id: string;
@@ -21,6 +21,7 @@ interface IOrder {
 interface IOrderItems {
   id: string;
   product: {
+    id: string;
     images: string[];
     name: string;
     quantity: number;
@@ -45,7 +46,7 @@ const UserOrderPage = () => {
     <Container className="mx-auto">
       <div className="font-bold border  md:p-5 bg-white">
         <h1 className="text-xl my-4">My Orders</h1>
-        <Divider className="mb-5"/>
+        <Divider className="mb-5" />
         <div className="border rounded-lg overflow-x-auto">
           {/* ======== TABLE HEADER ======== */}
           <div className="lg:grid grid-cols-10 hidden justify-items-center lg:flex-row font-semibold text-center p-4 bg-gray-100 text-sm">
@@ -100,9 +101,12 @@ const UserOrderPage = () => {
                           <p className="col-span-1 text-center font-semibold">
                             {item.product.price}
                           </p>
-                          <p className="col-span-1 text-center font-semibold">
-                            write review
-                          </p>
+                          <Link href={`/product-details/${item.product.id}`}>
+                            {" "}
+                            <p className="col-span-1 text-center font-semibold">
+                              write review
+                            </p>
+                          </Link>
                         </div>
                       </div>
                     ))}
