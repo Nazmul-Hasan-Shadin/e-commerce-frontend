@@ -48,6 +48,8 @@ const BottomNav = () => {
     ? [
         { label: "Home", link: "/" },
         { label: "Product", link: "/product" },
+
+        { label: "Compare", link: `/compare` },
         { label: "Dashboard", link: `/${user!.role}/dashboard` },
         { label: "Shop", link: "/shop" },
 
@@ -241,7 +243,7 @@ const BottomNav = () => {
                 key={index}
                 className={`${styles.navItem} ${pathname === menu.link ? styles.active : ""}`}
               >
-                <Link className="text-black" href={menu.link}>
+                <Link className="text-black font-bold ]" href={menu.link}>
                   {menu.label}
                 </Link>
               </NavbarItem>

@@ -15,6 +15,7 @@ import authSlice from "./feature/auth/auth.slice";
 import { baseApi } from "./api/baseApi";
 import { cartSlice } from "./feature/cart/cartSlice";
 import { categoryFilterSlice } from "./feature/vendor/vendor.slice";
+import { compareSlice } from "./feature/compare/compare.slice";
 
 const persistConfig = {
   key: "auth",
@@ -38,6 +39,7 @@ export const store = configureStore({
     auth: persistedReducer,
     cart: persistedCartReducer,
     category: categoryFilterSlice.reducer,
+    compareItem:compareSlice.reducer,
     [baseApi.reducerPath]: baseApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

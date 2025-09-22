@@ -15,6 +15,9 @@ import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import { addToCart, replaceCart } from "@/src/redux/feature/cart/cartSlice";
 
+import { IoGitCompareOutline } from "react-icons/io5";
+import { addToCompare } from "@/src/redux/feature/compare/compare.slice";
+
 export interface IProduct {
   id: string;
   shopId: string;
@@ -52,6 +55,8 @@ const Card = ({ product }: { product: IProduct }) => {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.orderItems);
 
+  const compareProducts = useAppSelector((state) => state.compareItem.product);
+
   const handleAddToCart = () => {
     const isMultipleVendorDetect =
       cartItems.length >= 0 &&
@@ -84,6 +89,13 @@ const Card = ({ product }: { product: IProduct }) => {
     }
   };
 
+  const handleCompare = async (product:IProduct) => {
+    if (!compareProducts.find((item) => item.id === product.id)) {
+      dispatch(addToCompare(product));
+      toast.success("product has added to compare");
+    }
+  };
+
   return (
     <div className="relative md:w-full p-1">
       <NextCard
@@ -101,9 +113,13 @@ const Card = ({ product }: { product: IProduct }) => {
             width={140}
           />
         </div>
-        <del className=" text-sm md:text-lg absolute top-0 text-primary-color p-1 right-1">
-          ${product?.price}
-        </del>
+
+        <div className=" font-bold  text-sm md:text-lg absolute top-0 text-primary-color p-1 left-1">
+          <IoGitCompareOutline
+            onClick={() => handleCompare(product)}
+            className="text-2xl font-bold text-primary-color"
+          />
+        </div>
 
         {/* Card Header */}
         <CardHeader className="md:h-full p-2  md:p-1">
