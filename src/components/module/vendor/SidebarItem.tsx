@@ -11,7 +11,9 @@ export const SidebarItem = ({
   isOpen: boolean;
   path: string;
 }) => (
-  <div className=" p-2 hover:bg-primary-color border hover:text-white cursor-pointer">
+  <div
+    className={` p-2 hover:bg-primary-color border hover:text-white cursor-pointer`}
+  >
     <Link href={path}>
       <div className="flex items-center">
         <div className="text-xl">{icon}</div>

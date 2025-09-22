@@ -8,6 +8,7 @@ import Image from "next/image";
 
 import { useAppSelector } from "@/src/redux/hook";
 import { SidebarItem } from "@/src/components/module/vendor/SidebarItem";
+import { Button } from "@heroui/button";
 
 const UserSideBar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -40,18 +41,30 @@ const UserSideBar = () => {
       {/* Navigation Links */}
       <nav className="flex flex-col space-y-2 mt-6">
         {/* Dashboard */}
-
         <SidebarItem
           icon={<CgProfile className="text-2xl" />}
           isOpen={isOpen}
-          label="Profile"
-          path="/dashboard"
+          label="Dashboard"
+          path="/user/dashboard"
+        />
+        <SidebarItem
+          icon={<CgProfile className="text-2xl" />}
+          isOpen={isOpen}
+          label="Orders "
+          path="/user/dashboard/orders"
         />
         <SidebarItem
           icon={<RiListOrdered2 className="text-2xl" />}
           isOpen={isOpen}
-          label="Order"
+          label="Order Items"
           path="/user/dashboard/order"
+        />
+
+        <SidebarItem
+          icon={<RiListOrdered2 className="text-2xl" />}
+          isOpen={isOpen}
+          label="Review"
+          path="/user/dashboard/review"
         />
 
         {/* Settings */}
@@ -61,6 +74,10 @@ const UserSideBar = () => {
           label="Settings"
           path="/user/dashboard/settings"
         />
+
+        <Button className="rounded-none" variant="ghost">
+          Log Out
+        </Button>
       </nav>
     </div>
   );

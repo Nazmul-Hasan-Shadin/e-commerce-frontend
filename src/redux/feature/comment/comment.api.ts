@@ -10,6 +10,14 @@ const commentApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["commentwithProduct"],
     }),
+
+    getReviewById: builder.query({
+      query: () => ({
+        url: "/review",
+        method: "GET",
+      }),
+      keepUnusedDataFor: 30,
+    }),
   }),
 });
 
