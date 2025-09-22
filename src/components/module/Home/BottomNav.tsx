@@ -79,7 +79,7 @@ const BottomNav = () => {
   }, [searchQuery]);
 
   const { data: searchResult } = useGetAllProductQuery(
-    debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken,
+    debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken
   );
 
   return (

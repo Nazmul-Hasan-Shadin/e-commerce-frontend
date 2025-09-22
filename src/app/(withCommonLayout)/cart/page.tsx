@@ -9,8 +9,11 @@ import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import { Divider, Input } from "@heroui/react";
 import Container from "@/src/components/ui/Container";
 import { RxCross1 } from "react-icons/rx";
+import { useInitPaymentsslMutation } from "@/src/redux/feature/cart/cartApi";
+import { redirect } from "next/navigation";
 
 const CartPage = () => {
+  const [handleHitPayment, { isLoading }] = useInitPaymentsslMutation();
   const cartItems = useAppSelector((state) => state.cart.orderItems);
   const dispatch = useAppDispatch();
 
@@ -19,13 +22,21 @@ const CartPage = () => {
     dispatch(removeFromCart({ productId }));
   };
 
-  console.log(cartItems, "cartItems from  state inside cart page");
-
   // Calculate total price
   const totalAmount = cartItems.reduce(
-    (total, item) => total + item?.price * item?.quantity,
+    (total, item) => total + Number(item.price || 0) * Number(item?.quantity),
     0
   );
+
+
+  const handlePayment = async () => {
+    const response = await handleHitPayment("12348uuyu78745");
+    console.log(response, "iam response");
+    if (Object.keys(response.data).length > 0) {
+      redirect(response.data.paymentUrl);
+    }
+    console.log(response, "iam response");
+  };
 
   return (
     <Container>
@@ -122,11 +133,12 @@ const CartPage = () => {
               <p className="font-bold">Total {totalAmount}</p>
             </div>
 
-            <Link href={"/payment"}>
-              <Button className="bg-primary-color text-white w-full my-3">
-                Proceed to Checkout
-              </Button>
-            </Link>
+            <Button
+              onClick={() => handlePayment()}
+              className="bg-primary-color text-white w-full my-3"
+            >
+              Proceed to Checkout
+            </Button>
           </div>
         </section>
 

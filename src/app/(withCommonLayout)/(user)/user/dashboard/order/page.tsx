@@ -7,6 +7,29 @@ import Container from "@/src/components/ui/Container";
 import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
 
 
+interface IOrder {
+  id: string;
+  shopId: string;
+
+  customerId: string;
+
+  status: string;
+  totalAmount: number;
+  orderItems: IOrderItems[];
+}
+
+interface IOrderItems {
+  id: string;
+  product: {
+    images: string[];
+    name: string;
+    quantity: number;
+    price: number;
+  };
+  price: number;
+  quantity: number;
+}
+
 const UserOrderPage = () => {
   const {
     data: orderData,
@@ -16,18 +39,24 @@ const UserOrderPage = () => {
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading orders</div>;
+  console.log(orderData, "orderdata");
 
   return (
     <Container className="mx-auto">
-      <div className="font-bold  md:p-5 bg-white">
-        <h1 className="text-xl my-4">Your Orders</h1>
-
+      <div className="font-bold border  md:p-5 bg-white">
+        <h1 className="text-xl my-4">My Orders</h1>
+        <Divider className="mb-5"/>
         <div className="border rounded-lg overflow-x-auto">
           {/* ======== TABLE HEADER ======== */}
-          <div className="lg:grid grid-cols-8 hidden lg:flex-row font-semibold text-center p-4 bg-gray-100 text-sm">
+          <div className="lg:grid grid-cols-10 hidden justify-items-center lg:flex-row font-semibold text-center p-4 bg-gray-100 text-sm">
             <div className="col-span-1">Image</div>
-            <div className="col-span-3">Total Product</div>
-            <div className="col-span-3">Price</div>
+
+            <div className="col-span-2">product name</div>
+            <div className="col-span-2">quantity</div>
+            <div className="col-span-2">status</div>
+
+            <div className="col-span-1">Price</div>
+            <div className="col-span-1">Action</div>
           </div>
 
           <Divider className="w-[97%] mx-auto mb-4" />
@@ -35,35 +64,51 @@ const UserOrderPage = () => {
           {/* ======== TABLE CONTENT ======== */}
           {orderData?.data.length ? (
             <div className=" ">
-              {orderData.data.map((cart) => (
-                <div className="hidden md:block" key={cart.id}>
-                  <div className="grid grid-cols-8 justify-items-center items-center my-4 px-2 text-sm">
-                    {/* Product image */}
-                    <figure className="col-span-1">
-                      <Image
-                        alt="cart product image"
-                        src={
-                          cart?.orderItems?.[0]?.product?.images?.[0] ||
-                          "/no-image.jpg"
-                        }
-                        width={70}
-                        height={70}
-                        className="object-contain rounded"
-                      />
-                    </figure>
+              {orderData.data?.map((order: IOrder) => (
+                <div key={order.id}>
+                  <div className="hidden md:block">
+                    {order.orderItems.map((item) => (
+                      <div key={order.id}>
+                        <div className="grid grid-cols-10 justify-items-center  my-4 px-2 text-sm">
+                          {/* Product image */}
+                          <figure className="col-span-1">
+                            <Image
+                              alt="cart product image"
+                              src={item.product?.images[0] || "/no-image.jpg"}
+                              width={70}
+                              height={70}
+                              className="object-contain rounded"
+                            />
+                          </figure>
 
-                    {/* Total product count */}
-                    <h2 className="col-span-3 text-center font-medium">
-                      {cart?.orderItems.length} product(s)
-                    </h2>
+                          <h2 className="col-span-2 text-center font-medium">
+                            {item.product.name}
+                          </h2>
 
-                    {/* Total amount */}
-                    <p className="col-span-3 text-center font-semibold">
-                      ${cart?.totalAmount}
-                    </p>
+                          {/* Total amount */}
+                          <p className="col-span-2 text-center font-semibold">
+                            {item.quantity}
+                          </p>
+                          <Button
+                            size="sm"
+                            variant="bordered"
+                            className="col-span-2 text-center font-semibold"
+                          >
+                            {order.status}
+                          </Button>
+
+                          <p className="col-span-1 text-center font-semibold">
+                            {item.product.price}
+                          </p>
+                          <p className="col-span-1 text-center font-semibold">
+                            write review
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+
+                    <Divider className="w-[97%] mx-auto" />
                   </div>
-
-                  <Divider className="w-[97%] mx-auto" />
                 </div>
               ))}
 

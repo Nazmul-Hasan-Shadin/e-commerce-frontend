@@ -42,10 +42,11 @@ const AdminDashboard: React.FC = () => {
   const { data: allshopTopTen } = useGetAllShopTopTenQuery(undefined);
   const { data: shopOwnerInfo } = useGetCurrentUserQuery(undefined);
   const { data: shopPorductList } = useGetProductByShopIdQuery(
-    shopOwnerInfo?.data?.shop?.id,
+    shopOwnerInfo?.data?.shop?.id
   );
   const user = useAppSelector((state) => state.auth.user);
-
+  console.log(shopPorductList,'iam shop rpdocut list');
+  
   const data = {
     earnings: { value: 559250, percentage: 16.24 },
     orders: { value: 36894, percentage: -3.57 },
@@ -60,7 +61,7 @@ const AdminDashboard: React.FC = () => {
 
   const renderCell = (
     user: UserData,
-    columnKey: "name" | "logo" | "actions",
+    columnKey: "name" | "logo" | "actions"
   ) => {
     switch (columnKey) {
       case "name":
@@ -90,15 +91,15 @@ const AdminDashboard: React.FC = () => {
   const itemsPerPage = 2;
 
   const productStartIndex = (productPage - 1) * itemsPerPage;
-  const paginatedProducts = shopPorductList?.data.slice(
+  const paginatedProducts = shopPorductList?.data?.data.slice(
     productStartIndex,
-    productStartIndex + itemsPerPage,
+    productStartIndex + itemsPerPage
   );
 
   const shopStartIndex = (shopPage - 1) * itemsPerPage;
   const paginatedShops = allshopTopTen?.data.slice(
     shopStartIndex,
-    shopStartIndex + itemsPerPage,
+    shopStartIndex + itemsPerPage
   );
 
   const chartDataofSale = [
@@ -289,7 +290,7 @@ const AdminDashboard: React.FC = () => {
               color="success"
               initialPage={productPage}
               total={Math.ceil(
-                (shopPorductList?.data.length || 0) / itemsPerPage,
+                (shopPorductList?.data.length || 0) / itemsPerPage
               )}
               onChange={(page) => setProductPage(page)}
             />
@@ -318,7 +319,7 @@ const AdminDashboard: React.FC = () => {
               color="success"
               initialPage={shopPage}
               total={Math.ceil(
-                (allshopTopTen?.data.length || 0) / itemsPerPage,
+                (allshopTopTen?.data.length || 0) / itemsPerPage
               )}
               onChange={(page) => setShopPage(page)}
             />

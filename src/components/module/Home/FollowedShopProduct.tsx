@@ -38,24 +38,24 @@ const FollowedShopProduct = () => {
             clickable: true,
           }}
           breakpoints={{
-            0:{
-                slidesPerView:2,
+            0: {
+              slidesPerView: 2,
             },
-            640:{
-                slidesPerView:3
+            640: {
+              slidesPerView: 3,
             },
-            768:{
-                slidesPerView:3
+            768: {
+              slidesPerView: 3,
             },
-            1024:{
-                slidesPerView:3
+            1024: {
+              slidesPerView: 3,
             },
-            1280:{
-                slidesPerView:4
+            1280: {
+              slidesPerView: 4,
             },
-            1536:{
-                slidesPerView:5
-            }
+            1536: {
+              slidesPerView: 5,
+            },
           }}
           modules={[Pagination, Autoplay]}
         >
