@@ -10,6 +10,8 @@ import FxTextArea from "@/src/components/form/ETextArea";
 import EForm from "@/src/components/form/EForm";
 import EInput from "@/src/components/form/EInput";
 import { useCreateCategoryMutation } from "@/src/redux/feature/admin/admin.categoryapi";
+import Dividers from "@/src/components/ui/Divider";
+import Link from "next/link";
 
 const AddCategory = () => {
   const [handleCreateCategory] = useCreateCategoryMutation();
@@ -61,71 +63,81 @@ const AddCategory = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg border">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Create Category</h2>
-      <Divider />
-      <EForm onSubmit={onSubmit}>
-        <div
-          aria-label="Upload image"
-          className="flex items-center mb-5 justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition"
-          role="button"
-          style={{ width: "100%", height: "200px" }}
-          tabIndex={0}
-          onClick={handleUploadClick}
-          onKeyDown={(event) => {
-            if (["Enter", " "].includes(event.key)) {
-              handleUploadClick();
-            }
-          }}
-        >
-          <input
-            ref={inputRef}
-            accept="image/*"
-            className="hidden"
-            type="file"
-            onChange={handleFileChange}
-          />
-
-          {imagePreview ? (
-            <Image
-              alt="preview"
-              className="max-w-full max-h-full object-cover"
-              height={400}
-              src={imagePreview}
-              width={400}
-            />
-          ) : (
-            <div className="text-center text-gray-500">
-              <p>Drop your image here or click to browse</p>
-            </div>
-          )}
+    <div className="p-4">
+      <span className="block my-2"> <span className="text-lg">Dashboard</span> / Create category</span>
+      <div className=" bg-white shadow-lg rounded-lg border p-4">
+        <div className="flex justify-between">
+          <h2 className="md:text-md lg:text-xl font-bold text-gray-800 ">Create Category</h2>
+          <Link href={'/admin/dashboard/category-list'}><Button className="bg-primary-color text-white rounded-sm">
+            {" "}
+            Manage Category
+          </Button></Link>
         </div>
+        <Divider className="my-4" />
 
-        <div className="grid grid-cols-1 gap-6 mb-4">
-          <EInput
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-[#fd6506] focus:outline-none"
-            label="Name"
-            name="name"
-            type="text"
-            variant="bordered"
-          />
-          <FxTextArea
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-[#fd6506] focus:outline-none"
-            label="Description"
-            name="description"
-            variant="bordered"
-          />
-        </div>
-        <div className="flex justify-end mt-4">
-          <Button
-            className="bg-[#fd6506] text-white py-2 px-6 rounded-lg hover:bg-[#f84f01] transition-all"
-            type="submit"
-            variant="flat"
+        <EForm onSubmit={onSubmit}>
+          <div
+            aria-label="Upload image"
+            className="flex items-center mb-5 justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition"
+            role="button"
+            style={{ width: "100%", height: "200px" }}
+            tabIndex={0}
+            onClick={handleUploadClick}
+            onKeyDown={(event) => {
+              if (["Enter", " "].includes(event.key)) {
+                handleUploadClick();
+              }
+            }}
           >
-            Create Category
-          </Button>
-        </div>
-      </EForm>
+            <input
+              ref={inputRef}
+              accept="image/*"
+              className="hidden"
+              type="file"
+              onChange={handleFileChange}
+            />
+
+            {imagePreview ? (
+              <Image
+                alt="preview"
+                className="max-w-full max-h-full object-cover"
+                height={400}
+                src={imagePreview}
+                width={400}
+              />
+            ) : (
+              <div className="text-center text-gray-500">
+                <p>Drop your image here or click to browse</p>
+              </div>
+            )}
+          </div>
+
+          <div className="grid grid-cols-2 gap-6 mb-4">
+            <EInput
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-[#fd6506] focus:outline-none"
+              label="Name"
+              name="name"
+              type="text"
+              variant="bordered"
+            />
+            <EInput
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-[#fd6506] focus:outline-none"
+              label="Description"
+              name="description"
+              variant="bordered"
+            />
+          </div>
+          <div className="flex justify-start mt-5">
+            <Button
+              className="bg-[#fd6506] text-white py-2 px-6 rounded-lg hover:bg-[#f84f01] transition-all rounded-none"
+              type="submit"
+              variant="flat"
+            >
+              Create Category
+            </Button>
+          </div>
+        </EForm>
+      </div>
     </div>
   );
 };

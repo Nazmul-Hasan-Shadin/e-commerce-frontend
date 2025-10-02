@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Card, CardBody, Pagination } from "@heroui/react";
 import { BsBagDash } from "react-icons/bs";
-import { FaDollarSign } from "react-icons/fa6";
+import { FaDollarSign, FaUser, FaUsers } from "react-icons/fa6";
 import { IoCubeOutline } from "react-icons/io5";
 import { FaSackDollar } from "react-icons/fa6";
 import {
@@ -28,7 +28,8 @@ import {
 import { useGetAllShopTopTenQuery } from "@/src/redux/feature/shop/shop.api";
 import { useAppSelector } from "@/src/redux/hook";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
-
+import { useGetMetaQuery } from "@/src/redux/feature/meta/meta.api";
+import { FaUserCircle } from "react-icons/fa";
 
 interface TableColumn {
   name: string;
@@ -58,22 +59,8 @@ const AdminDashboard: React.FC = () => {
     customers: { value: 183350000, percentage: 29.08 },
     balance: { value: 165890, percentage: 0.0 },
   };
-
-  const tableColumns: TableColumn[] = [
-    { name: "NAME", uid: "name" },
-    { name: "LOGO", uid: "logo" },
-    { name: "EMAIL", uid: "email" },
-    { name: "ACTIONS", uid: "action" },
-  ];
-
-
-  // Paginate the data
-  const paginateData = (data: UserData[]) => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-
-    return data.slice(startIndex, endIndex);
-  };
+  const metaInfo = useGetMetaQuery(undefined);
+  console.log(metaInfo);
 
   return (
     <div className="min-h-screen z-10 p-8">
@@ -91,29 +78,82 @@ const AdminDashboard: React.FC = () => {
         <Card className="p-4" shadow="sm">
           <CardBody>
             <div className="flex  gap-9">
-              <span className="block w-10 h-10 bg-[#8B7EFF] rounded-full flex items-center justify-center">
-                <BsBagDash className="text-xl text-white" />
+              <span className="block w-10 h-10  bg-primary-color rounded-full flex items-center justify-center">
+                <FaUser className="text-xl text-white" />
               </span>
               <div>
-                <p className="text-[#23232d] text-sm ">TOTAL EARNINGS</p>
+                <p className="text-[#23232d] text-lg ">Total Vendor</p>
                 <h2 className="text-lg font-bold">
-                  ${data.earnings.value.toLocaleString()}k
+                  {metaInfo?.data?.vendorCount}
                 </h2>
 
-                <p className="mt-2 inline-block">
-                  View net earnings
-                </p>
+                <p className="mt-2 inline-block">View net earnings</p>
               </div>
             </div>
           </CardBody>
         </Card>
 
+        {/* user count */}
 
+        <Card className="p-4" shadow="sm">
+          <CardBody>
+            <div className="flex  gap-9">
+              <span className="block w-10 h-10  bg-primary-color rounded-full flex items-center justify-center">
+                <FaUsers className="text-xl   text-white" />
+              </span>
+              <div>
+                <p className="text-[#23232d] text-sm ">Total User</p>
+                <h2 className="text-lg font-bold">
+                  {metaInfo?.data?.userCount}
+                </h2>
+
+                <p className="mt-2 inline-block">View net earnings</p>
+              </div>
+            </div>
+          </CardBody>
+        </Card>
+         {/* admin count */}
+
+        <Card className="p-4" shadow="sm">
+          <CardBody>
+            <div className="flex  gap-9">
+              <span className="block w-10 h-10  bg-primary-color rounded-full flex items-center justify-center">
+                <FaUserCircle className="text-xl   text-white" />
+              </span>
+              <div>
+                <p className="text-[#23232d] text-sm ">Total Admin</p>
+                <h2 className="text-lg font-bold">
+                  {metaInfo?.data?.adminCount}
+                </h2>
+
+                <p className="mt-2 inline-block">View net earnings</p>
+              </div>
+            </div>
+          </CardBody>
+        </Card>
+
+        {/*  total reveunu */}
+
+        <Card className="p-4" shadow="sm">
+          <CardBody>
+            <div className="flex  gap-9">
+              <span className="block w-10 h-10 bg-primary-color rounded-full flex items-center justify-center">
+                <FaDollarSign className="text-xl text-white" />
+              </span>
+              <div>
+                <p className="text-[#23232d] text-sm ">Total Profit</p>
+                <h2 className="text-lg font-bold">
+                  {metaInfo?.data?.totalRevenu}
+                </h2>
+
+                <p className="mt-2 inline-block">View net earnings</p>
+              </div>
+            </div>
+          </CardBody>
+        </Card>
       </div>
 
       {/* ====================bar and pie chart================== */}
-
-
     </div>
   );
 };
