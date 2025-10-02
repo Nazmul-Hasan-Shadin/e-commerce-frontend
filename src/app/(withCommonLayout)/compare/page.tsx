@@ -7,7 +7,6 @@ import { Divider } from "@heroui/react";
 import Image from "next/image";
 import React from "react";
 import { FaPrint } from "react-icons/fa6";
-import { IoGitCompareOutline } from "react-icons/io5";
 
 const ComparePage = () => {
   const dispatch = useAppDispatch();
@@ -100,7 +99,7 @@ const ComparePage = () => {
                   </td>
                 ))}
               </tr>
-               <tr>
+              <tr>
                 <th className="w-[20px] border">Discount</th>
                 {products.map((product) => (
                   <td className="border w-[20px]" key={product.id}>

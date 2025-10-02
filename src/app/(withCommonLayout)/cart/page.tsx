@@ -28,14 +28,12 @@ const CartPage = () => {
     0
   );
 
-
   const handlePayment = async () => {
     const response = await handleHitPayment("12348uuyu78745");
-    console.log(response, "iam response");
+
     if (Object.keys(response.data).length > 0) {
       redirect(response.data.paymentUrl);
     }
-    console.log(response, "iam response");
   };
 
   return (

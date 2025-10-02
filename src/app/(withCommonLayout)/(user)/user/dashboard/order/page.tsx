@@ -40,7 +40,6 @@ const UserOrderPage = () => {
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading orders</div>;
-  console.log(orderData, "orderdata");
 
   return (
     <Container className="mx-auto">
@@ -117,7 +116,7 @@ const UserOrderPage = () => {
               ))}
 
               {/* ===============for small device only========= */}
-              {orderData?.data.map((orderData) => (
+              {orderData?.data.map((orderData: IOrder) => (
                 <div key={orderData?.id} className="p-2 md:hidden">
                   <div className="flex gap-4 mb-4">
                     <figure>

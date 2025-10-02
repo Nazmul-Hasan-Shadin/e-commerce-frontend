@@ -41,7 +41,7 @@ const CheckOutForm = () => {
     const fetchClientSecret = async () => {
       try {
         const response = await fetch(
-          " http://localhost:3001/api/v1/create-payment-intent",
+          "http://localhost:3001/api/v1/create-payment-intent",
           {
             method: "POST",
             headers: {

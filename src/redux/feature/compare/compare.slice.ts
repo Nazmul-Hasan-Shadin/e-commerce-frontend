@@ -1,11 +1,26 @@
+import { TCategory } from "@/src/types";
 import { createSlice } from "@reduxjs/toolkit";
 
+export type TProduct = {
+  id: string;
+  shopId: string;
+  name: string;
+  description?: string | null;
+  price: number;
+  isFlash?: boolean;
+  salesCount: number;
+  viewCount: number;
+  categoryId: string;
+  category: TCategory;
+  inventoryCount: number;
+  discount: number;
+  images: string[];
+  createdAt: Date;
+  updatedAt: Date;
+};
 
 interface IState {
-  product: {
-    id: string;
-    name: string;
-  }[];
+  product: TProduct[];
   maxItem: number;
 }
 const initialState: IState = {

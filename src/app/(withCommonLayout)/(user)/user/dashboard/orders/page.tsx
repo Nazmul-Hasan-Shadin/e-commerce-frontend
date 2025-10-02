@@ -114,7 +114,7 @@ const UserOrderPage = () => {
               ))}
 
               {/* ===============for small device only========= */}
-              {orderData?.data.map((orderData) => (
+              {orderData?.data.map((orderData: IOrder) => (
                 <div key={orderData?.id} className="p-2 md:hidden">
                   <div className="flex gap-4 mb-4">
                     <figure>

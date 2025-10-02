@@ -1,18 +1,11 @@
-"use client";
-// app/(withCommonLayout)/success-payment/[tran_id]/page.tsx
-import { useSearchParams } from "next/navigation";
+import React from 'react';
 
-export default function PaymentSuccess({
-  params,
-}: {
-  params: { tran_id: string; val_id: string };
-}) {
+const page = () => {
   return (
     <div>
-      <h1>Payment Success 🎉</h1>
-
-      <p>Transaction ID: </p>
-      <p>Transaction ID: </p>
+      payment done
     </div>
   );
-}
+};
+
+export default page;
