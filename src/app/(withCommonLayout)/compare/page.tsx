@@ -1,5 +1,6 @@
 "use client";
 import Container from "@/src/components/ui/Container";
+import { IProduct } from "@/src/interface";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import { Button } from "@heroui/button";
 import { Divider } from "@heroui/react";
