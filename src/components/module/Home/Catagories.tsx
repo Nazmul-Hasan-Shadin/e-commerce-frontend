@@ -17,9 +17,12 @@ const Categories = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const result = await fetch("http://localhost:3001/api/v1/category", {
-          cache: "no-store",
-        });
+        const result = await fetch(
+          "https://independent-shop.vercel.app/api/v1/category",
+          {
+            cache: "no-store",
+          }
+        );
 
         if (!result.ok) {
           throw new Error(`HTTP error! status: ${result.status}`);

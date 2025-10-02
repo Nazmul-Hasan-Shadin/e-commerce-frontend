@@ -24,25 +24,22 @@ export const getCurrentUser = async () => {
 };
 
 export const loginHandler = async (userInfo: any) => {
-  // https://independent-shop.vercel.app/
-  // http://localhost:3001/api/v1/auth/login
+  // https://swift-mart-bd.vercel.app
+  const res = await fetch("http://localhost:3001/api/v1/auth/login", {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
 
-  const res = await fetch(
-    "https://independent-shop.vercel.app/api/v1/auth/login",
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-
-      body: JSON.stringify(userInfo),
-      credentials: "include",
-    }
-  );
+    body: JSON.stringify(userInfo),
+    credentials: "include",
+  });
 
   const data = await res.json();
+  console.log({data});
+  
 
-  await (await cookies()).set("refreshToken", data.data.accessToken);
+  await (await cookies()).set("refreshToken", data?.data?.accessToken);
 
   // const decodedToken = data.data.accessToken;
   // if (data?.data?.accessToken) {

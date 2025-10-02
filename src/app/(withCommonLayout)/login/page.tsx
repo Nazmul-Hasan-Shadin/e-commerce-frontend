@@ -66,7 +66,8 @@ const Login = () => {
         iat: number;
         exp: number;
       };
-
+ 
+   
       dispatch(setUser({ user, token: res.data.accessToken }));
 
       toast.success("Logged in successfully!", { id: toastId });
@@ -115,7 +116,7 @@ const Login = () => {
     } catch (error: any) {
       toast.error(
         error?.data?.message || "Failed to send reset password email.",
-        { id: toastId },
+        { id: toastId }
       );
     }
   };

@@ -12,12 +12,12 @@ export const SidebarItem = ({
   path: string;
 }) => (
   <div
-    className={` p-2 hover:bg-primary-color border hover:text-white cursor-pointer`}
+    className={` p-2 hover:bg-primary-color} hover:text-white cursor-pointer`}
   >
     <Link href={path}>
       <div className="flex items-center">
-        <div className="text-xl">{icon}</div>
-        {isOpen && <span className="ml-4 text-sm md:text-lg">{label}</span>}
+        <div className=" max-md:text-xl lg:text-2xl">{icon}</div>
+        {isOpen && <span className="px-3 md:text-medium">{label}</span>}
       </div>
     </Link>
   </div>
