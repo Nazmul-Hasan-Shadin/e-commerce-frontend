@@ -180,7 +180,7 @@ const Tablecib = () => {
 
   return (
     <div>
-      <div className="p-6 bg-white">
+      <div className=" p- md:p-4 lg:p-6 bg-white">
         <div className="flex justify-between">
           <h2 className="md:text-md lg:text-xl font-bold text-gray-800 ">
             Manage Category
@@ -256,7 +256,7 @@ const Tablecib = () => {
             </div>
           }
         >
-          <TableHeader columns={headerColumns}>
+          <TableHeader  columns={headerColumns}>
             {(column) => (
               <TableColumn key={column.key}>{column.label} </TableColumn>
             )}
@@ -264,7 +264,7 @@ const Tablecib = () => {
 
           <TableBody items={items}>
             {(item) => (
-              <TableRow className="border" key={item.id}>
+              <TableRow className="border p-0" key={item.id}>
                 {(columnKey) => (
                   <TableCell>
                     {columnKey === "images" ? (

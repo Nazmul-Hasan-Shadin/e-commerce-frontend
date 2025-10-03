@@ -32,8 +32,16 @@ const AdminSidebar = () => {
   };
 
   return (
-    <div className={`${isOpen ? "lg:w-full " : "w-20"}`}>
-      <div className="fixed">
+    <div >
+      <button
+        className={`text-red-400 absolute ${isOpen ? "left-[173px] md:left-[280px] top-3 md:top-5" : "top-5 left-5 lg:left-28 md:left-24"} hover:text-white z-20`}
+        onClick={() => toggleSidebar()} // arrow button for collaps sidebar
+      >
+        <RxHamburgerMenu
+          className={`h-6 w-6 transform text-black ${isOpen ? "rotate-180" : ""}`}
+        />
+      </button>
+      <div className={`${isOpen ? "lg:w-full " : "   lg:w-20"} fixed`} >
         <div
           className={`flex flex-col bg-gray-800 h-screen text-white ${
             isOpen ? " md:block md:w-64 lg:w-64" : "w-0 md:w-20"
@@ -45,16 +53,12 @@ const AdminSidebar = () => {
               <div className="bg-orange-500 hidden md:block p-2 rounded-full">
                 <FaShoppingCart className="h-6  w-6 text-white" />
               </div>
-              {isOpen && <h1 className="text-xl font-bold">Larkon</h1>}
+              {isOpen && (
+                <h1 className=" sm:text-medium md:text-lg lg:text-xl font-bold">
+                  Larkon
+                </h1>
+              )}
             </div>
-            <button
-              className={`text-red-400 absolute ${isOpen ? "left-[160px] md:left-[280px] md:top-5" : "top-5 left-5 md:left-36"} hover:text-white`}
-              onClick={() => toggleSidebar()} // arrow button for collaps sidebar
-            >
-              <RxHamburgerMenu
-                className={`h-6 w-6 transform text-black ${isOpen ? "rotate-180" : ""}`}
-              />
-            </button>
           </div>
 
           {/*============ Navigation Links=========== */}
@@ -89,14 +93,13 @@ const AdminSidebar = () => {
               path="/admin/dashboard/category-list"
             />
 
-
             <SidebarItem
               icon={<GoChecklist />}
               isOpen={isOpen}
               label="Product"
               path={`/${user?.role}/dashboard/product`}
             />
-             <SidebarItem
+            <SidebarItem
               icon={<GoChecklist />}
               isOpen={isOpen}
               label="Shop"

@@ -73,7 +73,7 @@ const AdminDashboard: React.FC = () => {
       </p>
 
       {/* Cards */}
-      <div className="grid grid-cols-1 mb-7  md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 mb-7  md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Earnings */}
         <Card className="p-4" shadow="sm">
           <CardBody>
@@ -82,12 +82,12 @@ const AdminDashboard: React.FC = () => {
                 <FaUser className="text-xl text-white" />
               </span>
               <div>
-                <p className="text-[#23232d] text-lg ">Total Vendor</p>
+                <p className="text-[#23232d] text-sm font-bold sm:text-medium md:text-lg ">Total Vendor</p>
                 <h2 className="text-lg font-bold">
                   {metaInfo?.data?.vendorCount}
                 </h2>
 
-                <p className="mt-2 inline-block">View net earnings</p>
+                <p className="mt-2 text-sm  sm:text-medium md:text-lg inline-block">View net earnings</p>
               </div>
             </div>
           </CardBody>
@@ -102,12 +102,12 @@ const AdminDashboard: React.FC = () => {
                 <FaUsers className="text-xl   text-white" />
               </span>
               <div>
-                <p className="text-[#23232d] text-sm ">Total User</p>
+                <p className="text-[#23232d] text-sm font-bold sm:text-medium md:text-lg ">Total User</p>
                 <h2 className="text-lg font-bold">
                   {metaInfo?.data?.userCount}
                 </h2>
 
-                <p className="mt-2 inline-block">View net earnings</p>
+                <p className="mt-2  text-sm  sm:text-medium md:text-lg inline-block">View net earnings</p>
               </div>
             </div>
           </CardBody>
@@ -121,12 +121,12 @@ const AdminDashboard: React.FC = () => {
                 <FaUserCircle className="text-xl   text-white" />
               </span>
               <div>
-                <p className="text-[#23232d] text-sm ">Total Admin</p>
+                <p className="text-[#23232d] text-sm font-bold sm:text-medium md:text-lg ">Total Admin</p>
                 <h2 className="text-lg font-bold">
                   {metaInfo?.data?.adminCount}
                 </h2>
 
-                <p className="mt-2 inline-block">View net earnings</p>
+                <p className="mt-2  text-sm  sm:text-medium md:text-lg inline-block">View net earnings</p>
               </div>
             </div>
           </CardBody>
@@ -141,12 +141,12 @@ const AdminDashboard: React.FC = () => {
                 <FaDollarSign className="text-xl text-white" />
               </span>
               <div>
-                <p className="text-[#23232d] text-sm ">Total Profit</p>
+                <p className="text-[#23232d]text-sm font-bold sm:text-medium md:text-lg ">Total Profit</p>
                 <h2 className="text-lg font-bold">
                   {metaInfo?.data?.totalRevenu}
                 </h2>
 
-                <p className="mt-2 inline-block">View net earnings</p>
+                <p className="mt-2  text-sm  sm:text-medium md:text-lg inline-block">View net earnings</p>
               </div>
             </div>
           </CardBody>

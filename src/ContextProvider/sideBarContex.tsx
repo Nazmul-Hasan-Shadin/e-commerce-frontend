@@ -10,7 +10,7 @@ interface SideBarProps {
 const sideBarContext = createContext<SideBarProps | undefined>(undefined);
 
 export const SideBarProvider = ({ children }: { children: ReactNode }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const toggleSidebar = () => setIsOpen((prev) => !prev);
 
   return (
