@@ -15,6 +15,7 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
+  Tooltip,
 } from "@heroui/react";
 import React from "react";
 import {
@@ -24,41 +25,38 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { FaTrash, FaTurnDown } from "react-icons/fa6";
-import { useUpdateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
+import {
+  useDeleteProductMutation,
+  useGetProductByShopIdQuery,
+  useUpdateProductMutation,
+} from "@/src/redux/feature/vendor/vendor.api";
 import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 import { format } from "date-fns";
-import { useGetAllShopsQuery } from "@/src/redux/feature/shop/shop.api";
+import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
+import { skipToken } from "@reduxjs/toolkit/query";
+import { MdEdit } from "react-icons/md";
 
 const columns = [
   {
-    key: "logo",
-    label: "Logo",
+    key: "images",
+    label: "Image",
   },
   {
     key: "name",
-    label: "Shop Name",
+    label: "NAME",
   },
   {
-    key: "totalProduct",
-    label: "TotalProduct",
+    key: "category",
+    label: "Category",
   },
   {
-    key: "totalOrder",
-    label: "Total Orders",
+    key: "price",
+    label: "Price",
   },
-  {
-    key: "totalFollower",
-    label: "Total Follower",
-  },
-    {
-    key: "status",
-    label: "Status",
-  },
-  
   {
     key: "createdAt",
-    label: "createdAt",
+    label: "Product Uploaded",
   },
   {
     key: "action",
@@ -67,12 +65,9 @@ const columns = [
 ];
 const INITIAL_VISIBLE_COLUMNS = [
   "name",
-  "logo",
+  "images",
+  "price",
   "createdAt",
-  "totalOrder",
-  "status",
-  "totalFollower",
-  "totalProduct",
   "action",
 ];
 
@@ -80,25 +75,32 @@ export function capitalize(s) {
   return s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : "";
 }
 
-const Tablecib = () => {
+const Vendor = () => {
   const [selectedKeys, setSelectedKeys] = React.useState(new Set(["2"]));
   const [page, setPage] = React.useState(1);
   const [filterValue, setFilterValue] = React.useState("");
   const [statusFilter, setStatusFilter] = React.useState("all");
+
   const [visibleColumns, setVisibleColumns] = React.useState(
     new Set(INITIAL_VISIBLE_COLUMNS)
   );
-  const { data: shopLists, isLoading } = useGetAllShopsQuery("");
+  const { data: vendorInfo } = useGetCurrentUserQuery(undefined);
+
+  const shopId = vendorInfo?.data?.shop?.id;
+
+  const { data: productList, isLoading } = useGetProductByShopIdQuery(
+    shopId ? { shopId } : skipToken
+  );
+
   const [handleUpdateProduct] = useUpdateProductMutation();
-  const [handleDeleteCategory] = useDeleteCategoryMutation();
-  console.log({ shopLists });
 
-  const shops = shopLists?.data || [];
+  const [handleDeleteProduct] = useDeleteProductMutation();
 
+  const products = productList?.data?.data || [];
   const hasSearchFilter = Boolean(filterValue);
 
   const filteredItems = React.useMemo(() => {
-    let filteredUsers = [...shops];
+    let filteredUsers = [...products];
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
@@ -115,7 +117,7 @@ const Tablecib = () => {
     }
 
     return filteredUsers;
-  }, [shopLists, filterValue, statusFilter]);
+  }, [products, filterValue, statusFilter]);
 
   const rowsPerPage = 3;
 
@@ -159,6 +161,8 @@ const Tablecib = () => {
   };
 
   const onSearchChange = React.useCallback((value) => {
+    console.log("search value", value);
+
     if (value) {
       setFilterValue(value);
       setPage(1);
@@ -195,11 +199,11 @@ const Tablecib = () => {
 
     if (confirmDelete) {
       try {
-        await handleDeleteCategory(id);
-        toast.success("Category deleted successful");
+        await handleDeleteProduct({ id });
+        toast.success("Product deleted successfully");
       } catch (error) {
         console.error("Error deleting product:", error);
-        toast.error("failed to deletee");
+        toast.error("Failed to delete");
       }
     }
   };
@@ -209,12 +213,12 @@ const Tablecib = () => {
       <div className=" p- md:p-4 lg:p-6 bg-white">
         <div className="flex justify-between">
           <h2 className="md:text-md lg:text-xl font-bold text-gray-800 ">
-            Shop Name
+            Manage Product
           </h2>
-          <Link href={"/admin/dashboard/category"}>
+          <Link href={"/vendor/dashboard/product"}>
             <Button className="bg-primary-color text-white rounded-sm">
               {" "}
-              Create Category
+              Create Product
             </Button>
           </Link>
         </div>
@@ -293,26 +297,37 @@ const Tablecib = () => {
               <TableRow className="border p-0" key={item.id}>
                 {(columnKey) => (
                   <TableCell>
-                    {columnKey === "logo" ? (
-                      <Image width={80} height={70} src={item?.logo} alt="" />
+                    {columnKey === "images" ? (
+                      <Image
+                        width={80}
+                        height={70}
+                        src={item?.images[0]}
+                        alt=""
+                      />
                     ) : columnKey === "action" ? (
                       <div className="flex gap-4">
-                        <FaEdit
-                          className="text-2xl  text-primary-color"
-                          onClick={() => handleEdit(item.id)}
-                        />
+                        <Link
+                          href={`/vendor/dashboard/products/update-product/${item?.id}`}
+                        >
+                          <Tooltip content="Edit Product" placement="top">
+                            <MdEdit
+                              size={40}
+                              style={{
+                                cursor: "pointer",
+                                padding: "8px",
+                                borderRadius: "8px",
+                                transition: "background-color 0.3s ease",
+                                backgroundColor: "rgba(69, 36, 219, 0.1)",
+                              }}
+                            />
+                          </Tooltip>
+                        </Link>
 
                         <FaTrash
                           className="text-2xl text-primary-color"
                           onClick={() => handleDelete(item.id)}
                         />
                       </div>
-                    ) : columnKey === "totalOrder" ? (
-                      getKeyValue(item._count.Order, columnKey)
-                    ): columnKey === "totalProduct" ? (
-                      getKeyValue(item._count.product, columnKey)
-                    ): columnKey === "totalFollower" ? (
-                      getKeyValue(item._count.shopFollower, columnKey)
                     ) : columnKey === "createdAt" ? (
                       format(
                         new Date(getKeyValue(item, columnKey)),
@@ -332,4 +347,4 @@ const Tablecib = () => {
   );
 };
 
-export default Tablecib;
+export default Vendor;

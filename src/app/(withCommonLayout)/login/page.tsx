@@ -17,6 +17,7 @@ import { verifyToken } from "@/src/utils/verifyToke";
 import { setUser } from "@/src/redux/feature/auth/auth.slice";
 import { useAppDispatch } from "@/src/redux/hook";
 import { loginHandler } from "@/src/services/auth";
+import Link from "next/link";
 
 // Define role type for stricter type checking
 type Role = "user" | "admin" | "vendor";
@@ -208,9 +209,9 @@ const Login = () => {
           {/* Signup Redirect */}
           <div className="text-center text-sm">
             <span>Don&apos;t have an account?</span>
-            <a className="text-[#fd6506] hover:underline ml-1" href="/signup">
+            <Link className="text-[#fd6506] hover:underline ml-1" href="/register">
               Sign Up
-            </a>
+            </Link>
           </div>
         </EForm>
       </div>

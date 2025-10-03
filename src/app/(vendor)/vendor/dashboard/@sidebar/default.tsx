@@ -7,21 +7,29 @@ import { FaPlus } from "react-icons/fa6";
 
 import { useAppSelector } from "@/src/redux/hook";
 import { SidebarItem } from "@/src/components/module/vendor/SidebarItem";
+import { useSideBar } from "@/src/ContextProvider/sideBarContex";
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(true);
-  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  // const [isOpen, setIsOpen] = useState(true);
+  // const [openMenu, setOpenMenu] = useState<string | null>(null);
   const user = useAppSelector((state) => state.auth.user);
 
-  const toggleMenu = (menu: string) => {
-    setOpenMenu(openMenu === menu ? null : menu);
-  };
+  const { isOpen, toggleSidebar } = useSideBar();
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   return (
-    <div className={`${isOpen ? "md:w-[256] " : "w-20"}`}>
-      <div className="fixed">
+    <div>
+      <button
+        className={`text-red-400 absolute ${isOpen ? "left-[173px] md:left-[280px] top-3 md:top-5" : "top-5 left-5 lg:left-28 md:left-24"} hover:text-white z-20`}
+        onClick={() => toggleSidebar()} // arrow button for collaps sidebar
+      >
+        <RxHamburgerMenu
+          className={`h-6 w-6 transform text-black ${isOpen ? "rotate-180" : ""}`}
+        />
+      </button>
+      <div className={`${isOpen ? "lg:w-full " : "   lg:w-20"} fixed`}>
         <div
-          className={`flex flex-col bg-white text-black h-screen  ${
+          className={`flex flex-col bg-gray-800 h-screen text-white ${
             isOpen ? " md:block md:w-64 lg:w-64" : "w-0 md:w-20"
           } transition-all duration-300`}
         >
@@ -33,14 +41,6 @@ const Sidebar = () => {
               </div>
               {isOpen && <h1 className="text-xl font-bold">Dashboard</h1>}
             </div>
-            <button
-              className={`text-red-400 absolute ${isOpen ? "left-[160px] md:left-[280px] md:top-5" : "top-5 left-5 md:left-36"} hover:text-white`}
-              onClick={() => setIsOpen(!isOpen)} // arrow button for collaps sidebar
-            >
-              <RxHamburgerMenu
-                className={`h-6 w-6 transform text-black ${isOpen ? "rotate-180" : ""}`}
-              />
-            </button>
           </div>
 
           {/* Navigation Links */}
@@ -77,54 +77,6 @@ const Sidebar = () => {
               label=" Products"
               path={`/${user?.role}/dashboard/products`}
             />
-
-            {/* Products
-            {user && (
-              <SidebarMenu
-                label="Products"
-                icon={<FaTshirt />}
-                isOpen={isOpen}
-                isMenuOpen={openMenu === "products"}
-                onClick={() => toggleMenu("products")}
-                items={[
-                  {
-                    name: "Create Products",
-                    path: "/vendor/dashboard/products/add-product",
-                  },
-                  {
-                    name: "Products",
-                    path: `/${user.role}/dashboard/products`,
-                  },
-                ]}
-              />
-            )} */}
-
-            {/* Inventory */}
-            {/* <SidebarMenu
-              label="Inventory"
-              icon={<FaWarehouse />}
-              isOpen={isOpen}
-              isMenuOpen={openMenu === "inventory"}
-              onClick={() => toggleMenu("inventory")}
-              items={[
-                { name: "Warehouse", path: "/inventory/warehouse" },
-                { name: "Received Orders", path: "/inventory/received-orders" },
-              ]}
-            /> */}
-
-            {/* Orders */}
-            {/* {user && (
-              <SidebarMenu
-                label="Orders"
-                icon={<FaBoxOpen />}
-                isOpen={isOpen}
-                isMenuOpen={openMenu === "orders"}
-                onClick={() => toggleMenu("orders")}
-                items={[
-                  { name: "All Orders", path: `/${user.role}/dashboard/order` },
-                ]}
-              />
-            )} */}
 
             {user && (
               <SidebarItem

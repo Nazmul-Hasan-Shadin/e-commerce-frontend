@@ -39,7 +39,7 @@ const vendorApi = baseApi.injectEndpoints({
           url: `/product/shop/products/${shopQuery.shopId}`,
           method: "GET",
           params: {
-            page: shopQuery.page,
+            page: shopQuery?.page,
           },
         };
       },
