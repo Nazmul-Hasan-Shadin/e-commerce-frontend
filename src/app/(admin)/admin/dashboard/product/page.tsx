@@ -24,12 +24,19 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { FaTrash, FaTurnDown } from "react-icons/fa6";
-import { useUpdateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
+import {
+  useGetAllProductQuery,
+  useUpdateProductMutation,
+} from "@/src/redux/feature/vendor/vendor.api";
 import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 import { format } from "date-fns";
 
 const columns = [
+  {
+    key: "shop",
+    label: "Shop",
+  },
   {
     key: "name",
     label: "NAME",
@@ -37,6 +44,15 @@ const columns = [
   {
     key: "images",
     label: "Image",
+  },
+
+  {
+    key: "category",
+    label: "Category",
+  },
+  {
+    key: "price",
+    label: "Price",
   },
   {
     key: "createdAt",
@@ -47,7 +63,15 @@ const columns = [
     label: "Action",
   },
 ];
-const INITIAL_VISIBLE_COLUMNS = ["name", "images", "createdAt", "action"];
+const INITIAL_VISIBLE_COLUMNS = [
+  "name",
+  "images",
+  "price",
+  "shop",
+  "category",
+  "createdAt",
+  "action",
+];
 
 export function capitalize(s) {
   return s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : "";
@@ -61,16 +85,16 @@ const Tablecib = () => {
   const [visibleColumns, setVisibleColumns] = React.useState(
     new Set(INITIAL_VISIBLE_COLUMNS)
   );
-  const { data: categroyList, isLoading } = useGetAllCategoryQuery("");
+  const { data: categroyList, isLoading } = useGetAllProductQuery("");
   const [handleUpdateProduct] = useUpdateProductMutation();
   const [handleDeleteCategory] = useDeleteCategoryMutation();
 
-  const category = categroyList?.data || [];
+  const products = categroyList?.data?.data || [];
 
   const hasSearchFilter = Boolean(filterValue);
 
   const filteredItems = React.useMemo(() => {
-    let filteredUsers = [...category];
+    let filteredUsers = [...products];
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
@@ -87,9 +111,9 @@ const Tablecib = () => {
     }
 
     return filteredUsers;
-  }, [category, filterValue, statusFilter]);
+  }, [products, filterValue, statusFilter]);
 
-  const rowsPerPage = 3;
+  const rowsPerPage = 7;
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -263,36 +287,44 @@ const Tablecib = () => {
           </TableHeader>
 
           <TableBody items={items}>
-            {(item) => (
-              <TableRow className="border" key={item.id}>
-                {(columnKey) => (
-                  <TableCell>
-                    {columnKey === "images" ? (
-                      <Image width={80} height={70} src={item?.images} alt="" />
-                    ) : columnKey === "action" ? (
-                      <div className="flex gap-4">
-                        <FaEdit
-                          className="text-2xl  text-primary-color"
-                          onClick={() => handleEdit(item.id)}
-                        />
+            {(item) => {
+              console.log(item, "iam item");
 
-                        <FaTrash
-                          className="text-2xl text-primary-color"
-                          onClick={() => handleDelete(item.id)}
+              return (
+                <TableRow className="border" key={item.id}>
+                  {(columnKey) => (
+                    <TableCell>
+                      {columnKey === "images" ? (
+                        <Image
+                          width={50}
+                          height={400}
+                          src={item?.images[0]}
+                          alt=""
                         />
-                      </div>
-                    ) : columnKey === "createdAt" ? (
-                      format(
-                        new Date(getKeyValue(item, columnKey)),
-                        "dd/MM/yyyy"
-                      )
-                    ) : (
-                      getKeyValue(item, columnKey)
-                    )}
-                  </TableCell>
-                )}
-              </TableRow>
-            )}
+                      ) : columnKey === "category" ? (
+                        getKeyValue(item?.category?.name, columnKey)
+                      ) : columnKey === "shop" ? (
+                        getKeyValue(item?.shop?.name, columnKey)
+                      ) : columnKey === "action" ? (
+                        <div className="flex gap-4">
+                          <FaTrash
+                            className="text-2xl text-primary-color"
+                            onClick={() => handleDelete(item.id)}
+                          />
+                        </div>
+                      ) : columnKey === "createdAt" ? (
+                        format(
+                          new Date(getKeyValue(item, columnKey)),
+                          "dd/MM/yyyy"
+                        )
+                      ) : (
+                        getKeyValue(item, columnKey)
+                      )}
+                    </TableCell>
+                  )}
+                </TableRow>
+              );
+            }}
           </TableBody>
         </Table>
       </div>

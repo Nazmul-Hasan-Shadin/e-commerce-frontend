@@ -89,6 +89,19 @@ const AdminSidebar = () => {
               path="/admin/dashboard/category-list"
             />
 
+
+            <SidebarItem
+              icon={<GoChecklist />}
+              isOpen={isOpen}
+              label="Product"
+              path={`/${user?.role}/dashboard/product`}
+            />
+             <SidebarItem
+              icon={<GoChecklist />}
+              isOpen={isOpen}
+              label="Shop"
+              path={`/${user?.role}/dashboard/shop`}
+            />
             {/* Orders */}
 
             <SidebarItem

@@ -11,9 +11,11 @@ import { useAppSelector } from "@/src/redux/hook";
 import { verifyToken } from "@/src/utils/verifyToke";
 import { ModifiedJwtPayload } from "@/src/types";
 import { SidebarItem } from "@/src/components/module/vendor/SidebarItem";
+import { useSideBar } from "@/src/ContextProvider/sideBarContex";
 
 const AdminSidebar = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  // const [isOpen, setIsOpen] = useState(true);
+  const { isOpen, toggleSidebar } = useSideBar();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const token = useAppSelector((state) => state.auth.token);
 
@@ -30,7 +32,7 @@ const AdminSidebar = () => {
   };
 
   return (
-    <div className={`${isOpen ? "md:w-[256] " : "w-20"}`}>
+    <div className={`${isOpen ? "lg:w-full " : "w-20"}`}>
       <div className="fixed">
         <div
           className={`flex flex-col bg-gray-800 h-screen text-white ${
@@ -47,7 +49,7 @@ const AdminSidebar = () => {
             </div>
             <button
               className={`text-red-400 absolute ${isOpen ? "left-[160px] md:left-[280px] md:top-5" : "top-5 left-5 md:left-36"} hover:text-white`}
-              onClick={() => setIsOpen(!isOpen)} // arrow button for collaps sidebar
+              onClick={() => toggleSidebar()} // arrow button for collaps sidebar
             >
               <RxHamburgerMenu
                 className={`h-6 w-6 transform text-black ${isOpen ? "rotate-180" : ""}`}
@@ -87,6 +89,19 @@ const AdminSidebar = () => {
               path="/admin/dashboard/category-list"
             />
 
+
+            <SidebarItem
+              icon={<GoChecklist />}
+              isOpen={isOpen}
+              label="Product"
+              path={`/${user?.role}/dashboard/product`}
+            />
+             <SidebarItem
+              icon={<GoChecklist />}
+              isOpen={isOpen}
+              label="Shop"
+              path={`/${user?.role}/dashboard/shop`}
+            />
             {/* Orders */}
 
             <SidebarItem

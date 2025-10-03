@@ -36,7 +36,7 @@ function InnerLayout({
         <div className="relative z-30">
           <div className=" top-0 left-0">{sidebar}</div>
         </div>
-        <main className={`w-full bg-[#F5F6FA] absolute md:relative z-10 ${isOpen?'ml-[256px]':''}`}>
+        <main className={`w-full bg-[#F1F5F9] absolute md:relative z-10 ${isOpen?'ml-[256px]':''}`}>
           <DashboardNavbar />
           {children}
         </main>

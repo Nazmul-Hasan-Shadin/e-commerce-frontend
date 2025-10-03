@@ -77,6 +77,8 @@ const ShopPage = () => {
           >
             <Image
               alt={product.name}
+              width={50}
+              height={40}
               className="w-full h-48 object-cover rounded-md"
               src={product.image}
             />

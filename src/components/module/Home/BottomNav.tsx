@@ -37,7 +37,7 @@ const BottomNav = () => {
   const [searchQuery, setSearchQuery] = useState<string | null>();
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState<
     string | null
-  >();
+  >("");
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = React.useState(false);
   const [isSearcIconClick, setIsSearchIconClick] = useState<boolean>(false);
@@ -80,6 +80,12 @@ const BottomNav = () => {
     return () => clearTimeout(debounceTimeout);
   }, [searchQuery]);
 
+  useEffect(() => {
+    if (debouncedSearchQuery?.length === 0) {
+      setIsSearchIconClick((prev) => !prev);
+    }
+  }, [debouncedSearchQuery]);
+
   const { data: searchResult } = useGetAllProductQuery(
     debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken
   );
@@ -114,10 +120,10 @@ const BottomNav = () => {
               />
             )}
 
-            {debouncedSearchQuery && searchResult?.data.length && (
+            {debouncedSearchQuery && searchResult?.data?.data.length && (
               <SearchResultList
                 dynamicStyle={isSearcIconClick}
-                searchResult={searchResult?.data}
+                searchResult={searchResult?.data?.data}
               />
             )}
           </NavbarContent>
@@ -265,15 +271,13 @@ const BottomNav = () => {
           {/* =========================for small device menu====================== */}
 
           <NavbarMenu>
-            <NavbarMenu>
-              {menuItems.map((menu, index) => (
-                <NavbarItem key={index} className="text-white">
-                  <Link className="text-black" href={menu.link}>
-                    {menu.label}
-                  </Link>
-                </NavbarItem>
-              ))}
-            </NavbarMenu>
+            {menuItems.map((menu, index) => (
+              <NavbarItem key={index} className="text-white">
+                <Link className="text-black" href={menu.link}>
+                  {menu.label}
+                </Link>
+              </NavbarItem>
+            ))}
           </NavbarMenu>
 
           {/* =================icons fro large  device========== */}
