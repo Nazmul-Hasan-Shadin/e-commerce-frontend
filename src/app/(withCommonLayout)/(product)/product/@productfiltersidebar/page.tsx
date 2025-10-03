@@ -157,65 +157,6 @@ const SidebarFilter = forwardRef<HTMLDivElement>(() => {
               ))}
             </div>
           </div>
-          <div className="space-y-3 mt-3">
-            <span>Color</span>
-            <div className="flex flex-col gap-3">
-              {["Black", "Blue", "Red", "Gray", "Dark"].map((color) => (
-                <div key={color} className="flex items-center space-x-2">
-                  <input
-                    checked={selectedColors.includes(color)}
-                    className="h-4 w-4 rounded border-gray-400 text-blue-500 focus:ring-2 focus:ring-blue-500"
-                    id={color}
-                    type="checkbox"
-                    onChange={() => handleColorChange(color)}
-                  />
-                  <label className="text-[#757575]" htmlFor={color}>
-                    {color}
-                  </label>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-3 mt-3">
-            <span>Color</span>
-            <div className="flex flex-col gap-3">
-              {["Black", "Blue", "Red", "Gray", "Dark"].map((color) => (
-                <div key={color} className="flex items-center space-x-2">
-                  <input
-                    checked={selectedColors.includes(color)}
-                    className="h-4 w-4 rounded border-gray-400 text-blue-500 focus:ring-2 focus:ring-blue-500"
-                    id={color}
-                    type="checkbox"
-                    onChange={() => handleColorChange(color)}
-                  />
-                  <label className="text-[#757575]" htmlFor={color}>
-                    {color}
-                  </label>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-3 mt-3">
-            <span>Color</span>
-            <div className="flex flex-col gap-3">
-              {["Black", "Blue", "Red", "Gray", "Dark"].map((color) => (
-                <div key={color} className="flex items-center space-x-2">
-                  <input
-                    checked={selectedColors.includes(color)}
-                    className="h-4 w-4 rounded border-gray-400 text-blue-500 focus:ring-2 focus:ring-blue-500"
-                    id={color}
-                    type="checkbox"
-                    onChange={() => handleColorChange(color)}
-                  />
-                  <label className="text-[#757575]" htmlFor={color}>
-                    {color}
-                  </label>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </Container>
     </div>

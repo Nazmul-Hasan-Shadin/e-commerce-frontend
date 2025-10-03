@@ -89,7 +89,7 @@ const Card = ({ product }: { product: IProduct }) => {
     }
   };
 
-  const handleCompare = async (product:IProduct) => {
+  const handleCompare = async (product: IProduct) => {
     if (!compareProducts.find((item) => item.id === product.id)) {
       dispatch(addToCompare(product));
       toast.success("product has added to compare");
@@ -114,16 +114,16 @@ const Card = ({ product }: { product: IProduct }) => {
           />
         </div>
 
-        <div className=" font-bold  text-sm md:text-lg absolute top-0 text-primary-color p-1 left-1">
+        <div className=" font-bold  sm:text-sm md:text-lg absolute top-0 text-primary-color p-1 left-1">
           <IoGitCompareOutline
             onClick={() => handleCompare(product)}
-            className="text-2xl font-bold text-primary-color"
+            className=" text-medium sm:text-xl md:text-xl lg:text-2xl font-bold text-primary-color"
           />
         </div>
 
         {/* Card Header */}
         <CardHeader className="md:h-full p-2  md:p-1">
-          <h3 className="font-semibold md:text-medium  md:font-semibold 2xl:text-xl text-gray-800">
+          <h3 className="font-light   sm:font-semibold md:font-semibold text-sm sm:text-medium  md:text-xl  lg:text-xl 2xl:text-xl text-gray-800">
             {getShortName(product?.name)}
           </h3>
           <br />
@@ -149,7 +149,7 @@ const Card = ({ product }: { product: IProduct }) => {
         {/* Card Footer */}
         <CardFooter className="p-1  sm:flex md:gap-3 sm:justify-between md:flex 2xl:flex 2xl:justify-between gap-2  md:justify-between">
           <Button
-            className=" md:hidden rounded-none text-[13px] sm:p-5 sm:w-32 sm:text-medium md:text-sm bg-primary-color text-white"
+            className=" md:hidden rounded-[1px] sm:p-5 sm:w-32 text-[11px] sm:text-medium md:text-sm bg-primary-color text-white"
             size="sm"
             variant="bordered"
             onPress={handleAddToCart}
@@ -158,33 +158,20 @@ const Card = ({ product }: { product: IProduct }) => {
           </Button>
           {/* ==============add to cart for medium device======== */}
           <Button
-            className="text-sm sm:text-medium md:text-sm md:flex-1 2xl:flex-1 rounded-sm hidden md:block   bg-primary-color text-white"
+            className="text-sm sm:text-medium md:text-lg md:flex-1 2xl:flex-1 rounded-sm hidden md:block   bg-primary-color text-white"
             variant="bordered"
             onClick={handleAddToCart}
           >
             Add to cart
           </Button>
           <Link href={`/product-details/${product.id}`}>
-            <button className="text-sm sm:text-medium md:text-sm 2xl:text-medium ">
+            <button className="text-[11px] sm:text-medium md:text-lg 2xl:text-medium ">
               Details
             </button>
           </Link>
         </CardFooter>
 
-        {/* <CardFooter className="md:p-3 md:hidden flex justify-between gap-2">
-          <Button onClick={handleAddToCart} variant="bordered" size="sm">
-            Add to cart
-          </Button>
-          <Link href={`/product-details/${product.id}`}>
-            <Button
-              size="sm"
-              variant="bordered"
-              className="w-4 text-[13px] md:w-28 "
-            >
-              Details
-            </Button>
-          </Link> */}
-        {/* </CardFooter> */}
+       
       </NextCard>
     </div>
   );
