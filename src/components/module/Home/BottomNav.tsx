@@ -304,7 +304,7 @@ const BottomNav = () => {
 
             <NavbarItem className=" flex flex-col justify-center">
               <div className=" flex flex-col justify-center items-center  mx-auto">
-                <IoCartOutline className="text-3xl" />
+               <Link href={'/cart'}> <IoCartOutline  className="text-3xl" /></Link>
               </div>
             </NavbarItem>
           </NavbarContent>

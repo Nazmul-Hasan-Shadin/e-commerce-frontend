@@ -38,13 +38,15 @@ const CartPage = () => {
 
   return (
     <Container>
-      <section>
-        <div className="h-[200px] flex justify-start items-center">
-          <div className="p-4">
-            <h2 className="font-bold text-2xl">Cart</h2>
+      <section className= " p-2 sm:p-2 md:p-3 lg:p-4">
+        <div className="h-[100px] flex justify-start items-center ">
+          <div className=" ">
+            <h2 className="font-bold text-lg md:text-xl lg:text-2xl">Cart</h2>
             <p>Home `&gt;` cart </p>
           </div>
+        
         </div>
+    
         <section className="grid grid-cols-12">
           <div className="col-span-12 sm:col-span-8 2xl:col-span-8  border">
             {/* ==========Tables Header============ */}
@@ -58,7 +60,7 @@ const CartPage = () => {
             </div>
             <Divider className="w-[97%] mx-auto mb-4" />
 
-            {cartItems.length >= 0 ? (
+            {cartItems.length > 0 ? (
               <div>
                 {cartItems.map((cart, index) => (
                   <div key={cart?.id}>
@@ -73,16 +75,16 @@ const CartPage = () => {
                         />
                       </figure>
 
-                      <h2 className="col-span-3 text-sm sm:text-medium font-bold">
+                      <h2 className="col-span-3 text-sm sm:text-medium font-medium md:font-bold">
                         {cart?.name}
                       </h2>
-                      <p> {cart?.price} </p>
-                      <p>{cart?.quantity} </p>
-                      <p>${cart?.price * cart?.quantity} </p>
-                      <p className="flex justify-center">
-                        <Button onClick={() => handleRemoveFromCart(cart?.id)}>
-                          <RxCross1 />
-                        </Button>{" "}
+                      <p className="text-sm md:text-medium"> {cart?.price} </p>
+                      <p className="text-sm md:text-medium">{cart?.quantity} </p>
+                      <p className="text-sm md:text-medium">${cart?.price * cart?.quantity} </p>
+                      <p className="flex  justify-center">
+                        <RxCross1
+                          onClick={() => handleRemoveFromCart(cart?.id)}
+                        />
                       </p>
                     </div>
                     <Divider className="w-[97%]  mx-auto" />
@@ -90,8 +92,8 @@ const CartPage = () => {
                 ))}
               </div>
             ) : (
-              <div className="h-52 flex justify-center items-center">
-                <h3>Product not found</h3>
+              <div className="h-52  flex justify-center items-center">
+                <h3 className="text-black">Oh no ! your cart is empty</h3>
               </div>
             )}
 
@@ -120,13 +122,13 @@ const CartPage = () => {
 
           {/* =================right side part=========== */}
           <div className="col-span-12 sm:col-span-3 2xl:col-span-3 border p-3">
-            <h2 className="text-xl font-bold ">Order Summary</h2>
+            <h2 className="md:text-xl font-semibold md:font-bold ">Order Summary</h2>
             <div className="space-y-2">
               <p>Total before VAT: {totalAmount} </p>
               <p>VAT</p>
-              <p className="font-bold">Total including VAT {totalAmount}</p>
+              <p className="font-medium">Total including VAT {totalAmount}</p>
               <Divider />
-              <p className="text-medium font-bold">Discount 0</p>
+              <p className="text-medium font-medium">Discount 0</p>
               <Divider />
               <p className="font-bold">Total {totalAmount}</p>
             </div>
