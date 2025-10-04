@@ -51,11 +51,11 @@ const columns = [
     key: "totalFollower",
     label: "Total Follower",
   },
-    {
+  {
     key: "status",
     label: "Status",
   },
-  
+
   {
     key: "createdAt",
     label: "createdAt",
@@ -76,7 +76,7 @@ const INITIAL_VISIBLE_COLUMNS = [
   "action",
 ];
 
-export function capitalize(s) {
+function capitalize(s: string) {
   return s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : "";
 }
 
@@ -105,14 +105,14 @@ const Tablecib = () => {
         user.name.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
-    if (
-      statusFilter !== "all" &&
-      Array.from(statusFilter).length !== statusOptions.length
-    ) {
-      filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.status)
-      );
-    }
+    // if (
+    //   statusFilter !== "all" &&
+    //   Array.from(statusFilter).length !== statusOptions.length
+    // ) {
+    //   filteredUsers = filteredUsers.filter((user) =>
+    //     Array.from(statusFilter).includes(user.status)
+    //   );
+    // }
 
     return filteredUsers;
   }, [shopLists, filterValue, statusFilter]);
@@ -128,7 +128,7 @@ const Tablecib = () => {
     return filteredItems.slice(start, end);
   }, [page, filteredItems]);
 
-  const SearchIcon = (props) => {
+  const SearchIcon = (props: any) => {
     return (
       <svg
         aria-hidden="true"
@@ -158,7 +158,7 @@ const Tablecib = () => {
     );
   };
 
-  const onSearchChange = React.useCallback((value) => {
+  const onSearchChange = React.useCallback((value: string) => {
     if (value) {
       setFilterValue(value);
       setPage(1);
@@ -175,8 +175,7 @@ const Tablecib = () => {
   //  for visible and unvisible column filter
 
   const headerColumns = React.useMemo(() => {
-    if (visibleColumns === "all") return columns;
-
+    if (visibleColumns.size === columns.length) return columns;
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.key)
     );
@@ -251,7 +250,15 @@ const Tablecib = () => {
               closeOnSelect={false}
               selectedKeys={visibleColumns}
               selectionMode="multiple"
-              onSelectionChange={setVisibleColumns}
+ onSelectionChange={(keys) => {
+    // Convert keys to Set<string>
+    const newKeys = new Set(
+      keys instanceof Set
+        ? Array.from(keys).map((k) => k.toString())
+        : [keys.toString()]
+    );
+    setVisibleColumns(newKeys);
+  }}
             >
               {columns.map((column) => (
                 <DropdownItem key={column.key} className="capitalize">
@@ -267,7 +274,14 @@ const Tablecib = () => {
           className="flex items-center"
           selectedKeys={selectedKeys}
           selectionMode="multiple"
-          onSelectionChange={setSelectedKeys}
+          onSelectionChange={(keys) => {
+            const newKeys = new Set(
+              keys instanceof Set
+                ? Array.from(keys).map((k) => k.toString())
+                : [keys.toString()]
+            );
+            setSelectedKeys(newKeys);
+          }}
           bottomContent={
             <div className="flex w-full my-3 justify-end">
               <Pagination
@@ -309,9 +323,9 @@ const Tablecib = () => {
                       </div>
                     ) : columnKey === "totalOrder" ? (
                       getKeyValue(item._count.Order, columnKey)
-                    ): columnKey === "totalProduct" ? (
+                    ) : columnKey === "totalProduct" ? (
                       getKeyValue(item._count.product, columnKey)
-                    ): columnKey === "totalFollower" ? (
+                    ) : columnKey === "totalFollower" ? (
                       getKeyValue(item._count.shopFollower, columnKey)
                     ) : columnKey === "createdAt" ? (
                       format(

@@ -71,7 +71,7 @@ const INITIAL_VISIBLE_COLUMNS = [
   "action",
 ];
 
-export function capitalize(s) {
+export function capitalize(s: string) {
   return s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : "";
 }
 
@@ -107,14 +107,14 @@ const Vendor = () => {
         user.name.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
-    if (
-      statusFilter !== "all" &&
-      Array.from(statusFilter).length !== statusOptions.length
-    ) {
-      filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.status)
-      );
-    }
+    // if (
+    //   statusFilter !== "all" &&
+    //   Array.from(statusFilter).length !== statusOptions.length
+    // ) {
+    //   filteredUsers = filteredUsers.filter((user) =>
+    //     Array.from(statusFilter).includes(user.status)
+    //   );
+    // }
 
     return filteredUsers;
   }, [products, filterValue, statusFilter]);
@@ -130,7 +130,7 @@ const Vendor = () => {
     return filteredItems.slice(start, end);
   }, [page, filteredItems]);
 
-  const SearchIcon = (props) => {
+  const SearchIcon = (props: any) => {
     return (
       <svg
         aria-hidden="true"
@@ -160,7 +160,7 @@ const Vendor = () => {
     );
   };
 
-  const onSearchChange = React.useCallback((value) => {
+  const onSearchChange = React.useCallback((value: string) => {
     console.log("search value", value);
 
     if (value) {
@@ -179,7 +179,7 @@ const Vendor = () => {
   //  for visible and unvisible column filter
 
   const headerColumns = React.useMemo(() => {
-    if (visibleColumns === "all") return columns;
+    // if (visibleColumns === "all") return columns;
 
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.key)
@@ -230,8 +230,7 @@ const Vendor = () => {
           <h2 className="md:text-md lg:text-xl font-bold text-gray-800 ">
             <Input
               isClearable
-            
-               variant="bordered"
+              variant="bordered"
               className="w-full  "
               placeholder="Search by name..."
               startContent={<SearchIcon />}
@@ -257,7 +256,20 @@ const Vendor = () => {
               closeOnSelect={false}
               selectedKeys={visibleColumns}
               selectionMode="multiple"
-              onSelectionChange={setVisibleColumns}
+              onSelectionChange={(keys) => {
+                // keys can be string | Set<Key> | SharedSelection
+                let newKeys: Set<string>;
+
+                if (keys instanceof Set) {
+                  // multiple selection
+                  newKeys = new Set(Array.from(keys).map((k) => k.toString()));
+                } else {
+                  // single selection or SharedSelection object
+                  newKeys = new Set([keys.toString()]);
+                }
+
+                setVisibleColumns(newKeys);
+              }}
             >
               {columns.map((column) => (
                 <DropdownItem key={column.key} className="capitalize">
@@ -273,7 +285,13 @@ const Vendor = () => {
           className="flex items-center"
           selectedKeys={selectedKeys}
           selectionMode="multiple"
-          onSelectionChange={setSelectedKeys}
+          onSelectionChange={(keys) => {
+            const newKeys =
+              keys instanceof Set
+                ? new Set(Array.from(keys).map((k) => k.toString()))
+                : new Set([keys.toString()]);
+            setSelectedKeys(newKeys);
+          }}
           bottomContent={
             <div className="flex w-full my-3 justify-end">
               <Pagination

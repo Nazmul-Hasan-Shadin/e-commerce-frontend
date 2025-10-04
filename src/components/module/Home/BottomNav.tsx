@@ -34,7 +34,7 @@ import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 
 const BottomNav = () => {
   const pathname = usePathname();
-  const [searchQuery, setSearchQuery] = useState<string | null>();
+  const [searchQuery, setSearchQuery] = useState<string | null>('');
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState<
     string | null
   >("");

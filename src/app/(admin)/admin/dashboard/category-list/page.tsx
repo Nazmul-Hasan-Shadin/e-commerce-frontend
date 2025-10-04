@@ -48,8 +48,7 @@ const columns = [
   },
 ];
 const INITIAL_VISIBLE_COLUMNS = ["name", "images", "createdAt", "action"];
-
-export function capitalize(s) {
+ function capitalize(s:string) {
   return s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : "";
 }
 
@@ -58,9 +57,9 @@ const Tablecib = () => {
   const [page, setPage] = React.useState(1);
   const [filterValue, setFilterValue] = React.useState("");
   const [statusFilter, setStatusFilter] = React.useState("all");
-  const [visibleColumns, setVisibleColumns] = React.useState(
-    new Set(INITIAL_VISIBLE_COLUMNS)
-  );
+const [visibleColumns, setVisibleColumns] = React.useState<Set<string>>(
+  new Set(INITIAL_VISIBLE_COLUMNS)
+);
   const { data: categroyList, isLoading } = useGetAllCategoryQuery("");
   const [handleUpdateProduct] = useUpdateProductMutation();
   const [handleDeleteCategory] = useDeleteCategoryMutation();
@@ -77,14 +76,14 @@ const Tablecib = () => {
         user.name.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
-    if (
-      statusFilter !== "all" &&
-      Array.from(statusFilter).length !== statusOptions.length
-    ) {
-      filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.status)
-      );
-    }
+    // if (
+    //   statusFilter !== "all" &&
+    //   Array.from(statusFilter).length !== statusOptions.length
+    // ) {
+    //   filteredUsers = filteredUsers.filter((user) =>
+    //     Array.from(statusFilter).includes(user.status)
+    //   );
+    // }
 
     return filteredUsers;
   }, [category, filterValue, statusFilter]);
@@ -100,7 +99,7 @@ const Tablecib = () => {
     return filteredItems.slice(start, end);
   }, [page, filteredItems]);
 
-  const SearchIcon = (props) => {
+  const SearchIcon = (props:any) => {
     return (
       <svg
         aria-hidden="true"
@@ -130,7 +129,7 @@ const Tablecib = () => {
     );
   };
 
-  const onSearchChange = React.useCallback((value) => {
+  const onSearchChange = React.useCallback((value:any) => {
     console.log("search value", value);
 
     if (value) {
@@ -149,7 +148,7 @@ const Tablecib = () => {
   //  for visible and unvisible column filter
 
   const headerColumns = React.useMemo(() => {
-    if (visibleColumns === "all") return columns;
+    // if (visibleColumns === "all") return columns;
 
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.key)
@@ -225,7 +224,7 @@ const Tablecib = () => {
               closeOnSelect={false}
               selectedKeys={visibleColumns}
               selectionMode="multiple"
-              onSelectionChange={setVisibleColumns}
+             onSelectionChange={(keys) => setVisibleColumns(new Set(keys as Set<string>))}
             >
               {columns.map((column) => (
                 <DropdownItem key={column.key} className="capitalize">
@@ -241,7 +240,7 @@ const Tablecib = () => {
           className="flex items-center"
           selectedKeys={selectedKeys}
           selectionMode="multiple"
-          onSelectionChange={setSelectedKeys}
+         onSelectionChange={(keys) => setSelectedKeys(new Set(keys as Set<string>))}
           bottomContent={
             <div className="flex w-full my-3 justify-end">
               <Pagination

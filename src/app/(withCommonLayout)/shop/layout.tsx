@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import SidebarFilter from "../(product)/product/@productfiltersidebar/page";
-import { P } from "framer-motion/dist/types.d-D0HXPxHm";
+
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const mainRef = useRef<HTMLDivElement | null>(null);
