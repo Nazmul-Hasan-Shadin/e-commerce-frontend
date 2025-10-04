@@ -32,97 +32,95 @@ const AdminSidebar = () => {
   };
 
   return (
-    <div >
-      <button
-        className={`text-red-400 absolute ${isOpen ? "left-[173px] md:left-[280px] top-3 md:top-5" : "top-5 left-5 lg:left-28 md:left-24"} hover:text-white z-20`}
-        onClick={() => toggleSidebar()} // arrow button for collaps sidebar
+    <div className={` fixed`}>
+      <div
+        className={`flex flex-col bg-gray-800 h-screen text-white ${
+          isOpen ? " w-full  md:w-64 lg:w-64" : "w-0 md:w-20"
+        } transition-all duration-300`}
       >
-        <RxHamburgerMenu
-          className={`h-6 w-6 transform text-black ${isOpen ? "rotate-180" : ""}`}
-        />
-      </button>
-      <div className={`${isOpen ? "lg:w-full " : "   lg:w-20"} fixed`} >
-        <div
-          className={`flex flex-col bg-gray-800 h-screen text-white ${
-            isOpen ? " md:block md:w-64 lg:w-64" : "w-0 md:w-20"
-          } transition-all duration-300`}
-        >
-          {/* ==========Logo and name =============== */}
-          <div className="flex items-center justify-between p-4">
-            <div className="flex items-center space-x-2 gap-4">
-              <div className="bg-orange-500 hidden md:block p-2 rounded-full">
-                <FaShoppingCart className="h-6  w-6 text-white" />
-              </div>
-              {isOpen && (
-                <h1 className=" sm:text-medium md:text-lg lg:text-xl font-bold">
-                  Larkon
-                </h1>
-              )}
+        {/* ==========Logo and name =============== */}
+        <div className="flex items-center justify-between p-1 md:p-4">
+          <div className="flex items-center space-x-2 gap-4">
+            <div className="bg-orange-500 hidden md:block p-2 rounded-full">
+              <FaShoppingCart className="h-6  w-6 text-white" />
             </div>
+            {isOpen && (
+              <h1 className=" hidden sm:block sm:text-medium md:text-lg lg:text-xl font-bold">
+                Larkon
+              </h1>
+            )}
           </div>
-
-          {/*============ Navigation Links=========== */}
-
-          <nav className="flex flex-col space-y-4 mt-6 pl-4 ">
-            {/* Dashboard */}
-            <SidebarItem
-              icon={<FaClipboardList />}
-              isOpen={isOpen}
-              label="Dashboard"
-              path="/dashboard"
-            />
-            <SidebarItem
-              icon={<IoHomeOutline />}
-              isOpen={isOpen}
-              label="Home"
-              path="/"
-            />
-
-            {/* Category */}
-
-            <SidebarItem
-              icon={<FaPlus />}
-              isOpen={isOpen}
-              label="Add Category"
-              path={`/${user?.role || "admin"}/dashboard/category`}
-            />
-            <SidebarItem
-              icon={<FaClipboardList />}
-              isOpen={isOpen}
-              label="Category"
-              path="/admin/dashboard/category-list"
-            />
-
-            <SidebarItem
-              icon={<GoChecklist />}
-              isOpen={isOpen}
-              label="Product"
-              path={`/${user?.role}/dashboard/product`}
-            />
-            <SidebarItem
-              icon={<GoChecklist />}
-              isOpen={isOpen}
-              label="Shop"
-              path={`/${user?.role}/dashboard/shop`}
-            />
-            {/* Orders */}
-
-            <SidebarItem
-              icon={<GoChecklist />}
-              isOpen={isOpen}
-              label="Order"
-              path={`/${user?.role}/dashboard/order`}
-            />
-
-            {/* Settings */}
-            <SidebarItem
-              icon={<FaCog />}
-              isOpen={isOpen}
-              label="Settings"
-              path="/settings"
-            />
-          </nav>
         </div>
+
+        <button
+          className={`text-red-400 absolute ${isOpen ? "left-[173px] md:left-[280px] top-16 md:top-5" : "top-5 left-5 lg:left-28 md:left-4"} hover:text-white z-20`}
+          onClick={() => toggleSidebar()} // arrow button for collaps sidebar
+        >
+          <RxHamburgerMenu
+            className={`h-6 w-6 transform text-black ${isOpen ? "rotate-180" : ""}`}
+          />
+        </button>
+        {/*============ Navigation Links=========== */}
+
+        <nav className="flex flex-col space-y-4 mt-6 pl-4 ">
+          {/* Dashboard */}
+          <SidebarItem
+            icon={<FaClipboardList />}
+            isOpen={isOpen}
+            label="Dashboard"
+            path="/dashboard"
+          />
+          <SidebarItem
+            icon={<IoHomeOutline />}
+            isOpen={isOpen}
+            label="Home"
+            path="/"
+          />
+
+          {/* Category */}
+
+          <SidebarItem
+            icon={<FaPlus />}
+            isOpen={isOpen}
+            label="Add Category"
+            path={`/${user?.role || "admin"}/dashboard/category`}
+          />
+          <SidebarItem
+            icon={<FaClipboardList />}
+            isOpen={isOpen}
+            label="Category"
+            path="/admin/dashboard/category-list"
+          />
+
+          <SidebarItem
+            icon={<GoChecklist />}
+            isOpen={isOpen}
+            label="Product"
+            path={`/${user?.role}/dashboard/product`}
+          />
+          <SidebarItem
+            icon={<GoChecklist />}
+            isOpen={isOpen}
+            label="Shop"
+            path={`/${user?.role}/dashboard/shop`}
+          />
+          {/* Orders */}
+
+          <SidebarItem
+            icon={<GoChecklist />}
+            isOpen={isOpen}
+            label="Order"
+            path={`/${user?.role}/dashboard/order`}
+          />
+
+          {/* Settings */}
+          <SidebarItem
+            icon={<FaCog />}
+            isOpen={isOpen}
+            label="Settings"
+            path="/settings"
+          />
+        </nav>
       </div>
     </div>
   );
