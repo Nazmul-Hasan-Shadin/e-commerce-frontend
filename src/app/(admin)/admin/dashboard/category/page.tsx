@@ -63,15 +63,25 @@ const AddCategory = () => {
   };
 
   return (
-    <div className="p-4">
-      <span className="block my-2"> <span className="text-lg">Dashboard</span> / Create category</span>
-      <div className=" bg-white shadow-lg rounded-lg border p-4">
-        <div className="flex justify-between">
-          <h2 className="md:text-md lg:text-xl font-bold text-gray-800 ">Create Category</h2>
-          <Link href={'/admin/dashboard/category-list'}><Button className="bg-primary-color text-white rounded-sm">
-            {" "}
-            Manage Category
-          </Button></Link>
+    <div className=" p-2 md:p-4">
+      <span className="block my-3 md:my-2">
+        {" "}
+        <span className="text-lg">Dashboard</span> / Create category
+      </span>
+      <div className=" bg-white shadow-lg rounded-lg  p-3 md:p-3 lg:p-4">
+        <div className="flex  items-center justify-between">
+          <h2 className="text-sm md:text-md lg:text-xl font-bold text-gray-800 ">
+            Create Category
+          </h2>
+          <Link href={"/admin/dashboard/category-list"}>
+            <Button
+              size="md"
+              className="bg-primary-color  text-white rounded-sm"
+            >
+              {" "}
+              Manage Category
+            </Button>
+          </Link>
         </div>
         <Divider className="my-4" />
 
@@ -112,7 +122,7 @@ const AddCategory = () => {
             )}
           </div>
 
-          <div className="grid grid-cols-2 gap-6 mb-4">
+          <div className="grid md:grid-cols-2 gap-6 mb-4">
             <EInput
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-[#fd6506] focus:outline-none"
               label="Name"

@@ -32,17 +32,16 @@ function InnerLayout({
   const { isOpen, toggleSidebar } = useSideBar();
 
   return (
-    <div className="flex  gap-5">
-      <div className={`relative ${isOpen ? "w-10 sm:w-auto" : ""} z-30`}>
+    <div className="flex  gap-0 sm:gap-3 md:gap-4 lg:gap-5">
+      <div className={`relative z-50 ${isOpen ? "" : ""} `}>
         <div
-          className={`lg:fixed ${`${isOpen ? "absolute md:fixed right-12px" : ""}`}   h-screen bg-gray-800 ...`}
+          className={`lg:fixed ${`${isOpen ? "absolute md:fixed right-12px" : ""}`}   h-screen bg-gray-800  `}
         >
           {sidebar}
         </div>
       </div>
-
       <button
-        className={`fixed  top-2 z-40 ${isOpen ? "left-16  md:left-[190px] lg:left-[calc(17rem)] " : "md:left-[90px] lg:left-[calc(6rem)] "}`} // sidebar open হলে পাশে
+        className={`fixed  top-2 z-50 ${isOpen ? "left-[170px] md:left-[190px] lg:left-[calc(17rem)] " : "md:left-[90px] lg:left-[calc(6rem)] "}`} // sidebar open হলে পাশে
         onClick={toggleSidebar}
       >
         <RxHamburgerMenu className="h-6 w-6 text-black bg-primary-color text-white " />

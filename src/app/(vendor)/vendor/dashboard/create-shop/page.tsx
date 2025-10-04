@@ -12,6 +12,7 @@ import EInput from "@/src/components/form/EInput";
 import FxTextArea from "@/src/components/form/ETextArea";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import { useCreateShopMutation } from "@/src/redux/feature/vendor/vendor.api";
+import Container from "@/src/components/ui/Container";
 
 const CreateShopPage = () => {
   const { isError, data: userData } = useGetCurrentUserQuery(undefined, {
@@ -78,72 +79,75 @@ const CreateShopPage = () => {
   }
 
   return (
-    <div className="w-3/4 mx-auto gap-5">
-      <h2 className="text-2xl font-bold mb-5">Create Your Shop</h2>
-      <Divider />
-      <EForm onSubmit={onSubmit}>
-        <div
-          aria-label="Upload image"
-          className="flex items-center mb-5 justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition"
-          role="button"
-          style={{ width: "100%", height: "200px" }}
-          tabIndex={0}
-          onClick={handleUploadClick}
-          onKeyPress={(event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              handleUploadClick();
-            }
-          }}
-        >
-          <input
-            ref={inputRef}
-            accept="image/*"
-            className="hidden"
-            type="file"
-            onChange={handleFileChange}
-          />
-
-          {imagePreview ? (
-            <Image
-              alt="Preview"
-              className="max-w-full max-h-full object-contain"
-              height={180}
-              src={imagePreview}
-              width={160}
-            />
-          ) : (
-            <div className="text-center text-gray-500">
-              <p>Drop your image here, or click to browse</p>
-            </div>
-          )}
-        </div>
-
-        <div className="grid grid-cols-1 gap-5">
-          <EInput
-            label="Shop Name"
-            name="name"
-            type="text"
-            variant="bordered"
-          />
-
-          <FxTextArea
-            label="Description"
-            name="description"
-            variant="bordered"
-          />
-        </div>
-
-        <div className="flex flex-end">
-          <Button
-            className="bg-primary-color text-white ml-auto"
-            type="submit"
-            variant="bordered"
+    <Container>
+      <div className=" p-2 mx-auto gap-5">
+        <h2 className="text-medium md:text-lg lg:text-xl font-bold mb-5">Create Your Shop</h2>
+        <Divider />
+        <EForm onSubmit={onSubmit}>
+          <div
+            aria-label="Upload image"
+            className="flex items-center mb-5 justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition"
+            role="button"
+            style={{ width: "100%", height: "200px" }}
+            tabIndex={0}
+            onClick={handleUploadClick}
+            onKeyPress={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                handleUploadClick();
+              }
+            }}
           >
-            Create Shop
-          </Button>
-        </div>
-      </EForm>
-    </div>
+            <input
+              ref={inputRef}
+              accept="image/*"
+              className="hidden"
+              type="file"
+              onChange={handleFileChange}
+            />
+
+            {imagePreview ? (
+              <Image
+                alt="Preview"
+                className="max-w-full max-h-full object-contain"
+                height={180}
+                src={imagePreview}
+                width={160}
+              />
+            ) : (
+              <div className="text-center text-gray-500">
+                <p>Drop your image here, or click to browse</p>
+              </div>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 gap-5">
+            <EInput
+              label="Shop Name"
+              name="name"
+              type="text"
+              variant="bordered"
+            />
+
+            <FxTextArea
+              label="Description"
+               
+              name="description"
+              variant="bordered"
+            />
+          </div>
+
+          <div className="flex mt-4 flex-end">
+            <Button
+              className="bg-primary-color text-white ml-auto"
+              type="submit"
+              variant="bordered"
+            >
+              Create Shop
+            </Button>
+          </div>
+        </EForm>
+      </div>
+    </Container>
   );
 };
 

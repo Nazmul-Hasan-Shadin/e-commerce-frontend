@@ -118,8 +118,8 @@ const NavBar = () => {
             {/* ===============user dropDown menue */}
 
             {/* =========================for small device menu====================== */}
-            
-        {/* <NavbarMenu className="z-20 ">∏
+
+            {/* <NavbarMenu className="z-20 ">∏
           {menuItems.map((menu, index) => (
             <NavbarItem key={index} className="text-white">
               <Link href={menu.link} className="text-black">
@@ -129,8 +129,6 @@ const NavBar = () => {
           ))}∏
           ∏
         </NavbarMenu>  */}
-
-          
           </Navbar>
         </Container>
       </div>

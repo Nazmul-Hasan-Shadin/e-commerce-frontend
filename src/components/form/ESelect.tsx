@@ -43,11 +43,11 @@ const ESelect = ({
         {required && <span className="text-red-500"> *</span>}
       </label>
       <Select
-     
+        labelPlacement="outside"
         id={name}
         label={label}
         {...register(name, { required })}
-        className={`p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white `}
+        className={`p-2  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white `}
         errorMessage={errors[name] ? "border-red-500" : "border-gray-300"}
         value={defaultValue || ""} // Set default value
         disabled={disabled}

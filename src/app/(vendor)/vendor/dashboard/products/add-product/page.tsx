@@ -20,7 +20,7 @@ import Link from "next/link";
 const AddProductPage = () => {
   const { isLoading, data: userData } = useGetCurrentUserQuery(undefined);
 
-  console.log(userData, "iam currenuserdata");
+
 
   const { data: categoryList } = useGetAllCategoryQuery(undefined);
 
@@ -90,10 +90,10 @@ const AddProductPage = () => {
 
   return (
     <Container>
-      <div className="gap-5 bg-[#FFFFFF] p-5 mt-3">
-        <div className="flex justify-between">
-          <h2 className="md:text-md lg:text-xl font-bold text-gray-800 ">
-            Manage Product
+      <div className="gap-5 bg-[#FFFFFF]  md:p-4 lg:p-5 mt-3">
+        <div className="flex justify-between items-center">
+          <h2 className="text-medium md:text-medium lg:text-xl font-bold text-gray-800 ">
+            Add Product
           </h2>
           <Link href={"/vendor/dashboard/products"}>
             <Button className="bg-primary-color text-white rounded-sm">
@@ -154,7 +154,7 @@ const AddProductPage = () => {
               type="number"
               variant="bordered"
             />
-            <div className="grid-cols-2 grid gap-3">
+            <div className="md:grid-cols-2 grid gap-3">
               <ESelect
                 label="Select Category"
                 name="category"

@@ -29,11 +29,12 @@ const EInput = ({
   return (
     <Input
       placeholder={placeholder}
-      
+       labelPlacement="outside-top"
       required={required}
       type={type}
+      variant={variant}
       {...register(name)}
-      className=""
+      className="rounded-sm"
       errorMessage={errors[name] ? (errors[name]?.message as string) : ""}
       label={label}
       size={size}

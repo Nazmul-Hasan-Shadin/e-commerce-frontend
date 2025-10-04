@@ -17,7 +17,7 @@ import { GoSearch } from "react-icons/go";
 
 const DashboardNavbar = () => {
   return (
-    <Navbar className="z-50 bg-white   visiblebro">
+    <Navbar style={{zIndex:20}} className=" bg-white   visiblebro">
       {/* Left Section: Search Input */}
       <NavbarContent>
         <Input

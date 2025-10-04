@@ -36,6 +36,7 @@ import { format } from "date-fns";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { MdEdit } from "react-icons/md";
+import Container from "@/src/components/ui/Container";
 
 const columns = [
   {
@@ -209,161 +210,165 @@ const Vendor = () => {
   };
 
   return (
-    <div>
-      <div className=" p- md:p-4 lg:p-6 bg-white">
-        <div className="flex justify-between">
-          <h2 className="md:text-md lg:text-xl font-bold text-gray-800 ">
-            Manage Product
-          </h2>
-          <Link href={"/vendor/dashboard/product"}>
-            <Button className="bg-primary-color text-white rounded-sm">
-              {" "}
-              Create Product
-            </Button>
-          </Link>
-        </div>
-        <Divider className="my-4" />
-
-        {/*  search and filter */}
-
-        <div className="flex justify-between py-4">
-          <h2 className="md:text-md lg:text-xl font-bold text-gray-800 ">
-            <Input
-              isClearable
-              variant="bordered"
-              className="w-full  "
-              placeholder="Search by name..."
-              startContent={<SearchIcon />}
-              value={filterValue}
-              onClear={() => onClear()}
-              onValueChange={onSearchChange}
-            />
-          </h2>
-
-          <Dropdown>
-            <DropdownTrigger className="hidden sm:flex">
-              <Button
-                className="rounded-none border-2 text-lg"
-                startContent={<FaTurnDown className="text-small" />}
-                variant="bordered"
-              >
-                Views
+    <Container>
+      <div>
+        <div className=" p- md:p-4 lg:p-6 bg-white">
+          <div className="flex justify-between items-center">
+            <h2 className="text-medium md:text-md lg:text-xl font-bold text-gray-800 ">
+              Manage Product
+            </h2>
+            <Link href={"/vendor/dashboard/product"}>
+              <Button className="bg-primary-color text-white rounded-sm">
+                {" "}
+                Create Product
               </Button>
-            </DropdownTrigger>
-            <DropdownMenu
-              disallowEmptySelection
-              aria-label="Table Columns"
-              closeOnSelect={false}
-              selectedKeys={visibleColumns}
-              selectionMode="multiple"
-              onSelectionChange={(keys) => {
-                // keys can be string | Set<Key> | SharedSelection
-                let newKeys: Set<string>;
+            </Link>
+          </div>
+          <Divider className="my-4" />
 
-                if (keys instanceof Set) {
-                  // multiple selection
-                  newKeys = new Set(Array.from(keys).map((k) => k.toString()));
-                } else {
-                  // single selection or SharedSelection object
-                  newKeys = new Set([keys.toString()]);
-                }
+          {/*  search and filter */}
 
-                setVisibleColumns(newKeys);
-              }}
-            >
-              {columns.map((column) => (
-                <DropdownItem key={column.key} className="capitalize">
-                  {capitalize(column.label)}
-                </DropdownItem>
-              ))}
-            </DropdownMenu>
-          </Dropdown>
-        </div>
-
-        <Table
-          aria-label="Controlled table example with dynamic content"
-          className="flex items-center"
-          selectedKeys={selectedKeys}
-          selectionMode="multiple"
-          onSelectionChange={(keys) => {
-            const newKeys =
-              keys instanceof Set
-                ? new Set(Array.from(keys).map((k) => k.toString()))
-                : new Set([keys.toString()]);
-            setSelectedKeys(newKeys);
-          }}
-          bottomContent={
-            <div className="flex w-full my-3 justify-end">
-              <Pagination
-                isCompact
-                showControls
-                showShadow
-                color="default"
-                page={page}
-                total={pages}
-                onChange={(page) => setPage(page)}
+          <div className="flex justify-between py-4 px-0">
+            <h2 className="md:text-md lg:text-xl font-bold text-gray-800 ">
+              <Input
+                isClearable
+                variant="bordered"
+                className="w-full  "
+                placeholder="Search by name..."
+                startContent={<SearchIcon />}
+                value={filterValue}
+                onClear={() => onClear()}
+                onValueChange={onSearchChange}
               />
-            </div>
-          }
-        >
-          <TableHeader columns={headerColumns}>
-            {(column) => (
-              <TableColumn key={column.key}>{column.label} </TableColumn>
-            )}
-          </TableHeader>
+            </h2>
 
-          <TableBody items={items}>
-            {(item) => (
-              <TableRow className="border-gray-200 border p-0" key={item.id}>
-                {(columnKey) => (
-                  <TableCell>
-                    {columnKey === "images" ? (
-                      <Image
-                        width={80}
-                        height={70}
-                        src={item?.images[0]}
-                        alt=""
-                      />
-                    ) : columnKey === "action" ? (
-                      <div className="flex gap-4">
-                        <Link
-                          href={`/vendor/dashboard/products/update-product/${item?.id}`}
-                        >
-                          <Tooltip content="Edit Product" placement="top">
-                            <MdEdit
-                              size={40}
-                              style={{
-                                cursor: "pointer",
-                                padding: "8px",
-                                borderRadius: "8px",
-                                transition: "background-color 0.3s ease",
-                                backgroundColor: "rgba(69, 36, 219, 0.1)",
-                              }}
-                            />
-                          </Tooltip>
-                        </Link>
+            <Dropdown>
+              <DropdownTrigger className="hidden sm:flex">
+                <Button
+                  className="rounded-none border-2 text-lg"
+                  startContent={<FaTurnDown className="text-small" />}
+                  variant="bordered"
+                >
+                  Views
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu
+                disallowEmptySelection
+                aria-label="Table Columns"
+                closeOnSelect={false}
+                selectedKeys={visibleColumns}
+                selectionMode="multiple"
+                onSelectionChange={(keys) => {
+                  // keys can be string | Set<Key> | SharedSelection
+                  let newKeys: Set<string>;
 
-                        <FaTrash
-                          className="text-2xl text-primary-color"
-                          onClick={() => handleDelete(item.id)}
+                  if (keys instanceof Set) {
+                    // multiple selection
+                    newKeys = new Set(
+                      Array.from(keys).map((k) => k.toString())
+                    );
+                  } else {
+                    // single selection or SharedSelection object
+                    newKeys = new Set([keys.toString()]);
+                  }
+
+                  setVisibleColumns(newKeys);
+                }}
+              >
+                {columns.map((column) => (
+                  <DropdownItem key={column.key} className="capitalize">
+                    {capitalize(column.label)}
+                  </DropdownItem>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+
+          <Table
+            aria-label="Controlled table example with dynamic content"
+            className="flex items-center"
+            selectedKeys={selectedKeys}
+            selectionMode="multiple"
+            onSelectionChange={(keys) => {
+              const newKeys =
+                keys instanceof Set
+                  ? new Set(Array.from(keys).map((k) => k.toString()))
+                  : new Set([keys.toString()]);
+              setSelectedKeys(newKeys);
+            }}
+            bottomContent={
+              <div className="flex w-full my-3 justify-end">
+                <Pagination
+                  isCompact
+                  showControls
+                  showShadow
+                  color="default"
+                  page={page}
+                  total={pages}
+                  onChange={(page) => setPage(page)}
+                />
+              </div>
+            }
+          >
+            <TableHeader columns={headerColumns}>
+              {(column) => (
+                <TableColumn key={column.key}>{column.label} </TableColumn>
+              )}
+            </TableHeader>
+
+            <TableBody items={items}>
+              {(item) => (
+                <TableRow className="border-gray-200 border p-0" key={item.id}>
+                  {(columnKey) => (
+                    <TableCell>
+                      {columnKey === "images" ? (
+                        <Image
+                          width={80}
+                          height={70}
+                          src={item?.images[0]}
+                          alt=""
                         />
-                      </div>
-                    ) : columnKey === "createdAt" ? (
-                      format(
-                        new Date(getKeyValue(item, columnKey)),
-                        "dd/MM/yyyy"
-                      )
-                    ) : (
-                      getKeyValue(item, columnKey)
-                    )}
-                  </TableCell>
-                )}
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+                      ) : columnKey === "action" ? (
+                        <div className="flex gap-4">
+                          <Link
+                            href={`/vendor/dashboard/products/update-product/${item?.id}`}
+                          >
+                            <Tooltip content="Edit Product" placement="top">
+                              <MdEdit
+                                size={40}
+                                style={{
+                                  cursor: "pointer",
+                                  padding: "8px",
+                                  borderRadius: "8px",
+                                  transition: "background-color 0.3s ease",
+                                  backgroundColor: "rgba(69, 36, 219, 0.1)",
+                                }}
+                              />
+                            </Tooltip>
+                          </Link>
+
+                          <FaTrash
+                            className="text-2xl text-primary-color"
+                            onClick={() => handleDelete(item.id)}
+                          />
+                        </div>
+                      ) : columnKey === "createdAt" ? (
+                        format(
+                          new Date(getKeyValue(item, columnKey)),
+                          "dd/MM/yyyy"
+                        )
+                      ) : (
+                        getKeyValue(item, columnKey)
+                      )}
+                    </TableCell>
+                  )}
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

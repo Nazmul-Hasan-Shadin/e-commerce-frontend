@@ -48,7 +48,7 @@ const columns = [
   },
 ];
 const INITIAL_VISIBLE_COLUMNS = ["name", "images", "createdAt", "action"];
- function capitalize(s:string) {
+function capitalize(s: string) {
   return s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : "";
 }
 
@@ -57,9 +57,9 @@ const Tablecib = () => {
   const [page, setPage] = React.useState(1);
   const [filterValue, setFilterValue] = React.useState("");
   const [statusFilter, setStatusFilter] = React.useState("all");
-const [visibleColumns, setVisibleColumns] = React.useState<Set<string>>(
-  new Set(INITIAL_VISIBLE_COLUMNS)
-);
+  const [visibleColumns, setVisibleColumns] = React.useState<Set<string>>(
+    new Set(INITIAL_VISIBLE_COLUMNS)
+  );
   const { data: categroyList, isLoading } = useGetAllCategoryQuery("");
   const [handleUpdateProduct] = useUpdateProductMutation();
   const [handleDeleteCategory] = useDeleteCategoryMutation();
@@ -99,7 +99,7 @@ const [visibleColumns, setVisibleColumns] = React.useState<Set<string>>(
     return filteredItems.slice(start, end);
   }, [page, filteredItems]);
 
-  const SearchIcon = (props:any) => {
+  const SearchIcon = (props: any) => {
     return (
       <svg
         aria-hidden="true"
@@ -129,7 +129,7 @@ const [visibleColumns, setVisibleColumns] = React.useState<Set<string>>(
     );
   };
 
-  const onSearchChange = React.useCallback((value:any) => {
+  const onSearchChange = React.useCallback((value: any) => {
     console.log("search value", value);
 
     if (value) {
@@ -179,8 +179,12 @@ const [visibleColumns, setVisibleColumns] = React.useState<Set<string>>(
 
   return (
     <div>
-      <div className=" p- md:p-4 lg:p-6 bg-white">
-        <div className="flex justify-between">
+      <span className="block my-3 md:my-2">
+        {" "}
+        <span className=" md:text-lg">Dashboard</span> / Create category
+      </span>
+      <div className=" p-2 md:p-4 lg:p-6 bg-white">
+        <div className="flex justify-between items-center">
           <h2 className="md:text-md lg:text-xl font-bold text-gray-800 ">
             Manage Category
           </h2>
@@ -224,7 +228,9 @@ const [visibleColumns, setVisibleColumns] = React.useState<Set<string>>(
               closeOnSelect={false}
               selectedKeys={visibleColumns}
               selectionMode="multiple"
-             onSelectionChange={(keys) => setVisibleColumns(new Set(keys as Set<string>))}
+              onSelectionChange={(keys) =>
+                setVisibleColumns(new Set(keys as Set<string>))
+              }
             >
               {columns.map((column) => (
                 <DropdownItem key={column.key} className="capitalize">
@@ -240,7 +246,9 @@ const [visibleColumns, setVisibleColumns] = React.useState<Set<string>>(
           className="flex items-center"
           selectedKeys={selectedKeys}
           selectionMode="multiple"
-         onSelectionChange={(keys) => setSelectedKeys(new Set(keys as Set<string>))}
+          onSelectionChange={(keys) =>
+            setSelectedKeys(new Set(keys as Set<string>))
+          }
           bottomContent={
             <div className="flex w-full my-3 justify-end">
               <Pagination
@@ -255,7 +263,7 @@ const [visibleColumns, setVisibleColumns] = React.useState<Set<string>>(
             </div>
           }
         >
-          <TableHeader  columns={headerColumns}>
+          <TableHeader columns={headerColumns}>
             {(column) => (
               <TableColumn key={column.key}>{column.label} </TableColumn>
             )}

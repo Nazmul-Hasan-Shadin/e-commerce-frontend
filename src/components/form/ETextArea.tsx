@@ -21,6 +21,7 @@ const FxTextArea = ({
 
   return (
     <Textarea
+      labelPlacement="outside-top"
       {...register(name)}
       className=" w-full h-52"
       endContent={

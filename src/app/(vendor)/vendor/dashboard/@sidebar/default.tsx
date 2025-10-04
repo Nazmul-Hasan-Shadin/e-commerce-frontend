@@ -17,9 +17,9 @@ const Sidebar = () => {
   const { isOpen, toggleSidebar } = useSideBar();
 
   return (
-    <div className={` fixed`}>
+    <div className={` fixed z-50`}>
       <div
-        className={`flex flex-col bg-gray-800 h-screen text-white ${
+        className={`flex flex-col ${isOpen ? "" : "hidden sm:block"}  bg-gray-800 h-screen text-white ${
           isOpen ? " w-full  md:w-64 lg:w-64" : "w-0 md:w-20"
         } transition-all duration-300`}
       >

@@ -34,7 +34,7 @@ import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 
 const BottomNav = () => {
   const pathname = usePathname();
-  const [searchQuery, setSearchQuery] = useState<string | null>('');
+  const [searchQuery, setSearchQuery] = useState<string | null>("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState<
     string | null
   >("");
@@ -140,7 +140,7 @@ const BottomNav = () => {
 
             {/* Mega Menu */}
             {isMegaMenuOpen && (
-              <div className="absolute top-full left-0 w-screen bg-white text-black shadow-lg z-10">
+              <div className="absolute top-full left-0 w-screen bg-white text-black shadow-lg ">
                 <div className="grid grid-cols-4 gap-8 p-6">
                   {/* Category 1 */}
                   <div>
@@ -278,6 +278,24 @@ const BottomNav = () => {
                 </Link>
               </NavbarItem>
             ))}
+
+            {token ? (
+              <NavbarItem className="text-white">
+                <Button
+                  onPress={() => dispatch(logOut())}
+                  variant="ghost"
+                  className="w-full rounded-none"
+                >
+                  Log Out
+                </Button>
+              </NavbarItem>
+            ) : (
+              <NavbarItem key="login" className="text-white">
+                <Link className="text-black" href="/login">
+                  Login
+                </Link>
+              </NavbarItem>
+            )}
           </NavbarMenu>
 
           {/* =================icons fro large  device========== */}

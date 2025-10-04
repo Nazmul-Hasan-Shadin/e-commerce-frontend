@@ -63,7 +63,7 @@ const AdminDashboard: React.FC = () => {
   console.log(metaInfo);
 
   return (
-    <div className="min-h-screen z-10 p-8">
+    <div className="min-h-screen -z-10 p-8">
       {/* ==========Greeting section========== */}
       <h1 className="text-2xl font-bold mb-2">
         Good Morning, {shopOwnerInfo?.data?.username}{" "}
