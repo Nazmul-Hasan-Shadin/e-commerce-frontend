@@ -27,10 +27,8 @@ const CheckOutForm = () => {
 
   const totalAmount = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
-    0
+    0,
   );
-
-
 
   const shopId = cartItems[0]?.shopId;
   const customerId = currentUser?.data?.id;
@@ -48,7 +46,7 @@ const CheckOutForm = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({ price: totalAmount * 100 }),
-          }
+          },
         );
         const data = await response.json();
 
@@ -82,7 +80,7 @@ const CheckOutForm = () => {
 
     if (error) {
       setError(
-        error.message || "An error occurred while creating the payment method."
+        error.message || "An error occurred while creating the payment method.",
       );
 
       return;
@@ -101,7 +99,7 @@ const CheckOutForm = () => {
     if (confirmError) {
       setError(
         confirmError.message ||
-          "An error occurred while confirming the payment."
+          "An error occurred while confirming the payment.",
       );
 
       return;
@@ -121,8 +119,9 @@ const CheckOutForm = () => {
             price: item.price,
           })),
         };
-        
+
         const createOrder = await makeOrder(orderData).unwrap();
+
         console.log(createOrder, "order creating");
 
         if (createOrder.success === true) {

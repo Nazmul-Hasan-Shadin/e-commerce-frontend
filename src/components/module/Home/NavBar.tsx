@@ -11,6 +11,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import Image from "next/image.js";
 import React, { useEffect, useState } from "react";
 import { skipToken } from "@reduxjs/toolkit/query";
+import Link from "next/link";
 
 import { CartIcon, UserIcon, WatchListIcon } from "../../icons";
 import Container from "../../ui/Container";
@@ -20,7 +21,6 @@ import UserDropDownMenu from "./UserDropDownMenu";
 
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import logo from "@/src/assests/icon/logo.png";
-import Link from "next/link";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -84,6 +84,7 @@ const NavBar = () => {
                 className=" bg-white rounded-full "
                 classNames={{
                   base: "max-w-full",
+
                   inputWrapper:
                     "h-full  font-bold  text-default-500 text-2xl  pr-6 bg-default-400/20 dark:bg-default-500/20",
                   mainWrapper: "w-[500px] h-12",

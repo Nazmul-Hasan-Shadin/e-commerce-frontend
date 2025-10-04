@@ -85,7 +85,7 @@
 //                     justifyContent: "center",
 //                   }}
 //                 >
-   
+
 //                   <Tooltip content="Delete Product" placement="top">
 //                     <MdDelete
 //                       color="red"
@@ -112,14 +112,14 @@
 
 // export default GetAllProductPage;
 
+import React from "react";
 
-import React from 'react';
-import Vendor from './Vendor';
+import Vendor from "./Vendor";
 
 const page = () => {
   return (
     <div>
-      <Vendor/>
+      <Vendor />
     </div>
   );
 };

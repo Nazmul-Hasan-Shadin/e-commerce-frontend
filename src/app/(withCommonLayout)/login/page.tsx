@@ -5,6 +5,7 @@ import { Button } from "@heroui/react";
 import { SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 
 import EForm from "@/src/components/form/EForm";
 import EInput from "@/src/components/form/EInput";
@@ -17,8 +18,6 @@ import { verifyToken } from "@/src/utils/verifyToke";
 import { setUser } from "@/src/redux/feature/auth/auth.slice";
 import { useAppDispatch } from "@/src/redux/hook";
 import { loginHandler } from "@/src/services/auth";
-import Link from "next/link";
-import Container from "@/src/components/ui/Container";
 
 // Define role type for stricter type checking
 type Role = "user" | "admin" | "vendor";
@@ -117,7 +116,7 @@ const Login = () => {
     } catch (error: any) {
       toast.error(
         error?.data?.message || "Failed to send reset password email.",
-        { id: toastId }
+        { id: toastId },
       );
     }
   };
@@ -166,11 +165,11 @@ const Login = () => {
           {/* Email Input */}
           <div className="mb-4">
             <EInput
-              placeholder="Enter your email"
               required
               defaultValue={credentials.email}
               label="Email"
               name="email"
+              placeholder="Enter your email"
               type="email"
             />
           </div>
@@ -178,11 +177,11 @@ const Login = () => {
           {/* Password Input */}
           <div className="mb-6">
             <EInput
-              placeholder="Enter your password"
               required
               defaultValue={credentials.password}
               label="Password"
               name="password"
+              placeholder="Enter your password"
               type="password"
             />
           </div>

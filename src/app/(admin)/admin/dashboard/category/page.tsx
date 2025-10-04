@@ -5,13 +5,11 @@ import { Divider } from "@heroui/react";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import Link from "next/link";
 
-import FxTextArea from "@/src/components/form/ETextArea";
 import EForm from "@/src/components/form/EForm";
 import EInput from "@/src/components/form/EInput";
 import { useCreateCategoryMutation } from "@/src/redux/feature/admin/admin.categoryapi";
-import Dividers from "@/src/components/ui/Divider";
-import Link from "next/link";
 
 const AddCategory = () => {
   const [handleCreateCategory] = useCreateCategoryMutation();
@@ -75,8 +73,8 @@ const AddCategory = () => {
           </h2>
           <Link href={"/admin/dashboard/category-list"}>
             <Button
-              size="md"
               className="bg-primary-color  text-white rounded-sm"
+              size="md"
             >
               {" "}
               Manage Category

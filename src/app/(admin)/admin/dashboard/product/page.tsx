@@ -17,20 +17,17 @@ import {
   DropdownItem,
 } from "@heroui/react";
 import React from "react";
-import {
-  useDeleteCategoryMutation,
-  useGetAllCategoryQuery,
-} from "@/src/redux/feature/admin/admin.categoryapi";
 import Image from "next/image";
 import Link from "next/link";
 import { FaTrash, FaTurnDown } from "react-icons/fa6";
+import toast from "react-hot-toast";
+import { format } from "date-fns";
+
 import {
   useGetAllProductQuery,
   useUpdateProductMutation,
 } from "@/src/redux/feature/vendor/vendor.api";
-import toast from "react-hot-toast";
-import { FaEdit } from "react-icons/fa";
-import { format } from "date-fns";
+import { useDeleteCategoryMutation } from "@/src/redux/feature/admin/admin.categoryapi";
 
 const columns = [
   {
@@ -83,7 +80,7 @@ const Tablecib = () => {
   const [filterValue, setFilterValue] = React.useState("");
   const [statusFilter, setStatusFilter] = React.useState("all");
   const [visibleColumns, setVisibleColumns] = React.useState(
-    new Set(INITIAL_VISIBLE_COLUMNS)
+    new Set(INITIAL_VISIBLE_COLUMNS),
   );
   const { data: categroyList, isLoading } = useGetAllProductQuery("");
   const [handleUpdateProduct] = useUpdateProductMutation();
@@ -98,7 +95,7 @@ const Tablecib = () => {
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase())
+        user.name.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
     // if (
@@ -176,7 +173,7 @@ const Tablecib = () => {
     // if (visibleColumns === "all") return columns;
 
     return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.key)
+      Array.from(visibleColumns).includes(column.key),
     );
   }, [visibleColumns]);
 
@@ -188,7 +185,7 @@ const Tablecib = () => {
 
   const handleDelete = async (id: string) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?"
+      "Are you sure you want to delete this product?",
     );
 
     if (confirmDelete) {
@@ -253,7 +250,7 @@ const Tablecib = () => {
                 setVisibleColumns(
                   keys === "all"
                     ? new Set(INITIAL_VISIBLE_COLUMNS)
-                    : new Set(keys as Set<string>)
+                    : new Set(keys as Set<string>),
                 )
               }
             >
@@ -268,14 +265,6 @@ const Tablecib = () => {
 
         <Table
           aria-label="Controlled table example with dynamic content"
-          className="flex items-center"
-          selectedKeys={selectedKeys}
-          selectionMode="multiple"
-          onSelectionChange={(keys) => {
-            // Convert keys to string safely
-            const stringKeys = new Set(Array.from(keys).map(String));
-            setSelectedKeys(stringKeys);
-          }}
           bottomContent={
             <div className="flex w-full my-3 justify-end">
               <Pagination
@@ -289,6 +278,15 @@ const Tablecib = () => {
               />
             </div>
           }
+          className="flex items-center"
+          selectedKeys={selectedKeys}
+          selectionMode="multiple"
+          onSelectionChange={(keys) => {
+            // Convert keys to string safely
+            const stringKeys = new Set(Array.from(keys).map(String));
+
+            setSelectedKeys(stringKeys);
+          }}
         >
           <TableHeader columns={headerColumns}>
             {(column) => (
@@ -301,15 +299,15 @@ const Tablecib = () => {
               console.log(item, "iam item");
 
               return (
-                <TableRow className="border" key={item.id}>
+                <TableRow key={item.id} className="border">
                   {(columnKey) => (
                     <TableCell>
                       {columnKey === "images" ? (
                         <Image
-                          width={50}
+                          alt=""
                           height={400}
                           src={item?.images[0]}
-                          alt=""
+                          width={50}
                         />
                       ) : columnKey === "category" ? (
                         getKeyValue(item?.category?.name, columnKey)
@@ -325,7 +323,7 @@ const Tablecib = () => {
                       ) : columnKey === "createdAt" ? (
                         format(
                           new Date(getKeyValue(item, columnKey)),
-                          "dd/MM/yyyy"
+                          "dd/MM/yyyy",
                         )
                       ) : (
                         getKeyValue(item, columnKey)

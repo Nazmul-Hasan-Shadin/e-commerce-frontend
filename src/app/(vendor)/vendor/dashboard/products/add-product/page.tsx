@@ -6,6 +6,7 @@ import { Button } from "@heroui/button";
 import { Divider } from "@heroui/react";
 import toast from "react-hot-toast";
 import Image from "next/image";
+import Link from "next/link";
 
 import EForm from "@/src/components/form/EForm";
 import EInput from "@/src/components/form/EInput";
@@ -15,12 +16,9 @@ import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.category
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import { useCreateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
 import Container from "@/src/components/ui/Container";
-import Link from "next/link";
 
 const AddProductPage = () => {
   const { isLoading, data: userData } = useGetCurrentUserQuery(undefined);
-
-
 
   const { data: categoryList } = useGetAllCategoryQuery(undefined);
 
@@ -35,6 +33,8 @@ const AddProductPage = () => {
       inputRef.current.click();
     }
   };
+
+  // console.log(categoryList?.data);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -62,6 +62,8 @@ const AddProductPage = () => {
       description: productInfo?.description,
     };
 
+    console.log("product isflash", data);
+
     formData.append("data", JSON.stringify(data));
 
     // Append multiple files to formData
@@ -88,9 +90,14 @@ const AddProductPage = () => {
     return <div>Loading...</div>;
   }
 
+  const isFlash = [
+    { label: "Flash sell", id: true },
+    { label: "Not Flash sell", id: false },
+  ];
+
   return (
     <Container>
-      <div className="gap-5 bg-[#FFFFFF]  md:p-4 lg:p-5 mt-3">
+      <div className="gap-5 bg-[#FFFFFF]  p-3 md:p-4 lg:p-5 mt-3">
         <div className="flex justify-between items-center">
           <h2 className="text-medium md:text-medium lg:text-xl font-bold text-gray-800 ">
             Add Product
@@ -147,44 +154,53 @@ const AddProductPage = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-5">
-            <EInput label="Name" name="name" type="text" variant="bordered" />
+            <EInput
+              label="Name"
+              name="name"
+              placeholder="Name"
+              type="text"
+              variant="bordered"
+            />
             <EInput
               label="Price"
               name="price"
+              placeholder="Price"
               type="number"
               variant="bordered"
             />
             <div className="md:grid-cols-2 grid gap-3">
               <ESelect
+                defaultSelectedKeys={[categoryList?.data[0].id]}
                 label="Select Category"
                 name="category"
                 options={categoryList?.data || []}
+                size="md"
               />
               <ESelect
                 dropDownHeading="Is Flash Sell?"
                 label="Select flash or not"
                 name="isFlash"
-                options={[
-                  { label: "Flash sell", id: true },
-                  { label: "Not Flash sell", id: false },
-                ]}
+                options={isFlash}
               />
             </div>
             <EInput
               label="Discount"
               name="discount"
+              placeholder="Discount"
               type="number"
               variant="bordered"
             />
             <EInput
               label="Inventory Count"
               name="inventoryCount"
+              placeholder="Inventory count"
               type="number"
               variant="bordered"
             />
             <FxTextArea
               label="Detailed Description"
               name="description"
+              placeholder=" Description of product ..."
               variant="bordered"
             />
           </div>

@@ -31,19 +31,19 @@ export const cartSlice = createSlice({
   reducers: {
     addToCart: (state, { payload }) => {
       const isExistIncart = state.orderItems.find(
-        (cart) => cart.id === payload.id
+        (cart) => cart.id === payload.id,
       );
 
       if (isExistIncart) {
         isExistIncart.quantity = isExistIncart?.quantity + 1;
       } else {
-        state.orderItems.push({ ...payload, quantity:1});
+        state.orderItems.push({ ...payload, quantity: 1 });
       }
     },
 
     removeFromCart: (state, { payload }) => {
       const itemIndex = state.orderItems.findIndex(
-        (item) => item.id === payload.productId
+        (item) => item.id === payload.productId,
       );
 
       if (itemIndex !== -1) {

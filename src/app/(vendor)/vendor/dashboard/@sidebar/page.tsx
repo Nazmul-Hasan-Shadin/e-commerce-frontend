@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { FaShoppingCart, FaCog, FaClipboardList } from "react-icons/fa";
-import { RxHamburgerMenu } from "react-icons/rx";
 import { FaPlus } from "react-icons/fa6";
 
 import { useAppSelector } from "@/src/redux/hook";
@@ -17,7 +16,7 @@ const Sidebar = () => {
   const { isOpen, toggleSidebar } = useSideBar();
 
   return (
-    <div className={` fixed z-50`}>
+    <div className={` fixed z-50 md:top-0 `}>
       <div
         className={`flex flex-col ${isOpen ? "" : "hidden sm:block"}  bg-gray-800 h-screen text-white ${
           isOpen ? " w-full  md:w-64 lg:w-64" : "w-0 md:w-20"

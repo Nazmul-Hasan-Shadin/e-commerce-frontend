@@ -54,7 +54,7 @@ const CreateShopPage = () => {
       description: shopInfo?.description,
       vendorId: userData?.data?.id,
     };
-
+     
     formData.append("data", JSON.stringify(data));
 
     if (selectedFile) {
@@ -81,7 +81,9 @@ const CreateShopPage = () => {
   return (
     <Container>
       <div className=" p-2 mx-auto gap-5">
-        <h2 className="text-medium md:text-lg lg:text-xl font-bold mb-5">Create Your Shop</h2>
+        <h2 className="text-medium md:text-lg lg:text-xl font-bold mb-5">
+          Create Your Shop
+        </h2>
         <Divider />
         <EForm onSubmit={onSubmit}>
           <div
@@ -108,10 +110,10 @@ const CreateShopPage = () => {
             {imagePreview ? (
               <Image
                 alt="Preview"
-                className="max-w-full max-h-full object-contain"
+                className="max-w-full h-[200px] w-[400px]"
                 height={180}
                 src={imagePreview}
-                width={160}
+                width={300}
               />
             ) : (
               <div className="text-center text-gray-500">
@@ -130,7 +132,6 @@ const CreateShopPage = () => {
 
             <FxTextArea
               label="Description"
-               
               name="description"
               variant="bordered"
             />

@@ -9,9 +9,9 @@ export interface IReview {
   };
   product: {
     images: string[];
-    name:string
+    name: string;
   };
-  createdAt:string
+  createdAt: string;
 }
 
 export interface IProduct {

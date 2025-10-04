@@ -1,12 +1,12 @@
 "use client";
 import { ReactNode } from "react";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 import DashboardNavbar from "@/src/components/module/admin/DashboardNavbar";
 import {
   SideBarProvider,
   useSideBar,
 } from "@/src/ContextProvider/sideBarContex";
-import { RxHamburgerMenu } from "react-icons/rx";
 
 export default function DashboardLayout({
   children,
@@ -33,19 +33,15 @@ function InnerLayout({
 
   return (
     <div className="flex  gap-0 sm:gap-3 md:gap-4 lg:gap-5">
-      <div className={`relative z-50 ${isOpen ? "" : ""} `}>
-        <div
-          className={`lg:fixed ${`${isOpen ? "absolute md:fixed right-12px" : ""}`}   h-screen bg-gray-800  `}
-        >
-          {sidebar}
-        </div>
+      <div className={`relative z-50  mt-16 ${isOpen ? "" : ""} `}>
+        <div className={` h-screen bg-gray-800  `}>{sidebar}</div>
       </div>
-      <button
+      {/* <button
         className={`fixed  top-2 z-50 ${isOpen ? "left-[170px] md:left-[190px] lg:left-[calc(17rem)] " : "md:left-[90px] lg:left-[calc(6rem)] "}`} // sidebar open হলে পাশে
         onClick={toggleSidebar}
       >
         <RxHamburgerMenu className="h-6 w-6 text-black bg-primary-color text-white " />
-      </button>
+      </button> */}
 
       <main
         className={`w-full bg-[#F1F5F9]    md:relative z-30 ${isOpen ? "md:ml-40 lg:ml-[256px]" : "md:ml-20 lg:ml-24"}`}

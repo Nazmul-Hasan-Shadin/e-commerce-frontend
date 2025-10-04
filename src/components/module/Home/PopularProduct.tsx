@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 import SkeletonCard from "../../ui/SkeletonCard";
 import Container from "../../ui/Container";
 import Card from "../../ui/Card";

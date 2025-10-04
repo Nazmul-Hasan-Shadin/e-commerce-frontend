@@ -1,7 +1,8 @@
-import { IInput } from "@/src/types";
 import { Input } from "@heroui/input";
 import React from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
+
+import { IInput } from "@/src/types";
 
 interface IProps extends IInput {
   type?: string;
@@ -18,8 +19,8 @@ const FieldArray = ({ name, placeholder, icon, label }: IProps) => {
       {fields.map((field, index) => (
         <Input
           {...register(`specification.${index}.title`)}
-          placeholder={placeholder}
           key={field.id}
+          placeholder={placeholder}
         />
       ))}
     </div>

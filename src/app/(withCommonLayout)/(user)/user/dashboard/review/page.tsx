@@ -1,15 +1,12 @@
 "use client";
 
-import { Divider, Button, divider } from "@heroui/react";
-import Image from "next/image";
+import { Divider, Button } from "@heroui/react";
+import { format } from "date-fns";
+import { useEffect, useRef } from "react";
 
 import Container from "@/src/components/ui/Container";
-import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
-
 import { IReview } from "@/src/interface";
-import { format } from "date-fns";
 import { useGetMyReviewInfiniteQuery } from "@/src/redux/feature/comment/comment.api";
-import { useEffect, useRef } from "react";
 
 const Review = () => {
   const {
@@ -93,7 +90,7 @@ const Review = () => {
                       <Divider className="w-[97%] mx-auto" />
                     </div>
                   </div>
-                ))
+                )),
               )}
 
               {/* scroll trigger div */}
@@ -104,9 +101,9 @@ const Review = () => {
                     Prev
                   </Button>
                   <Button
-                    onPress={() => fetchNextPage()}
                     className="rounded-none"
                     variant="ghost"
+                    onPress={() => fetchNextPage()}
                   >
                     Next
                   </Button>
@@ -146,7 +143,7 @@ const Review = () => {
           )}
         </div>
 
-        <div className="h-[800px]" ref={loaderRef}></div>
+        <div ref={loaderRef} className="h-[800px]" />
       </div>
     </Container>
   );

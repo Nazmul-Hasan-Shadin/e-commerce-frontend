@@ -61,7 +61,7 @@ const ProductDetails = ({ params }: { params: Params }) => {
   }, [images]);
 
   useEffect(() => {
-    handleUpdateView({ id: productId ,userInfo:userToken});
+    handleUpdateView({ id: productId, userInfo: userToken });
   }, [productId]);
 
   // Handle quantity increase

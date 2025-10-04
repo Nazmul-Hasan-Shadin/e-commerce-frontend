@@ -1,16 +1,18 @@
 "use client";
-import Container from "@/src/components/ui/Container";
-import { IProduct } from "@/src/interface";
-import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
+
 import { Button } from "@heroui/button";
-import { divider, Divider } from "@heroui/react";
+import { Divider } from "@heroui/react";
 import Image from "next/image";
 import React from "react";
 import { FaPrint } from "react-icons/fa6";
 
+import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
+import Container from "@/src/components/ui/Container";
+
 const ComparePage = () => {
   const dispatch = useAppDispatch();
   const products = useAppSelector((state) => state.compareItem.product);
+
   console.log(products, "products");
 
   return (
@@ -58,17 +60,17 @@ const ComparePage = () => {
                   <th className=" hidden lg:table-cell border">jhjh</th>
                   {products.map((product, index) => (
                     <th
-                      className={` md:border ${index === 0 ? "border-r" : ""}  border-gray-200 md:border-black`}
                       key={product.id}
+                      className={` md:border ${index === 0 ? "border-r" : ""}  border-gray-200 md:border-black`}
                     >
                       <div className="flex flex-col justify-center items-center">
                         {" "}
                         <Image
                           alt="fjkjf"
-                          src={product.images[0]}
-                          width={200}
                           className="w-20 h-16"
                           height={100}
+                          src={product.images[0]}
+                          width={200}
                         />
                         <span className="text-[12px] md:text-medium">
                           {product.name}
@@ -84,8 +86,8 @@ const ComparePage = () => {
                 {/*  row heading of category for small device */}
                 <tr className="md:hidden">
                   <th
-                    colSpan={products.length}
                     className="text-center bg-gray-100 font-medium"
+                    colSpan={products.length}
                   >
                     Category
                   </th>
@@ -98,8 +100,8 @@ const ComparePage = () => {
                   {products.map((product, index) => (
                     <>
                       <td
-                        className={`md:border ${index === 0 ? "border-r" : ""}  border-gray-200 md:border-black`}
                         key={product.id}
+                        className={`md:border ${index === 0 ? "border-r" : ""}  border-gray-200 md:border-black`}
                       >
                         <div className="flex text-[12px] sm:text-medium md:text-medium  justify-center ">
                           <span>{product?.category.name}</span>
@@ -112,8 +114,8 @@ const ComparePage = () => {
                 {/*  row heading of availability for small device */}
                 <tr className="md:hidden">
                   <th
-                    colSpan={products.length}
                     className="text-center bg-gray-100 font-medium"
+                    colSpan={products.length}
                   >
                     Availability
                   </th>
@@ -125,8 +127,8 @@ const ComparePage = () => {
                   </th>
                   {products.map((product, index) => (
                     <td
-                      className={`md:border ${index === 0 ? "border-r" : ""}   border-gray-200 md:border-black`}
                       key={product.id}
+                      className={`md:border ${index === 0 ? "border-r" : ""}   border-gray-200 md:border-black`}
                     >
                       <div className="flex  text-[12px] sm:text-medium md:text-medium justify-center ">
                         <span>{product?.inventoryCount}</span>
@@ -138,8 +140,8 @@ const ComparePage = () => {
                 {/*  row heading of Description for small device */}
                 <tr className="md:hidden">
                   <th
-                    colSpan={products.length}
                     className="text-center bg-gray-100 font-medium"
+                    colSpan={products.length}
                   >
                     Summery
                   </th>
@@ -151,8 +153,8 @@ const ComparePage = () => {
                   </th>
                   {products.map((product, index) => (
                     <td
-                      className={`md:border ${index === 0 ? "border-r" : ""}  w-[20px]  border-gray-200 md:border-black`}
                       key={product.id}
+                      className={`md:border ${index === 0 ? "border-r" : ""}  w-[20px]  border-gray-200 md:border-black`}
                     >
                       <div className="flex  text-[12px] sm:text-medium md:text-medium  justify-center ">
                         <span>{product?.description}</span>
@@ -164,8 +166,8 @@ const ComparePage = () => {
                 {/*  row heading of discount for small device */}
                 <tr className="md:hidden">
                   <th
-                    colSpan={products.length}
                     className="text-center bg-gray-100 font-medium"
+                    colSpan={products.length}
                   >
                     Discount
                   </th>
@@ -176,8 +178,8 @@ const ComparePage = () => {
                   </th>
                   {products.map((product, index) => (
                     <td
-                      className={`md:border ${index === 0 ? "border-r" : ""}  w-[20px]  border-gray-200 md:border-black`}
                       key={product.id}
+                      className={`md:border ${index === 0 ? "border-r" : ""}  w-[20px]  border-gray-200 md:border-black`}
                     >
                       <div className="flex  text-[12px] sm:text-medium md:text-medium justify-center ">
                         <span>{product?.discount}</span>
@@ -189,8 +191,8 @@ const ComparePage = () => {
                 {/*  row heading of price for small device */}
                 <tr className="md:hidden">
                   <th
-                    colSpan={products.length}
                     className="text-center bg-gray-100 font-medium"
+                    colSpan={products.length}
                   >
                     Category
                   </th>
@@ -202,8 +204,8 @@ const ComparePage = () => {
                   </th>
                   {products.map((product, index) => (
                     <td
-                      className={`md:border ${index === 0 ? "border-r" : ""}  w-[20px]  border-gray-200 md:border-black`}
                       key={product.id}
+                      className={`md:border ${index === 0 ? "border-r" : ""}  w-[20px]  border-gray-200 md:border-black`}
                     >
                       <div className="flex  text-[12px] sm:text-medium md:text-medium justify-center ">
                         <span>{product?.price}</span>

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import SidebarFilter from "../(product)/product/@productfiltersidebar/page";
 
+import SidebarFilter from "../(product)/product/@productfiltersidebar/page";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const mainRef = useRef<HTMLDivElement | null>(null);
@@ -67,6 +67,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     };
 
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -119,9 +120,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const handleScroll = () => {
       const sidebar = sideBarRef.current;
+
       if (!sidebar) return;
 
       const { top, bottom, height } = sidebar.getBoundingClientRect();
+
       console.log(top, bottom, "top bottom");
 
       const isBottomVisible = bottom <= window.innerHeight && bottom >= 0;
@@ -142,6 +145,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     };
 
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrollDirection]);
 
@@ -158,13 +162,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <section className="grid grid-cols-12 mt-4 2xl:mt-8 sm:grid-cols-12 2xl:grid-cols-12 mx-auto w-[96%] gap-4 2xl:gap-x-8">
         <section className="col-span-12    sm:col-span-5 md:col-span-4 lg:col-span-3 2xl:col-span-3">
           <SidebarFilter
-            // isSticky={isSticky}
-            // isUpVisible={upVisible}
-            // isBottomVisible={bottomVisible}
-            // topOffset={topOffset}
-            // downOffset={downOffset}
-            // ref={sideBarRef}
-            // scrollDirection={scrollDirection}
+          // isSticky={isSticky}
+          // isUpVisible={upVisible}
+          // isBottomVisible={bottomVisible}
+          // topOffset={topOffset}
+          // downOffset={downOffset}
+          // ref={sideBarRef}
+          // scrollDirection={scrollDirection}
           />
         </section>
 

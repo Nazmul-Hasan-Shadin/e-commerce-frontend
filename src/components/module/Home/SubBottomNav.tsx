@@ -1,7 +1,5 @@
 "use client";
-import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
 import {
-  Button,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -10,10 +8,11 @@ import {
   NavbarContent,
   NavbarItem,
 } from "@heroui/react";
-import Link from "next/link";
 import React from "react";
 import { IoMenuOutline } from "react-icons/io5";
-import {IoIosArrowDown} from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
+
+import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
 
 interface ICategory {
   name: string;
@@ -25,18 +24,18 @@ const SubBottomNavPage = () => {
   const category: ICategory[] = categroyList?.data || [];
 
   return (
-    <Navbar className=" sm:hidden">
+    <Navbar className=" z-30 sm:hidden">
       <NavbarContent justify="start">
         <NavbarItem className="flex items-center gap-2 p-1 bg-primary-color text-white">
           <IoMenuOutline className="text-3xl text-white" />
           <Dropdown>
-            <DropdownTrigger>All category</DropdownTrigger>
+            <DropdownTrigger className="text-medium">All category</DropdownTrigger>
 
             <DropdownMenu aria-label="Dynamic Actions" items={category}>
               {(item) => <DropdownItem key={item.id}>{item.name}</DropdownItem>}
             </DropdownMenu>
           </Dropdown>
-          <IoIosArrowDown className="text-3xl"/>
+          <IoIosArrowDown className="text-3xl" />
         </NavbarItem>
       </NavbarContent>
 

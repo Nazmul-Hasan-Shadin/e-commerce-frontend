@@ -46,19 +46,19 @@ const Register = () => {
         <EForm onSubmit={onSubmit}>
           <div className="mb-4">
             <EInput
-              placeholder="Enter your username"
               required
               label="User name"
               name="username"
+              placeholder="Enter your username"
               type="text"
             />
           </div>
           <div className="mb-4">
             <EInput
-              placeholder="Enter your email"
               required
               label="Email"
               name="email"
+              placeholder="Enter your email"
               type="email"
             />
           </div>
@@ -76,21 +76,20 @@ const Register = () => {
 
           <div className="mb-4">
             <EInput
-              placeholder="Enter your password"
               required
               label="Password"
               name="password"
+              placeholder="Enter your password"
               type="password"
             />
           </div>
 
           <div className="mb-4">
             <EInput
-              placeholder="Retype your password"
               required
               label="Confirm Password"
               name="confirmPassword"
-              
+              placeholder="Retype your password"
               type="password"
             />
           </div>

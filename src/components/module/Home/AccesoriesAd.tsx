@@ -17,6 +17,7 @@ import CategoryCard from "./ClothCategory";
 
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import discountOnCloth from "@/src/assests/accesories/disounttcloth.webp";
+import SkeletonCard from "../../ui/SkeletonCard";
 
 const AccesoriesAd = () => {
   const { data: products, isLoading, isError } = useGetAllProductQuery({});
@@ -68,7 +69,12 @@ const AccesoriesAd = () => {
           >
             {isLoading ? (
               <SwiperSlide className="flex gap-3 ">
-                <h3>Loading</h3>
+                <>
+                  <SkeletonCard />
+                  <SkeletonCard />
+                  <SkeletonCard />
+                  <SkeletonCard />
+                </>
               </SwiperSlide>
             ) : (
               products?.data?.data

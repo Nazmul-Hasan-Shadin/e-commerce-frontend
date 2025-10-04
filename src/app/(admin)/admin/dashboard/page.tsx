@@ -1,35 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import { Card, CardBody, Pagination } from "@heroui/react";
-import { BsBagDash } from "react-icons/bs";
+import { Card, CardBody } from "@heroui/react";
 import { FaDollarSign, FaUser, FaUsers } from "react-icons/fa6";
-import { IoCubeOutline } from "react-icons/io5";
-import { FaSackDollar } from "react-icons/fa6";
-import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  User,
-} from "@heroui/react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+import { FaUserCircle } from "react-icons/fa";
 
 import { useGetAllShopTopTenQuery } from "@/src/redux/feature/shop/shop.api";
 import { useAppSelector } from "@/src/redux/hook";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import { useGetMetaQuery } from "@/src/redux/feature/meta/meta.api";
-import { FaUserCircle } from "react-icons/fa";
 
 interface TableColumn {
   name: string;
@@ -53,12 +31,12 @@ const AdminDashboard: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
 
-  const {data:metaInfo,isLoading} = useGetMetaQuery(undefined);
+  const { data: metaInfo, isLoading } = useGetMetaQuery(undefined);
 
-     if(isLoading) {
-      return <div className="text-center text-3xl text">Loading</div>
-     }
-  console.log({metaInfo});
+  if (isLoading) {
+    return <div className="text-center text-3xl text">Loading</div>;
+  }
+  console.log({ metaInfo });
 
   return (
     <div className="min-h-screen -z-10 p-8">
@@ -80,12 +58,14 @@ const AdminDashboard: React.FC = () => {
                 <FaUser className="text-xl text-white" />
               </span>
               <div>
-                <p className="text-[#23232d] text-sm font-bold sm:text-medium md:text-lg ">Total Vendor</p>
-                <h2 className="text-lg font-bold">
-                  {metaInfo?.data?.vendorCount}
-                </h2>
+                <p className="text-[#23232d] text-sm font-bold sm:text-medium md:text-lg ">
+                  Total Vendor
+                </p>
+                <h2 className="text-lg font-bold">{metaInfo?.vendorCount}</h2>
 
-                <p className="mt-2 text-sm  sm:text-medium md:text-lg inline-block">View net earnings</p>
+                <p className="mt-2 text-sm  sm:text-medium md:text-lg inline-block">
+                  View net earnings
+                </p>
               </div>
             </div>
           </CardBody>
@@ -100,17 +80,19 @@ const AdminDashboard: React.FC = () => {
                 <FaUsers className="text-xl   text-white" />
               </span>
               <div>
-                <p className="text-[#23232d] text-sm font-bold sm:text-medium md:text-lg ">Total User</p>
-                <h2 className="text-lg font-bold">
-                  {metaInfo?.data?.userCount}
-                </h2>
+                <p className="text-[#23232d] text-sm font-bold sm:text-medium md:text-lg ">
+                  Total User
+                </p>
+                <h2 className="text-lg font-bold">{metaInfo?.userCount}</h2>
 
-                <p className="mt-2  text-sm  sm:text-medium md:text-lg inline-block">View net earnings</p>
+                <p className="mt-2  text-sm  sm:text-medium md:text-lg inline-block">
+                  View net earnings
+                </p>
               </div>
             </div>
           </CardBody>
         </Card>
-         {/* admin count */}
+        {/* admin count */}
 
         <Card className="p-4" shadow="sm">
           <CardBody>
@@ -119,12 +101,14 @@ const AdminDashboard: React.FC = () => {
                 <FaUserCircle className="text-xl   text-white" />
               </span>
               <div>
-                <p className="text-[#23232d] text-sm font-bold sm:text-medium md:text-lg ">Total Admin</p>
-                <h2 className="text-lg font-bold">
-                  {metaInfo?.data?.adminCount}
-                </h2>
+                <p className="text-[#23232d] text-sm font-bold sm:text-medium md:text-lg ">
+                  Total Admin
+                </p>
+                <h2 className="text-lg font-bold">{metaInfo?.adminCount}</h2>
 
-                <p className="mt-2  text-sm  sm:text-medium md:text-lg inline-block">View net earnings</p>
+                <p className="mt-2  text-sm  sm:text-medium md:text-lg inline-block">
+                  View net earnings
+                </p>
               </div>
             </div>
           </CardBody>
@@ -139,16 +123,24 @@ const AdminDashboard: React.FC = () => {
                 <FaDollarSign className="text-xl text-white" />
               </span>
               <div>
-                <p className="text-[#23232d]text-sm font-bold sm:text-medium md:text-lg ">Total Profit</p>
+                <p className="text-[#23232d]text-sm font-bold sm:text-medium md:text-lg ">
+                  Total Profit
+                </p>
                 <h2 className="text-lg font-bold">
-                  {metaInfo?.data?.totalRevenu}
+                  {metaInfo?.totalRevenu || 0}
                 </h2>
 
-                <p className="mt-2  text-sm  sm:text-medium md:text-lg inline-block">View net earnings</p>
+                <p className="mt-2  text-sm  sm:text-medium md:text-lg inline-block">
+                  View net earnings
+                </p>
               </div>
             </div>
           </CardBody>
         </Card>
+
+        <h2 className=" text-4xl text-center ">
+          chart and feature comming soon{" "}
+        </h2>
       </div>
 
       {/* ====================bar and pie chart================== */}

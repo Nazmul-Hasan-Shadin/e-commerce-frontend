@@ -7,7 +7,7 @@ export function Pagingation({
   productData: any;
   setPage: any;
 }) {
-  const handlePagination = (value:number) => {
+  const handlePagination = (value: number) => {
     setPage(value);
   };
   const total = Math.ceil(

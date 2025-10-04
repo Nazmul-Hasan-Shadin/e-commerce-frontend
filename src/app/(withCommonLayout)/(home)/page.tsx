@@ -15,18 +15,8 @@ export default function Home() {
 
       <Categories />
 
-      {/* <div className="w-3/4 mx-auto md:my-5">
-        <Image
-          alt="discount banner"
-          className="w-full"
-          height={300}
-          src={disocuntImage}
-          width={400}
-        />
-      </div> */}
-      
       <FeatureProduct />
-      <FollowedShopProduct/>
+      <FollowedShopProduct />
       <PopularProduct />
       <TopSellProduct />
       <AccesoriesAd />

@@ -17,8 +17,8 @@ const commentApi = baseApi.injectEndpoints({
         getNextPageParam: (lastPage, allPage, lastPageParam) =>
           lastPageParam + 1,
       },
-      query: ({pageParam}) => ({
-        url:`/review/my-review?page=${pageParam}`,
+      query: ({ pageParam }) => ({
+        url: `/review/my-review?page=${pageParam}`,
         method: "GET",
       }),
       keepUnusedDataFor: 30,
@@ -27,4 +27,5 @@ const commentApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateCommentMutation, useGetMyReviewInfiniteQuery } = commentApi;
+export const { useCreateCommentMutation, useGetMyReviewInfiniteQuery } =
+  commentApi;

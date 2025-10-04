@@ -13,7 +13,6 @@ import Link from "next/link";
 import { IoSearchOutline } from "react-icons/io5";
 import React, { useEffect, useState } from "react";
 import { RxAvatar } from "react-icons/rx";
-import { IoCartOutline } from "react-icons/io5";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { FcCustomerSupport } from "react-icons/fc";
 import { LiaFlagUsaSolid } from "react-icons/lia";
@@ -21,12 +20,13 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import Image from "next/image.js";
 import { usePathname } from "next/navigation";
 import { skipToken } from "@reduxjs/toolkit/query";
+import { MdShoppingCartCheckout } from "react-icons/md";
 
 import Container from "../../ui/Container";
 
 import styles from "./bottomNav.module.css";
 import SearchResultList from "./SearchResultList";
-import { MdShoppingCartCheckout } from "react-icons/md";
+
 import { logOut } from "@/src/redux/feature/auth/auth.slice";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import logo from "@/src/assests/icon/bottomnavlogo.avif";
@@ -51,7 +51,7 @@ const BottomNav = () => {
 
         { label: "Dashboard", link: `/${user!.role}/dashboard` },
         { label: "Shop", link: "/shop" },
-
+        { label: "Compare", link: `/compare` },
         { label: "About", link: "/about" },
       ]
     : [
@@ -82,7 +82,7 @@ const BottomNav = () => {
 
   useEffect(() => {
     if (debouncedSearchQuery?.length === 0) {
-      setIsSearchIconClick((prev) => !prev);
+      setIsSearchIconClick(false); // সবসময় বন্ধ করে দেবে
     }
   }, [debouncedSearchQuery]);
 
@@ -105,9 +105,11 @@ const BottomNav = () => {
               className="text-block"
             />
 
+            {/*  search logo for small device */}
+
             <NavbarItem>
               <IoSearchOutline
-                className="text-black font-bold text-3xl"
+                className="text-black font-bold text-3xl text-primary-color"
                 onClick={() => setIsSearchIconClick(!isSearcIconClick)}
               />
             </NavbarItem>
@@ -237,7 +239,7 @@ const BottomNav = () => {
 
           <NavbarBrand className="flex  lg:hidden gap-0 -p-16">
             {logo ? (
-              <Image alt="Navbar logo" height={50} src={logo} width={150} />
+              <Image alt="Navbar logo" className="w-[230px]" height={60} src={logo} width={260} />
             ) : null}
           </NavbarBrand>
 
@@ -282,9 +284,9 @@ const BottomNav = () => {
             {token ? (
               <NavbarItem className="text-white">
                 <Button
-                  onPress={() => dispatch(logOut())}
-                  variant="ghost"
                   className="w-full rounded-none"
+                  variant="ghost"
+                  onPress={() => dispatch(logOut())}
                 >
                   Log Out
                 </Button>
@@ -316,9 +318,9 @@ const BottomNav = () => {
           {/* =================icons fro small  device========== */}
 
           <NavbarContent className=" lg:hidden text-black" justify="end">
-            <NavbarItem className="lex flex-col justify-center">
+            {/* <NavbarItem className="lex flex-col justify-center">
               <RxAvatar className="text-3xl" />
-            </NavbarItem>
+            </NavbarItem> */}
 
             <NavbarItem className=" flex flex-col justify-center">
               <div className=" flex flex-col justify-center items-center  mx-auto">

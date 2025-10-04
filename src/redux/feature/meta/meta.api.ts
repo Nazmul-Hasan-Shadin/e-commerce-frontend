@@ -10,7 +10,6 @@ const metaApi = baseApi.injectEndpoints({
         };
       },
       transformResponse: (response, meta, arg) => {
-
         return response.data;
       },
     }),

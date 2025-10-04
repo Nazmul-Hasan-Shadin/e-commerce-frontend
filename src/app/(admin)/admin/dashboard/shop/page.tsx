@@ -17,17 +17,15 @@ import {
   DropdownItem,
 } from "@heroui/react";
 import React from "react";
-import {
-  useDeleteCategoryMutation,
-  useGetAllCategoryQuery,
-} from "@/src/redux/feature/admin/admin.categoryapi";
 import Image from "next/image";
 import Link from "next/link";
 import { FaTrash, FaTurnDown } from "react-icons/fa6";
-import { useUpdateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
 import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 import { format } from "date-fns";
+
+import { useUpdateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
+import { useDeleteCategoryMutation } from "@/src/redux/feature/admin/admin.categoryapi";
 import { useGetAllShopsQuery } from "@/src/redux/feature/shop/shop.api";
 
 const columns = [
@@ -86,11 +84,12 @@ const Tablecib = () => {
   const [filterValue, setFilterValue] = React.useState("");
   const [statusFilter, setStatusFilter] = React.useState("all");
   const [visibleColumns, setVisibleColumns] = React.useState(
-    new Set(INITIAL_VISIBLE_COLUMNS)
+    new Set(INITIAL_VISIBLE_COLUMNS),
   );
   const { data: shopLists, isLoading } = useGetAllShopsQuery("");
   const [handleUpdateProduct] = useUpdateProductMutation();
   const [handleDeleteCategory] = useDeleteCategoryMutation();
+
   console.log({ shopLists });
 
   const shops = shopLists?.data || [];
@@ -102,7 +101,7 @@ const Tablecib = () => {
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase())
+        user.name.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
     // if (
@@ -176,8 +175,9 @@ const Tablecib = () => {
 
   const headerColumns = React.useMemo(() => {
     if (visibleColumns.size === columns.length) return columns;
+
     return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.key)
+      Array.from(visibleColumns).includes(column.key),
     );
   }, [visibleColumns]);
 
@@ -189,7 +189,7 @@ const Tablecib = () => {
 
   const handleDelete = async (id: string) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?"
+      "Are you sure you want to delete this product?",
     );
 
     if (confirmDelete) {
@@ -250,15 +250,16 @@ const Tablecib = () => {
               closeOnSelect={false}
               selectedKeys={visibleColumns}
               selectionMode="multiple"
- onSelectionChange={(keys) => {
-    // Convert keys to Set<string>
-    const newKeys = new Set(
-      keys instanceof Set
-        ? Array.from(keys).map((k) => k.toString())
-        : [keys.toString()]
-    );
-    setVisibleColumns(newKeys);
-  }}
+              onSelectionChange={(keys) => {
+                // Convert keys to Set<string>
+                const newKeys = new Set(
+                  keys instanceof Set
+                    ? Array.from(keys).map((k) => k.toString())
+                    : [keys.toString()],
+                );
+
+                setVisibleColumns(newKeys);
+              }}
             >
               {columns.map((column) => (
                 <DropdownItem key={column.key} className="capitalize">
@@ -271,17 +272,6 @@ const Tablecib = () => {
 
         <Table
           aria-label="Controlled table example with dynamic content"
-          className="flex items-center"
-          selectedKeys={selectedKeys}
-          selectionMode="multiple"
-          onSelectionChange={(keys) => {
-            const newKeys = new Set(
-              keys instanceof Set
-                ? Array.from(keys).map((k) => k.toString())
-                : [keys.toString()]
-            );
-            setSelectedKeys(newKeys);
-          }}
           bottomContent={
             <div className="flex w-full my-3 justify-end">
               <Pagination
@@ -295,6 +285,18 @@ const Tablecib = () => {
               />
             </div>
           }
+          className="flex items-center"
+          selectedKeys={selectedKeys}
+          selectionMode="multiple"
+          onSelectionChange={(keys) => {
+            const newKeys = new Set(
+              keys instanceof Set
+                ? Array.from(keys).map((k) => k.toString())
+                : [keys.toString()],
+            );
+
+            setSelectedKeys(newKeys);
+          }}
         >
           <TableHeader columns={headerColumns}>
             {(column) => (
@@ -304,11 +306,11 @@ const Tablecib = () => {
 
           <TableBody items={items}>
             {(item) => (
-              <TableRow className="border p-0" key={item.id}>
+              <TableRow key={item.id} className="border p-0">
                 {(columnKey) => (
                   <TableCell>
                     {columnKey === "logo" ? (
-                      <Image width={80} height={70} src={item?.logo} alt="" />
+                      <Image alt="" height={70} src={item?.logo} width={80} />
                     ) : columnKey === "action" ? (
                       <div className="flex gap-4">
                         <FaEdit
@@ -330,7 +332,7 @@ const Tablecib = () => {
                     ) : columnKey === "createdAt" ? (
                       format(
                         new Date(getKeyValue(item, columnKey)),
-                        "dd/MM/yyyy"
+                        "dd/MM/yyyy",
                       )
                     ) : (
                       getKeyValue(item, columnKey)

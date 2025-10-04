@@ -2,29 +2,30 @@
 import React from "react";
 import { Button } from "@heroui/react";
 import Link from "next/link";
+import Image from "next/image";
 
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
-import Image from "next/image";
 
 const ProfilePage = () => {
   const { data: userData } = useGetCurrentUserQuery(undefined);
 
   const user = userData?.data || {};
-    console.log(user,'iam user');
-    
+
+  console.log(user, "iam user");
+
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       {/* Profile Header */}
       <div className="bg-white shadow rounded-lg p-6 mb-8">
         <div className="flex items-center space-x-4">
           <Image
-            width={200}
+            alt="User Avatar"
+            className="w-20 h-20 rounded-full object-cover"
             height={300}
             src={
               user?.avatar || "https://i.pravatar.cc/150?u=a042581f4e29026704d"
-            } 
-            alt="User Avatar"
-            className="w-20 h-20 rounded-full object-cover"
+            }
+            width={200}
           />
           <div>
             <h1 className="text-2xl font-bold text-gray-800">

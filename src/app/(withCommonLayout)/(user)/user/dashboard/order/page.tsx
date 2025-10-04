@@ -2,10 +2,10 @@
 
 import { Divider, Button } from "@heroui/react";
 import Image from "next/image";
+import Link from "next/link";
 
 import Container from "@/src/components/ui/Container";
 import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
-import Link from "next/link";
 
 interface IOrder {
   id: string;
@@ -74,10 +74,10 @@ const UserOrderPage = () => {
                           <figure className="col-span-1">
                             <Image
                               alt="cart product image"
+                              className="object-contain rounded"
+                              height={70}
                               src={item.product?.images[0] || "/no-image.jpg"}
                               width={70}
-                              height={70}
-                              className="object-contain rounded"
                             />
                           </figure>
 
@@ -90,9 +90,9 @@ const UserOrderPage = () => {
                             {item.quantity}
                           </p>
                           <Button
+                            className="col-span-2 text-center font-semibold"
                             size="sm"
                             variant="bordered"
-                            className="col-span-2 text-center font-semibold"
                           >
                             {order.status}
                           </Button>
@@ -121,13 +121,13 @@ const UserOrderPage = () => {
                   <div className="flex gap-4 mb-4">
                     <figure>
                       <Image
+                        alt="product image"
                         height={70}
-                        width={70}
                         src={
                           orderData?.orderItems?.[0]?.product?.images?.[0] ||
                           "/no-image.jpg"
                         }
-                        alt="product image"
+                        width={70}
                       />
                     </figure>
                     <div className="font-normal">

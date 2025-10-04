@@ -17,17 +17,18 @@ import {
   DropdownItem,
 } from "@heroui/react";
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { FaTrash, FaTurnDown } from "react-icons/fa6";
+import toast from "react-hot-toast";
+import { FaEdit } from "react-icons/fa";
+import { format } from "date-fns";
+
+import { useUpdateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
 import {
   useDeleteCategoryMutation,
   useGetAllCategoryQuery,
 } from "@/src/redux/feature/admin/admin.categoryapi";
-import Image from "next/image";
-import Link from "next/link";
-import { FaTrash, FaTurnDown } from "react-icons/fa6";
-import { useUpdateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
-import toast from "react-hot-toast";
-import { FaEdit } from "react-icons/fa";
-import { format } from "date-fns";
 
 const columns = [
   {
@@ -48,6 +49,7 @@ const columns = [
   },
 ];
 const INITIAL_VISIBLE_COLUMNS = ["name", "images", "createdAt", "action"];
+
 function capitalize(s: string) {
   return s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : "";
 }
@@ -58,7 +60,7 @@ const Tablecib = () => {
   const [filterValue, setFilterValue] = React.useState("");
   const [statusFilter, setStatusFilter] = React.useState("all");
   const [visibleColumns, setVisibleColumns] = React.useState<Set<string>>(
-    new Set(INITIAL_VISIBLE_COLUMNS)
+    new Set(INITIAL_VISIBLE_COLUMNS),
   );
   const { data: categroyList, isLoading } = useGetAllCategoryQuery("");
   const [handleUpdateProduct] = useUpdateProductMutation();
@@ -73,7 +75,7 @@ const Tablecib = () => {
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase())
+        user.name.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
     // if (
@@ -151,7 +153,7 @@ const Tablecib = () => {
     // if (visibleColumns === "all") return columns;
 
     return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.key)
+      Array.from(visibleColumns).includes(column.key),
     );
   }, [visibleColumns]);
 
@@ -163,7 +165,7 @@ const Tablecib = () => {
 
   const handleDelete = async (id: string) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?"
+      "Are you sure you want to delete this product?",
     );
 
     if (confirmDelete) {
@@ -243,12 +245,6 @@ const Tablecib = () => {
 
         <Table
           aria-label="Controlled table example with dynamic content"
-          className="flex items-center"
-          selectedKeys={selectedKeys}
-          selectionMode="multiple"
-          onSelectionChange={(keys) =>
-            setSelectedKeys(new Set(keys as Set<string>))
-          }
           bottomContent={
             <div className="flex w-full my-3 justify-end">
               <Pagination
@@ -262,6 +258,12 @@ const Tablecib = () => {
               />
             </div>
           }
+          className="flex items-center"
+          selectedKeys={selectedKeys}
+          selectionMode="multiple"
+          onSelectionChange={(keys) =>
+            setSelectedKeys(new Set(keys as Set<string>))
+          }
         >
           <TableHeader columns={headerColumns}>
             {(column) => (
@@ -271,11 +273,11 @@ const Tablecib = () => {
 
           <TableBody items={items}>
             {(item) => (
-              <TableRow className="border p-0" key={item.id}>
+              <TableRow key={item.id} className="border p-0">
                 {(columnKey) => (
                   <TableCell>
                     {columnKey === "images" ? (
-                      <Image width={80} height={70} src={item?.images} alt="" />
+                      <Image alt="" height={70} src={item?.images} width={80} />
                     ) : columnKey === "action" ? (
                       <div className="flex gap-4">
                         <FaEdit
@@ -291,7 +293,7 @@ const Tablecib = () => {
                     ) : columnKey === "createdAt" ? (
                       format(
                         new Date(getKeyValue(item, columnKey)),
-                        "dd/MM/yyyy"
+                        "dd/MM/yyyy",
                       )
                     ) : (
                       getKeyValue(item, columnKey)

@@ -11,11 +11,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import toast from "react-hot-toast";
+import { IoGitCompareOutline } from "react-icons/io5";
 
 import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import { addToCart, replaceCart } from "@/src/redux/feature/cart/cartSlice";
-
-import { IoGitCompareOutline } from "react-icons/io5";
 import { addToCompare } from "@/src/redux/feature/compare/compare.slice";
 
 export interface IProduct {
@@ -116,8 +115,8 @@ const Card = ({ product }: { product: IProduct }) => {
 
         <div className=" font-bold  sm:text-sm md:text-lg absolute top-0 text-primary-color p-1 left-1">
           <IoGitCompareOutline
-            onClick={() => handleCompare(product)}
             className=" text-medium sm:text-xl md:text-xl lg:text-2xl font-bold text-primary-color"
+            onClick={() => handleCompare(product)}
           />
         </div>
 
@@ -170,8 +169,6 @@ const Card = ({ product }: { product: IProduct }) => {
             </button>
           </Link>
         </CardFooter>
-
-       
       </NextCard>
     </div>
   );

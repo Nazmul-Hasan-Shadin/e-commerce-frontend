@@ -8,7 +8,8 @@ interface IProps {
   name: string;
   label: string;
   size?: "lg" | "md" | "sm";
-  radius:"sm" | 'lg' |'md'
+  radius?: "sm" | "lg" | "md";
+  defaultSelectedKeys?: any;
 
   dropDownHeading?: string;
   options: {
@@ -30,7 +31,8 @@ const ESelect = ({
   options,
   required = false,
   disabled = false,
-  radius='md',
+  defaultSelectedKeys,
+  radius = "md",
   className = "",
   size = "md",
   dropDownHeading,
@@ -47,32 +49,30 @@ const ESelect = ({
         {required && <span className="text-red-500"> *</span>}
       </label>
       <Select
-        labelPlacement="outside"
+        defaultSelectedKeys={defaultSelectedKeys}
         id={name}
-        radius={radius}
         label={label}
+        labelPlacement="outside"
+        radius={radius}
         size={size}
         {...register(name, { required })}
-        className={`p-2  rounded-none focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white `}
+        className={` rounded-none focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white `}
+        disabled={disabled}
         errorMessage={errors[name] ? "border-red-500" : "border-gray-300"}
         value={defaultValue || ""} // Set default value
-        disabled={disabled}
       >
         {/* <option disabled value="">
           {dropDownHeading || "select category"}
         </option> */}
         {options?.map((option, index) => {
           // Ensure proper key handling
-          const optionValue =
-            typeof option.key === "string" || typeof option.key === "number"
-              ? option.key
-              : typeof option.id === "string" || typeof option.id === "number"
-                ? option.id
-                : typeof option.value === "string" ||
-                    typeof option.value === "number"
-                  ? option.value
-                  : undefined;
-          const optionLabel = option.label || option.name || option.label;
+
+          // console.log(option,'option');
+
+          const optionValue = option.key ?? option.id ?? option.value;
+          const optionLabel =
+            option.label ?? option.name ?? String(optionValue);
+          console.log(optionValue, optionLabel, "fpudk");
 
           return (
             // <option key={index} className="text-black" value={optionValue}>

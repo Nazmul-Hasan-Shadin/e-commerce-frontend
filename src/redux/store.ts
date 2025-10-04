@@ -35,11 +35,11 @@ const persistedReducer = persistReducer(persistConfig, authSlice);
 
 const persistedCartReducer = persistReducer(
   cartPersistConfig,
-  cartSlice.reducer
+  cartSlice.reducer,
 );
 const comparePersistedReducer = persistReducer(
   comparePersistConfig,
-  compareSlice.reducer
+  compareSlice.reducer,
 );
 
 export const store = configureStore({

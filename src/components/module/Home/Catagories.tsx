@@ -14,6 +14,8 @@ const Categories = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // http://locahost:3001
+  // https://independent-shop.vercel.app
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -21,7 +23,7 @@ const Categories = () => {
           "https://independent-shop.vercel.app/api/v1/category",
           {
             cache: "no-store",
-          }
+          },
         );
 
         if (!result.ok) {
@@ -69,7 +71,7 @@ const Categories = () => {
                 <Link href={`/product?categoryName=${category.id}`}>
                   <Image
                     alt={`${category.name} image`}
-                    className="w-20 h-20 lg:w-auto border rounded-full object-cover lg:h-[180px]"
+                    className="w-24 h-20 lg:w-auto border rounded-full object-cover lg:h-[180px]"
                     height={180}
                     src={
                       category?.images ||

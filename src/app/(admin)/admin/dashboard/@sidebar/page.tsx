@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { FaShoppingCart, FaCog, FaClipboardList } from "react-icons/fa";
 import { GoChecklist } from "react-icons/go";
 import { IoHomeOutline } from "react-icons/io5";
-import { RxHamburgerMenu } from "react-icons/rx";
 import { FaPlus } from "react-icons/fa6";
 
 import { useAppSelector } from "@/src/redux/hook";
@@ -32,7 +31,7 @@ const AdminSidebar = () => {
   };
 
   return (
-    <div style={{ zIndex: 50 }} className={` fixed z-50`}>
+    <div className={` fixed z-50`} style={{ zIndex: 50 }}>
       <div
         className={`flex flex-col ${isOpen ? "" : "hidden sm:block"}  bg-gray-800 h-screen text-white ${
           isOpen ? " w-full  md:w-64 lg:w-64" : "w-0 md:w-20"

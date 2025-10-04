@@ -10,8 +10,6 @@ const SidebarFilter = () => {
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   // const { data: productData } = useGetAllProductQuery({ categoryName });
 
-
-
   const dispatch = useAppDispatch();
 
   const handleBrandChange = (brand: string) => {

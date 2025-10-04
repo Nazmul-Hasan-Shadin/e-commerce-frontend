@@ -8,7 +8,7 @@ const sslPaymentInit = baseApi.injectEndpoints({
         method: "POST",
         body: orderId,
       }),
-      transformResponse: (response: { data:any }, meta, arg) => response.data,
+      transformResponse: (response: { data: any }, meta, arg) => response.data,
     }),
   }),
 });

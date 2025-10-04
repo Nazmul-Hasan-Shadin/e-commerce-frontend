@@ -18,24 +18,20 @@ import {
   Tooltip,
 } from "@heroui/react";
 import React from "react";
-import {
-  useDeleteCategoryMutation,
-  useGetAllCategoryQuery,
-} from "@/src/redux/feature/admin/admin.categoryapi";
 import Image from "next/image";
 import Link from "next/link";
 import { FaTrash, FaTurnDown } from "react-icons/fa6";
+import toast from "react-hot-toast";
+import { format } from "date-fns";
+import { skipToken } from "@reduxjs/toolkit/query";
+import { MdEdit } from "react-icons/md";
+
+import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import {
   useDeleteProductMutation,
   useGetProductByShopIdQuery,
   useUpdateProductMutation,
 } from "@/src/redux/feature/vendor/vendor.api";
-import toast from "react-hot-toast";
-import { FaEdit } from "react-icons/fa";
-import { format } from "date-fns";
-import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
-import { skipToken } from "@reduxjs/toolkit/query";
-import { MdEdit } from "react-icons/md";
 import Container from "@/src/components/ui/Container";
 
 const columns = [
@@ -83,14 +79,14 @@ const Vendor = () => {
   const [statusFilter, setStatusFilter] = React.useState("all");
 
   const [visibleColumns, setVisibleColumns] = React.useState(
-    new Set(INITIAL_VISIBLE_COLUMNS)
+    new Set(INITIAL_VISIBLE_COLUMNS),
   );
   const { data: vendorInfo } = useGetCurrentUserQuery(undefined);
 
   const shopId = vendorInfo?.data?.shop?.id;
 
   const { data: productList, isLoading } = useGetProductByShopIdQuery(
-    shopId ? { shopId } : skipToken
+    shopId ? { shopId } : skipToken,
   );
 
   const [handleUpdateProduct] = useUpdateProductMutation();
@@ -105,7 +101,7 @@ const Vendor = () => {
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase())
+        user.name.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
     // if (
@@ -183,7 +179,7 @@ const Vendor = () => {
     // if (visibleColumns === "all") return columns;
 
     return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.key)
+      Array.from(visibleColumns).includes(column.key),
     );
   }, [visibleColumns]);
 
@@ -195,7 +191,7 @@ const Vendor = () => {
 
   const handleDelete = async (id: string) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?"
+      "Are you sure you want to delete this product?",
     );
 
     if (confirmDelete) {
@@ -232,11 +228,11 @@ const Vendor = () => {
             <h2 className="md:text-md lg:text-xl font-bold text-gray-800 ">
               <Input
                 isClearable
-                variant="bordered"
                 className="w-full  "
                 placeholder="Search by name..."
                 startContent={<SearchIcon />}
                 value={filterValue}
+                variant="bordered"
                 onClear={() => onClear()}
                 onValueChange={onSearchChange}
               />
@@ -265,7 +261,7 @@ const Vendor = () => {
                   if (keys instanceof Set) {
                     // multiple selection
                     newKeys = new Set(
-                      Array.from(keys).map((k) => k.toString())
+                      Array.from(keys).map((k) => k.toString()),
                     );
                   } else {
                     // single selection or SharedSelection object
@@ -286,16 +282,6 @@ const Vendor = () => {
 
           <Table
             aria-label="Controlled table example with dynamic content"
-            className="flex items-center"
-            selectedKeys={selectedKeys}
-            selectionMode="multiple"
-            onSelectionChange={(keys) => {
-              const newKeys =
-                keys instanceof Set
-                  ? new Set(Array.from(keys).map((k) => k.toString()))
-                  : new Set([keys.toString()]);
-              setSelectedKeys(newKeys);
-            }}
             bottomContent={
               <div className="flex w-full my-3 justify-end">
                 <Pagination
@@ -309,6 +295,17 @@ const Vendor = () => {
                 />
               </div>
             }
+            className="flex items-center"
+            selectedKeys={selectedKeys}
+            selectionMode="multiple"
+            onSelectionChange={(keys) => {
+              const newKeys =
+                keys instanceof Set
+                  ? new Set(Array.from(keys).map((k) => k.toString()))
+                  : new Set([keys.toString()]);
+
+              setSelectedKeys(newKeys);
+            }}
           >
             <TableHeader columns={headerColumns}>
               {(column) => (
@@ -318,15 +315,15 @@ const Vendor = () => {
 
             <TableBody items={items}>
               {(item) => (
-                <TableRow className="border-gray-200 border p-0" key={item.id}>
+                <TableRow key={item.id} className="border-gray-200 border p-0">
                   {(columnKey) => (
                     <TableCell>
                       {columnKey === "images" ? (
                         <Image
-                          width={80}
+                          alt=""
                           height={70}
                           src={item?.images[0]}
-                          alt=""
+                          width={80}
                         />
                       ) : columnKey === "action" ? (
                         <div className="flex gap-4">
@@ -355,7 +352,7 @@ const Vendor = () => {
                       ) : columnKey === "createdAt" ? (
                         format(
                           new Date(getKeyValue(item, columnKey)),
-                          "dd/MM/yyyy"
+                          "dd/MM/yyyy",
                         )
                       ) : (
                         getKeyValue(item, columnKey)

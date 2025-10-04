@@ -28,9 +28,7 @@ const ReviewTab = ({ review }: { review: IReview[] }) => {
 
         <Tab key="music" className=" text-xl" title="Description">
           <Card>
-            <CardBody>
-              its description
-            </CardBody>
+            <CardBody>its description</CardBody>
           </Card>
         </Tab>
         <Tab key="videos" className=" text-xl" title="Videos">

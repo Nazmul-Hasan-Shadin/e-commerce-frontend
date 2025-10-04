@@ -31,7 +31,7 @@ const ProductsPage = () => {
     categoryName: "",
   }));
 
-  const handlePagination = (value:number) => {
+  const handlePagination = (value: number) => {
     setPage(value);
   };
 

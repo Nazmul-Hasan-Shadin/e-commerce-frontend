@@ -1,12 +1,12 @@
 "use client";
 import { ReactNode } from "react";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 import DashboardNavbar from "@/src/components/module/admin/DashboardNavbar";
 import {
   SideBarProvider,
   useSideBar,
 } from "@/src/ContextProvider/sideBarContex";
-import { RxHamburgerMenu } from "react-icons/rx";
 
 export default function DashboardLayout({
   children,
@@ -36,8 +36,8 @@ function InnerLayout({
       <div className="flex  relative border  md:gap-5">
         <div className={`relative ${isOpen ? "" : ""} `}>
           <div
-            style={{ zIndex: 30 }}
             className={`lg:fixed ${`${isOpen ? "absolute md:fixed right-12px" : ""}`}   h-screen bg-gray-800  `}
+            style={{ zIndex: 30 }}
           >
             {sidebar}
           </div>

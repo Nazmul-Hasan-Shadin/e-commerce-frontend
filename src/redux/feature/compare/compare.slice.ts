@@ -1,5 +1,6 @@
-import { TCategory } from "@/src/types";
 import { createSlice } from "@reduxjs/toolkit";
+
+import { TCategory } from "@/src/types";
 
 export type TProduct = {
   id: string;
@@ -43,7 +44,7 @@ export const compareSlice = createSlice({
 
       if (isProductExist) {
         state.product = state.product.filter(
-          (product) => product.id !== isProductExist.id
+          (product) => product.id !== isProductExist.id,
         );
       }
     },

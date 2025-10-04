@@ -7,7 +7,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
     <div className="relative">
       <NavBar />
       <BottomNav />
-      <SubBottomNavPage/>
+      <SubBottomNavPage />
       <main className="">{children}</main>
     </div>
   );

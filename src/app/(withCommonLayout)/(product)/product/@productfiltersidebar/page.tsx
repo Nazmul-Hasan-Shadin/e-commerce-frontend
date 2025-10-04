@@ -51,7 +51,7 @@ const SidebarFilter = forwardRef<HTMLDivElement>(() => {
     setSelectedColors((prev) =>
       prev.includes(color)
         ? prev.filter((item) => item !== color)
-        : [...prev, color]
+        : [...prev, color],
     );
   };
   // // ${

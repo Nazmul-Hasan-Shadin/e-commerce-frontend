@@ -1,4 +1,4 @@
-import  "../../src/styles/globals.css";
+import "../../src/styles/globals.css";
 import { Metadata, Viewport } from "next";
 import { Toaster } from "react-hot-toast";
 
