@@ -26,7 +26,7 @@ import Container from "../../ui/Container";
 
 import styles from "./bottomNav.module.css";
 import SearchResultList from "./SearchResultList";
-
+import { MdShoppingCartCheckout } from "react-icons/md";
 import { logOut } from "@/src/redux/feature/auth/auth.slice";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import logo from "@/src/assests/icon/bottomnavlogo.avif";
@@ -324,7 +324,7 @@ const BottomNav = () => {
               <div className=" flex flex-col justify-center items-center  mx-auto">
                 <Link href={"/cart"}>
                   {" "}
-                  <IoCartOutline className="text-3xl" />
+                  <MdShoppingCartCheckout className="text-4xl text-primary-color " />
                 </Link>
               </div>
             </NavbarItem>

@@ -53,14 +53,12 @@ const AdminDashboard: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
 
-  const data = {
-    earnings: { value: 559250, percentage: 16.24 },
-    orders: { value: 36894, percentage: -3.57 },
-    customers: { value: 183350000, percentage: 29.08 },
-    balance: { value: 165890, percentage: 0.0 },
-  };
-  const metaInfo = useGetMetaQuery(undefined);
-  console.log(metaInfo);
+  const {data:metaInfo,isLoading} = useGetMetaQuery(undefined);
+
+     if(isLoading) {
+      return <div className="text-center text-3xl text">Loading</div>
+     }
+  console.log({metaInfo});
 
   return (
     <div className="min-h-screen -z-10 p-8">

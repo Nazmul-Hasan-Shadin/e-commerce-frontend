@@ -45,15 +45,27 @@ const Register = () => {
 
         <EForm onSubmit={onSubmit}>
           <div className="mb-4">
-            <EInput required label="User Name" name="username" type="text" />
+            <EInput
+              placeholder="Enter your username"
+              required
+              label="User name"
+              name="username"
+              type="text"
+            />
           </div>
           <div className="mb-4">
-            <EInput required label="Email" name="email" type="email" />
+            <EInput
+              placeholder="Enter your email"
+              required
+              label="Email"
+              name="email"
+              type="email"
+            />
           </div>
 
           <div className="mb-4">
             <ESelect
-              label=" ROle"
+              label="Join as"
               name="role"
               options={[
                 { id: "user", label: "user" },
@@ -63,14 +75,22 @@ const Register = () => {
           </div>
 
           <div className="mb-4">
-            <EInput required label="Password" name="password" type="password" />
+            <EInput
+              placeholder="Enter your password"
+              required
+              label="Password"
+              name="password"
+              type="password"
+            />
           </div>
 
           <div className="mb-4">
             <EInput
+              placeholder="Retype your password"
               required
               label="Confirm Password"
               name="confirmPassword"
+              
               type="password"
             />
           </div>

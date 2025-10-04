@@ -9,6 +9,7 @@ import { IInput } from "@/src/types";
 interface Iprops extends IInput {
   defaultValue?: any;
   placeholder?: string;
+  radius?: "none" | "md" | "lg" | "sm";
 }
 const EInput = ({
   variant = "bordered",
@@ -18,6 +19,7 @@ const EInput = ({
   label,
   defaultValue,
   placeholder,
+  radius = "sm",
 
   name,
 }: Iprops) => {
@@ -29,15 +31,16 @@ const EInput = ({
   return (
     <Input
       placeholder={placeholder}
-       labelPlacement="outside-top"
+      labelPlacement="outside-top"
       required={required}
       type={type}
       variant={variant}
       {...register(name)}
-      className="rounded-sm"
+      className="rounded-none"
       errorMessage={errors[name] ? (errors[name]?.message as string) : ""}
       label={label}
       size={size}
+      radius={radius}
     />
   );
 };

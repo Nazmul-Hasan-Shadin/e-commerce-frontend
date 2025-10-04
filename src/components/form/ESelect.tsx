@@ -7,6 +7,8 @@ import { useFormContext } from "react-hook-form";
 interface IProps {
   name: string;
   label: string;
+  size?: "lg" | "md" | "sm";
+  radius:"sm" | 'lg' |'md'
 
   dropDownHeading?: string;
   options: {
@@ -28,7 +30,9 @@ const ESelect = ({
   options,
   required = false,
   disabled = false,
+  radius='md',
   className = "",
+  size = "md",
   dropDownHeading,
   defaultValue,
 }: IProps) => {
@@ -45,9 +49,11 @@ const ESelect = ({
       <Select
         labelPlacement="outside"
         id={name}
+        radius={radius}
         label={label}
+        size={size}
         {...register(name, { required })}
-        className={`p-2  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white `}
+        className={`p-2  rounded-none focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white `}
         errorMessage={errors[name] ? "border-red-500" : "border-gray-300"}
         value={defaultValue || ""} // Set default value
         disabled={disabled}
@@ -72,7 +78,7 @@ const ESelect = ({
             // <option key={index} className="text-black" value={optionValue}>
             //   {optionLabel}
             // </option>
-            <SelectItem  key={optionValue}>{optionLabel}</SelectItem>
+            <SelectItem key={optionValue}>{optionLabel}</SelectItem>
           );
         })}
       </Select>

@@ -18,6 +18,7 @@ import { setUser } from "@/src/redux/feature/auth/auth.slice";
 import { useAppDispatch } from "@/src/redux/hook";
 import { loginHandler } from "@/src/services/auth";
 import Link from "next/link";
+import Container from "@/src/components/ui/Container";
 
 // Define role type for stricter type checking
 type Role = "user" | "admin" | "vendor";
@@ -67,8 +68,7 @@ const Login = () => {
         iat: number;
         exp: number;
       };
- 
-   
+
       dispatch(setUser({ user, token: res.data.accessToken }));
 
       toast.success("Logged in successfully!", { id: toastId });
@@ -123,7 +123,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="flex items-center md:h-screen justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
         <h2 className="text-center text-3xl font-bold text-[#fd6506] mb-6">
           Login
@@ -166,6 +166,7 @@ const Login = () => {
           {/* Email Input */}
           <div className="mb-4">
             <EInput
+              placeholder="Enter your email"
               required
               defaultValue={credentials.email}
               label="Email"
@@ -177,6 +178,7 @@ const Login = () => {
           {/* Password Input */}
           <div className="mb-6">
             <EInput
+              placeholder="Enter your password"
               required
               defaultValue={credentials.password}
               label="Password"
@@ -209,7 +211,10 @@ const Login = () => {
           {/* Signup Redirect */}
           <div className="text-center text-sm">
             <span>Don&apos;t have an account?</span>
-            <Link className="text-[#fd6506] hover:underline ml-1" href="/register">
+            <Link
+              className="text-[#fd6506] hover:underline ml-1"
+              href="/register"
+            >
               Sign Up
             </Link>
           </div>

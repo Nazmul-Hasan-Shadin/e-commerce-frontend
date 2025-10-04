@@ -60,7 +60,7 @@ const VendorDashboard: React.FC = () => {
     balance: { value: 165890, percentage: 0.0 },
   };
   const metaInfo = useGetMetaQuery(undefined);
-  console.log(metaInfo);
+  console.log({metaInfo},'vendor');
 
   return (
     <div className="min-h-screen -z-10 p-8">
@@ -82,9 +82,9 @@ const VendorDashboard: React.FC = () => {
                 <FaUser className="text-xl text-white" />
               </span>
               <div>
-                <p className="text-[#23232d] text-sm font-bold sm:text-medium md:text-lg ">Total Vendor</p>
+                <p className="text-[#23232d] text-sm font-bold sm:text-medium md:text-lg ">Total Orders</p>
                 <h2 className="text-lg font-bold">
-                  {metaInfo?.data?.vendorCount}
+                  {metaInfo?.data?.orderCount}
                 </h2>
 
                 <p className="mt-2 text-sm  sm:text-medium md:text-lg inline-block">View net earnings</p>
@@ -102,9 +102,9 @@ const VendorDashboard: React.FC = () => {
                 <FaUsers className="text-xl   text-white" />
               </span>
               <div>
-                <p className="text-[#23232d] text-sm font-bold sm:text-medium md:text-lg ">Total User</p>
+                <p className="text-[#23232d] text-sm font-bold sm:text-medium md:text-lg ">Total Products</p>
                 <h2 className="text-lg font-bold">
-                  {metaInfo?.data?.userCount}
+                  {metaInfo?.data?.productCount}
                 </h2>
 
                 <p className="mt-2  text-sm  sm:text-medium md:text-lg inline-block">View net earnings</p>
@@ -121,9 +121,9 @@ const VendorDashboard: React.FC = () => {
                 <FaUserCircle className="text-xl   text-white" />
               </span>
               <div>
-                <p className="text-[#23232d] text-sm font-bold sm:text-medium md:text-lg ">Total Admin</p>
+                <p className="text-[#23232d] text-sm font-bold sm:text-medium md:text-lg ">Total Review</p>
                 <h2 className="text-lg font-bold">
-                  {metaInfo?.data?.adminCount}
+                  {metaInfo?.data?.totalReview}
                 </h2>
 
                 <p className="mt-2  text-sm  sm:text-medium md:text-lg inline-block">View net earnings</p>
@@ -143,7 +143,7 @@ const VendorDashboard: React.FC = () => {
               <div>
                 <p className="text-[#23232d]text-sm font-bold sm:text-medium md:text-lg ">Total Profit</p>
                 <h2 className="text-lg font-bold">
-                  {metaInfo?.data?.totalRevenu}
+                  {metaInfo?.data?.totalRevenu || 0}
                 </h2>
 
                 <p className="mt-2  text-sm  sm:text-medium md:text-lg inline-block">View net earnings</p>
