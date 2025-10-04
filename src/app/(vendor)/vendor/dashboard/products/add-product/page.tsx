@@ -15,6 +15,7 @@ import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.category
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import { useCreateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
 import Container from "@/src/components/ui/Container";
+import Link from "next/link";
 
 const AddProductPage = () => {
   const { isLoading, data: userData } = useGetCurrentUserQuery(undefined);
@@ -78,7 +79,6 @@ const AddProductPage = () => {
       if (response.success) {
         toast.success("Product has been added!");
       }
-      console.log("hi");
     } catch (error) {
       toast.error("Error adding product.");
     }
@@ -90,9 +90,19 @@ const AddProductPage = () => {
 
   return (
     <Container>
-      <div className="w-3/4 mx-auto gap-5 bg-[#FFFFFF] p-5 mt-3">
-        <h2 className="text-2xl font-bold mb-5">Add Product Info</h2>
-        <Divider />
+      <div className="gap-5 bg-[#FFFFFF] p-5 mt-3">
+        <div className="flex justify-between">
+          <h2 className="md:text-md lg:text-xl font-bold text-gray-800 ">
+            Manage Product
+          </h2>
+          <Link href={"/vendor/dashboard/products"}>
+            <Button className="bg-primary-color text-white rounded-sm">
+              {" "}
+              Manage Product
+            </Button>
+          </Link>
+        </div>
+        <Divider className="my-4" />
         <EForm onSubmit={onSubmit}>
           <div
             aria-label="Upload images"
@@ -136,7 +146,7 @@ const AddProductPage = () => {
             )}
           </div>
 
-          <div className="grid grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 gap-5">
             <EInput label="Name" name="name" type="text" variant="bordered" />
             <EInput
               label="Price"
@@ -144,20 +154,22 @@ const AddProductPage = () => {
               type="number"
               variant="bordered"
             />
-            <ESelect
-              label="Category"
-              name="category"
-              options={categoryList?.data || []}
-            />
-            <ESelect
-              dropDownHeading="Is Flash Sell?"
-              label="Flash Sale"
-              name="isFlash"
-              options={[
-                { label: "Flash sell", id: true },
-                { label: "Not Flash sell", id: false },
-              ]}
-            />
+            <div className="grid-cols-2 grid gap-3">
+              <ESelect
+                label="Select Category"
+                name="category"
+                options={categoryList?.data || []}
+              />
+              <ESelect
+                dropDownHeading="Is Flash Sell?"
+                label="Select flash or not"
+                name="isFlash"
+                options={[
+                  { label: "Flash sell", id: true },
+                  { label: "Not Flash sell", id: false },
+                ]}
+              />
+            </div>
             <EInput
               label="Discount"
               name="discount"
@@ -177,7 +189,7 @@ const AddProductPage = () => {
             />
           </div>
 
-          <Divider className="my-6"/>
+          <Divider className="my-6" />
 
           <div className="flex justify-end">
             <Button

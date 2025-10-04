@@ -1,5 +1,6 @@
 "use client";
 
+import { Select, SelectItem } from "@heroui/react";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
@@ -41,18 +42,19 @@ const ESelect = ({
       <label className="mb-1 text-sm font-medium text-gray-700" htmlFor={name}>
         {required && <span className="text-red-500"> *</span>}
       </label>
-      <select
+      <Select
+     
         id={name}
+        label={label}
         {...register(name, { required })}
-        className={`p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white ${
-          errors[name] ? "border-red-500" : "border-gray-300"
-        }`}
-        defaultValue={defaultValue || ""} // Set default value
+        className={`p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white `}
+        errorMessage={errors[name] ? "border-red-500" : "border-gray-300"}
+        value={defaultValue || ""} // Set default value
         disabled={disabled}
       >
-        <option disabled value="">
+        {/* <option disabled value="">
           {dropDownHeading || "select category"}
-        </option>
+        </option> */}
         {options?.map((option, index) => {
           // Ensure proper key handling
           const optionValue =
@@ -67,12 +69,13 @@ const ESelect = ({
           const optionLabel = option.label || option.name || option.label;
 
           return (
-            <option key={index} className="text-black" value={optionValue}>
-              {optionLabel}
-            </option>
+            // <option key={index} className="text-black" value={optionValue}>
+            //   {optionLabel}
+            // </option>
+            <SelectItem  key={optionValue}>{optionLabel}</SelectItem>
           );
         })}
-      </select>
+      </Select>
       {errors[name] && (
         <p className="mt-1 text-sm text-red-500">
           {(errors[name]?.message as string) || "This field is required"}

@@ -15,12 +15,11 @@ const Sidebar = () => {
   const user = useAppSelector((state) => state.auth.user);
 
   const { isOpen, toggleSidebar } = useSideBar();
-  const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   return (
     <div>
       <button
-        className={`text-red-400 absolute ${isOpen ? "left-[173px] md:left-[280px] top-3 md:top-5" : "top-5 left-5 lg:left-28 md:left-24"} hover:text-white z-20`}
+        className={`text-red-400 absolute ${isOpen ? "left-[173px] md:left-[280px] lg:left-72 top-3 md:top-5" : "top-5 left-5 lg:left-28 md:left-24"} hover:text-white z-20`}
         onClick={() => toggleSidebar()} // arrow button for collaps sidebar
       >
         <RxHamburgerMenu

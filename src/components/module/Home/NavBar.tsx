@@ -53,8 +53,8 @@ const NavBar = () => {
   );
 
   return (
-    <div className="hidden lg:block">
-      <div className="bg-primary-color z-20">
+    <div className="hidden  lg:block">
+      <div className="bg-[var(--primary-color)] z-20">
         <Container>
           <Navbar
             className="p-4 text-white bg-primary-color "
@@ -70,7 +70,7 @@ const NavBar = () => {
               />
             </NavbarContent>
 
-            <NavbarBrand className="flex gap-0">
+            <NavbarBrand className="flex z-20 gap-0">
               <Image alt="Navbar logo" height={100} src={logo} width={180} />
             </NavbarBrand>
 

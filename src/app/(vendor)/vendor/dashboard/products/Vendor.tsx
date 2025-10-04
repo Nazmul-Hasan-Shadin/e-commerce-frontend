@@ -230,7 +230,9 @@ const Vendor = () => {
           <h2 className="md:text-md lg:text-xl font-bold text-gray-800 ">
             <Input
               isClearable
-              className="w-full border"
+            
+               variant="bordered"
+              className="w-full  "
               placeholder="Search by name..."
               startContent={<SearchIcon />}
               value={filterValue}
@@ -294,7 +296,7 @@ const Vendor = () => {
 
           <TableBody items={items}>
             {(item) => (
-              <TableRow className="border p-0" key={item.id}>
+              <TableRow className="border-gray-200 border p-0" key={item.id}>
                 {(columnKey) => (
                   <TableCell>
                     {columnKey === "images" ? (

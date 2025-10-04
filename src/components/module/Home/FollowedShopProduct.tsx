@@ -1,12 +1,13 @@
 "use client"; // Use client-side rendering since RTK Query is client-based
 
+import "swiper/css";
+import "swiper/css/pagination";
 import Card from "../../ui/Card";
 import SkeletonCard from "../../ui/SkeletonCard";
 import Container from "../../ui/Container";
 import { HomeTitle } from "../../ui/HomeTitle";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
+
 import { Pagination, Autoplay } from "swiper/modules";
 
 import { useGetFollowedShopProductQuery } from "@/src/redux/feature/vendor/vendor.api";

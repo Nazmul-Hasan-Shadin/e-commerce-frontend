@@ -1,5 +1,6 @@
+/* eslint-disable react/jsx-sort-props */
 "use client";
-import { Input } from "@heroui/input";
+import { Input } from "@heroui/react";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
@@ -28,6 +29,7 @@ const EInput = ({
   return (
     <Input
       placeholder={placeholder}
+      
       required={required}
       type={type}
       {...register(name)}

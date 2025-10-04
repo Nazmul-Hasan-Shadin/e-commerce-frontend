@@ -49,7 +49,6 @@ const BottomNav = () => {
         { label: "Home", link: "/" },
         { label: "Product", link: "/product" },
 
-        { label: "Compare", link: `/compare` },
         { label: "Dashboard", link: `/${user!.role}/dashboard` },
         { label: "Shop", link: "/shop" },
 
@@ -59,6 +58,7 @@ const BottomNav = () => {
         { label: "Home", link: "/" },
         { label: "Product", link: "/product" },
         { label: "Shop", link: "/shop" },
+        { label: "Compare", link: `/compare` },
 
         { label: "About", link: "/about" },
 
@@ -304,7 +304,10 @@ const BottomNav = () => {
 
             <NavbarItem className=" flex flex-col justify-center">
               <div className=" flex flex-col justify-center items-center  mx-auto">
-               <Link href={'/cart'}> <IoCartOutline  className="text-3xl" /></Link>
+                <Link href={"/cart"}>
+                  {" "}
+                  <IoCartOutline className="text-3xl" />
+                </Link>
               </div>
             </NavbarItem>
           </NavbarContent>

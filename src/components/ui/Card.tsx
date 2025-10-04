@@ -158,7 +158,7 @@ const Card = ({ product }: { product: IProduct }) => {
           </Button>
           {/* ==============add to cart for medium device======== */}
           <Button
-            className="text-sm sm:text-medium md:text-lg md:flex-1 2xl:flex-1 rounded-sm hidden md:block   bg-primary-color text-white"
+            className="text-sm sm:text-medium md:text-medium lg:text-medium md:flex-1 2xl:flex-1 rounded-sm hidden md:block   bg-primary-color text-white"
             variant="bordered"
             onClick={handleAddToCart}
           >
