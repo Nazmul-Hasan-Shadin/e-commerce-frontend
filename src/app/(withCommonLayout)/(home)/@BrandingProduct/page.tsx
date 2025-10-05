@@ -8,16 +8,14 @@ import "swiper/css/pagination";
 
 import { Pagination, Autoplay } from "swiper/modules";
 import Image from "next/image";
-
-import Card from "../../ui/Card";
-import Container from "../../ui/Container";
-import { HomeTitle } from "../../ui/HomeTitle";
-
-import CategoryCard from "./ClothCategory";
-
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import discountOnCloth from "@/src/assests/accesories/disounttcloth.webp";
-import SkeletonCard from "../../ui/SkeletonCard";
+
+import Container from "@/src/components/ui/Container";
+import { HomeTitle } from "@/src/components/ui/HomeTitle";
+import Card from "@/src/components/ui/Card";
+import CategoryCard from "@/src/components/module/Home/ClothCategory";
+import SkeletonCard from "@/src/components/ui/SkeletonCard";
 
 const AccesoriesAd = () => {
   const { data: products, isLoading, isError } = useGetAllProductQuery({});
@@ -70,9 +68,7 @@ const AccesoriesAd = () => {
             {isLoading ? (
               <SwiperSlide className="flex gap-3 ">
                 <>
-                
-                  <SkeletonCard />
-                 
+                  <SkeletonCard/>
                 </>
               </SwiperSlide>
             ) : (

@@ -29,7 +29,7 @@ const categories = [
 
 const CategoryCard = () => {
   return (
-    <div className="max-w-full border">
+    <div className="max-w-full md:border">
       <div className=" flex items-center  gap-2 md:items-center  justify-between   md:justify-between  md:flex-row  xl:flex-col space-y-4">
         {categories.map((category) => (
           <div key={category.id} className="">

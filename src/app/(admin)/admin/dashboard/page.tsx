@@ -28,8 +28,6 @@ const AdminDashboard: React.FC = () => {
   const { data: allshopTopTen } = useGetAllShopTopTenQuery(undefined);
   const { data: shopOwnerInfo } = useGetCurrentUserQuery(undefined);
   const user = useAppSelector((state) => state.auth.user);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
 
   const { data: metaInfo, isLoading } = useGetMetaQuery(undefined);
 

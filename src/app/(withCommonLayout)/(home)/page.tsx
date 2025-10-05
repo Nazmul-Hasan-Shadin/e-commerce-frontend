@@ -13,16 +13,16 @@ export default function Home() {
     <div>
       <Banner />
 
-      <Categories />
+      {/* <Categories />
 
       <FeatureProduct />
       <FollowedShopProduct />
       <PopularProduct />
       <TopSellProduct />
-      <AccesoriesAd />
+      <AccesoriesAd /> */}
 
-      <WhyChooseUs />
-      <Footer />
+      {/* <WhyChooseUs />
+      <Footer /> */}
     </div>
   );
 }

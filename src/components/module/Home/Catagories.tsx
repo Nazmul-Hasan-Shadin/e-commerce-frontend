@@ -54,7 +54,7 @@ const Categories = () => {
     <Container className="sm:my-10 lg:my-10 px-1 md:px-0 ">
       <div>
         <HomeTitle title="Categories" />
-        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 mt-10 gap-1">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 mt-10 gap-1">
           {isLoading ? (
             <>
               <SkeletonCard />
@@ -63,7 +63,7 @@ const Categories = () => {
               <SkeletonCard />
             </>
           ) : (
-            categories.slice(1, 6).map((category: TCategory) => (
+            categories.map((category: TCategory) => (
               <div
                 key={category.id}
                 className="flex  justify-center items-center  flex-col "
@@ -80,7 +80,7 @@ const Categories = () => {
                     width={160}
                   />
                 </Link>
-                <h2 className="text-lg font-medium md:font-semibold">
+                <h2 className="text-[13px] md:text-lg font-medium md:font-semibold">
                   {category.name}
                 </h2>
               </div>

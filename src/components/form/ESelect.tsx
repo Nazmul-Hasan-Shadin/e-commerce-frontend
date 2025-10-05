@@ -78,7 +78,7 @@ const ESelect = ({
             // <option key={index} className="text-black" value={optionValue}>
             //   {optionLabel}
             // </option>
-            <SelectItem key={optionValue}>{optionLabel}</SelectItem>
+            <SelectItem key={optionValue as React.Key}>{optionLabel}</SelectItem>
           );
         })}
       </Select>

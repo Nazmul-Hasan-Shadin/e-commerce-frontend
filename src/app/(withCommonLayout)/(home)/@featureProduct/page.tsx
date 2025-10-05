@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 
-import SkeletonCard from "../../ui/SkeletonCard";
-import Container from "../../ui/Container";
-import Card from "../../ui/Card";
-import { HomeTitle } from "../../ui/HomeTitle";
 
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
+import { HomeTitle } from "@/src/components/ui/HomeTitle";
+import Container from "@/src/components/ui/Container";
+import SkeletonCard from "@/src/components/ui/SkeletonCard";
+import Card from "@/src/components/ui/Card";
 
 const FeatureProduct = () => {
   const {
