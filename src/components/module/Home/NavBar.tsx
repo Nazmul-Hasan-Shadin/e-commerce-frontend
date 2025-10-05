@@ -40,7 +40,6 @@ const NavBar = () => {
     console.log(e, "iame");
 
     setSearchQuery(searchValue);
-  
   };
 
   useEffect(() => {
@@ -55,10 +54,15 @@ const NavBar = () => {
     debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken
   );
 
-  const handleKeyDown = (e) => {
-        if (e.key === "Enter") {
+  const onClear = React.useCallback(() => {
+    setSearchQuery("");
+  }, []);
+
+  const handleKeyDown = (e: any) => {
+    if (e.key === "Enter") {
       router.push(`/product?searchTerm=${debouncedSearchQuery}`);
     }
+    onClear();
   };
 
   return (

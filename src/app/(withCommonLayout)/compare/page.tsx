@@ -16,17 +16,14 @@ const ComparePage = () => {
   console.log(products, "products");
 
   return (
-    <Container>
+    <Container className="my-6">
       <div className="bg-white border p-4 md:p-6 lg:p-8">
         <div className="flex justify-between">
           <div>
-            <p className="  text-lg lg:text-2xl font-bold">
+            <p className="  text-lg lg:text-2xl font-medium">
               Product Comparison
             </p>
-            <p className="hidden lg:block">
-              Find and select products to see the differences and similarities
-              between them print Print Share
-            </p>
+           
           </div>
 
           <div className="hidden md:block">

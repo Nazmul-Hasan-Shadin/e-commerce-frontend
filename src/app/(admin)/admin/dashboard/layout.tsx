@@ -36,7 +36,7 @@ function InnerLayout({
       <div className="flex  relative border  md:gap-5">
         <div className={`relative ${isOpen ? "" : ""} `}>
           <div
-            className={`lg:fixed ${`${isOpen ? "absolute md:fixed right-12px" : ""}`}   h-screen bg-gray-800  `}
+            className={`lg:fixed mt-16 ${`${isOpen ? "absolute md:fixed right-12px" : ""}`}   h-screen bg-gray-800  `}
             style={{ zIndex: 30 }}
           >
             {sidebar}

@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 
 import { IProduct } from "../../ui/Card";
+import Link from "next/link";
 
 const SearchResultList = ({
   searchResult,
@@ -19,20 +20,24 @@ const SearchResultList = ({
       {/* Render the search results */}
       {searchResult && searchResult.length > 0 ? (
         searchResult.map((product) => (
-          <div
-            key={product.id}
-            className="flex items-center p-2 hover:bg-gray-100 cursor-pointer"
-          >
-            <div className="w-12 h-12 mr-3">
-              <Image
-                alt={product.name}
-                className="rounded"
-                height={48}
-                src={product.images[0]}
-                width={48}
-              />
-            </div>
-            <div className="text-sm text-black">{product.name}</div>
+          <div key={product.id}>
+            <Link href={`/product-details/${product.id}`}>
+              <div
+                key={product.id}
+                className="flex items-center p-2 hover:bg-gray-100 cursor-pointer"
+              >
+                <div className="w-12 h-12 mr-3">
+                  <Image
+                    alt={product.name}
+                    className="rounded"
+                    height={48}
+                    src={product.images[0]}
+                    width={48}
+                  />
+                </div>
+                <div className="text-sm text-black">{product.name}</div>
+              </div>
+            </Link>
           </div>
         ))
       ) : (

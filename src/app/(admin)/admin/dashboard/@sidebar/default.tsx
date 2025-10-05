@@ -27,7 +27,7 @@ const AdminSidebar = () => {
   }
 
   return (
-    <div className={` fixed z-50`} style={{ zIndex: 50 }}>
+    <div className={` fixed z-50`} >
       <div
         className={`flex flex-col ${isOpen ? "" : "hidden sm:block"}  bg-gray-800 h-screen text-white ${
           isOpen ? " w-full  md:w-64 lg:w-64" : "w-0 md:w-20"
@@ -41,7 +41,7 @@ const AdminSidebar = () => {
             </div>
             {isOpen && (
               <h1 className=" hidden sm:block sm:text-medium md:text-lg lg:text-xl font-bold">
-                Larkon
+                Mart
               </h1>
             )}
           </div>

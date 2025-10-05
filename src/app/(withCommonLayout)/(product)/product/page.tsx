@@ -54,23 +54,31 @@ const ProductsPage = () => {
   return (
     <div>
       <Container>
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 2xl:grid-cols-4 gap-4">
-          {productData?.data?.data.map((product: any) => (
-            <Card key={product.id} product={product} />
-          ))}
-        </div>
-        <div className="my-12 flex justify-end w-[80%]">
-          <Pagination
-            isCompact
-            showControls
-            color="default"
-            initialPage={productData?.data?.meta?.page}
-            size="lg"
-            total={total}
-            onChange={(value) => handlePagination(value)}
-          />
-          ;
-        </div>
+        {productData?.data?.data.length > 0 ? (
+          <div>
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 2xl:grid-cols-4 gap-4">
+              {productData?.data?.data.map((product: any) => (
+                <Card key={product.id} product={product} />
+              ))}
+            </div>
+            <div className="my-12 flex justify-end w-[80%]">
+              <Pagination
+                isCompact
+                showControls
+                color="default"
+                initialPage={productData?.data?.meta?.page}
+                size="lg"
+                total={total}
+                onChange={(value) => handlePagination(value)}
+              />
+              ;
+            </div>
+          </div>
+        ) : (
+          <div className="flex justify-center  items-center">
+            <h2 className="text-2xl ">Oh No ! No Result</h2>
+          </div>
+        )}
       </Container>
     </div>
   );
