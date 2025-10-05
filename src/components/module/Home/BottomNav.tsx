@@ -82,7 +82,7 @@ const BottomNav = () => {
 
   useEffect(() => {
     if (debouncedSearchQuery?.length === 0) {
-      setIsSearchIconClick(false); // সবসময় বন্ধ করে দেবে
+      setIsSearchIconClick(false); 
     }
   }, [debouncedSearchQuery]);
 

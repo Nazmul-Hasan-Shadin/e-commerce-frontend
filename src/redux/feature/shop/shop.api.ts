@@ -33,10 +33,20 @@ const shopApi = baseApi.injectEndpoints({
     }),
 
     getAllShops: builder.query({
-      query: () => {
+      query: (queryObj) => {
+        const params = new URLSearchParams();
+     console.log(queryObj,'quryobj');
+     
+        if (queryObj) {
+          for (const key in queryObj) {
+            params.append(key, queryObj[key]);
+          }
+        }
+
         return {
           url: `/shop/all-shops`,
-          method: "GET",
+          method: "get",
+          params: params,
         };
       },
     }),
@@ -45,7 +55,7 @@ const shopApi = baseApi.injectEndpoints({
       query: (shopFollowInfo) => {
         return {
           url: `/shop/check-validity-follow`,
-          method: "post",
+          method: "POST",
           body: shopFollowInfo,
         };
       },
@@ -55,7 +65,7 @@ const shopApi = baseApi.injectEndpoints({
       query: (shopFollowInfo) => {
         return {
           url: `/shop/unfollow`,
-          method: "post",
+          method: "POST",
           body: shopFollowInfo,
         };
       },

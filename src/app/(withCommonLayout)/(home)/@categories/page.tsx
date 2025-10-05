@@ -23,7 +23,7 @@ const Categories = () => {
       await delay(randomDelay);
       try {
         const result = await fetch(
-          "https://independent-shop.vercel.app/api/v1/category",
+          "http://locahost:3001/api/v1/category",
           {
             cache: "no-store",
           }

@@ -26,10 +26,6 @@ const AdminSidebar = () => {
     console.error("Token verification failed:", error.message);
   }
 
-  const toggleMenu = (menu: string) => {
-    setOpenMenu(openMenu === menu ? null : menu);
-  };
-
   return (
     <div className={` fixed z-50`} style={{ zIndex: 50 }}>
       <div

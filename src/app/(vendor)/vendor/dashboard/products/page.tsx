@@ -110,35 +110,10 @@ const Vendor = () => {
   const meta = productList?.data?.meta;
   const hasSearchFilter = Boolean(filterValue);
 
-  // const filteredItems = React.useMemo(() => {
-  //   let filteredUsers = [...products];
-
-  //   if (hasSearchFilter) {
-  //     filteredUsers = filteredUsers.filter((user) =>
-  //       user.name.toLowerCase().includes(filterValue.toLowerCase())
-  //     );
-  //   }
-
-  //   // if (
-  //   //   statusFilter !== "all" &&
-  //   //   Array.from(statusFilter).length !== statusOptions.length
-  //   // ) {
-  //   //   filteredUsers = filteredUsers.filter((user) =>
-  //   //     Array.from(statusFilter).includes(user.status)
-  //   //   );
-  //   // }
-
-  //   return filteredUsers;
-  // }, [products, filterValue, statusFilter]);
 
   const pages = Math.ceil(meta?.total / selectRowPerPage);
 
-  // const items = React.useMemo(() => {
-  //   const start = (page - 1) * rowsPerPage;
-  //   const end = start + rowsPerPage;
 
-  //   return produ.slice(start, end);
-  // }, [page, filteredItems]);
 
   const SearchIcon = (props: any) => {
     return (
@@ -365,7 +340,7 @@ const Vendor = () => {
             </TableHeader>
 
             <TableBody items={products}>
-              {(item) => (
+              {(item:{id:string,images:string[],}) => (
                 <TableRow key={item.id} className="border-gray-200 border p-0">
                   {(columnKey) => (
                     <TableCell>

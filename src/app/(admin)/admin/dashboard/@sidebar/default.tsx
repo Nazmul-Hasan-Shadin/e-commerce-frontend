@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { FaShoppingCart, FaCog, FaClipboardList } from "react-icons/fa";
 import { GoChecklist } from "react-icons/go";
 import { IoHomeOutline } from "react-icons/io5";
-import { RxHamburgerMenu } from "react-icons/rx";
 import { FaPlus } from "react-icons/fa6";
 
 import { useAppSelector } from "@/src/redux/hook";
@@ -27,14 +26,10 @@ const AdminSidebar = () => {
     console.error("Token verification failed:", error.message);
   }
 
-  const toggleMenu = (menu: string) => {
-    setOpenMenu(openMenu === menu ? null : menu);
-  };
-
   return (
-    <div className={` fixed`}>
+    <div className={` fixed z-50`} style={{ zIndex: 50 }}>
       <div
-        className={`flex flex-col bg-gray-800 h-screen text-white ${
+        className={`flex flex-col ${isOpen ? "" : "hidden sm:block"}  bg-gray-800 h-screen text-white ${
           isOpen ? " w-full  md:w-64 lg:w-64" : "w-0 md:w-20"
         } transition-all duration-300`}
       >
@@ -52,14 +47,6 @@ const AdminSidebar = () => {
           </div>
         </div>
 
-        <button
-          className={`text-red-400 absolute ${isOpen ? "left-[173px] md:left-[280px] top-16 md:top-5" : "top-5 left-5 lg:left-28 md:left-4"} hover:text-white z-20`}
-          onClick={() => toggleSidebar()} // arrow button for collaps sidebar
-        >
-          <RxHamburgerMenu
-            className={`h-6 w-6 transform text-black ${isOpen ? "rotate-180" : ""}`}
-          />
-        </button>
         {/*============ Navigation Links=========== */}
 
         <nav className="flex flex-col space-y-4 mt-6 pl-4 ">

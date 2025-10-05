@@ -19,6 +19,7 @@ const ProductsPageContent = () => {
 const ProductsPage = () => {
   const searchParams = useSearchParams();
   const categoryNameFromQuery = searchParams.get("categoryName");
+  const searchTerm = searchParams.get("searchTerm");
   const brandFilterState = useAppSelector((state) => state.category.brandName); //[brandname,brandnaem,]
 
   const categoryState = useAppSelector((state) => state.category.categoryName);
@@ -39,11 +40,11 @@ const ProductsPage = () => {
   const { data: productData, isLoading } = useGetAllProductQuery({
     categoryName: categoryNameFromQuery || categoryState || null,
     brandFilter: brandFilterState,
-    page,
+    searchTerm: searchTerm,
   });
 
   const total = Math.ceil(
-    productData?.data?.meta.total / productData?.data?.meta.limit,
+    productData?.data?.meta.total / productData?.data?.meta.limit
   );
 
   if (isLoading) {

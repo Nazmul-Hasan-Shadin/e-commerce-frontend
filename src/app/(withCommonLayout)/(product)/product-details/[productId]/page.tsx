@@ -83,7 +83,7 @@ const ProductDetails = ({ params }: { params: Params }) => {
   }
 
   return (
-    <div className="px-9 mt-10">
+    <div className="p-3 md:px-9 mt-10">
       <div>
         <div>
           <div className="grid grid-cols-6 md:grid-cols-12 gap-6 md:gap-12 justify-center">

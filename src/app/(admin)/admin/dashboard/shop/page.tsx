@@ -27,6 +27,7 @@ import { format } from "date-fns";
 import { useUpdateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
 import { useDeleteCategoryMutation } from "@/src/redux/feature/admin/admin.categoryapi";
 import { useGetAllShopsQuery } from "@/src/redux/feature/shop/shop.api";
+import { IoIosArrowDown } from "react-icons/io";
 
 const columns = [
   {
@@ -80,52 +81,28 @@ function capitalize(s: string) {
 
 const Tablecib = () => {
   const [selectedKeys, setSelectedKeys] = React.useState(new Set(["2"]));
+  const [selectRowPerPage, setSelectRowPerPage] = React.useState<number>(4);
+
   const [page, setPage] = React.useState(1);
   const [filterValue, setFilterValue] = React.useState("");
   const [statusFilter, setStatusFilter] = React.useState("all");
   const [visibleColumns, setVisibleColumns] = React.useState(
-    new Set(INITIAL_VISIBLE_COLUMNS),
+    new Set(INITIAL_VISIBLE_COLUMNS)
   );
-  const { data: shopLists, isLoading } = useGetAllShopsQuery("");
+  const { data: shopLists, isLoading } = useGetAllShopsQuery({
+    limit: selectRowPerPage,
+    page,
+    searchTerm: filterValue,
+  });
   const [handleUpdateProduct] = useUpdateProductMutation();
   const [handleDeleteCategory] = useDeleteCategoryMutation();
 
   console.log({ shopLists });
 
-  const shops = shopLists?.data || [];
+  const shops = shopLists?.data?.data || [];
+  const meta = shopLists?.data?.meta;
 
-  const hasSearchFilter = Boolean(filterValue);
-
-  const filteredItems = React.useMemo(() => {
-    let filteredUsers = [...shops];
-
-    if (hasSearchFilter) {
-      filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase()),
-      );
-    }
-    // if (
-    //   statusFilter !== "all" &&
-    //   Array.from(statusFilter).length !== statusOptions.length
-    // ) {
-    //   filteredUsers = filteredUsers.filter((user) =>
-    //     Array.from(statusFilter).includes(user.status)
-    //   );
-    // }
-
-    return filteredUsers;
-  }, [shopLists, filterValue, statusFilter]);
-
-  const rowsPerPage = 3;
-
-  const pages = Math.ceil(filteredItems.length / rowsPerPage);
-
-  const items = React.useMemo(() => {
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-
-    return filteredItems.slice(start, end);
-  }, [page, filteredItems]);
+  const pages = Math.ceil(meta?.total / selectRowPerPage);
 
   const SearchIcon = (props: any) => {
     return (
@@ -177,7 +154,7 @@ const Tablecib = () => {
     if (visibleColumns.size === columns.length) return columns;
 
     return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.key),
+      Array.from(visibleColumns).includes(column.key)
     );
   }, [visibleColumns]);
 
@@ -189,7 +166,7 @@ const Tablecib = () => {
 
   const handleDelete = async (id: string) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?",
+      "Are you sure you want to delete this product?"
     );
 
     if (confirmDelete) {
@@ -205,7 +182,7 @@ const Tablecib = () => {
 
   return (
     <div>
-      <div className=" p- md:p-4 lg:p-6 bg-white">
+      <div className=" p-2 md:p-4 lg:p-6 bg-white">
         <div className="flex justify-between">
           <h2 className="md:text-md lg:text-xl font-bold text-gray-800 ">
             Shop Name
@@ -255,7 +232,7 @@ const Tablecib = () => {
                 const newKeys = new Set(
                   keys instanceof Set
                     ? Array.from(keys).map((k) => k.toString())
-                    : [keys.toString()],
+                    : [keys.toString()]
                 );
 
                 setVisibleColumns(newKeys);
@@ -273,7 +250,32 @@ const Tablecib = () => {
         <Table
           aria-label="Controlled table example with dynamic content"
           bottomContent={
-            <div className="flex w-full my-3 justify-end">
+            <div className="flex items-center gap-3 w-full my-3 justify-end">
+              <p> Row per page</p>{" "}
+              <Dropdown>
+                <DropdownTrigger>
+                  <Button className="capitalize" variant="bordered">
+                    {selectRowPerPage} <IoIosArrowDown />
+                  </Button>
+                </DropdownTrigger>
+                <DropdownMenu
+                  disallowEmptySelection
+                  aria-label="Single selection example"
+                  // selectedKeys={selectedKeys}
+                  selectionMode="single"
+                  variant="flat"
+                  onSelectionChange={(keys) => {
+                    const selectedKey = Array.from(keys)[0];
+                    if (selectedKey) {
+                      setSelectRowPerPage(Number(selectedKey));
+                    }
+                  }}
+                >
+                  <DropdownItem key="5">5</DropdownItem>
+                  <DropdownItem key="10">10</DropdownItem>
+                  <DropdownItem key="15">15</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
               <Pagination
                 isCompact
                 showControls
@@ -292,7 +294,7 @@ const Tablecib = () => {
             const newKeys = new Set(
               keys instanceof Set
                 ? Array.from(keys).map((k) => k.toString())
-                : [keys.toString()],
+                : [keys.toString()]
             );
 
             setSelectedKeys(newKeys);
@@ -304,8 +306,16 @@ const Tablecib = () => {
             )}
           </TableHeader>
 
-          <TableBody items={items}>
-            {(item) => (
+          <TableBody items={shops}>
+            {(item: {
+              id: string;
+              logo: string;
+              _count: {
+                Order: string;
+                product: number;
+                shopFollower: number;
+              };
+            }) => (
               <TableRow key={item.id} className="border p-0">
                 {(columnKey) => (
                   <TableCell>
@@ -332,7 +342,7 @@ const Tablecib = () => {
                     ) : columnKey === "createdAt" ? (
                       format(
                         new Date(getKeyValue(item, columnKey)),
-                        "dd/MM/yyyy",
+                        "dd/MM/yyyy"
                       )
                     ) : (
                       getKeyValue(item, columnKey)

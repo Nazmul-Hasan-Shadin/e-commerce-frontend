@@ -21,6 +21,7 @@ import UserDropDownMenu from "./UserDropDownMenu";
 
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import logo from "@/src/assests/icon/logo.png";
+import { useRouter } from "next/navigation";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -28,22 +29,24 @@ const NavBar = () => {
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState<
     string | null
   >();
-
+  const router = useRouter();
   const icons = [
     { Icon: WatchListIcon, label: "watchlist" },
     { Icon: UserIcon, label: "signin", path: "/login" },
     { Icon: CartIcon, label: "cart", path: "/cart" },
   ];
-  const handeSearch = (e: any) => {
+  const handeSearch = (e: React.MouseEvent<any>) => {
     const searchValue = e.target.value;
+    console.log(e, "iame");
 
     setSearchQuery(searchValue);
+  
   };
 
   useEffect(() => {
     const debounceTimeout = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
-    }, 300);
+    }, 500);
 
     return () => clearTimeout(debounceTimeout);
   }, [searchQuery]);
@@ -51,6 +54,12 @@ const NavBar = () => {
   const { data: searchResult } = useGetAllProductQuery(
     debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken
   );
+
+  const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+      router.push(`/product?searchTerm=${debouncedSearchQuery}`);
+    }
+  };
 
   return (
     <div className="hidden  lg:block">
@@ -90,13 +99,14 @@ const NavBar = () => {
                   mainWrapper: "w-[500px] h-12",
                 }}
                 endContent={<IoSearchOutline />}
+                onKeyDown={(e) => handleKeyDown(e)}
                 placeholder="search here"
                 size="md"
                 onChange={(e) => handeSearch(e)}
               />
 
-              {debouncedSearchQuery && searchResult?.data.length && (
-                <SearchResultList searchResult={searchResult?.data} />
+              {debouncedSearchQuery && searchResult?.data?.data.length && (
+                <SearchResultList searchResult={searchResult?.data?.data} />
               )}
 
               <UserDropDownMenu />

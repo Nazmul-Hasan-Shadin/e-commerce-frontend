@@ -13,6 +13,7 @@ import { IoMenuOutline } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
 
 import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
+import Link from "next/link";
 
 interface ICategory {
   name: string;
@@ -29,10 +30,17 @@ const SubBottomNavPage = () => {
         <NavbarItem className="flex items-center gap-2 p-1 bg-primary-color text-white">
           <IoMenuOutline className="text-3xl text-white" />
           <Dropdown>
-            <DropdownTrigger className="text-medium">All category</DropdownTrigger>
+            <DropdownTrigger className="text-medium">
+              All category
+            </DropdownTrigger>
 
             <DropdownMenu aria-label="Dynamic Actions" items={category}>
-              {(item) => <DropdownItem key={item.id}>{item.name}</DropdownItem>}
+              {(item) => (
+                <DropdownItem key={item?.id}>
+                  {" "}
+                  <Link href={`/product/${item?.id}`}> {item.name}</Link>{" "}
+                </DropdownItem>
+              )}
             </DropdownMenu>
           </Dropdown>
           <IoIosArrowDown className="text-3xl" />

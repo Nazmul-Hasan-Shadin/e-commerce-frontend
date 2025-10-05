@@ -38,7 +38,7 @@ const CommentBox = ({ productId }: { productId: string }) => {
   };
 
   return (
-    <div className="border p-5">
+    <div className="border p-2 md:p-5">
       <h3 className="text-xl">Drop Your Review here </h3>
       <Divider className="my-4" />
       <EForm onSubmit={handleComment}>

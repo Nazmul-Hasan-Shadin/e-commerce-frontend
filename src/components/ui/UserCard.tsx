@@ -20,7 +20,7 @@ const UserCard = ({ review }: { review: IReview[] }) => {
   console.log(review, "iam review");
 
   return (
-    <div className="text-black bg-white border p-5">
+    <div className="text-black bg-white border p-2 md:p-5">
       <h3>Review</h3>
       <Divider className="my-4" />
 
@@ -30,7 +30,7 @@ const UserCard = ({ review }: { review: IReview[] }) => {
             return (
               <div key={review.id} className=" text-black h-auto ">
                 <div>
-                  <Card className=" mb-6 border-none ">
+                  <Card className=" mb-6 border-none  s">
                     <CardHeader className="justify-between">
                       <div className="flex gap-5">
                         <Avatar
