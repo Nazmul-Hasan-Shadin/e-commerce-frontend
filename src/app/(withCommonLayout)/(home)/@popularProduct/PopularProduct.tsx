@@ -33,7 +33,7 @@ const PopularProduct = ({ initialData }: Props) => {
               <SkeletonCard />
             </>
           ) : (
-            list.map((product: any) => (
+            list.slice(0,10).map((product: any) => (
               <Card key={product.id} product={product} />
             ))
           )}
