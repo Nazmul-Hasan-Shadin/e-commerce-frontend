@@ -293,7 +293,7 @@ const BottomNav = () => {
 
           {/* =========================for small device menu====================== */}
 
-          <NavbarMenu className="z-50">
+          <NavbarMenu style={{ zIndex: "500" }} className="z-50">
             {menuItems.map((menu, index) => (
               <NavbarItem key={index} className="text-white">
                 <Link

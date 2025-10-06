@@ -7,6 +7,7 @@ import Card from "@/src/components/ui/Card";
 import Container from "@/src/components/ui/Container";
 import { useAppSelector } from "@/src/redux/hook";
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
+import SkeletonCard from "@/src/components/ui/SkeletonCard";
 
 const ProductsPageContent = () => {
   return (
@@ -48,8 +49,17 @@ const ProductsPage = () => {
   );
 
   if (isLoading) {
-    return <h2>Loading bro</h2>;
+    return (
+      <Container className="mb-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <SkeletonCard key={index} />
+          ))}
+        </div>
+      </Container>
+    );
   }
+
   console.log(productData,'productdata');
   
 
