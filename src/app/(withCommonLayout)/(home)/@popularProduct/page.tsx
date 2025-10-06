@@ -1,42 +1,21 @@
-"use client";
+import PopularProduct from "./PopularProduct";
 
-import Card from "@/src/components/ui/Card";
-import Container from "@/src/components/ui/Container";
-import { HomeTitle } from "@/src/components/ui/HomeTitle";
-import SkeletonCard from "@/src/components/ui/SkeletonCard";
-import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
+export const revalidate = 60;
 
-const PopularProduct = () => {
-  const {
-    data: products,
-    isLoading,
-    isError,
-  } = useGetAllProductQuery({ sortBy: "viewCount", orderBy: "desc" });
+const PopularProductPage = async () => {
+  const res = await fetch(
+    `https://independent-shop.vercel.app/api/v1/product?sortBy=viewCount&orderBy=desc`,
+    { next: { revalidate: 60 } }
+  );
+
+  const data = await res.json();
 
   return (
-    <Container className="px-1 sm:my-10 md:px-0">
-      <div>
-        <div>
-          <HomeTitle title="Popular Product" />
-        </div>
-
-        <div className="grid grid-cols-2 gap-2 mt-10  sm:grid-cols-3 md:grid-cols-3  lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 md:gap-10 p-1 md:p-4">
-          {isLoading ? (
-            <>
-              <SkeletonCard />
-              <SkeletonCard />
-              <SkeletonCard />
-              <SkeletonCard />
-            </>
-          ) : (
-            products?.data?.data.map((product: any) => (
-              <Card key={product.id} product={product} />
-            ))
-          )}
-        </div>
-      </div>
-    </Container>
+    <div>
+      {/* অন্য অংশ */}
+      <PopularProduct initialData={data} />
+    </div>
   );
 };
 
-export default PopularProduct;
+export default PopularProductPage;
