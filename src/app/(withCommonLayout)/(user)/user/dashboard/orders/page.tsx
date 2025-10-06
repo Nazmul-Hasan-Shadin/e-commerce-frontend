@@ -46,7 +46,7 @@ const UserOrderPage = () => {
 
   return (
     <Container className="mx-auto">
-      <div className="font-bold border  md:p-5 bg-white">
+      <div className="font-bold md:border  md:p-5 bg-white">
         <h1 className="text-xl my-4">My Orders</h1>
         <Divider className="mb-5" />
         <div className="border rounded-lg overflow-x-auto">

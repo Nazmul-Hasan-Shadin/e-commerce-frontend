@@ -18,7 +18,7 @@ import { FcCustomerSupport } from "react-icons/fc";
 import { LiaFlagUsaSolid } from "react-icons/lia";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import Image from "next/image.js";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { MdShoppingCartCheckout } from "react-icons/md";
 
@@ -34,6 +34,7 @@ import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 
 const BottomNav = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState<string | null>("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState<
     string | null
@@ -44,6 +45,7 @@ const BottomNav = () => {
   const token = useAppSelector((state) => state.auth.token);
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
+
   const menuItems = user?.role
     ? [
         { label: "Home", link: "/" },
@@ -72,10 +74,14 @@ const BottomNav = () => {
     setSearchQuery(searchValue);
   };
 
+  const onClear = React.useCallback(() => {
+    setSearchQuery("");
+  }, []);
+
   useEffect(() => {
     const debounceTimeout = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
-    }, 300);
+    }, 170);
 
     return () => clearTimeout(debounceTimeout);
   }, [searchQuery]);
@@ -85,6 +91,13 @@ const BottomNav = () => {
       setIsSearchIconClick(false);
     }
   }, [debouncedSearchQuery]);
+
+  const handleKeyDown = (e: any) => {
+    if (e.key === "Enter") {
+      router.push(`/product?searchTerm=${debouncedSearchQuery}`);
+    }
+    onClear();
+  };
 
   const { data: searchResult } = useGetAllProductQuery(
     debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken
@@ -116,7 +129,9 @@ const BottomNav = () => {
 
             {isSearcIconClick && (
               <Input
-                className={`absolute max-w-[98%] left-0 right-0 mx-auto ${isSearcIconClick ? styles.triggerBottomNavForOpen : ""}`}
+                onKeyDown={handleKeyDown}
+                size="lg"
+                className={`absolute rounded-none max-w-[98%] left-0 right-0 mx-auto ${isSearcIconClick ? styles.triggerBottomNavForOpen : ""}`}
                 placeholder="search here"
                 onChange={(e) => handeSearch(e)}
               />

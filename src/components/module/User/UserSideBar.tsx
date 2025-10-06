@@ -74,10 +74,6 @@ const UserSideBar = () => {
           label="Settings"
           path="/user/dashboard/settings"
         />
-
-        <Button className="rounded-none" variant="ghost">
-          Log Out
-        </Button>
       </nav>
     </div>
   );

@@ -11,10 +11,8 @@ const ProfilePage = () => {
 
   const user = userData?.data || {};
 
-  console.log(user, "iam user");
-
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-gray-50 md:p-8">
       {/* Profile Header */}
       <div className="bg-white shadow rounded-lg p-6 mb-8">
         <div className="flex items-center space-x-4">
@@ -38,10 +36,10 @@ const ProfilePage = () => {
 
       {/* User Information */}
       <div className="bg-white shadow rounded-lg p-6 mb-8">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+        <h2 className="font-medium md:text-md lg:text-lg font-semibold text-gray-800 mb-4">
           User Information
         </h2>
-        <ul className="text-gray-600 space-y-2">
+        <ul className="text-gray-600 text-sm md:text-medium space-y-2">
           <li>
             <strong>Full Name:</strong> {user?.fullName || "N/A"}
           </li>
@@ -59,7 +57,7 @@ const ProfilePage = () => {
 
       {/* Bio Section */}
       <div className="bg-white shadow rounded-lg p-6 mb-8">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Bio</h2>
+        <h2 className="text-medium  md:text-medium lg:text-lg xl:text-xl font-semibold text-gray-800 mb-4">Bio</h2>
         <p className="text-gray-600">
           {user?.bio || "This user hasn't written a bio yet."}
         </p>
@@ -67,7 +65,7 @@ const ProfilePage = () => {
 
       {/* Quick Actions */}
       <div className="bg-white shadow rounded-lg p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+        <h2 className="text-medium md:text-medium lg:text-lg xl:text-xl font-semibold text-gray-800 mb-4">
           Quick Actions
         </h2>
         <div className="flex flex-col sm:flex-row gap-4">
@@ -76,7 +74,7 @@ const ProfilePage = () => {
             className="bg-[#fd6506] text-white hover:bg-orange-700"
             href="/products"
             radius="sm"
-            size="lg"
+            size="sm"
           >
             View Products
           </Button>
@@ -86,7 +84,7 @@ const ProfilePage = () => {
             className="bg-blue-500 text-white hover:bg-blue-600"
             href="/orders"
             radius="sm"
-            size="lg"
+            size="sm"
           >
             Manage Orders
           </Button>
@@ -96,7 +94,7 @@ const ProfilePage = () => {
             className="bg-gray-500 text-white hover:bg-gray-600"
             href="/profile/edit"
             radius="sm"
-            size="lg"
+            size="sm"
           >
             Edit Profile
           </Button>
