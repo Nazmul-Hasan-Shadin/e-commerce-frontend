@@ -38,7 +38,7 @@ const SubBottomNavPage = () => {
               {(item) => (
                 <DropdownItem key={item?.id}>
                   {" "}
-                  <Link href={`/product/${item?.id}`}> {item.name}</Link>{" "}
+                  <Link href={`/product?categoryName=${item?.id}`}> {item.name}</Link>{" "}
                 </DropdownItem>
               )}
             </DropdownMenu>

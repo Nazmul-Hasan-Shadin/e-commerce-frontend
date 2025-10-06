@@ -82,7 +82,7 @@ const BottomNav = () => {
 
   useEffect(() => {
     if (debouncedSearchQuery?.length === 0) {
-      setIsSearchIconClick(false); 
+      setIsSearchIconClick(false);
     }
   }, [debouncedSearchQuery]);
 
@@ -91,7 +91,7 @@ const BottomNav = () => {
   );
 
   return (
-    <div className="sticky top-0 z-20">
+    <div className="sticky top-0 z-50">
       <Container className="">
         <Navbar
           className="bg-[#ffffff] p-0  text-white relative "
@@ -239,7 +239,13 @@ const BottomNav = () => {
 
           <NavbarBrand className="flex  lg:hidden gap-0 -p-16">
             {logo ? (
-              <Image alt="Navbar logo" className="w-[230px]" height={60} src={logo} width={260} />
+              <Image
+                alt="Navbar logo"
+                className="w-[230px]"
+                height={60}
+                src={logo}
+                width={260}
+              />
             ) : null}
           </NavbarBrand>
 
@@ -272,11 +278,16 @@ const BottomNav = () => {
 
           {/* =========================for small device menu====================== */}
 
-          <NavbarMenu>
+          <NavbarMenu className="z-50">
             {menuItems.map((menu, index) => (
               <NavbarItem key={index} className="text-white">
-                <Link className="text-black" href={menu.link}>
-                  {menu.label}
+                <Link
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-black"
+                  href={menu.link}
+                >
+                  {" "}
+                  {menu.label}{" "}
                 </Link>
               </NavbarItem>
             ))}

@@ -35,10 +35,8 @@ const NavBar = () => {
     { Icon: UserIcon, label: "signin", path: "/login" },
     { Icon: CartIcon, label: "cart", path: "/cart" },
   ];
-  const handeSearch = (e: React.MouseEvent<any>) => {
+  const handeSearch = (e: any) => {
     const searchValue = e.target.value;
-    console.log(e, "iame");
-
     setSearchQuery(searchValue);
   };
 

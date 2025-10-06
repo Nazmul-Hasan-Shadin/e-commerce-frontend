@@ -49,7 +49,7 @@ const FeatureProduct = () => {
                 </>
               ) : (
                 products?.data?.data
-                  .slice(0, 5)
+                  .slice(0, 9)
                   .map((product: any) => (
                     <Card key={product.id} product={product} />
                   ))

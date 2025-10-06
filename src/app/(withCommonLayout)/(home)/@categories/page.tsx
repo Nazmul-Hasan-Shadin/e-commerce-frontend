@@ -15,7 +15,7 @@ const Categories = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // http://locahost:3001
+  // http://localhost:3001
   // https://independent-shop.vercel.app
   useEffect(() => {
     const fetchCategories = async () => {
@@ -23,7 +23,7 @@ const Categories = () => {
       await delay(randomDelay);
       try {
         const result = await fetch(
-          "http://locahost:3001/api/v1/category",
+          "https://independent-shop.vercel.app/api/v1/category",
           {
             cache: "no-store",
           }
@@ -48,21 +48,18 @@ const Categories = () => {
   if (isLoading) {
     return (
       <div>
-      <div className="h-6 w-40 rounded mb-4">
-        <Skeleton />
+        <div className="h-6 w-40 rounded mb-4">
+          <Skeleton />
+        </div>
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 mt-10 gap-1">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="flex justify-center items-center flex-col">
+              <Skeleton className="w-24 h-20 lg:w-[160px] lg:h-[180px] rounded-full" />
+              <Skeleton className="mt-2 w-16 h-4 rounded" />
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 mt-10 gap-1">
-        {Array.from({ length: 4 }).map((_, i) => (
-          <div
-            key={i}
-            className="flex justify-center items-center flex-col"
-          >
-            <Skeleton className="w-24 h-20 lg:w-[160px] lg:h-[180px] rounded-full" />
-            <Skeleton className="mt-2 w-16 h-4 rounded" />
-          </div>
-        ))}
-      </div>
-    </div>
     );
   }
 

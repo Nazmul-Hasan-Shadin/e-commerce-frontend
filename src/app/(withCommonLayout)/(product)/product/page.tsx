@@ -40,7 +40,7 @@ const ProductsPage = () => {
   const { data: productData, isLoading } = useGetAllProductQuery({
     categoryName: categoryNameFromQuery || categoryState || null,
     brandFilter: brandFilterState,
-    searchTerm: searchTerm,
+    searchTerm: searchTerm || '',
   });
 
   const total = Math.ceil(
@@ -50,13 +50,15 @@ const ProductsPage = () => {
   if (isLoading) {
     return <h2>Loading bro</h2>;
   }
+  console.log(productData,'productdata');
+  
 
   return (
     <div>
       <Container>
         {productData?.data?.data.length > 0 ? (
           <div>
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 2xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
               {productData?.data?.data.map((product: any) => (
                 <Card key={product.id} product={product} />
               ))}

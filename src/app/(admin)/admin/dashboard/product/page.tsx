@@ -298,7 +298,7 @@ const Tablecib = () => {
           </TableHeader>
 
           <TableBody items={products}>
-            {(item) => {
+            {(item: any) => {
               console.log(item, "iam item");
 
               return (

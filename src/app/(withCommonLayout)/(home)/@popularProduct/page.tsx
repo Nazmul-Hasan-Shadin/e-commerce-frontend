@@ -1,6 +1,5 @@
 "use client";
 
-
 import Card from "@/src/components/ui/Card";
 import Container from "@/src/components/ui/Container";
 import { HomeTitle } from "@/src/components/ui/HomeTitle";
@@ -13,8 +12,6 @@ const PopularProduct = () => {
     isLoading,
     isError,
   } = useGetAllProductQuery({ sortBy: "viewCount", orderBy: "desc" });
-
-
 
   return (
     <Container className="px-1 sm:my-10 md:px-0">
@@ -32,11 +29,9 @@ const PopularProduct = () => {
               <SkeletonCard />
             </>
           ) : (
-            products?.data?.data
-              .slice(0, 5)
-              .map((product: any) => (
-                <Card key={product.id} product={product} />
-              ))
+            products?.data?.data.map((product: any) => (
+              <Card key={product.id} product={product} />
+            ))
           )}
         </div>
       </div>

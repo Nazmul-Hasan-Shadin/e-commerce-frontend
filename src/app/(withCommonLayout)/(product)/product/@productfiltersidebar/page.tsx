@@ -18,9 +18,6 @@ interface ICategory {
   products: [];
 }
 
-interface SidebarFilterProps {
-  scrollDirection: "up" | "down" | null;
-}
 
 const SidebarFilter = forwardRef<HTMLDivElement>(() => {
   const { data: categoryData, isLoading } = useGetAllCategoryQuery(undefined);
@@ -51,27 +48,12 @@ const SidebarFilter = forwardRef<HTMLDivElement>(() => {
     setSelectedColors((prev) =>
       prev.includes(color)
         ? prev.filter((item) => item !== color)
-        : [...prev, color],
+        : [...prev, color]
     );
   };
-  // // ${
-  //       isBottomVisible || isUpVisible ? "sticky" : ""
-  //     }
 
-  //${scrollDirection === "up" && isSticky ? "fixed top-0" : scrollDirection === "down" && isSticky == false ? "sticky top-16" : ""}
   return (
-    <div
-      // ref={sideBarRef}
-      className={`w-full border p-4 transition-all duration-200 `}
-      //
-      // style={{
-      //   top: isBottomVisible
-      //     ? `${topOffset}px` // down scroll এর সময় offset অনুযায়ী sticky
-      //     : isUpVisible
-      //       ? `0px` // up scroll এ top fully visible হলে just top 0
-      //       : undefined,
-      // }}
-    >
+    <div className={`w-full border p-4 transition-all duration-200 `}>
       <Container>
         <div className="p-2">
           {/* Brand Filter */}
