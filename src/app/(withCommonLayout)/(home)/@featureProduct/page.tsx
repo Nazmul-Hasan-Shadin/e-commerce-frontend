@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 
-
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import { HomeTitle } from "@/src/components/ui/HomeTitle";
 import Container from "@/src/components/ui/Container";
@@ -19,7 +18,6 @@ const FeatureProduct = () => {
   if (isLoading) {
     return <div>loading</div>;
   }
-
 
   return (
     <Container className="px-1 sm:my-10 md:px-0">

@@ -23,11 +23,11 @@ import { FaTrash, FaTurnDown } from "react-icons/fa6";
 import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 import { format } from "date-fns";
+import { IoIosArrowDown } from "react-icons/io";
 
 import { useUpdateProductMutation } from "@/src/redux/feature/vendor/vendor.api";
 import { useDeleteCategoryMutation } from "@/src/redux/feature/admin/admin.categoryapi";
 import { useGetAllShopsQuery } from "@/src/redux/feature/shop/shop.api";
-import { IoIosArrowDown } from "react-icons/io";
 
 const columns = [
   {
@@ -87,7 +87,7 @@ const Tablecib = () => {
   const [filterValue, setFilterValue] = React.useState("");
   const [statusFilter, setStatusFilter] = React.useState("all");
   const [visibleColumns, setVisibleColumns] = React.useState(
-    new Set(INITIAL_VISIBLE_COLUMNS)
+    new Set(INITIAL_VISIBLE_COLUMNS),
   );
   const { data: shopLists, isLoading } = useGetAllShopsQuery({
     limit: selectRowPerPage,
@@ -154,7 +154,7 @@ const Tablecib = () => {
     if (visibleColumns.size === columns.length) return columns;
 
     return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.key)
+      Array.from(visibleColumns).includes(column.key),
     );
   }, [visibleColumns]);
 
@@ -166,7 +166,7 @@ const Tablecib = () => {
 
   const handleDelete = async (id: string) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?"
+      "Are you sure you want to delete this product?",
     );
 
     if (confirmDelete) {
@@ -232,7 +232,7 @@ const Tablecib = () => {
                 const newKeys = new Set(
                   keys instanceof Set
                     ? Array.from(keys).map((k) => k.toString())
-                    : [keys.toString()]
+                    : [keys.toString()],
                 );
 
                 setVisibleColumns(newKeys);
@@ -266,6 +266,7 @@ const Tablecib = () => {
                   variant="flat"
                   onSelectionChange={(keys) => {
                     const selectedKey = Array.from(keys)[0];
+
                     if (selectedKey) {
                       setSelectRowPerPage(Number(selectedKey));
                     }
@@ -294,7 +295,7 @@ const Tablecib = () => {
             const newKeys = new Set(
               keys instanceof Set
                 ? Array.from(keys).map((k) => k.toString())
-                : [keys.toString()]
+                : [keys.toString()],
             );
 
             setSelectedKeys(newKeys);
@@ -342,7 +343,7 @@ const Tablecib = () => {
                     ) : columnKey === "createdAt" ? (
                       format(
                         new Date(getKeyValue(item, columnKey)),
-                        "dd/MM/yyyy"
+                        "dd/MM/yyyy",
                       )
                     ) : (
                       getKeyValue(item, columnKey)

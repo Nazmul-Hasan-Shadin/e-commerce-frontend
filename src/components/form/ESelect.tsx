@@ -72,13 +72,16 @@ const ESelect = ({
           const optionValue = option.key ?? option.id ?? option.value;
           const optionLabel =
             option.label ?? option.name ?? String(optionValue);
+
           console.log(optionValue, optionLabel, "fpudk");
 
           return (
             // <option key={index} className="text-black" value={optionValue}>
             //   {optionLabel}
             // </option>
-            <SelectItem key={optionValue as React.Key}>{optionLabel}</SelectItem>
+            <SelectItem key={optionValue as React.Key}>
+              {optionLabel}
+            </SelectItem>
           );
         })}
       </Select>

@@ -11,9 +11,9 @@ import {
 import React from "react";
 import { IoMenuOutline } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
+import Link from "next/link";
 
 import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
-import Link from "next/link";
 
 interface ICategory {
   name: string;
@@ -38,7 +38,10 @@ const SubBottomNavPage = () => {
               {(item) => (
                 <DropdownItem key={item?.id}>
                   {" "}
-                  <Link href={`/product?categoryName=${item?.id}`}> {item.name}</Link>{" "}
+                  <Link href={`/product?categoryName=${item?.id}`}>
+                    {" "}
+                    {item.name}
+                  </Link>{" "}
                 </DropdownItem>
               )}
             </DropdownMenu>

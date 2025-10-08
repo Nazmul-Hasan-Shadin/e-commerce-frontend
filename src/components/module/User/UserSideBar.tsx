@@ -5,7 +5,6 @@ import { FaCog } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { RiListOrdered2 } from "react-icons/ri";
 import Image from "next/image";
-import { Button } from "@heroui/button";
 
 import { useAppSelector } from "@/src/redux/hook";
 import { SidebarItem } from "@/src/components/module/vendor/SidebarItem";

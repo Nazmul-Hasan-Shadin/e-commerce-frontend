@@ -54,7 +54,7 @@ const CreateShopPage = () => {
       description: shopInfo?.description,
       vendorId: userData?.data?.id,
     };
-     
+
     formData.append("data", JSON.stringify(data));
 
     if (selectedFile) {
@@ -63,8 +63,9 @@ const CreateShopPage = () => {
 
     try {
       const response = await handleCreateShop(formData).unwrap();
-      console.log(response,'iam respone of vendor');
-      
+
+      console.log(response, "iam respone of vendor");
+
       if (response.success === true) {
         toast.success("Shop created successfully!");
       }
@@ -73,8 +74,6 @@ const CreateShopPage = () => {
       console.error("Error:", error);
     }
   };
-
-
 
   if (!isClient) {
     // Prevent SSR mismatches by rendering nothing until hydrated

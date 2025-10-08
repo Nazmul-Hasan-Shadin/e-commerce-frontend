@@ -18,7 +18,6 @@ interface ICategory {
   products: [];
 }
 
-
 const SidebarFilter = forwardRef<HTMLDivElement>(() => {
   const { data: categoryData, isLoading } = useGetAllCategoryQuery(undefined);
   const [brands, setBrands] = useState<string[]>([]);
@@ -48,7 +47,7 @@ const SidebarFilter = forwardRef<HTMLDivElement>(() => {
     setSelectedColors((prev) =>
       prev.includes(color)
         ? prev.filter((item) => item !== color)
-        : [...prev, color]
+        : [...prev, color],
     );
   };
 

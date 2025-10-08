@@ -35,8 +35,9 @@ const shopApi = baseApi.injectEndpoints({
     getAllShops: builder.query({
       query: (queryObj) => {
         const params = new URLSearchParams();
-     console.log(queryObj,'quryobj');
-     
+
+        console.log(queryObj, "quryobj");
+
         if (queryObj) {
           for (const key in queryObj) {
             params.append(key, queryObj[key]);

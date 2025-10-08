@@ -57,7 +57,9 @@ const ProfilePage = () => {
 
       {/* Bio Section */}
       <div className="bg-white shadow rounded-lg p-6 mb-8">
-        <h2 className="text-medium  md:text-medium lg:text-lg xl:text-xl font-semibold text-gray-800 mb-4">Bio</h2>
+        <h2 className="text-medium  md:text-medium lg:text-lg xl:text-xl font-semibold text-gray-800 mb-4">
+          Bio
+        </h2>
         <p className="text-gray-600">
           {user?.bio || "This user hasn't written a bio yet."}
         </p>

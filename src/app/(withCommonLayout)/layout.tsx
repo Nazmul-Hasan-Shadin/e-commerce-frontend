@@ -10,9 +10,9 @@ export default function layout({ children }: { children: React.ReactNode }) {
       <NavBar />
       <BottomNav />
       <SubBottomNavPage />
-      
+
       <main className="">{children}</main>
-            <WhyChooseUs />
+      <WhyChooseUs />
       <Footer />
     </div>
   );

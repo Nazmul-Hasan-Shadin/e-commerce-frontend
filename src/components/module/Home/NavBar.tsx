@@ -12,6 +12,7 @@ import Image from "next/image.js";
 import React, { useEffect, useState } from "react";
 import { skipToken } from "@reduxjs/toolkit/query";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { CartIcon, UserIcon, WatchListIcon } from "../../icons";
 import Container from "../../ui/Container";
@@ -21,7 +22,6 @@ import UserDropDownMenu from "./UserDropDownMenu";
 
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import logo from "@/src/assests/icon/logo.png";
-import { useRouter } from "next/navigation";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -37,6 +37,7 @@ const NavBar = () => {
   ];
   const handeSearch = (e: any) => {
     const searchValue = e.target.value;
+
     setSearchQuery(searchValue);
   };
 
@@ -49,7 +50,7 @@ const NavBar = () => {
   }, [searchQuery]);
 
   const { data: searchResult } = useGetAllProductQuery(
-    debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken
+    debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken,
   );
 
   const onClear = React.useCallback(() => {
@@ -101,10 +102,10 @@ const NavBar = () => {
                   mainWrapper: "w-[500px] h-12",
                 }}
                 endContent={<IoSearchOutline />}
-                onKeyDown={(e) => handleKeyDown(e)}
                 placeholder="search here"
                 size="md"
                 onChange={(e) => handeSearch(e)}
+                onKeyDown={(e) => handleKeyDown(e)}
               />
 
               {debouncedSearchQuery && searchResult?.data?.data.length && (

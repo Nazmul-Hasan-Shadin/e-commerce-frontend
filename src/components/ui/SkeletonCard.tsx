@@ -9,8 +9,7 @@ import {
 import { Skeleton } from "@heroui/skeleton";
 import React from "react";
 
-const 
-SkeletonCard = () => {
+const SkeletonCard = () => {
   return (
     <div className="relative md:w-full p-1">
       <NextCard isHoverable className="p-1 max-w-2xl lg:p-3 h-auto shadow-lg">

@@ -23,7 +23,6 @@ const ComparePage = () => {
             <p className="  text-lg lg:text-2xl font-medium">
               Product Comparison
             </p>
-           
           </div>
 
           <div className="hidden md:block">

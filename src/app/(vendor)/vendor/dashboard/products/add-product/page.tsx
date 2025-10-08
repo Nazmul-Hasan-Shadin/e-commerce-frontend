@@ -42,7 +42,7 @@ const AddProductPage = () => {
     if (files && files.length > 0) {
       setSelectedFiles(Array.from(files));
       const previews = Array.from(files).map((file) =>
-        URL.createObjectURL(file)
+        URL.createObjectURL(file),
       );
 
       setImagePreviews(previews); // Set previews for each selected file

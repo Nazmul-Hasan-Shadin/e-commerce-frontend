@@ -4,15 +4,17 @@ import Image from "next/image";
 import { Button } from "@heroui/button";
 import { Divider, Input } from "@heroui/react";
 import { RxCross1 } from "react-icons/rx";
-import { redirect } from "next/navigation";
 
 import { removeFromCart } from "@/src/redux/feature/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import Container from "@/src/components/ui/Container";
 import { useInitPaymentsslMutation } from "@/src/redux/feature/cart/cartApi";
+import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 
 const CartPage = () => {
   const [handleHitPayment, { isLoading }] = useInitPaymentsslMutation();
+  const { data: userData } = useGetCurrentUserQuery(undefined);
+
   const cartItems = useAppSelector((state) => state.cart.orderItems);
   const dispatch = useAppDispatch();
 
@@ -28,10 +30,22 @@ const CartPage = () => {
   );
 
   const handlePayment = async () => {
-    const response = await handleHitPayment("12348uuyu78745");
+    if (cartItems.length === 0) return;
+    const transactionId = "TXN-" + Date.now();
 
-    if (Object.keys(response.data).length > 0) {
-      redirect(response.data.paymentUrl);
+    try {
+      const response = await handleHitPayment({
+        transactionId,
+        price: totalAmount,
+      });
+
+      if (response?.data?.paymentUrl) {
+        window.location.assign(response.data.paymentUrl);
+      } else {
+        console.error("Payment URL not received");
+      }
+    } catch (err) {
+      console.error("Payment initiation failed:", err);
     }
   };
 

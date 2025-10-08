@@ -1,6 +1,5 @@
 "use client"; // Use client-side rendering since RTK Query is client-based
 
-
 import Card from "@/src/components/ui/Card";
 import Container from "@/src/components/ui/Container";
 import { HomeTitle } from "@/src/components/ui/HomeTitle";

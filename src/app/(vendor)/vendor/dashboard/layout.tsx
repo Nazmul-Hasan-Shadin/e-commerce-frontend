@@ -1,6 +1,5 @@
 "use client";
 import { ReactNode } from "react";
-import { RxHamburgerMenu } from "react-icons/rx";
 
 import DashboardNavbar from "@/src/components/module/admin/DashboardNavbar";
 import {

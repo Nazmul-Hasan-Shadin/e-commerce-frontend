@@ -3,7 +3,6 @@
 import Card from "@/src/components/ui/Card";
 import Container from "@/src/components/ui/Container";
 import { HomeTitle } from "@/src/components/ui/HomeTitle";
-import SkeletonCard from "@/src/components/ui/SkeletonCard";
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 
 const PopularProduct = () => {

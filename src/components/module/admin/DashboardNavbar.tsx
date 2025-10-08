@@ -15,6 +15,7 @@ import {
 } from "@heroui/react";
 import { GoSearch } from "react-icons/go";
 import { RxHamburgerMenu } from "react-icons/rx";
+
 import { useSideBar } from "@/src/ContextProvider/sideBarContex";
 
 const DashboardNavbar = () => {
@@ -24,7 +25,7 @@ const DashboardNavbar = () => {
     <Navbar className=" bg-white w-full  visiblebro" style={{ zIndex: 20 }}>
       <NavbarContent justify="start">
         <RxHamburgerMenu
-          className={`text-2xl lg:relative ${isOpen ? 'lg:right-24':' lg:right-40'}`}
+          className={`text-2xl lg:relative ${isOpen ? "lg:right-24" : " lg:right-40"}`}
           onClick={() => toggleSidebar()}
         />
       </NavbarContent>

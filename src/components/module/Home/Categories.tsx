@@ -26,11 +26,11 @@ const Categories = ({ categories }: CategoriesProps) => {
                   alt={`${category.name} image`}
                   className="w-24 h-20 lg:w-auto border rounded-full object-cover lg:h-[180px]"
                   height={180}
-                  width={160}
                   src={
                     category?.images ||
                     "https://via.placeholder.com/160x180?text=No+Image"
                   }
+                  width={160}
                 />
               </Link>
               <h2 className="text-[13px] md:text-lg font-medium md:font-semibold">

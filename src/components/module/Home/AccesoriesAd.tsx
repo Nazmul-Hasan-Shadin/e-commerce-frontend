@@ -12,12 +12,12 @@ import Image from "next/image";
 import Card from "../../ui/Card";
 import Container from "../../ui/Container";
 import { HomeTitle } from "../../ui/HomeTitle";
+import SkeletonCard from "../../ui/SkeletonCard";
 
 import CategoryCard from "./ClothCategory";
 
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import discountOnCloth from "@/src/assests/accesories/disounttcloth.webp";
-import SkeletonCard from "../../ui/SkeletonCard";
 
 const AccesoriesAd = () => {
   const { data: products, isLoading, isError } = useGetAllProductQuery({});
@@ -70,9 +70,7 @@ const AccesoriesAd = () => {
             {isLoading ? (
               <SwiperSlide className="flex gap-3 ">
                 <>
-                
                   <SkeletonCard />
-                 
                 </>
               </SwiperSlide>
             ) : (

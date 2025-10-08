@@ -27,15 +27,18 @@ export const loginHandler = async (userInfo: any) => {
   // https://swift-mart-bd.vercel.app
   // https://independent-shop.vercel.app/api/v1/auth/login
   // http://localhost:3001/
-  const res = await fetch("https://independent-shop.vercel.app/api/v1/auth/login", {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    method: "POST",
+  const res = await fetch(
+    "https://independent-shop.vercel.app/api/v1/auth/login",
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
 
-    body: JSON.stringify(userInfo),
-    credentials: "include",
-  });
+      body: JSON.stringify(userInfo),
+      credentials: "include",
+    },
+  );
 
   const data = await res.json();
 

@@ -17,7 +17,7 @@ import {
   DropdownItem,
   Tooltip,
 } from "@heroui/react";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FaTrash, FaTurnDown } from "react-icons/fa6";
@@ -25,6 +25,7 @@ import toast from "react-hot-toast";
 import { format } from "date-fns";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { MdEdit } from "react-icons/md";
+import { IoIosArrowDown } from "react-icons/io";
 
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import {
@@ -33,7 +34,6 @@ import {
   useUpdateProductMutation,
 } from "@/src/redux/feature/vendor/vendor.api";
 import Container from "@/src/components/ui/Container";
-import { IoIosArrowDown } from "react-icons/io";
 
 const columns = [
   {
@@ -69,7 +69,7 @@ const INITIAL_VISIBLE_COLUMNS = [
   "action",
 ];
 
- function capitalize(s: string) {
+function capitalize(s: string) {
   return s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : "";
 }
 
@@ -81,7 +81,7 @@ const Vendor = () => {
   const [statusFilter, setStatusFilter] = React.useState("all");
 
   const [visibleColumns, setVisibleColumns] = React.useState(
-    new Set(INITIAL_VISIBLE_COLUMNS)
+    new Set(INITIAL_VISIBLE_COLUMNS),
   );
   const { data: vendorInfo } = useGetCurrentUserQuery(undefined);
 
@@ -99,7 +99,7 @@ const Vendor = () => {
           page,
           searchTerm: filterValue,
         }
-      : skipToken
+      : skipToken,
   );
 
   const [handleUpdateProduct] = useUpdateProductMutation();
@@ -110,10 +110,7 @@ const Vendor = () => {
   const meta = productList?.data?.meta;
   const hasSearchFilter = Boolean(filterValue);
 
-
   const pages = Math.ceil(meta?.total / selectRowPerPage);
-
-
 
   const SearchIcon = (props: any) => {
     return (
@@ -165,7 +162,7 @@ const Vendor = () => {
     // if (visibleColumns === "all") return columns;
 
     return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.key)
+      Array.from(visibleColumns).includes(column.key),
     );
   }, [visibleColumns]);
 
@@ -173,7 +170,7 @@ const Vendor = () => {
 
   const handleDelete = async (id: string) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?"
+      "Are you sure you want to delete this product?",
     );
 
     if (confirmDelete) {
@@ -262,7 +259,7 @@ const Vendor = () => {
                   if (keys instanceof Set) {
                     // multiple selection
                     newKeys = new Set(
-                      Array.from(keys).map((k) => k.toString())
+                      Array.from(keys).map((k) => k.toString()),
                     );
                   } else {
                     // single selection or SharedSelection object
@@ -300,6 +297,7 @@ const Vendor = () => {
                     variant="flat"
                     onSelectionChange={(keys) => {
                       const selectedKey = Array.from(keys)[0];
+
                       if (selectedKey) {
                         setSelectRowPerPage(Number(selectedKey));
                       }
@@ -340,7 +338,7 @@ const Vendor = () => {
             </TableHeader>
 
             <TableBody items={products}>
-              {(item:{id:string,images:string[],}) => (
+              {(item: { id: string; images: string[] }) => (
                 <TableRow key={item.id} className="border-gray-200 border p-0">
                   {(columnKey) => (
                     <TableCell>
@@ -378,7 +376,7 @@ const Vendor = () => {
                       ) : columnKey === "createdAt" ? (
                         format(
                           new Date(getKeyValue(item, columnKey)),
-                          "dd/MM/yyyy"
+                          "dd/MM/yyyy",
                         )
                       ) : (
                         getKeyValue(item, columnKey)

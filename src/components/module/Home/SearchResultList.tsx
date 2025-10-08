@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import { IProduct } from "../../ui/Card";
-import Link from "next/link";
 
 const SearchResultList = ({
   searchResult,

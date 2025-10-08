@@ -12,7 +12,6 @@ import {
 import Link from "next/link";
 import { IoSearchOutline } from "react-icons/io5";
 import React, { useEffect, useState } from "react";
-import { RxAvatar } from "react-icons/rx";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { FcCustomerSupport } from "react-icons/fc";
 import { LiaFlagUsaSolid } from "react-icons/lia";
@@ -100,7 +99,7 @@ const BottomNav = () => {
   };
 
   const { data: searchResult } = useGetAllProductQuery(
-    debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken
+    debouncedSearchQuery ? { searchTerm: debouncedSearchQuery } : skipToken,
   );
 
   return (
@@ -129,11 +128,11 @@ const BottomNav = () => {
 
             {isSearcIconClick && (
               <Input
-                onKeyDown={handleKeyDown}
-                size="lg"
                 className={`absolute rounded-none max-w-[98%] left-0 right-0 mx-auto ${isSearcIconClick ? styles.triggerBottomNavForOpen : ""}`}
                 placeholder="search here"
+                size="lg"
                 onChange={(e) => handeSearch(e)}
+                onKeyDown={handleKeyDown}
               />
             )}
 
@@ -293,13 +292,13 @@ const BottomNav = () => {
 
           {/* =========================for small device menu====================== */}
 
-          <NavbarMenu style={{ zIndex: "500" }} className="z-50">
+          <NavbarMenu className="z-50" style={{ zIndex: "500" }}>
             {menuItems.map((menu, index) => (
               <NavbarItem key={index} className="text-white">
                 <Link
-                  onClick={() => setIsMenuOpen(false)}
                   className="text-black"
                   href={menu.link}
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   {" "}
                   {menu.label}{" "}

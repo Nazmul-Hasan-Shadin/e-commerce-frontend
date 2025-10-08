@@ -15,7 +15,7 @@ const PopularProduct = ({ initialData }: Props) => {
     { sortBy: "viewCount", orderBy: "desc" },
     {
       skip: !!initialData,
-    }
+    },
   );
 
   const list = products?.data?.data || [];
@@ -33,9 +33,11 @@ const PopularProduct = ({ initialData }: Props) => {
               <SkeletonCard />
             </>
           ) : (
-            list.slice(0,10).map((product: any) => (
-              <Card key={product.id} product={product} />
-            ))
+            list
+              .slice(0, 10)
+              .map((product: any) => (
+                <Card key={product.id} product={product} />
+              ))
           )}
         </div>
       </div>

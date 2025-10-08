@@ -3,10 +3,10 @@ import { baseApi } from "../../api/baseApi";
 const sslPaymentInit = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     initPaymentssl: builder.mutation({
-      query: (orderId) => ({
-        url: `/payment-gate/init-payment/${orderId}`,
+      query: (paymentInfo) => ({
+        url: `/payment-gate/init-payment`,
         method: "POST",
-        body: orderId,
+        body: paymentInfo,
       }),
       transformResponse: (response: { data: any }, meta, arg) => response.data,
     }),

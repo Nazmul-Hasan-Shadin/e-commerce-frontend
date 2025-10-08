@@ -22,13 +22,13 @@ import Link from "next/link";
 import { FaTrash, FaTurnDown } from "react-icons/fa6";
 import toast from "react-hot-toast";
 import { format } from "date-fns";
+import { IoIosArrowDown } from "react-icons/io";
 
 import {
   useGetAllProductQuery,
   useUpdateProductMutation,
 } from "@/src/redux/feature/vendor/vendor.api";
 import { useDeleteCategoryMutation } from "@/src/redux/feature/admin/admin.categoryapi";
-import { IoIosArrowDown } from "react-icons/io";
 
 const columns = [
   {
@@ -82,7 +82,7 @@ const Tablecib = () => {
   const [filterValue, setFilterValue] = React.useState("");
   const [statusFilter, setStatusFilter] = React.useState("all");
   const [visibleColumns, setVisibleColumns] = React.useState(
-    new Set(INITIAL_VISIBLE_COLUMNS)
+    new Set(INITIAL_VISIBLE_COLUMNS),
   );
   const { data: productList, isLoading } = useGetAllProductQuery({
     limit: selectRowPerPage,
@@ -151,7 +151,7 @@ const Tablecib = () => {
     // if (visibleColumns === "all") return columns;
 
     return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.key)
+      Array.from(visibleColumns).includes(column.key),
     );
   }, [visibleColumns]);
 
@@ -163,7 +163,7 @@ const Tablecib = () => {
 
   const handleDelete = async (id: string) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?"
+      "Are you sure you want to delete this product?",
     );
 
     if (confirmDelete) {
@@ -228,7 +228,7 @@ const Tablecib = () => {
                 setVisibleColumns(
                   keys === "all"
                     ? new Set(INITIAL_VISIBLE_COLUMNS)
-                    : new Set(keys as Set<string>)
+                    : new Set(keys as Set<string>),
                 )
               }
             >
@@ -260,6 +260,7 @@ const Tablecib = () => {
                   variant="flat"
                   onSelectionChange={(keys) => {
                     const selectedKey = Array.from(keys)[0];
+
                     if (selectedKey) {
                       setSelectRowPerPage(Number(selectedKey));
                     }
@@ -326,7 +327,7 @@ const Tablecib = () => {
                       ) : columnKey === "createdAt" ? (
                         format(
                           new Date(getKeyValue(item, columnKey)),
-                          "dd/MM/yyyy"
+                          "dd/MM/yyyy",
                         )
                       ) : (
                         getKeyValue(item, columnKey)

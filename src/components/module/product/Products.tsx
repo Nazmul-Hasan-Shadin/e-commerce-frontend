@@ -1,14 +1,14 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import React, { useState, Suspense } from "react";
+import React, { useState } from "react";
 import { Pagination } from "@heroui/react";
+import { skipToken } from "@reduxjs/toolkit/query";
 
 import Card from "@/src/components/ui/Card";
 import Container from "@/src/components/ui/Container";
 import { useAppSelector } from "@/src/redux/hook";
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import SkeletonCard from "@/src/components/ui/SkeletonCard";
-import { skipToken } from "@reduxjs/toolkit/query";
 
 const ProductsPage = ({ initialData }: { initialData: any }) => {
   const searchParams = useSearchParams();
@@ -38,7 +38,7 @@ const ProductsPage = ({ initialData }: { initialData: any }) => {
           brandFilter: brandFilterState,
           searchTerm: searchParams.get("searchTerm") || "",
           page,
-        }
+        },
   );
 
   console.log(initialData, "initialdata");
@@ -75,9 +75,9 @@ const ProductsPage = ({ initialData }: { initialData: any }) => {
                 isCompact
                 showControls
                 color="default"
-                total={Math.ceil(meta?.total / meta?.limit)}
                 initialPage={meta?.page}
                 size="lg"
+                total={Math.ceil(meta?.total / meta?.limit)}
                 onChange={(value) => handlePagination(value)}
               />
               ;

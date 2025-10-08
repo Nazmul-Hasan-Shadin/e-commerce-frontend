@@ -20,7 +20,6 @@ const FeatureProduct = () => {
     return <div>loading</div>;
   }
 
-
   return (
     <Container className="px-1 sm:my-10 md:px-0">
       <div>
