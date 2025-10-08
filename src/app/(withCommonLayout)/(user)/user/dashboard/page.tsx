@@ -10,6 +10,8 @@ const ProfilePage = () => {
   const { data: userData } = useGetCurrentUserQuery(undefined);
 
   const user = userData?.data || {};
+  console.log(user,'user');
+  
 
   return (
     <div className="min-h-screen bg-gray-50 md:p-8">
