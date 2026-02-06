@@ -37,7 +37,7 @@ export const loginHandler = async (userInfo: any) => {
 
       body: JSON.stringify(userInfo),
       credentials: "include",
-    },
+    }
   );
 
   const data = await res.json();

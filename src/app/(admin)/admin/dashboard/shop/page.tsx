@@ -99,7 +99,7 @@ const Tablecib = () => {
 
   console.log({ shopLists });
 
-  const shops = shopLists?.data || [];
+  const shops = shopLists?.data?.data || [];
   const meta = shopLists?.data?.meta;
 
   const pages = Math.ceil(meta?.total / selectRowPerPage);

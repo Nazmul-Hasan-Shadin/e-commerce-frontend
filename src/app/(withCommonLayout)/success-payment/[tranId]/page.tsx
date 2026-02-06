@@ -20,12 +20,12 @@ const PaymentSuccessPage = ({ params }: { params: Params }) => {
 
   useEffect(() => {
     const createOrderAfterPayment = async () => {
-      // if (!cartItems?.length || !userData?.id) return;
+      if (!cartItems?.length || !userData?.data?.id) return;
 
       try {
         const shopId = cartItems[0]?.shopId;
         const orderData = {
-          customerId: userData.id,
+          customerId: userData?.data?.id,
           orderItems: cartItems.map((item) => ({
             productId: item.id,
             quantity: item.quantity,
@@ -35,14 +35,16 @@ const PaymentSuccessPage = ({ params }: { params: Params }) => {
             (total, item) => total + item.price * item.quantity,
             0
           ),
-          shopId,
+          shopId:shopId,
           status: "COMPLETE",
         };
-        const createOrderToDb = await handleCreateOrder(orderData);
-        console.log(createOrderToDb,'orderceate t odb');
-        
 
-        dispatch(clearCart());
+        console.log(orderData,'lgo');
+        
+        const createOrderToDb = await handleCreateOrder(orderData);
+        console.log(createOrderToDb, "orderceate t odb");
+
+        // dispatch(clearCart());
         // router.push("/order-success");
       } catch (error) {
         console.error("Order creation failed:", error);
@@ -52,7 +54,7 @@ const PaymentSuccessPage = ({ params }: { params: Params }) => {
     };
 
     createOrderAfterPayment();
-  }, [cartItems, userData]);
+  }, [cartItems, userData,]);
 
   if (loading) return <p>Processing your order...</p>;
 

@@ -63,16 +63,17 @@ const Review = () => {
               {reviewData.pages.flatMap((page, pageIndex) =>
                 page?.data.map((review: IReview) => (
                   <div key={review.id}>
-                    <div className="hidden md:block">
+                    <div className=" overflow-x-scroll md:block">
                       <div>
                         <div className="grid grid-cols-10 justify-items-center  my-4 px-2 text-sm">
                           {/* Product image */}
 
-                          <h2 className="col-span-2 text-center font-medium">
+                          <h2 className="col-span-2 text-center font-light md:font-medium">
                             {review?.product?.name}
                           </h2>
 
-                          <p className="col-span-3 text-center font-semibold">
+                          <p className="col-span-3 text-center overflow-scroll text-black font-light md:font-semibold">
+                         
                             {review?.comment?.slice(0, 30)}
                           </p>
 
@@ -80,7 +81,7 @@ const Review = () => {
                             {review?.rating}
                           </p>
 
-                          <p className="col-span-2 text-center font-semibold">
+                          <p className="col-span-2 text-center font-light md:font-semibold">
                             {review?.createdAt &&
                               format(new Date(review?.createdAt), "yyyy-mm-dd")}
                           </p>

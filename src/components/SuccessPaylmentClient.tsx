@@ -1,67 +1,64 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useAppSelector, useAppDispatch } from "@/src/redux/hook";
 import { clearCart } from "@/src/redux/feature/cart/cartSlice";
 import { useCreateOrderMutation } from "@/src/redux/feature/payment/order.api";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
+import toast from "react-hot-toast";
 
 export default function SuccessPaymentClient() {
-  const [tranId, setTranId] = useState<string | null>(null);
   const cartItems = useAppSelector((state) => state.cart.orderItems);
-  const { data: userData } = useGetCurrentUserQuery(undefined);
-  const [createOrder] = useCreateOrderMutation();
+  const { data: userData, isLoading: userLoading } = useGetCurrentUserQuery(undefined);
+  const [createOrder, { isLoading: orderLoading }] = useCreateOrderMutation();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const params = useSearchParams();
+  const tranId = useMemo(() => params.get("tran_id"), [params]);
 
-  const shopId = cartItems[0]?.shopId;
-  const customerId = userData?.data?.id;
+  // ✅ Guard: only trigger when all data is ready
+  const canCreateOrder =
+    tranId && userData?.data?.id && cartItems.length > 0 && !orderLoading;
 
-  useEffect(() => {
-    const id = params.get("tran_id");
-    setTranId(id);
-  }, [params]);
+  const handleOrderCreation = async () => {
+    if (!canCreateOrder) return;
 
-  useEffect(() => {
-    const createOrderAfterPayment = async () => {
-      if (!cartItems.length || !customerId || !shopId || !tranId) {
-        router.push("/");
-        return;
-      }
+    try {
+      const totalAmount = cartItems.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
 
-      try {
-        const totalAmount = cartItems.reduce(
-          (total, item) => total + item.price * item.quantity,
-          0
-        );
+      const payload = {
+        customer: { connect: { id: userData.data.id } },
+        shop: { connect: { id: cartItems[0]?.shopId } },
+        totalAmount,
+        orderItems: cartItems.map((item) => ({
+          productId: item.id,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+        status: "COMPLETE",
+        transactionId: tranId,
+      };
 
-        const payload = {
-          customer: { connect: { id: customerId } },
-          shop: { connect: { id: shopId } },
-          totalAmount,
-          orderItems: cartItems.map((item) => ({
-            productId: item.id,
-            quantity: item.quantity,
-            price: item.price,
-          })),
-          status: "COMPLETE",
-          transactionId: tranId, 
-        };
+      const response = await createOrder(payload).unwrap();
 
-        await createOrder(payload).unwrap(); 
+      if (response.success) {
         dispatch(clearCart());
         router.push("/order-success");
-      } catch (error) {
-        console.error("❌ Order creation failed:", error);
+      } else {
+        toast.error("Order creation failed.");
       }
-    };
-
-    if (tranId) {
-      createOrderAfterPayment();
+    } catch (err) {
+      console.error("Order creation failed:", err);
+      toast.error("Something went wrong during order creation.");
     }
-  }, [tranId, cartItems, customerId, shopId, createOrder, dispatch, router]);
+  };
+
+  // ✅ Auto-create order once ready
+  if (canCreateOrder) handleOrderCreation();
 
   return (
     <div className="flex justify-center items-center h-screen text-lg font-medium">

@@ -16,6 +16,7 @@ import { IoGitCompareOutline } from "react-icons/io5";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import { addToCart, replaceCart } from "@/src/redux/feature/cart/cartSlice";
 import { addToCompare } from "@/src/redux/feature/compare/compare.slice";
+import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 
 export interface IProduct {
   id: string;
@@ -53,6 +54,9 @@ const getShortName = (description: string) => {
 const Card = ({ product }: { product: IProduct }) => {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.orderItems);
+  const {data:userData}=useGetCurrentUserQuery(undefined);
+  console.log(userData,'blklkl');
+  
 
   const compareProducts = useAppSelector((state) => state.compareItem.product);
 

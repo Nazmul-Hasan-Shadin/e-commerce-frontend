@@ -75,7 +75,7 @@ const UserOrderPage = () => {
                             <Image
                               alt="cart product image"
                               className="object-contain rounded"
-                              height={70}
+                              height={40}
                               src={item.product?.images[0] || "/no-image.jpg"}
                               width={70}
                             />

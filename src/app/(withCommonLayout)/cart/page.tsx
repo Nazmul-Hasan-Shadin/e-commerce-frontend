@@ -23,10 +23,15 @@ const CartPage = () => {
     dispatch(removeFromCart({ productId }));
   };
 
+  const shopId = cartItems[0]?.shopId;
+  const customerId = userData?.data?.id;
+
+
+
   // Calculate total price
   const totalAmount = cartItems.reduce(
     (total, item) => total + Number(item.price || 0) * Number(item?.quantity),
-    0,
+    0
   );
 
   const handlePayment = async () => {
