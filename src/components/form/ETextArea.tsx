@@ -24,6 +24,7 @@ const FxTextArea = ({
       labelPlacement="outside-top"
       {...register(name)}
       className=" w-full h-52"
+      classNames={{ label: "text-black" }}
       endContent={
         icon && (
           <button type="submit">

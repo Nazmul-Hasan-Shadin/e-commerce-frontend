@@ -73,7 +73,6 @@ const Review = () => {
                           </h2>
 
                           <p className="col-span-3 text-center overflow-scroll text-black font-light md:font-semibold">
-                         
                             {review?.comment?.slice(0, 30)}
                           </p>
 

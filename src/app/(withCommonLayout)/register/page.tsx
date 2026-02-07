@@ -24,8 +24,6 @@ const Register = () => {
       password: data.password,
     };
 
- ;
-
     try {
       const res = await handleRegister(userData).unwrap();
 

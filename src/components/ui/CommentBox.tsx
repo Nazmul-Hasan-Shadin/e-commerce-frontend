@@ -14,8 +14,6 @@ const CommentBox = ({ productId }: { productId: string }) => {
   const [handleCreate] = useCreateCommentMutation();
   const { data: userData } = useGetCurrentUserQuery(undefined);
 
-
-
   const handleComment: SubmitHandler<any> = async (data) => {
     console.log(data);
 

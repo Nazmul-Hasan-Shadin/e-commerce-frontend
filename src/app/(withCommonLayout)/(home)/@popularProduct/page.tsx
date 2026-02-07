@@ -3,8 +3,9 @@ import PopularProduct from "./PopularProduct";
 export const revalidate = 60;
 
 const PopularProductPage = async () => {
+  // https://independent-shop.vercel.app
   const res = await fetch(
-    `https://independent-shop.vercel.app/api/v1/product?sortBy=viewCount&orderBy=desc`,
+    `http://localhost:3001/api/v1/product?sortBy=viewCount&orderBy=desc`,
     { next: { revalidate: 60 } },
   );
 

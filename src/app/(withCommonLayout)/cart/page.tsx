@@ -5,7 +5,7 @@ import { Button } from "@heroui/button";
 import { Divider, Input } from "@heroui/react";
 import { RxCross1 } from "react-icons/rx";
 
-import { removeFromCart } from "@/src/redux/feature/cart/cartSlice";
+import { clearCart, removeFromCart } from "@/src/redux/feature/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import Container from "@/src/components/ui/Container";
 import { useInitPaymentsslMutation } from "@/src/redux/feature/cart/cartApi";
@@ -17,7 +17,6 @@ const CartPage = () => {
 
   const cartItems = useAppSelector((state) => state.cart.orderItems);
   const dispatch = useAppDispatch();
-
   // Handle remove item from cart
   const handleRemoveFromCart = (productId: string) => {
     dispatch(removeFromCart({ productId }));
@@ -26,12 +25,10 @@ const CartPage = () => {
   const shopId = cartItems[0]?.shopId;
   const customerId = userData?.data?.id;
 
-
-
   // Calculate total price
   const totalAmount = cartItems.reduce(
     (total, item) => total + Number(item.price || 0) * Number(item?.quantity),
-    0
+    0,
   );
 
   const handlePayment = async () => {
@@ -67,7 +64,7 @@ const CartPage = () => {
         <section className="grid grid-cols-12">
           <div className="col-span-12 sm:col-span-8 2xl:col-span-8  border">
             {/* ==========Tables Header============ */}
-            <div className=" grid-cols-8 hidden sm:grid sm:grid-cols-8 font-bold  text-lg text-center p-4">
+            <div className=" grid-cols-8  border hidden sm:grid sm:grid-cols-8 font-bold  text-lg text-center p-4">
               <div className="">image</div>
               <div className="col-span-3 text-center">product</div>
               <div className="">price</div>
@@ -76,12 +73,13 @@ const CartPage = () => {
               <div className="">remove</div>
             </div>
             <Divider className="w-[97%] mx-auto mb-4" />
+            {/* ================cart items under cart row heading=============== */}
 
             {cartItems.length > 0 ? (
               <div>
                 {cartItems.map((cart, index) => (
                   <div key={cart?.id}>
-                    <div className="grid grid-cols-8 justify-items-center my-4">
+                    <div className="grid  grid-cols-8 justify-items-center my-4">
                       <figure>
                         <Image
                           alt="cart product image"
@@ -118,6 +116,8 @@ const CartPage = () => {
               </div>
             )}
 
+            {/* =================cart actions=========== */}
+
             {cartItems.length > 0 && (
               <div className="flex justify-between items-center  p-4 mt-4 rounded">
                 <div className="flex gap-3 items-center">
@@ -133,7 +133,10 @@ const CartPage = () => {
                 </div>
 
                 <div>
-                  <Button className="bg-primary-color hidden sm:block rounded-sm text-white">
+                  <Button
+                    className="bg-primary-color hidden sm:block rounded-sm text-white"
+                    onPress={() => dispatch(clearCart())}
+                  >
                     clear Cart
                   </Button>
                 </div>

@@ -154,23 +154,25 @@ const AddProductPage = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-5">
-            <EInput
-              label="Name"
-              name="name"
-              placeholder="Name"
-              type="text"
-              variant="bordered"
-            />
-            <EInput
-              label="Price"
-              name="price"
-              placeholder="Price"
-              type="number"
-              variant="bordered"
-            />
+            <div className=" flex flex-col sm:flex-row gap-4">
+              <EInput
+                label="Name"
+                name="name"
+                placeholder="Name"
+                type="text"
+                variant="bordered"
+              />
+              <EInput
+                label="Price"
+                name="price"
+                placeholder="Price"
+                type="number"
+                variant="bordered"
+              />
+            </div>
             <div className="md:grid-cols-2 grid gap-3">
               <ESelect
-                defaultSelectedKeys={[categoryList?.data[0].id]}
+                defaultSelectedKeys={[categoryList?.data[0]?.id]}
                 label="Select Category"
                 name="category"
                 options={categoryList?.data || []}

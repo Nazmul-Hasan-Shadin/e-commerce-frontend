@@ -1,16 +1,18 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+
 import { useAppSelector, useAppDispatch } from "@/src/redux/hook";
 import { clearCart } from "@/src/redux/feature/cart/cartSlice";
 import { useCreateOrderMutation } from "@/src/redux/feature/payment/order.api";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
-import toast from "react-hot-toast";
 
 export default function SuccessPaymentClient() {
   const cartItems = useAppSelector((state) => state.cart.orderItems);
-  const { data: userData, isLoading: userLoading } = useGetCurrentUserQuery(undefined);
+  const { data: userData, isLoading: userLoading } =
+    useGetCurrentUserQuery(undefined);
   const [createOrder, { isLoading: orderLoading }] = useCreateOrderMutation();
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -27,7 +29,7 @@ export default function SuccessPaymentClient() {
     try {
       const totalAmount = cartItems.reduce(
         (sum, item) => sum + item.price * item.quantity,
-        0
+        0,
       );
 
       const payload = {

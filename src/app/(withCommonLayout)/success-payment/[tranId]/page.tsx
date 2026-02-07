@@ -4,7 +4,6 @@ import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { useAppSelector, useAppDispatch } from "@/src/redux/hook";
-import { clearCart } from "@/src/redux/feature/cart/cartSlice";
 import { useCreateOrderMutation } from "@/src/redux/feature/payment/order.api";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 type Params = Promise<{ tranId: string }>;
@@ -33,15 +32,16 @@ const PaymentSuccessPage = ({ params }: { params: Params }) => {
           })),
           totalAmount: cartItems.reduce(
             (total, item) => total + item.price * item.quantity,
-            0
+            0,
           ),
-          shopId:shopId,
+          shopId: shopId,
           status: "COMPLETE",
         };
 
-        console.log(orderData,'lgo');
-        
+        console.log(orderData, "lgo");
+
         const createOrderToDb = await handleCreateOrder(orderData);
+
         console.log(createOrderToDb, "orderceate t odb");
 
         // dispatch(clearCart());
@@ -54,7 +54,7 @@ const PaymentSuccessPage = ({ params }: { params: Params }) => {
     };
 
     createOrderAfterPayment();
-  }, [cartItems, userData,]);
+  }, [cartItems, userData]);
 
   if (loading) return <p>Processing your order...</p>;
 

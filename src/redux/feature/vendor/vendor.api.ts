@@ -36,7 +36,7 @@ const vendorApi = baseApi.injectEndpoints({
     getProductByShopId: builder.query({
       query: (shopQuery) => {
         return {
-          url: `/product/shop/products/${shopQuery.shopId}`,
+          url: `/product/shop/products/${shopQuery?.shopId}`,
           method: "GET",
           params: {
             page: Number(shopQuery?.page),

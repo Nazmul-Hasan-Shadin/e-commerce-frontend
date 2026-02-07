@@ -3,9 +3,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
 
 const baseQuery = fetchBaseQuery({
-  // baseUrl: "http://localhost:3001/api/v1",
+  baseUrl: "http://localhost:3001/api/v1",
 
-  baseUrl: "https://independent-shop.vercel.app/api/v1",
+  // baseUrl: "https://independent-shop.vercel.app/api/v1",
+  // baseUrl: "http://api.buybarionline.com/api/v1",
 
   credentials: "include",
 
@@ -41,6 +42,5 @@ export const baseApi = createApi({
     "categoryList",
     "createShop",
   ],
-
   endpoints: (builder) => ({}),
 });

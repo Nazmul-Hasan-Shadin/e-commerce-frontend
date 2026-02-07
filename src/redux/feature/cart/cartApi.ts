@@ -10,7 +10,17 @@ const sslPaymentInit = baseApi.injectEndpoints({
       }),
       transformResponse: (response: { data: any }, meta, arg) => response.data,
     }),
+
+    getDiscountCouponOfShopOwner: builder.query({
+      query: () => ({
+        url: `/coupon`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useInitPaymentsslMutation } = sslPaymentInit;
+export const {
+  useInitPaymentsslMutation,
+  useGetDiscountCouponOfShopOwnerQuery,
+} = sslPaymentInit;

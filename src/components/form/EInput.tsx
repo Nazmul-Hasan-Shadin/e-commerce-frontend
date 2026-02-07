@@ -34,6 +34,10 @@ const EInput = ({
       labelPlacement="outside-top"
       required={required}
       type={type}
+      classNames={{
+        label: "text-black",
+        inputWrapper: "border-1",
+      }}
       variant={variant}
       {...register(name)}
       className="rounded-none"

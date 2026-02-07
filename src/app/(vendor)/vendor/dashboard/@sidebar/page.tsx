@@ -2,6 +2,7 @@
 
 import React from "react";
 import { FaShoppingCart, FaCog, FaClipboardList } from "react-icons/fa";
+import { RiCouponLine } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa6";
 
 import { useAppSelector } from "@/src/redux/hook";
@@ -9,8 +10,6 @@ import { SidebarItem } from "@/src/components/module/vendor/SidebarItem";
 import { useSideBar } from "@/src/ContextProvider/sideBarContex";
 
 const Sidebar = () => {
-  // const [isOpen, setIsOpen] = useState(true);
-  // const [openMenu, setOpenMenu] = useState<string | null>(null);
   const user = useAppSelector((state) => state.auth.user);
 
   const { isOpen, toggleSidebar } = useSideBar();
@@ -49,7 +48,7 @@ const Sidebar = () => {
             icon={<FaClipboardList />}
             isOpen={isOpen}
             label="Create Shop"
-            path="/vendor/dashboard/create-shop"
+            path={`/${user?.role}/dashboard/create-shop`}
           />
           <SidebarItem
             icon={<FaClipboardList />}
@@ -62,7 +61,13 @@ const Sidebar = () => {
             icon={<FaPlus />}
             isOpen={isOpen}
             label="Add Product"
-            path="/vendor/dashboard/products/add-product"
+            path={`/${user?.role}/dashboard/products/add-product`}
+          />
+          <SidebarItem
+            icon={<RiCouponLine />}
+            isOpen={isOpen}
+            label="Add Coupon"
+            path={`/${user?.role}/dashboard/add-coupon`}
           />
           <SidebarItem
             icon={<FaPlus />}

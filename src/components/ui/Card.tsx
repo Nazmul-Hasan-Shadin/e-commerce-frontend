@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import { addToCart, replaceCart } from "@/src/redux/feature/cart/cartSlice";
 import { addToCompare } from "@/src/redux/feature/compare/compare.slice";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
+import { useGetDiscountCouponOfShopOwnerQuery } from "@/src/redux/feature/cart/cartApi";
 
 export interface IProduct {
   id: string;
@@ -54,9 +55,10 @@ const getShortName = (description: string) => {
 const Card = ({ product }: { product: IProduct }) => {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.orderItems);
-  const {data:userData}=useGetCurrentUserQuery(undefined);
-  console.log(userData,'blklkl');
-  
+  const { data: userData } = useGetCurrentUserQuery(undefined);
+  const { data } = useGetDiscountCouponOfShopOwnerQuery(undefined);
+
+  console.log(data, "cart data");
 
   const compareProducts = useAppSelector((state) => state.compareItem.product);
 
