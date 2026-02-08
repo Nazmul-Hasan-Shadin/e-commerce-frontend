@@ -16,10 +16,17 @@ import Container from "@/src/components/ui/Container";
 import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
 import { useCreateCouponMutation } from "@/src/redux/feature/coupon/coupon.api";
 import { useGetProductByShopIdQuery } from "@/src/redux/feature/vendor/vendor.api";
+import EDatePicker from "@/src/components/form/EDatePicker";
+import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 
 const AddCouponPage = () => {
   const { data: categoryList } = useGetAllCategoryQuery(undefined);
-  const { data: productList } = useGetProductByShopIdQuery(undefined);
+  const { data: userShopData } = useGetCurrentUserQuery(undefined);
+  const shopId = userShopData?.data?.shop?.id
+ 
+  const { data: productList } = useGetProductByShopIdQuery({shopId}, {
+    skip: !shopId,
+  });
 
   const [createCoupon] = useCreateCouponMutation();
 
@@ -27,8 +34,6 @@ const AddCouponPage = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      console.log(data, "iam daata");
-
       const payload = {
         code: data.code,
         title: data.title,
@@ -40,8 +45,8 @@ const AddCouponPage = () => {
         maxUsage: Number(data.maxUsage),
         maxUsagePerUser: Number(data.maxUsagePerUser),
 
-        startDate: data.startDate,
-        endDate: data.endDate,
+        startDate: data.startDate.toDate().toISOString(),
+        endDate: data.endDate.toDate().toISOString(),
 
         benefit: {
           discountType: data.discountType,
@@ -63,6 +68,8 @@ const AddCouponPage = () => {
       await createCoupon(payload).unwrap();
       toast.success("Coupon Created Successfully");
     } catch (err) {
+      console.log(err);
+
       toast.error("Failed to create coupon");
     }
   };
@@ -74,7 +81,18 @@ const AddCouponPage = () => {
 
         <Divider className="my-4" />
 
-        <EForm onSubmit={onSubmit}>
+        <EForm
+          onSubmit={onSubmit}
+          defaultValues={{
+            title: "hi",
+            code: "JOYBE",
+            description: "hi baby",
+            discountType: "FIXED",
+            discountValue: 44,
+            maxDiscount: 44,
+            maxUsage: 4,
+          }}
+        >
           {/* ================= BASIC INFO ================= */}
           <h3 className="font-semibold mb-2">Basic Info</h3>
 
@@ -109,7 +127,7 @@ const AddCouponPage = () => {
 
           <CouponScopeSection
             categoryList={categoryList?.data}
-            productList={productList}
+            productList={productList?.data?.data}
           />
 
           {/* ================= BENEFIT ================= */}
@@ -195,9 +213,10 @@ const AddCouponPage = () => {
           <h3 className="font-semibold mb-2">Validity</h3>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <EInput label="Start Date" name="startDate" type="datetime-local" />
+            <EDatePicker name="startDate" label="start Date" />
+            <EDatePicker name="endDate" label="end Date" />
 
-            <EInput label="End Date" name="endDate" type="datetime-local" />
+            {/* <EInput label="End Date" name="endDate" type="datetime-local" /> */}
           </div>
 
           <Divider className="my-6" />

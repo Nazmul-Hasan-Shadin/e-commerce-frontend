@@ -1,7 +1,6 @@
+import ESelect from "@/src/components/form/ESelect";
 import React from "react";
 import { useFormContext, useWatch } from "react-hook-form";
-
-import ESelect from "@/src/components/form/ESelect";
 
 const CouponScopeSection = ({
   categoryList,
@@ -15,14 +14,14 @@ const CouponScopeSection = ({
     control,
     name: "applyType",
   });
-
-  console.log(categoryList, "");
+  console.log(applyType, "applytype");
 
   return (
     <div>
       <ESelect
         label="Apply Type"
         name="applyType"
+        
         options={[
           {
             label: "All Product",

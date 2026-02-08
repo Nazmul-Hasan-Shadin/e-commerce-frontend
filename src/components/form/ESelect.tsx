@@ -20,6 +20,8 @@ interface IProps {
   disabled?: boolean;
   selectionMode?: "single" | "multiple";
   className?: string;
+  defaultSelectedKeys?: any;
+  dropDownHeading?: string;
 }
 
 const ESelect = ({
@@ -61,7 +63,7 @@ const ESelect = ({
               trigger: "bg-gray-200 border",
               value: "text-black",
               listbox: "bg-black text-white",
-            
+
               popoverContent: "bg-white",
             }}
             selectedKeys={
@@ -87,9 +89,9 @@ const ESelect = ({
 
               const optionLabel =
                 option.label ?? option.name ?? String(optionValue);
-           
+
               return (
-                <SelectItem key={optionLabel as React.Key}>
+                <SelectItem key={optionValue as React.Key}>
                   {optionLabel}
                 </SelectItem>
               );
