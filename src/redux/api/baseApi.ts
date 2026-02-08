@@ -7,10 +7,10 @@ const productionUrl =
     ? process.env.NEXT_PUBLIC_LOCAL_URL
     : process.env.NEXT_PUBLIC_PRODUCTION_URL;
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:3001/api/v1",
+  // baseUrl: "http://localhost:3001/api/v1",
 
   // baseUrl: "https://independent-shop.vercel.app/api/v1",
-  // baseUrl: `${productionUrl}`,
+  baseUrl: `${productionUrl}`,
 
   credentials: "include",
 
