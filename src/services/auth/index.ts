@@ -2,6 +2,11 @@
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 
+const productionUrl =
+  process.env.NEXT_PUBLIC_NODE_ENV === "development"
+    ? process.env.NEXT_PUBLIC_LOCAL_URL
+    : process.env.NEXT_PUBLIC_PRODUCTION_URL;
+
 export const logOutFromServer = async () => {
   (await cookies()).delete("refreshToken");
 };
@@ -27,7 +32,7 @@ export const loginHandler = async (userInfo: any) => {
   // https://swift-mart-bd.vercel.app
   // https://independent-shop.vercel.app/api/v1/auth/login
   // http://localhost:3001/
-  const res = await fetch("http://localhost:3001/api/v1/auth/login", {
+  const res = await fetch(`${productionUrl}/api/v1/auth/login`, {
     headers: {
       "Content-Type": "application/json",
     },
