@@ -38,8 +38,10 @@ const AddCategory = () => {
         toast.error(response.message || "An error occurred.");
       }
     } catch (error: any) {
-      toast.error(error.message || "Something went wrong");
-    }
+  toast.error(
+    error?.data?.message || error?.error || "Something went wrong"
+  );
+}
   };
 
   const inputRef = useRef<HTMLInputElement | null>(null);

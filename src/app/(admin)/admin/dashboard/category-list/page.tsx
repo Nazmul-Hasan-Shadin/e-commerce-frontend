@@ -182,7 +182,6 @@ const Tablecib = () => {
   return (
     <div>
       <span className="block my-3 md:my-2">
-        {" "}
         <span className=" md:text-lg">Dashboard</span> / Create category
       </span>
       <div className=" p-2 md:p-4 lg:p-6 bg-white">
@@ -192,7 +191,6 @@ const Tablecib = () => {
           </h2>
           <Link href={"/admin/dashboard/category"}>
             <Button className="bg-primary-color text-white rounded-sm">
-              {" "}
               Create Category
             </Button>
           </Link>
@@ -277,7 +275,16 @@ const Tablecib = () => {
                 {(columnKey) => (
                   <TableCell>
                     {columnKey === "images" ? (
-                      <Image alt="" height={70} src={item?.images} width={80} />
+                      item?.images ? (
+                        <Image
+                          alt=""
+                          height={70}
+                          src={item.images}
+                          width={80}
+                        />
+                      ) : (
+                        "No Image"
+                      )
                     ) : columnKey === "action" ? (
                       <div className="flex gap-4">
                         <FaEdit
