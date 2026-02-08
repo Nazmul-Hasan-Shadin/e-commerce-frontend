@@ -1,7 +1,7 @@
 import Categories from "@/src/components/module/Home/Categories";
 
 const productionUrl =
-  process.env.NEXT_PUBLIC_NODE_ENV === "development"
+  process.env.NODE_ENV === "development"
     ? process.env.NEXT_PUBLIC_LOCAL_URL
     : process.env.NEXT_PUBLIC_PRODUCTION_URL;
 

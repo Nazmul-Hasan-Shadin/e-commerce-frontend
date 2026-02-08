@@ -3,14 +3,14 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
 
 const productionUrl =
-  process.env.NEXT_PUBLIC_NODE_ENV === "development"
+  process.env.NODE_ENV === "development"
     ? process.env.NEXT_PUBLIC_LOCAL_URL
     : process.env.NEXT_PUBLIC_PRODUCTION_URL;
 const baseQuery = fetchBaseQuery({
-  // baseUrl: "http://localhost:3001/api/v1",
+  baseUrl: "http://localhost:3001/api/v1",
 
   // baseUrl: "https://independent-shop.vercel.app/api/v1",
-  baseUrl: `${productionUrl}`,
+  // baseUrl: `${productionUrl}`,
 
   credentials: "include",
 
