@@ -6,8 +6,9 @@ const productionUrl =
   process.env.NODE_ENV === "development"
     ? process.env.NEXT_PUBLIC_LOCAL_URL
     : process.env.NEXT_PUBLIC_PRODUCTION_URL;
- console.log(productionUrl);
- 
+
+console.log(productionUrl);
+
 export const logOutFromServer = async () => {
   (await cookies()).delete("refreshToken");
 };

@@ -22,11 +22,14 @@ import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 const AddCouponPage = () => {
   const { data: categoryList } = useGetAllCategoryQuery(undefined);
   const { data: userShopData } = useGetCurrentUserQuery(undefined);
-  const shopId = userShopData?.data?.shop?.id
- 
-  const { data: productList } = useGetProductByShopIdQuery({shopId}, {
-    skip: !shopId,
-  });
+  const shopId = userShopData?.data?.shop?.id;
+
+  const { data: productList } = useGetProductByShopIdQuery(
+    { shopId },
+    {
+      skip: !shopId,
+    },
+  );
 
   const [createCoupon] = useCreateCouponMutation();
 
@@ -82,7 +85,6 @@ const AddCouponPage = () => {
         <Divider className="my-4" />
 
         <EForm
-          onSubmit={onSubmit}
           defaultValues={{
             title: "hi",
             code: "JOYBE",
@@ -92,6 +94,7 @@ const AddCouponPage = () => {
             maxDiscount: 44,
             maxUsage: 4,
           }}
+          onSubmit={onSubmit}
         >
           {/* ================= BASIC INFO ================= */}
           <h3 className="font-semibold mb-2">Basic Info</h3>
@@ -213,8 +216,8 @@ const AddCouponPage = () => {
           <h3 className="font-semibold mb-2">Validity</h3>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <EDatePicker name="startDate" label="start Date" />
-            <EDatePicker name="endDate" label="end Date" />
+            <EDatePicker label="start Date" name="startDate" />
+            <EDatePicker label="end Date" name="endDate" />
 
             {/* <EInput label="End Date" name="endDate" type="datetime-local" /> */}
           </div>

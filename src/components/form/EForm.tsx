@@ -31,7 +31,7 @@ const EForm = ({ children, onSubmit, defaultValues }: IProps) => {
 
   return (
     <FormProvider {...methods}>
-      <form  onSubmit={submitHandler(onSubmit)}>{children}</form>
+      <form onSubmit={submitHandler(onSubmit)}>{children}</form>
     </FormProvider>
   );
 };

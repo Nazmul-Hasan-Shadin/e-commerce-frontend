@@ -48,17 +48,10 @@ const ESelect = ({
       </label>
 
       <Controller
-        name={name}
         control={control}
-        rules={{ required }}
+        name={name}
         render={({ field }) => (
           <Select
-            variant="bordered"
-            selectionMode={selectionMode}
-            radius={radius}
-            size={size}
-            disabled={disabled}
-            placeholder="Select option"
             classNames={{
               trigger: "bg-gray-200 border",
               value: "text-black",
@@ -66,6 +59,9 @@ const ESelect = ({
 
               popoverContent: "bg-white",
             }}
+            disabled={disabled}
+            placeholder="Select option"
+            radius={radius}
             selectedKeys={
               selectionMode === "multiple"
                 ? new Set((field.value || []).map(String))
@@ -73,6 +69,9 @@ const ESelect = ({
                   ? new Set([String(field.value)])
                   : new Set()
             }
+            selectionMode={selectionMode}
+            size={size}
+            variant="bordered"
             onSelectionChange={(keys) => {
               const selected = Array.from(keys);
 
@@ -98,6 +97,7 @@ const ESelect = ({
             })}
           </Select>
         )}
+        rules={{ required }}
       />
 
       {errors[name] && (

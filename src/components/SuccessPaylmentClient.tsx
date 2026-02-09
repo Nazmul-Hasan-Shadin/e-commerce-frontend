@@ -17,6 +17,9 @@ export default function SuccessPaymentClient() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const params = useSearchParams();
+  
+  console.log("iam params", params);
+
   const tranId = useMemo(() => params.get("tran_id"), [params]);
 
   // ✅ Guard: only trigger when all data is ready
@@ -46,11 +49,15 @@ export default function SuccessPaymentClient() {
       };
 
       const response = await createOrder(payload).unwrap();
+       console.log(response);
+       
 
       if (response.success) {
         dispatch(clearCart());
         router.push("/order-success");
       } else {
+       
+         
         toast.error("Order creation failed.");
       }
     } catch (err) {

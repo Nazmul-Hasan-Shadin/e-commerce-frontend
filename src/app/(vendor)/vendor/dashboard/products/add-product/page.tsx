@@ -53,7 +53,7 @@ const AddProductPage = () => {
     const formData = new FormData();
     const data = {
       name: productInfo?.name,
-      shopId: userData?.data.shop?.id,
+      shopId: userData?.data?.shop?.id,
       isFlash: productInfo.isFlash === "Flash sell" ? true : false,
       price: Number(productInfo?.price),
       categoryId: productInfo?.category,

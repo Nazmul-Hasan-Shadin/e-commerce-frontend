@@ -61,8 +61,9 @@ const Login = () => {
 
     try {
       const res = await loginHandler(userData);
-      console.log(res,'iam res');
-      
+
+      console.log(res, "iam res");
+
       const user = verifyToken(res.data.accessToken) as {
         email: string;
         role: string;

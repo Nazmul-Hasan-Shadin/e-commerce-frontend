@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import Container from "@/src/components/ui/Container";
 import { useInitPaymentsslMutation } from "@/src/redux/feature/cart/cartApi";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
+import toast from "react-hot-toast";
 
 const CartPage = () => {
   const [handleHitPayment, { isLoading }] = useInitPaymentsslMutation();
@@ -33,6 +34,8 @@ const CartPage = () => {
 
   const handlePayment = async () => {
     if (cartItems.length === 0) return;
+     console.log(cartItems,'ccartItems');
+     
     const transactionId = "TXN-" + Date.now();
 
     try {
@@ -44,6 +47,7 @@ const CartPage = () => {
       if (response?.data?.paymentUrl) {
         window.location.assign(response.data.paymentUrl);
       } else {
+         toast.error("Payment Error")
         console.error("Payment URL not received");
       }
     } catch (err) {
@@ -161,7 +165,7 @@ const CartPage = () => {
 
             <Button
               className="bg-primary-color text-white w-full my-3"
-              onClick={() => handlePayment()}
+              onPress={() => handlePayment()}
             >
               Proceed to Checkout
             </Button>
