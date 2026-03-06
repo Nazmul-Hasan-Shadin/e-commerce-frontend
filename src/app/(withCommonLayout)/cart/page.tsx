@@ -17,6 +17,8 @@ const CartPage = () => {
   const { data: userData } = useGetCurrentUserQuery(undefined);
 
   const cartItems = useAppSelector((state) => state.cart.orderItems);
+  console.log(cartItems,'order');
+  
   const dispatch = useAppDispatch();
   // Handle remove item from cart
   const handleRemoveFromCart = (productId: string) => {
@@ -34,26 +36,32 @@ const CartPage = () => {
 
   const handlePayment = async () => {
     if (cartItems.length === 0) return;
-     console.log(cartItems,'ccartItems');
-     
+
     const transactionId = "TXN-" + Date.now();
 
     try {
       const response = await handleHitPayment({
         transactionId,
         price: totalAmount,
+        customerId:customerId,
+        shopId:shopId,
+        totalAmount,
+        orderItems:cartItems
+
       });
 
       if (response?.data?.paymentUrl) {
         window.location.assign(response.data.paymentUrl);
       } else {
-         toast.error("Payment Error")
+        toast.error("Payment Error");
         console.error("Payment URL not received");
       }
     } catch (err) {
       console.error("Payment initiation failed:", err);
     }
   };
+
+ 
 
   return (
     <Container>
