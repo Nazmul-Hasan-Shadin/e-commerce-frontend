@@ -31,9 +31,6 @@ export const getCurrentUser = async () => {
 };
 
 export const loginHandler = async (userInfo: any) => {
-  // https://swift-mart-bd.vercel.app
-  // https://independent-shop.vercel.app/api/v1/auth/login
-  // http://localhost:3001/
   const res = await fetch(`${productionUrl}/auth/login`, {
     headers: {
       "Content-Type": "application/json",
@@ -45,18 +42,12 @@ export const loginHandler = async (userInfo: any) => {
   });
 
   const data = await res.json();
-
+  if (!data.success) {
+    throw new Error(data.message);
+  }
   console.log({ data });
 
   await (await cookies()).set("refreshToken", data?.data?.accessToken);
-
-  // const decodedToken = data.data.accessToken;
-  // if (data?.data?.accessToken) {
-  //   return {
-  //     email: decodedToken.email,
-  //     role: decodedToken.role,
-  //   };
-  // }
 
   return data;
 };

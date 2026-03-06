@@ -62,8 +62,6 @@ const Login = () => {
     try {
       const res = await loginHandler(userData);
 
-      console.log(res, "iam res");
-
       const user = verifyToken(res.data.accessToken) as {
         email: string;
         role: string;
@@ -79,6 +77,7 @@ const Login = () => {
         if (navigate === "/login") {
           if (handleGetUser?.data?.data?.shop == null) {
             router.push(`/${user.role}/dashboard/create-shop`);
+             return
           }
           router.push(`/${user.role}/dashboard`);
         }
@@ -89,10 +88,10 @@ const Login = () => {
       } else {
         router.push("/");
       }
-    } catch (error) {
+    } catch (error:any) {
       console.log(error);
 
-      toast.error("Login failed. Please check your credentials.", {
+      toast.error(`${error.message}`, {
         id: toastId,
       });
     }

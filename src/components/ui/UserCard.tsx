@@ -51,7 +51,7 @@ const UserCard = ({ review }: { review: IReview[] }) => {
                       <span className="text-sm p-2">4 hour ago</span>
                     </CardHeader>
                     <CardBody className="px-3 py-0 text-small text-default-800 overflow-hidden">
-                      <p className="text-black">{review?.comment}</p>
+                      {/* <p className="text-black">{review?.comment}</p> */}
                       <span className="pt-2">
                         <span aria-label="computer" className="py-2" role="img">
                           {review?.comment}

@@ -8,8 +8,8 @@ import Link from "next/link";
 
 import { useAppDispatch } from "@/src/redux/hook";
 import { useRegisterMutation } from "@/src/redux/feature/auth/auth.api";
-import EForm from "@/src/components/form/EForm"; // Assuming EForm is located at this path
-import EInput from "@/src/components/form/EInput"; // Assuming EInput is located at this path
+import EForm from "@/src/components/form/EForm";
+import EInput from "@/src/components/form/EInput";
 import ESelect from "@/src/components/form/ESelect";
 
 const Register = () => {
@@ -30,7 +30,9 @@ const Register = () => {
       toast.success("Account created succesfully");
       router.push("/login");
     } catch (error: any) {
-      toast.error(error.message);
+      console.log("register error", error);
+
+      toast.error(error?.data?.message);
     }
   };
 

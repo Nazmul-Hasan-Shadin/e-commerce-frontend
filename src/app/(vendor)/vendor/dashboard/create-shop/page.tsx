@@ -64,13 +64,11 @@ const CreateShopPage = () => {
     try {
       const response = await handleCreateShop(formData).unwrap();
 
-      console.log(response, "iam respone of vendor");
-
       if (response.success === true) {
         toast.success("Shop created successfully!");
       }
     } catch (error: any) {
-      toast.error(error.message || "Something went wrong");
+      toast.error(error?.data?.message || "Something went wrong");
       console.error("Error:", error);
     }
   };
