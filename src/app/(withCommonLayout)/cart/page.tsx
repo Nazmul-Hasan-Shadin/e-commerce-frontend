@@ -17,8 +17,8 @@ const CartPage = () => {
   const { data: userData } = useGetCurrentUserQuery(undefined);
 
   const cartItems = useAppSelector((state) => state.cart.orderItems);
-  console.log(cartItems,'order');
-  
+  console.log(cartItems, "order");
+
   const dispatch = useAppDispatch();
   // Handle remove item from cart
   const handleRemoveFromCart = (productId: string) => {
@@ -27,10 +27,12 @@ const CartPage = () => {
 
   const shopId = cartItems[0]?.shopId;
   const customerId = userData?.data?.id;
+  if (!shopId || !customerId) return;
+  console.log(customerId,shopId, "hbbhh");
 
   // Calculate total price
   const totalAmount = cartItems.reduce(
-    (total, item) => total + Number(item.price || 0) * Number(item?.quantity),
+    (total, item) => total + Number(item.price || 0) * Number(item.quantity),
     0,
   );
 
@@ -43,25 +45,21 @@ const CartPage = () => {
       const response = await handleHitPayment({
         transactionId,
         price: totalAmount,
-        customerId:customerId,
-        shopId:shopId,
+        customerId: customerId,
+        shopId: shopId,
         totalAmount,
-        orderItems:cartItems
-
+        orderItems: cartItems,
       });
 
       if (response?.data?.paymentUrl) {
         window.location.assign(response.data.paymentUrl);
       } else {
         toast.error("Payment Error");
-        console.error("Payment URL not received");
       }
     } catch (err) {
       console.error("Payment initiation failed:", err);
     }
   };
-
- 
 
   return (
     <Container>
@@ -110,7 +108,7 @@ const CartPage = () => {
                         {cart?.quantity}{" "}
                       </p>
                       <p className="text-sm md:text-medium">
-                        ${cart?.price * cart?.quantity}{" "}
+                        ${cart?.price * cart?.quantity}
                       </p>
                       <p className="flex  justify-center">
                         <RxCross1

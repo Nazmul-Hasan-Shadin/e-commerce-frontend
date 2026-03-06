@@ -35,7 +35,7 @@ export const cartSlice = createSlice({
       );
 
       if (isExistIncart) {
-        isExistIncart.quantity = isExistIncart?.quantity + 1;
+        isExistIncart.quantity+=1
       } else {
         state.orderItems.push({ ...payload, quantity: 1 });
       }
