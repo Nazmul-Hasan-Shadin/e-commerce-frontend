@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Button } from "@heroui/react";
 import { SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
 import EForm from "@/src/components/form/EForm";
@@ -36,7 +36,10 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const navigate = usePathname();
-  const searchParams = useSearchParams();
+  const searchParams =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search)
+      : new URLSearchParams();
 
   const [selectedRole, setSelectedRole] = useState<Role>("user");
   const [credentials, setCredentials] = useState<{

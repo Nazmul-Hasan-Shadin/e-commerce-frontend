@@ -72,8 +72,8 @@ const CartPage = () => {
           </div>
         </div>
 
-        <section className="grid grid-cols-12">
-          <div className="col-span-12 sm:col-span-8 2xl:col-span-8  border">
+        <section className="grid grid-cols-12 ">
+          <div className="col-span-12 sm:col-span-8 2xl:col-span-8 mr-3  border">
             {/* ==========Tables Header============ */}
             <div className=" grid-cols-8  border hidden sm:grid sm:grid-cols-8 font-bold  text-lg text-center p-4">
               <div className="">image</div>
