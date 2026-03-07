@@ -15,8 +15,8 @@ const TopSellProduct = () => {
     sortBy: "salesCount",
     orderBy: "desc",
   });
+console.log(products,'kjkjfkdfkdfkjdkf');
 
-  console.log(products, "top sell product");
 
   return (
     <Container>

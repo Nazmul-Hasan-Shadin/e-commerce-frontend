@@ -10,14 +10,14 @@ const PopularProductPage = async () => {
   // https://independent-shop.vercel.app
   const res = await fetch(
     `${productionUrl}/product?sortBy=viewCount&orderBy=desc`,
-    { next: { revalidate: 60 } },
+    { next: { revalidate: 120 } },
   );
 
   const data = await res.json();
 
   return (
     <div>
-      {/* অন্য অংশ */}
+   
       <PopularProduct initialData={data} />
     </div>
   );

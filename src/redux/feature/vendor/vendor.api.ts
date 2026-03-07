@@ -17,6 +17,15 @@ const vendorApi = baseApi.injectEndpoints({
 
         if (queryObj) {
           for (let key in queryObj) {
+            const value = queryObj[key];
+            if (
+              value === undefined ||
+              value === null ||
+              value === "" ||
+              (Array.isArray(value) && value.length === 0)
+            ) {
+              continue;
+            }
             if (Array.isArray(queryObj[key])) {
               params.append(key, queryObj[key].join(","));
             } else {

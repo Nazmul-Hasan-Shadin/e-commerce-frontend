@@ -6,10 +6,17 @@ const productionUrl =
     : process.env.NEXT_PUBLIC_PRODUCTION_URL;
 
 export const getAllProducts = async (filters: any) => {
-  // "https://independent-shop.vercel.app"
-  const query = new URLSearchParams(filters).toString();
+  const filterquery = Object.entries(filters).filter(
+    ([_, b]) => b !== undefined && b,
+  );
+  const finalQuery = Object.fromEntries(filterquery);
+  console.log(finalQuery);
+
+  const query = new URLSearchParams(finalQuery as any).toString();
+  console.log(query, "iam urlsearparmas");
+
   const res = await fetch(`${productionUrl}/product?${query}`, {
-    next: { revalidate: 60 },
+    next: { revalidate: 450 },
   });
 
   return res.json();

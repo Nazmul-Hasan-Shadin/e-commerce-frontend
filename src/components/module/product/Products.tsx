@@ -9,39 +9,39 @@ import Container from "@/src/components/ui/Container";
 import { useAppSelector } from "@/src/redux/hook";
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import SkeletonCard from "@/src/components/ui/SkeletonCard";
+import { useRouter } from "next/navigation";
 
 const ProductsPage = ({ initialData }: { initialData: any }) => {
   const searchParams = useSearchParams();
   const categoryNameFromQuery = searchParams.get("categoryName");
   const searchTerm = searchParams.get("searchTerm");
   const brandFilterState = useAppSelector((state) => state.category.brandName); //[brandname,brandnaem,]
-
+  const brandFilter = searchParams.get("brandFilter");
+  const router = useRouter();
   const categoryState = useAppSelector((state) => state.category.categoryName);
-  const [category, setCategory] = useState("");
-  const [page, setPage] = useState<number>(1);
+  const page = searchParams.get("page") || 1;
 
   //   const [limit, setLimit] = useState<number>(2);
 
   const handlePagination = (value: number) => {
-    setPage(value);
+    const params = new URLSearchParams(searchParams);
+    params.set("page", String(value));
+    router.push(`?${params.toString()}`);
   };
 
   console.log(page, "iam page");
 
   //  Client-side fresh fetch (Redux)
   const { data: productData, isLoading } = useGetAllProductQuery(
-    page === 1
+    page == 1
       ? skipToken
       : {
-          categoryName:
-            searchParams.get("categoryName") || categoryState || null,
-          brandFilter: brandFilterState,
-          searchTerm: searchParams.get("searchTerm") || "",
+          categoryName: searchParams.get("categoryName"),
+          brandFilter: brandFilter,
+          searchTerm: searchTerm,
           page,
         },
   );
-
-  console.log(initialData, "initialdata");
 
   if (isLoading) {
     return (
@@ -54,11 +54,8 @@ const ProductsPage = ({ initialData }: { initialData: any }) => {
       </Container>
     );
   }
-
   const data = page === 1 ? initialData?.data?.data : productData?.data?.data;
   const meta = page === 1 ? initialData?.data?.meta : productData?.data?.meta;
-
-  console.log(productData, "productdata");
 
   return (
     <div>

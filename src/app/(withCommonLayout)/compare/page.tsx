@@ -17,7 +17,7 @@ const ComparePage = () => {
 
   return (
     <Container className="my-6">
-      <div className="bg-white border p-4 md:p-6 lg:p-8">
+      <div className=" border p-4 md:p-6 lg:p-8">
         <div className="flex justify-between">
           <div>
             <p className="  text-lg lg:text-2xl font-medium">

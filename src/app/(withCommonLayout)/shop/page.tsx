@@ -11,6 +11,9 @@ type Shop = {
   vendorId: string;
   product: [];
   name: string;
+  _count: {
+    product:number
+  };
   logo?: string;
   description?: string;
   createdAt: string;
@@ -56,7 +59,7 @@ const ShopPage = () => {
                   : "N/A"}
               </p>
               <p className="text-sm text-gray-500">
-                Total Products: {shop.product?.length || 0}
+                Total Products: {shop._count?.product}
               </p>
             </div>
 

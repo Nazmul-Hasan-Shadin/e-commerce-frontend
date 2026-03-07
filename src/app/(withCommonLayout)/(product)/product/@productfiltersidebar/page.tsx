@@ -10,6 +10,7 @@ import {
 import { useAppDispatch } from "@/src/redux/hook";
 import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
 import Container from "@/src/components/ui/Container";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface ICategory {
   id: string;
@@ -25,6 +26,20 @@ const SidebarFilter = forwardRef<HTMLDivElement>(() => {
   const [categoryName, setCategoryName] = useState<string>("");
 
   const dispatch = useAppDispatch();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  console.log(searchParams);
+
+  const updateUrlForInitialFilter = (key: string, value: string | string[]) => {
+    const params = new URLSearchParams();
+    if (!value || !value.length) {
+      params.delete(key);
+    } else {
+      params.set(key, Array.isArray(value) ? value.join(",") : value);
+    }
+  
+    router.push(`?${params}`);
+  };
 
   const handleBrandChange = (brand: string) => {
     setBrands((prev) => {
@@ -33,7 +48,7 @@ const SidebarFilter = forwardRef<HTMLDivElement>(() => {
         : [...prev, brand];
 
       dispatch(selectBrand(updateBrand));
-
+      updateUrlForInitialFilter("brandFilter", updateBrand);
       return updateBrand;
     });
   };
@@ -41,6 +56,7 @@ const SidebarFilter = forwardRef<HTMLDivElement>(() => {
   const handleCategorySelect = (categoryId: string) => {
     setCategoryName(categoryId);
     dispatch(selectCategory(categoryId));
+    updateUrlForInitialFilter("categoryName", categoryId);
   };
 
   const handleColorChange = (color: string) => {

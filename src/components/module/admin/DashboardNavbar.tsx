@@ -22,7 +22,7 @@ const DashboardNavbar = () => {
   const { toggleSidebar, isOpen } = useSideBar();
 
   return (
-    <Navbar className=" bg-white w-full  visiblebro" style={{ zIndex: 20 }}>
+    <Navbar className=" w-full  visiblebro" style={{ zIndex: 20 }}>
       <NavbarContent justify="start">
         <RxHamburgerMenu
           className={`text-2xl lg:relative ${isOpen ? "lg:right-24" : " lg:right-40"}`}
