@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Button } from "@heroui/react";
 import { SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 import EForm from "@/src/components/form/EForm";
@@ -36,6 +36,7 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const navigate = usePathname();
+  const searchParams = useSearchParams();
 
   const [selectedRole, setSelectedRole] = useState<Role>("user");
   const [credentials, setCredentials] = useState<{
@@ -45,6 +46,9 @@ const Login = () => {
     email: roleCredentials[selectedRole].email,
     password: roleCredentials[selectedRole].password,
   });
+
+  const redirect = searchParams.get("redirect");
+  console.log(redirect);
 
   // Handle role selection and update credentials
   const handleRoleChange = (role: Role) => {
@@ -77,18 +81,20 @@ const Login = () => {
         if (navigate === "/login") {
           if (handleGetUser?.data?.data?.shop == null) {
             router.push(`/${user.role}/dashboard/create-shop`);
-             return
+            return;
           }
           router.push(`/${user.role}/dashboard`);
         }
       } else if (user.role === "user") {
         if (navigate === "/login") {
-          router.push(`/${user.role}/dashboard`);
+          router.push(
+            `${redirect ? `${redirect}` : `/${user.role}/dashboard`}`,
+          );
         }
       } else {
         router.push("/");
       }
-    } catch (error:any) {
+    } catch (error: any) {
       console.log(error);
 
       toast.error(`${error.message}`, {

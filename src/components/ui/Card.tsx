@@ -128,7 +128,7 @@ const Card = ({ product }: { product: IProduct }) => {
 
         {/* Card Header */}
         <CardHeader className="md:h-full p-2  md:p-1">
-          <h3 className="font-light   sm:font-semibold md:font-semibold text-sm sm:text-medium  md:text-md  lg:text-lg 2xl:text-xl text-gray-800">
+          <h3 className="font-light   sm:font-semibold md:font-semibold text-sm sm:text-medium  md:text-md  lg:text-lg 2xl:text-xl">
             {getShortName(product?.name)}
           </h3>
           <br />

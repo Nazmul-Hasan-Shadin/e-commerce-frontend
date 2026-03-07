@@ -11,14 +11,15 @@ import Container from "@/src/components/ui/Container";
 import { useInitPaymentsslMutation } from "@/src/redux/feature/cart/cartApi";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const CartPage = () => {
   const [handleHitPayment, { isLoading }] = useInitPaymentsslMutation();
   const { data: userData } = useGetCurrentUserQuery(undefined);
 
   const cartItems = useAppSelector((state) => state.cart.orderItems);
-  console.log(cartItems, "order");
-
+  console.log(userData, "order");
+  const router = useRouter();
   const dispatch = useAppDispatch();
   // Handle remove item from cart
   const handleRemoveFromCart = (productId: string) => {
@@ -27,8 +28,8 @@ const CartPage = () => {
 
   const shopId = cartItems[0]?.shopId;
   const customerId = userData?.data?.id;
-  if (!shopId || !customerId) return;
-  console.log(customerId,shopId, "hbbhh");
+  // if (!shopId || !customerId) return;
+  console.log(customerId, shopId, "hbbhh");
 
   // Calculate total price
   const totalAmount = cartItems.reduce(
@@ -37,7 +38,7 @@ const CartPage = () => {
   );
 
   const handlePayment = async () => {
-    if (cartItems.length === 0) return;
+    // if (cartItems.length === 0) return;
 
     const transactionId = "TXN-" + Date.now();
 
@@ -169,12 +170,21 @@ const CartPage = () => {
               <p className="font-bold">Total {totalAmount}</p>
             </div>
 
-            <Button
-              className="bg-primary-color text-white w-full my-3"
-              onPress={() => handlePayment()}
-            >
-              Proceed to Checkout
-            </Button>
+            {customerId ? (
+              <Button
+                className="bg-primary-color text-white w-full my-3"
+                onPress={() => handlePayment()}
+              >
+                Proceed to Checkout
+              </Button>
+            ) : (
+              <Button
+                className="bg-primary-color text-white w-full my-3"
+                onPress={() => router.push("/login?redirect=/cart")}
+              >
+                Login to checkout
+              </Button>
+            )}
           </div>
         </section>
 
