@@ -1,4 +1,4 @@
-// page.tsx
+
 import { Suspense } from "react";
 
 import ProductsPage from "@/src/components/module/product/Products";

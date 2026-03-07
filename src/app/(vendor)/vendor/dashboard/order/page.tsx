@@ -27,17 +27,17 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
 
-export const statusOptions = [
+ const statusOptions = [
   { name: "PENDING", uid: "pending" },
   { name: "COMPLETE", uid: "complete" },
   { name: "FAILED", uid: "failed" },
 ];
 
-export function capitalize(s) {
+ function capitalize(s:any) {
   return s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : "";
 }
 
-export const PlusIcon = ({
+ const PlusIcon = ({
   size = 24,
   width,
   height,
@@ -68,7 +68,7 @@ export const PlusIcon = ({
   );
 };
 
-export const VerticalDotsIcon = ({
+ const VerticalDotsIcon = ({
   size = 24,
   width,
   height,
@@ -93,7 +93,7 @@ export const VerticalDotsIcon = ({
   );
 };
 
-export const SearchIcon = (props: IconSvgProps) => {
+ const SearchIcon = (props: IconSvgProps) => {
   return (
     <svg
       aria-hidden="true"
@@ -123,7 +123,7 @@ export const SearchIcon = (props: IconSvgProps) => {
   );
 };
 
-export const ChevronDownIcon = ({
+ const ChevronDownIcon = ({
   strokeWidth = 1.5,
   ...otherProps
 }: IconSvgProps) => {

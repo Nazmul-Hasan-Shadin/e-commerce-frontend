@@ -10,7 +10,7 @@ import {
 import { useAppDispatch } from "@/src/redux/hook";
 import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
 import Container from "@/src/components/ui/Container";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface ICategory {
   id: string;
@@ -26,18 +26,21 @@ const SidebarFilter = forwardRef<HTMLDivElement>(() => {
   const [categoryName, setCategoryName] = useState<string>("");
 
   const dispatch = useAppDispatch();
-  const searchParams = useSearchParams();
+  const searchParams =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search)
+      : new URLSearchParams();
   const router = useRouter();
-  console.log(searchParams);
+
 
   const updateUrlForInitialFilter = (key: string, value: string | string[]) => {
-    const params = new URLSearchParams();
+   const params = new URLSearchParams(window.location.search);
     if (!value || !value.length) {
       params.delete(key);
     } else {
       params.set(key, Array.isArray(value) ? value.join(",") : value);
     }
-  
+
     router.push(`?${params}`);
   };
 

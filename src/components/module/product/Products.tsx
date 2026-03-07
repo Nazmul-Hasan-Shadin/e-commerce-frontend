@@ -13,13 +13,11 @@ import { useRouter } from "next/navigation";
 
 const ProductsPage = ({ initialData }: { initialData: any }) => {
   const searchParams = useSearchParams();
-  const categoryNameFromQuery = searchParams.get("categoryName");
   const searchTerm = searchParams.get("searchTerm");
   const brandFilterState = useAppSelector((state) => state.category.brandName); //[brandname,brandnaem,]
   const brandFilter = searchParams.get("brandFilter");
   const router = useRouter();
-  const categoryState = useAppSelector((state) => state.category.categoryName);
-  const page = searchParams.get("page") || 1;
+const page = Number(searchParams.get("page") || 1);
 
   //   const [limit, setLimit] = useState<number>(2);
 
