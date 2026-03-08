@@ -65,7 +65,7 @@ const CheckoutPage = () => {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e:any) => {
     const { name, value } = e.target;
 
     setOrderInfo((prev) => ({
