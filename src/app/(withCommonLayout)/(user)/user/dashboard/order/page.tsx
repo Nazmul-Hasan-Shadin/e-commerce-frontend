@@ -43,18 +43,18 @@ const UserOrderPage = () => {
 
   return (
     <Container className="mx-auto">
-      <div className="font-bold md:border  mb-4 md:p-5 bg-white">
+      <div className="font-bold md:border  mb-4 md:p-5 text-black ">
         <h1 className="text-xl my-4">My Orders</h1>
         <Divider className="mb-5" />
         <div className="border rounded-lg overflow-x-auto">
           {/* ======== TABLE HEADER ======== */}
-          <div className="lg:grid grid-cols-10 hidden justify-items-center lg:flex-row font-semibold text-center p-4 bg-gray-100 text-sm">
+          <div className="lg:grid grid-cols-10 hidden justify-items-center lg:flex-row font-semibold text-center p-4  text-sm">
             <div className="col-span-1">Image</div>
 
             <div className="col-span-2">product name</div>
             <div className="col-span-2">quantity</div>
             <div className="col-span-2">status</div>
-
+             
             <div className="col-span-1">Price</div>
             <div className="col-span-1">Action</div>
           </div>
@@ -90,7 +90,7 @@ const UserOrderPage = () => {
                             {item.quantity}
                           </p>
                           <Button
-                            className="col-span-2 text-center font-semibold"
+                            className="col-span-2 text-center text-blackß font-semibold"
                             size="sm"
                             variant="bordered"
                           >

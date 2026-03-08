@@ -12,6 +12,7 @@ import { useInitPaymentsslMutation } from "@/src/redux/feature/cart/cartApi";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const CartPage = () => {
   const [handleHitPayment] = useInitPaymentsslMutation();
@@ -60,10 +61,9 @@ const CartPage = () => {
 
       if (response?.data?.paymentUrl) {
         window.location.assign(response.data.paymentUrl);
-      } else {
-        toast.error("Payment Error");
       }
-    } catch (err) {
+    } catch (err: any) {
+      toast.error(err.message);
       console.error("Payment initiation failed:", err);
     }
   };
@@ -176,21 +176,11 @@ const CartPage = () => {
               <p className="font-bold">Total {totalAmount}</p>
             </div>
 
-            {customerId ? (
-              <Button
-                className="bg-primary-color text-white w-full my-3"
-                onPress={() => handlePayment()}
-              >
+            <Link href={"/checkout"}>
+              <Button  className="bg-primary-color text-white w-full my-3">
                 Proceed to Checkout
               </Button>
-            ) : (
-              <Button
-                className="bg-primary-color text-white w-full my-3"
-                onPress={() => router.push("/login?redirect=/cart")}
-              >
-                Login to checkout
-              </Button>
-            )}
+            </Link>
           </div>
         </section>
 

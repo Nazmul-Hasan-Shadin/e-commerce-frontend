@@ -8,7 +8,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
       <div className="md:w-96 border">
         <UserSideBar />
       </div>
-      <main className="w-full max-w-8xl mx-auto px-2 bg-white">{children}</main>
+      <main className="w-full max-w-8xl mx-auto px-2 ">{children}</main>
     </div>
   );
 }

@@ -9,28 +9,38 @@ import {
 } from "@heroui/react";
 import React, { ReactNode } from "react";
 
-export default function EModal({ children }: { children: ReactNode }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+export default function EModal({
+  onClose,
+  isOpen,
+  title,
+  children,
+}: {
+  children: ReactNode;
+  title?: string;
+  isOpen: boolean;
+  onClose: any;
+}) {
+  // const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = React.useState("md");
 
-  const handleOpen = (size:string) => {
-    setSize(size);
-    onOpen();
-  };
+  // const handleOpen = (size: string) => {
+  //   setSize(size);
+  //   onOpen();
+  // };
 
   return (
     <>
       <div className="flex flex-wrap gap-3">
-        <Button key={size} onPress={() => handleOpen(size)}>
+        {/* <Button key={size} onPress={() => handleOpen()}>
           Open {size}
-        </Button>
+        </Button> */}
       </div>
-      <Modal isOpen={isOpen} size={"2xl"} onClose={onClose}>
+      <Modal isOpen={isOpen} size={"4xl"} onClose={onClose}>
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                Modal Title
+              <ModalHeader className="flex flex-col text-center gap-1">
+                <span> {title}</span>
               </ModalHeader>
               <ModalBody>{children}</ModalBody>
               <ModalFooter>

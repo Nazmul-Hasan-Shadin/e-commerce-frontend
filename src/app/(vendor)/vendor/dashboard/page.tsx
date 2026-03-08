@@ -129,7 +129,7 @@ const VendorDashboard: React.FC = () => {
           <CardBody>
             <div className="flex  gap-9">
               <span className="block w-10 h-10 bg-primary-color rounded-full flex items-center justify-center">
-                <FaDollarSign className="text-xl text-white" />
+                <FaDollarSign className="text-xl" />
               </span>
               <div>
                 <p className="text-[#23232d]text-sm font-bold sm:text-medium md:text-lg ">

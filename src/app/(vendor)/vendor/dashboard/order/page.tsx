@@ -191,7 +191,8 @@ export default function OrderTablePage() {
     { name: "QUANTITY", uid: "orderItems", sortable: true },
     { name: "TOTAL", uid: "totalAmount", sortable: true },
     { name: "DATE", uid: "createdAt", sortable: true },
-    { name: "STATUS", uid: "status", sortable: true },
+    { name: "P_STATUS", uid: "status", sortable: true },
+    { name: "P_METHOD", uid: "paymentMethod", sortable: true },
     { name: "ACTIONS", uid: "actions", sortable: true },
   ];
 
@@ -269,6 +270,18 @@ export default function OrderTablePage() {
           </div>
         );
       case "status":
+        return (
+          <Chip
+            className="capitalize border-none gap-1 text-default-600"
+            color={statusColorMap[order.status]}
+            size="sm"
+            variant="dot"
+          >
+            {cellValue}
+          </Chip>
+        );
+
+              case "paymentStatus":
         return (
           <Chip
             className="capitalize border-none gap-1 text-default-600"
