@@ -13,7 +13,7 @@ export default function EModal({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = React.useState("md");
 
-  const handleOpen = (size) => {
+  const handleOpen = (size:string) => {
     setSize(size);
     onOpen();
   };
