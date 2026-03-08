@@ -32,9 +32,8 @@ const SidebarFilter = forwardRef<HTMLDivElement>(() => {
       : new URLSearchParams();
   const router = useRouter();
 
-
   const updateUrlForInitialFilter = (key: string, value: string | string[]) => {
-   const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(window.location.search);
     if (!value || !value.length) {
       params.delete(key);
     } else {

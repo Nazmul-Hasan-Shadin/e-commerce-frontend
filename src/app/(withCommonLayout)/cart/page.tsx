@@ -14,8 +14,12 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 const CartPage = () => {
-  const [handleHitPayment, { isLoading }] = useInitPaymentsslMutation();
-  const { data: userData } = useGetCurrentUserQuery(undefined);
+  const [handleHitPayment] = useInitPaymentsslMutation();
+  const {
+    data: userData,
+    isFetching,
+    isLoading,
+  } = useGetCurrentUserQuery(undefined);
 
   const cartItems = useAppSelector((state) => state.cart.orderItems);
   console.log(userData, "order");
@@ -26,9 +30,11 @@ const CartPage = () => {
     dispatch(removeFromCart({ productId }));
   };
 
+  if (isLoading || isFetching) {
+    return <p className="text-2xl w-60 mx-auto"> please wait</p>;
+  }
   const shopId = cartItems[0]?.shopId;
   const customerId = userData?.data?.id;
-  // if (!shopId || !customerId) return;
   console.log(customerId, shopId, "hbbhh");
 
   // Calculate total price
