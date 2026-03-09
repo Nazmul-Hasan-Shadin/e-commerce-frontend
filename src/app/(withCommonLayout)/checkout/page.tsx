@@ -107,12 +107,12 @@ const CheckoutPage = () => {
           <FaHome /> Checkout
         </span>
         <section className=" grid grid-cols-12">
-          <div className="sm:col-span-12 md:col-span-8 space-y-5 mr-2">
+          <div className="col-span-12 sm:col-span-12 md:col-span-8 space-y-5 mr-2">
             {/* ==============delivery address======== */}
             <div className="border">
               <div className="p-4 ">
                 <div className="flex justify-between items-center">
-                  <h3 className="text-xl">Select a Delivery Address (2/10)</h3>
+                  <h3 className="text-md font-bold sm:text-lg md:text-xl">Select a Delivery Address (2/10)</h3>
                   <Button
                     onPress={onOpen}
                     className="rounded-none bg-primary-color"
@@ -191,14 +191,14 @@ const CheckoutPage = () => {
                 </EModal>
 
                 <p>
-                  Nazmul Hasan Shadin
-                  <p>+8801302508989</p>
+                 {orderInfo?.address}
+                  <p>{orderInfo?.phone} </p>
                 </p>
               </div>
             </div>
             {/* ========order summery items====== */}
             <div className="border p-4">
-              <h3 className="text-xl font-semibold">Order summery item</h3>
+              <h3 className=" sm:text-lg md:text-xl font-semibold">Order summery item</h3>
               <Divider className="my-3 w-[92%] mx-auto" />
               <div className=" grid-cols-8 bg-[#FFFAE6] text-black  border hidden sm:grid sm:grid-cols-8 font-bold  text-lg text-center p-4">
                 <div className="col-span-3">product details</div>
@@ -280,7 +280,7 @@ const CheckoutPage = () => {
           </div>
 
           {/* ==================right side items=============== */}
-          <div className="sm:col-span-12 md:col-span-4">
+          <div className="col-span-12 sm:col-span-12 md:col-span-4">
             <div className="col-span-12 sm:col-span-3 2xl:col-span-3 border p-3">
               <h2 className="md:text-xl font-semibold md:font-bold ">
                 Order Summary

@@ -42,12 +42,12 @@ const Review = () => {
 
   return (
     <Container className="mx-auto">
-      <div className="font-bold border   md:p-5 bg-white">
+      <div className="font-bold border   md:p-5 ">
         <h1 className="text-xl my-4">My Reviews</h1>
         <Divider className="mb-5" />
         <div className="border rounded-lg overflow-x-auto">
           {/* ======== TABLE HEADER ======== */}
-          <div className="lg:grid grid-cols-10 hidden justify-items-center lg:flex-row font-semibold text-center p-4 bg-gray-100 text-sm">
+          <div className="lg:grid grid-cols-10 hidden justify-items-center lg:flex-row font-semibold text-center p-4 text-sm">
             <div className="col-span-2">product name</div>
             <div className="col-span-3">comment</div>
             <div className="col-span-2">rating</div>
@@ -72,7 +72,7 @@ const Review = () => {
                             {review?.product?.name}
                           </h2>
 
-                          <p className="col-span-3 text-center overflow-scroll text-black font-light md:font-semibold">
+                          <p className="col-span-3 text-center overflow-scroll  font-light md:font-semibold">
                             {review?.comment?.slice(0, 30)}
                           </p>
 

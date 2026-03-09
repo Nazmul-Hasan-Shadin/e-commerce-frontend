@@ -45,11 +45,11 @@ export default function EModal({
               <ModalBody>{children}</ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                  Complete
                 </Button>
-                <Button color="primary" onPress={onClose}>
+                {/* <Button color="primary" onPress={onClose}>
                   Action
-                </Button>
+                </Button> */}
               </ModalFooter>
             </>
           )}
