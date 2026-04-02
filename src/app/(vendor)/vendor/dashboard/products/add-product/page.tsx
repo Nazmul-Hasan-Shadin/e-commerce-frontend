@@ -97,13 +97,13 @@ const AddProductPage = () => {
 
   return (
     <Container>
-      <div className="gap-5 bg-[#FFFFFF]  p-3 md:p-4 lg:p-5 mt-3">
+      <div className="gap-5   p-3 md:p-4 lg:p-5 mt-3">
         <div className="flex justify-between items-center">
-          <h2 className="text-medium md:text-medium lg:text-xl font-bold text-gray-800 ">
+          <h2 className="text-medium md:text-medium lg:text-xl font-bold  ">
             Add Product
           </h2>
           <Link href={"/vendor/dashboard/products"}>
-            <Button className="bg-primary-color text-white rounded-sm">
+            <Button className="bg-primary-color  rounded-sm">
               {" "}
               Manage Product
             </Button>

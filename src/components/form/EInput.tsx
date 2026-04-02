@@ -35,7 +35,7 @@ const EInput = ({
       required={required}
       type={type}
       classNames={{
-        label: "text-black",
+        label: "text-sm font-medium mb-1",
         inputWrapper: "border-1",
       }}
       variant={variant}

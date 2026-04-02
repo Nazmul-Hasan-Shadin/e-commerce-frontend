@@ -206,13 +206,13 @@ const Vendor = () => {
   return (
     <Container>
       <div>
-        <div className=" p- md:p-4 lg:p-6 bg-white">
+        <div className=" p- md:p-4 lg:p-6 ">
           <div className="flex justify-between items-center">
-            <h2 className="text-medium md:text-md lg:text-xl font-bold text-gray-800 ">
+            <h2 className="text-medium md:text-md lg:text-xl font-bold  ">
               Manage Product
             </h2>
             <Link href={"/vendor/dashboard/product"}>
-              <Button className="bg-primary-color text-white rounded-sm">
+              <Button className="bg-primary-color  rounded-sm">
                 {" "}
                 Create Product
               </Button>

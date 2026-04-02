@@ -37,8 +37,8 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
+    <div className="min-h-screen flex items-center justify-center ">
+      <div className="border p-8 rounded-lg shadow-lg w-full sm:w-96">
         <h2 className="text-center text-3xl font-bold text-[#fd6506] mb-6">
           Register
         </h2>

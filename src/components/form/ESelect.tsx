@@ -42,7 +42,7 @@ const ESelect = ({
 
   return (
     <div className={`flex flex-col ${className}`}>
-      <label className="mb-1 text-sm font-medium text-black">
+      <label className="mb-1 text-sm font-medium ">
         {label}
         {required && <span className="text-red-500"> *</span>}
       </label>

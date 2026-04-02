@@ -11,9 +11,10 @@ const ProfilePage = () => {
 
   const user = userData?.data || {};
 
-  console.log(user, "user");
+ 
 
   return (
+    
     <div className="min-h-screen bg-gray-50 md:p-8">
       {/* Profile Header */}
       <div className="bg-white shadow rounded-lg p-6 mb-8">

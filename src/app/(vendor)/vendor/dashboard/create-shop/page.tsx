@@ -139,7 +139,7 @@ const CreateShopPage = () => {
 
           <div className="flex mt-4 flex-end">
             <Button
-              className="bg-primary-color text-white ml-auto"
+              className="bg-primary-color ml-auto"
               type="submit"
               variant="bordered"
             >

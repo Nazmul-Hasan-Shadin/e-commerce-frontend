@@ -37,7 +37,6 @@ const CheckoutPage = () => {
     0,
   );
 
-      console.log(cartItems);
   const shopId = cartItems[0]?.shopId;
   const customerId = userData?.data?.id;
 
@@ -91,14 +90,20 @@ const CheckoutPage = () => {
 
     try {
       const response = await handleCreateOrder(payload);
-      console.log(response, "iam res createorder");
-
-      if (response) toast.success('order placed successful')
+      
+      if (!response?.data?.success) {
+          toast.error(response?.error?.data?.message);
+          return
+      }
+      toast.success(response?.data?.message || "Order created successfully");
+      console.log(response);
+      
+  
     } catch (error: any) {
       toast.error(error.message);
     }
   };
-  console.log(paymentMethod);
+
 
   return (
     <Container>

@@ -133,8 +133,8 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center md:h-screen justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
+    <div className="flex items-center md:h-screen justify-center">
+      <div className="border p-8 rounded-lg shadow-lg w-full sm:w-96">
         <h2 className="text-center text-3xl font-bold text-[#fd6506] mb-6">
           Login
         </h2>
@@ -200,7 +200,7 @@ const Login = () => {
           {/* Submit Button */}
           <div className="mb-6 flex justify-between items-center">
             <Button
-              className="w-full bg-[#fd6506] hover:bg-[#e94e00] text-white"
+              className="w-full bg-[#fd6506] hover:bg-[#e94e00]"
               type="submit"
             >
               Login
