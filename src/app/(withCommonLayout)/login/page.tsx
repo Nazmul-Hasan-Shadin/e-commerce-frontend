@@ -51,6 +51,7 @@ const Login = () => {
   });
 
   const redirect = searchParams.get("redirect");
+
   console.log(redirect);
 
   // Handle role selection and update credentials
@@ -84,6 +85,7 @@ const Login = () => {
         if (navigate === "/login") {
           if (handleGetUser?.data?.data?.shop == null) {
             router.push(`/${user.role}/dashboard/create-shop`);
+
             return;
           }
           router.push(`/${user.role}/dashboard`);

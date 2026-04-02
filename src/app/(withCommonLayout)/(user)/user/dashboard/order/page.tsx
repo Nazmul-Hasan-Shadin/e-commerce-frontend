@@ -54,7 +54,7 @@ const UserOrderPage = () => {
             <div className="col-span-2">product name</div>
             <div className="col-span-2">quantity</div>
             <div className="col-span-2">status</div>
-             
+
             <div className="col-span-1">Price</div>
             <div className="col-span-1">Action</div>
           </div>

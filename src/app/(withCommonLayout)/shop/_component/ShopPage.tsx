@@ -2,7 +2,7 @@
 
 import { Button } from "@heroui/button";
 import { Divider } from "@heroui/react";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import Card from "@/src/components/ui/Card";

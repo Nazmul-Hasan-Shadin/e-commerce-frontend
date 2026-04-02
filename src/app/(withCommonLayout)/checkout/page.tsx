@@ -1,17 +1,18 @@
 "use client";
-import EModal from "@/src/components/form/EModal";
-import Container from "@/src/components/ui/Container";
-import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
-import { useInitPaymentsslMutation } from "@/src/redux/feature/cart/cartApi";
-import { useCreateOrderMutation } from "@/src/redux/feature/payment/order.api";
-import { useAppSelector } from "@/src/redux/hook";
 import { Button, Divider, Input, Textarea, useDisclosure } from "@heroui/react";
 import Image from "next/image";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { FaHome } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
-import { RxCross1 } from "react-icons/rx";
+
+import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
+import { useCreateOrderMutation } from "@/src/redux/feature/payment/order.api";
+import { useInitPaymentsslMutation } from "@/src/redux/feature/cart/cartApi";
+import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
+import Container from "@/src/components/ui/Container";
+import EModal from "@/src/components/form/EModal";
+import { clearCart } from "@/src/redux/feature/cart/cartSlice";
 
 const CheckoutPage = () => {
   const [orderInfo, setOrderInfo] = useState({
@@ -37,6 +38,7 @@ const CheckoutPage = () => {
     0,
   );
 
+  const dispatch=useAppDispatch()
   const shopId = cartItems[0]?.shopId;
   const customerId = userData?.data?.id;
 
@@ -64,7 +66,7 @@ const CheckoutPage = () => {
     }
   };
 
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
 
     setOrderInfo((prev) => ({
@@ -77,7 +79,7 @@ const CheckoutPage = () => {
   const createOrder = async () => {
     const payload = {
       shopId,
-      customerId: customerId ,
+      customerId: customerId,
       guestName: orderInfo.name,
       guestPhone: orderInfo?.phone,
       guestAddress: orderInfo?.address,
@@ -87,23 +89,20 @@ const CheckoutPage = () => {
       transactionId,
     };
 
-
     try {
       const response = await handleCreateOrder(payload);
-      
+
       if (!response?.data?.success) {
-          toast.error(response?.error?.data?.message);
-          return
+        toast.error(response?.error?.data?.message);
+
+        return;
       }
       toast.success(response?.data?.message || "Order created successfully");
-      console.log(response);
-      
-  
+     dispatch(clearCart());
     } catch (error: any) {
       toast.error(error.message);
     }
   };
-
 
   return (
     <Container>
@@ -117,10 +116,12 @@ const CheckoutPage = () => {
             <div className="border">
               <div className="p-4 ">
                 <div className="flex justify-between items-center">
-                  <h3 className="text-md font-bold sm:text-lg md:text-xl">Select a Delivery Address (2/10)</h3>
+                  <h3 className="text-md font-bold sm:text-lg md:text-xl">
+                    Select a Delivery Address (2/10)
+                  </h3>
                   <Button
-                    onPress={onOpen}
                     className="rounded-none bg-primary-color"
+                    onPress={onOpen}
                   >
                     <FaPlus /> Add Address
                   </Button>
@@ -129,8 +130,8 @@ const CheckoutPage = () => {
                 {/* ============MODAL============== */}
                 <EModal
                   isOpen={isOpen}
-                  onClose={onClose}
                   title="Add Delivary Address"
+                  onClose={onClose}
                 >
                   <div className="grid gap-x-3 grid-cols-2">
                     <div>
@@ -139,20 +140,20 @@ const CheckoutPage = () => {
                       </p>
                       <div>
                         <Input
-                          labelPlacement="outside-top"
                           label="Name"
-                          onChange={handleChange}
+                          labelPlacement="outside-top"
                           name="name"
                           size={"lg"}
+                          onChange={handleChange}
                         />
                       </div>
                       <div>
                         <Input
-                          labelPlacement="outside-top"
                           label="Phone"
-                          onChange={handleChange}
+                          labelPlacement="outside-top"
                           name="phone"
                           size={"lg"}
+                          onChange={handleChange}
                         />
                       </div>
                     </div>
@@ -166,8 +167,8 @@ const CheckoutPage = () => {
                         <div>
                           <Input
                             disabled
-                            labelPlacement="outside-top"
                             label="Street,/House"
+                            labelPlacement="outside-top"
                             size={"lg"}
                           />
                         </div>
@@ -175,19 +176,19 @@ const CheckoutPage = () => {
                         <div>
                           <Input
                             disabled
-                            labelPlacement="outside-top"
                             label="District"
+                            labelPlacement="outside-top"
                             size={"lg"}
                           />
                         </div>
 
                         <div>
                           <Textarea
-                            labelPlacement="outside-top"
-                            onChange={handleChange}
                             label="Full Address "
+                            labelPlacement="outside-top"
                             name="address"
                             size={"lg"}
+                            onChange={handleChange}
                           />
                         </div>
                       </div>
@@ -196,14 +197,16 @@ const CheckoutPage = () => {
                 </EModal>
 
                 <p>
-                 {orderInfo?.address}
+                  {orderInfo?.address}
                   <p>{orderInfo?.phone} </p>
                 </p>
               </div>
             </div>
             {/* ========order summery items====== */}
             <div className="border p-4">
-              <h3 className=" sm:text-lg md:text-xl font-semibold">Order summery item</h3>
+              <h3 className=" sm:text-lg md:text-xl font-semibold">
+                Order summery item
+              </h3>
               <Divider className="my-3 w-[92%] mx-auto" />
               <div className=" grid-cols-8 bg-[#FFFAE6] text-black  border hidden sm:grid sm:grid-cols-8 font-bold  text-lg text-center p-4">
                 <div className="col-span-3">product details</div>
@@ -260,22 +263,22 @@ const CheckoutPage = () => {
                   {" "}
                   <span>Recommended Method</span>
                   <button
-                    onClick={() => setPaymentMethod("COD")}
                     className={`p-4 rounded-lg border my-3 w-full text-left ${paymentMethod === "COD" ? "border-orange-500 " : "border-gray-300"} `}
+                    onClick={() => setPaymentMethod("COD")}
                   >
                     Cash on Delivery
                   </button>
                 </div>
                 <span>Other Methods</span>
                 <button
-                  onClick={() => setPaymentMethod("SSL")}
                   className={`p-4 rounded-lg border my-3 w-full text-left ${paymentMethod === "SSL" ? "border-orange-500 " : "border-gray-300"} `}
+                  onClick={() => setPaymentMethod("SSL")}
                 >
                   Bkash
                 </button>
                 <button
-                  onClick={() => setPaymentMethod("SSL")}
                   className={`p-4 rounded-lg border my-3 w-full text-left ${paymentMethod === "SSL" ? "border-orange-500 " : "border-gray-300"} `}
+                  onClick={() => setPaymentMethod("SSL")}
                 >
                   Nagad
                 </button>
@@ -302,15 +305,15 @@ const CheckoutPage = () => {
 
               {paymentMethod === "SSL" ? (
                 <Button
-                  onPress={() => handlePayment()}
                   className="bg-primary-color text-white w-full my-3"
+                  onPress={() => handlePayment()}
                 >
                   pay and order
                 </Button>
               ) : (
                 <Button
-                  onPress={() => createOrder()}
                   className="bg-primary-color text-white w-full my-3"
+                  onPress={() => createOrder()}
                 >
                   pay and jhjhjorder
                 </Button>

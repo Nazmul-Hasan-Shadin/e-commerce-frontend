@@ -4,15 +4,15 @@ import Image from "next/image";
 import { Button } from "@heroui/button";
 import { Divider, Input } from "@heroui/react";
 import { RxCross1 } from "react-icons/rx";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { clearCart, removeFromCart } from "@/src/redux/feature/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import Container from "@/src/components/ui/Container";
 import { useInitPaymentsslMutation } from "@/src/redux/feature/cart/cartApi";
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 const CartPage = () => {
   const [handleHitPayment] = useInitPaymentsslMutation();
@@ -23,6 +23,7 @@ const CartPage = () => {
   } = useGetCurrentUserQuery(undefined);
 
   const cartItems = useAppSelector((state) => state.cart.orderItems);
+
   console.log(userData, "order");
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -36,6 +37,7 @@ const CartPage = () => {
   }
   const shopId = cartItems[0]?.shopId;
   const customerId = userData?.data?.id;
+
   console.log(customerId, shopId, "hbbhh");
 
   // Calculate total price
@@ -177,7 +179,7 @@ const CartPage = () => {
             </div>
 
             <Link href={"/checkout"}>
-              <Button  className="bg-primary-color text-white w-full my-3">
+              <Button className="bg-primary-color text-white w-full my-3">
                 Proceed to Checkout
               </Button>
             </Link>

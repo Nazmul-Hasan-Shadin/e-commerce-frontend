@@ -2,6 +2,7 @@
 
 import { Select, SelectItem, Divider, Input } from "@heroui/react";
 import React, { forwardRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import {
   selectBrand,
@@ -10,7 +11,6 @@ import {
 import { useAppDispatch } from "@/src/redux/hook";
 import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
 import Container from "@/src/components/ui/Container";
-import { useRouter } from "next/navigation";
 
 interface ICategory {
   id: string;
@@ -34,6 +34,7 @@ const SidebarFilter = forwardRef<HTMLDivElement>(() => {
 
   const updateUrlForInitialFilter = (key: string, value: string | string[]) => {
     const params = new URLSearchParams(window.location.search);
+
     if (!value || !value.length) {
       params.delete(key);
     } else {
@@ -51,6 +52,7 @@ const SidebarFilter = forwardRef<HTMLDivElement>(() => {
 
       dispatch(selectBrand(updateBrand));
       updateUrlForInitialFilter("brandFilter", updateBrand);
+
       return updateBrand;
     });
   };

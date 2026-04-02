@@ -12,7 +12,7 @@ type Shop = {
   product: [];
   name: string;
   _count: {
-    product:number
+    product: number;
   };
   logo?: string;
   description?: string;

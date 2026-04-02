@@ -17,32 +17,27 @@ import {
   DropdownMenu,
   DropdownItem,
   Chip,
-  User,
   Pagination,
 } from "@heroui/react";
-import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
 import Link from "next/link";
+
+import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
 
- const statusOptions = [
+const statusOptions = [
   { name: "PENDING", uid: "pending" },
   { name: "COMPLETE", uid: "complete" },
   { name: "FAILED", uid: "failed" },
 ];
 
- function capitalize(s:any) {
+function capitalize(s: any) {
   return s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : "";
 }
 
- const PlusIcon = ({
-  size = 24,
-  width,
-  height,
-  ...props
-}: IconSvgProps) => {
+const PlusIcon = ({ size = 24, width, height, ...props }: IconSvgProps) => {
   return (
     <svg
       aria-hidden="true"
@@ -68,7 +63,7 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
   );
 };
 
- const VerticalDotsIcon = ({
+const VerticalDotsIcon = ({
   size = 24,
   width,
   height,
@@ -93,7 +88,7 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
   );
 };
 
- const SearchIcon = (props: IconSvgProps) => {
+const SearchIcon = (props: IconSvgProps) => {
   return (
     <svg
       aria-hidden="true"
@@ -123,7 +118,7 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
   );
 };
 
- const ChevronDownIcon = ({
+const ChevronDownIcon = ({
   strokeWidth = 1.5,
   ...otherProps
 }: IconSvgProps) => {
@@ -188,6 +183,8 @@ export default function OrderTablePage() {
   const columns = [
     { name: "ID", uid: "id", sortable: true },
     { name: "NAME", uid: "customer", sortable: true },
+    { name: "PHONE", uid: "guestPhone", sortable: true },
+    { name: "ADDRESS", uid: "guestAddress", sortable: true },
     { name: "QUANTITY", uid: "orderItems", sortable: true },
     { name: "TOTAL", uid: "totalAmount", sortable: true },
     { name: "DATE", uid: "createdAt", sortable: true },
@@ -215,7 +212,9 @@ export default function OrderTablePage() {
 
     if (hasSearchFilter) {
       filteredOrders = filteredOrders.filter((order) =>
-        order.name.toLowerCase().includes(filterValue.toLowerCase()),
+        order.customer?.username
+          .toLowerCase()
+          .includes(filterValue.toLowerCase()),
       );
     }
     // if (
@@ -257,7 +256,27 @@ export default function OrderTablePage() {
             <p className="text-bold text-small capitalize">
               {order?.customer?.username}
             </p>
-            <p className="text-bold text-tiny capitalize text-default-500"></p>
+            <p className="text-bold text-tiny capitalize text-default-500" />
+          </div>
+        );
+
+      case "guestPhone":
+        return (
+          <div className="flex flex-col">
+            <p className="text-bold text-small capitalize">
+              {order?.guestPhone}
+            </p>
+            <p className="text-bold text-tiny capitalize text-default-500" />
+          </div>
+        );
+
+      case "guestAddress":
+        return (
+          <div className="flex flex-col">
+            <p className="text-bold text-small capitalize">
+              {order?.guestAddress}
+            </p>
+            <p className="text-bold text-tiny capitalize text-default-500" />
           </div>
         );
       case "orderItems":
@@ -266,7 +285,7 @@ export default function OrderTablePage() {
             <p className="text-bold text-small capitalize">
               {order?.orderItems.length}
             </p>
-            <p className="text-bold text-tiny capitalize text-default-500"></p>
+            <p className="text-bold text-tiny capitalize text-default-500" />
           </div>
         );
       case "status":
@@ -281,7 +300,7 @@ export default function OrderTablePage() {
           </Chip>
         );
 
-              case "paymentStatus":
+      case "paymentStatus":
         return (
           <Chip
             className="capitalize border-none gap-1 text-default-600"
@@ -514,9 +533,12 @@ export default function OrderTablePage() {
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => (
-             
-            
-                <TableCell> <Link href={`/vendor/dashboard/order-items/${item.id}`}>{renderCell(item, columnKey)} </Link></TableCell>
+              <TableCell>
+                {" "}
+                <Link href={`/vendor/dashboard/order-items/${item.id}`}>
+                  {renderCell(item, columnKey)}{" "}
+                </Link>
+              </TableCell>
             )}
           </TableRow>
         )}

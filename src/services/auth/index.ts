@@ -42,6 +42,7 @@ export const loginHandler = async (userInfo: any) => {
   });
 
   const data = await res.json();
+
   if (!data.success) {
     throw new Error(data.message);
   }

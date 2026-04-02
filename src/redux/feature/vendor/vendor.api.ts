@@ -18,6 +18,7 @@ const vendorApi = baseApi.injectEndpoints({
         if (queryObj) {
           for (let key in queryObj) {
             const value = queryObj[key];
+
             if (
               value === undefined ||
               value === null ||

@@ -17,7 +17,6 @@ const PopularProductPage = async () => {
 
   return (
     <div>
-   
       <PopularProduct initialData={data} />
     </div>
   );

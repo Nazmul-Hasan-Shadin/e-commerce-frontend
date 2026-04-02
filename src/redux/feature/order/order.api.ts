@@ -15,10 +15,23 @@ const orderApi = baseApi.injectEndpoints({
       query: (orderId) => {
         return {
           url: `/order/${orderId}`,
+          method: "GET",
+        };
+      },
+    }),
+    getOrderItems: builder.query({
+      query: (orderItemsId) => {
+        return {
+          url: `/order/item/${orderItemsId}`,
+          method: "GET",
         };
       },
     }),
   }),
 });
 
-export const { useGetAllOrderQuery, useGetOrderByIdQuery } = orderApi;
+export const {
+  useGetAllOrderQuery,
+  useGetOrderByIdQuery,
+  useGetOrderItemsQuery,
+} = orderApi;

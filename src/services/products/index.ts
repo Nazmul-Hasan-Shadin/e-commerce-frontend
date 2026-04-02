@@ -10,9 +10,11 @@ export const getAllProducts = async (filters: any) => {
     ([_, b]) => b !== undefined && b,
   );
   const finalQuery = Object.fromEntries(filterquery);
+
   console.log(finalQuery);
 
   const query = new URLSearchParams(finalQuery as any).toString();
+
   console.log(query, "iam urlsearparmas");
 
   const res = await fetch(`${productionUrl}/product?${query}`, {

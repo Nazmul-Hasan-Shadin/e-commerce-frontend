@@ -13,7 +13,8 @@ export default async function HomePage() {
   });
 
   const categoryList = await res.json();
-   console.log(categoryList,'categorolist');
-   
+
+  console.log(categoryList, "categorolist");
+
   return <Categories categories={categoryList.data} />;
 }

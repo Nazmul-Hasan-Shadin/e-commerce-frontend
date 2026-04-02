@@ -1,15 +1,15 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import React from "react";
 import { Pagination } from "@heroui/react";
 import { skipToken } from "@reduxjs/toolkit/query";
+import { useRouter } from "next/navigation";
 
 import Card from "@/src/components/ui/Card";
 import Container from "@/src/components/ui/Container";
 import { useAppSelector } from "@/src/redux/hook";
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
 import SkeletonCard from "@/src/components/ui/SkeletonCard";
-import { useRouter } from "next/navigation";
 
 const ProductsPage = ({ initialData }: { initialData: any }) => {
   const searchParams = useSearchParams();
@@ -17,12 +17,13 @@ const ProductsPage = ({ initialData }: { initialData: any }) => {
   const brandFilterState = useAppSelector((state) => state.category.brandName); //[brandname,brandnaem,]
   const brandFilter = searchParams.get("brandFilter");
   const router = useRouter();
-const page = Number(searchParams.get("page") || 1);
+  const page = Number(searchParams.get("page") || 1);
 
   //   const [limit, setLimit] = useState<number>(2);
 
   const handlePagination = (value: number) => {
     const params = new URLSearchParams(searchParams);
+
     params.set("page", String(value));
     router.push(`?${params.toString()}`);
   };
