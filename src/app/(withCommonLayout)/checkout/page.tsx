@@ -93,7 +93,9 @@ const CheckoutPage = () => {
       const response = await handleCreateOrder(payload);
 
       if (!response?.data?.success) {
-        toast.error(response?.error?.data?.message);
+     toast.error(
+  (response as any)?.error?.data?.message || "Something went wrong"
+);
 
         return;
       }
