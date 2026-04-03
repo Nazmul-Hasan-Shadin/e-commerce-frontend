@@ -144,7 +144,7 @@ const BottomNav = () => {
             )}
           </NavbarContent>
 
-          {/* ==========logo for big devie=========== */}
+          {/* ==================logo for big devie=================== */}
           <NavbarBrand
             className="flex gap-5 items-center hidden lg:flex relative"
             onMouseEnter={() => setIsMegaMenuOpen(true)}
@@ -292,11 +292,11 @@ const BottomNav = () => {
 
           {/* =========================for small device menu====================== */}
 
-          <NavbarMenu className="z-50" style={{ zIndex: "500" }}>
+          <NavbarMenu className="z-50 bg-white dark:bg-black text-black dark:text-white" style={{ zIndex: "500" }}>
             {menuItems.map((menu, index) => (
               <NavbarItem key={index} className="text-white">
                 <Link
-                  className="text-black"
+                  className="text-black dark:text-white"
                   href={menu.link}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -318,7 +318,7 @@ const BottomNav = () => {
               </NavbarItem>
             ) : (
               <NavbarItem key="login" className="text-white">
-                <Link className="text-black" href="/login">
+                <Link onClick={() => setIsMenuOpen(false)} className="text-black dark:text-white" href="/login">
                   Login
                 </Link>
               </NavbarItem>
