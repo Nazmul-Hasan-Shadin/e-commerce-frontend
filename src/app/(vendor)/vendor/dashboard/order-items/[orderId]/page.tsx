@@ -18,13 +18,14 @@ const OrderItems = () => {
   const { data, isLoading } = useGetOrderItemsQuery(params.orderId);
 
   const items = data?.data || [];
-console.log(items);
+
+  console.log(items);
 
   if (isLoading) return <p>Loading...</p>;
 
   return (
     <div className="w-full overflow-x-auto p-4">
-      <Table aria-label="Order Items Table" isStriped isCompact>
+      <Table isCompact isStriped aria-label="Order Items Table">
         <TableHeader>
           <TableColumn>Product</TableColumn>
           <TableColumn>Price</TableColumn>
@@ -35,21 +36,13 @@ console.log(items);
         <TableBody emptyContent="No order items found">
           {items.map((item: any) => (
             <TableRow key={item.id}>
-              <TableCell>
-                {item.product?.name || "No Product"}
-              </TableCell>
+              <TableCell>{item.product?.name || "No Product"}</TableCell>
 
-              <TableCell>
-                ৳ {item.price}
-              </TableCell>
+              <TableCell>৳ {item.price}</TableCell>
 
-              <TableCell>
-                {item.quantity}
-              </TableCell>
+              <TableCell>{item.quantity}</TableCell>
 
-              <TableCell>
-                ৳ {item.price * item.quantity}
-              </TableCell>
+              <TableCell>৳ {item.price * item.quantity}</TableCell>
             </TableRow>
           ))}
         </TableBody>

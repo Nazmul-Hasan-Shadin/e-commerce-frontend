@@ -34,7 +34,7 @@ const SidebarFilter = () => {
   };
 
   return (
-    <div className="w-full  top-16">
+    <div className={`w-full  top-16`}>
       <div className="p-2">
         {/* Brand Filter */}
         <div className="space-y-3">

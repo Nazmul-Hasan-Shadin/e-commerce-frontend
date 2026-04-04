@@ -292,7 +292,10 @@ const BottomNav = () => {
 
           {/* =========================for small device menu====================== */}
 
-          <NavbarMenu className="z-50 bg-white dark:bg-black text-black dark:text-white" style={{ zIndex: "500" }}>
+          <NavbarMenu
+            className="z-50 bg-white dark:bg-black text-black dark:text-white"
+            style={{ zIndex: "500" }}
+          >
             {menuItems.map((menu, index) => (
               <NavbarItem key={index} className="text-white">
                 <Link
@@ -318,7 +321,11 @@ const BottomNav = () => {
               </NavbarItem>
             ) : (
               <NavbarItem key="login" className="text-white">
-                <Link onClick={() => setIsMenuOpen(false)} className="text-black dark:text-white" href="/login">
+                <Link
+                  className="text-black dark:text-white"
+                  href="/login"
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   Login
                 </Link>
               </NavbarItem>

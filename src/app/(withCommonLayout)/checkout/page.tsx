@@ -38,7 +38,7 @@ const CheckoutPage = () => {
     0,
   );
 
-  const dispatch=useAppDispatch()
+  const dispatch = useAppDispatch();
   const shopId = cartItems[0]?.shopId;
   const customerId = userData?.data?.id;
 
@@ -93,14 +93,14 @@ const CheckoutPage = () => {
       const response = await handleCreateOrder(payload);
 
       if (!response?.data?.success) {
-     toast.error(
-  (response as any)?.error?.data?.message || "Something went wrong"
-);
+        toast.error(
+          (response as any)?.error?.data?.message || "Something went wrong",
+        );
 
         return;
       }
       toast.success(response?.data?.message || "Order created successfully");
-     dispatch(clearCart());
+      dispatch(clearCart());
     } catch (error: any) {
       toast.error(error.message);
     }
@@ -118,14 +118,14 @@ const CheckoutPage = () => {
             <div className="border">
               <div className="p-4 ">
                 <div className="flex justify-between items-center">
-                  <h3 className="text-md font-bold sm:text-lg md:text-xl">
+                  <h3 className="text-md text-primary-color font-bold sm:text-lg md:text-xl">
                     Select a Delivery Address (2/10)
                   </h3>
                   <Button
-                    className="rounded-none bg-primary-color"
+                    className="rounded-none md:text-xl  bg-primary-color"
                     onPress={onOpen}
                   >
-                    <FaPlus /> Add Address
+                    <FaPlus  className=""/> Add Address
                   </Button>
                 </div>
 
@@ -272,19 +272,19 @@ const CheckoutPage = () => {
                   </button>
                 </div>
                 <span>Other Methods</span>
-                <button
+                <button disabled
                   className={`p-4 rounded-lg border my-3 w-full text-left ${paymentMethod === "SSL" ? "border-orange-500 " : "border-gray-300"} `}
                   onClick={() => setPaymentMethod("SSL")}
                 >
                   Bkash
                 </button>
-                <button
-                  className={`p-4 rounded-lg border my-3 w-full text-left ${paymentMethod === "SSL" ? "border-orange-500 " : "border-gray-300"} `}
+                <button disabled
+                  className={`p-4 rounded-lg border my-3 w-full text-left ${paymentMethod === "commingoson" ? "border-orange-500 " : "border-gray-300"} `}
                   onClick={() => setPaymentMethod("SSL")}
                 >
                   Nagad
                 </button>
-                <div className="p-4 rounded-lg border my-3">Upay</div>
+                <button disabled className="p-4 rounded-lg w-full text-left border my-3">Upay</button>
               </div>
             </div>
           </div>
@@ -317,7 +317,7 @@ const CheckoutPage = () => {
                   className="bg-primary-color text-white w-full my-3"
                   onPress={() => createOrder()}
                 >
-                  pay and jhjhjorder
+                  pay and order
                 </Button>
               )}
             </div>

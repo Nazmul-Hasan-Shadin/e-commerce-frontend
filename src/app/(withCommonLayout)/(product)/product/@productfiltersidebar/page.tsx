@@ -8,9 +8,10 @@ import {
   selectBrand,
   selectCategory,
 } from "@/src/redux/feature/vendor/vendor.slice";
-import { useAppDispatch } from "@/src/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
 import Container from "@/src/components/ui/Container";
+import { toggoleFilter } from "@/src/redux/feature/productFilter/sideBarFilter";
 
 interface ICategory {
   id: string;
@@ -26,6 +27,12 @@ const SidebarFilter = forwardRef<HTMLDivElement>(() => {
   const [categoryName, setCategoryName] = useState<string>("");
 
   const dispatch = useAppDispatch();
+  const isFIlterToggoleOpen = useAppSelector(
+    (state) => state.uiFilter.isFilterOpen,
+  );
+
+  console.log(isFIlterToggoleOpen, "isigletero tog");
+
   const searchParams =
     typeof window !== "undefined"
       ? new URLSearchParams(window.location.search)
@@ -72,95 +79,110 @@ const SidebarFilter = forwardRef<HTMLDivElement>(() => {
   };
 
   return (
-    <div className={`w-full border p-4 transition-all duration-200 `}>
-      <Container>
-        <div className="p-2">
-          {/* Brand Filter */}
-          <div className="space-y-3">
-            <span>Brand</span>
-            <div className="flex flex-col gap-3">
-              {["Pc", "Android", "Tv", "Electronics", "Hp"].map((brand) => (
-                <div key={brand} className="flex items-center space-x-2">
-                  <input
-                    className="h-4 w-4 rounded border-gray-400 text-blue-500 focus:ring-2 focus:ring-blue-500"
-                    id={brand}
-                    type="checkbox"
-                    onChange={() => handleBrandChange(brand)}
-                  />
-                  <label className="text-[#757575]" htmlFor={brand}>
-                    {brand}
-                  </label>
+    <>
+      {/* overlay */}
+      {isFIlterToggoleOpen && (
+        <div
+          className="fixed top-0 left-0 right-0  bottom-0 bg-black/50 z-40 md:hidden z-40"
+          role="button"
+          onClick={() => dispatch(toggoleFilter())}
+        />
+      )}
+
+      <div
+        className={`fixed bg-white top-0 h-full left-0 w-[260px] md:w-full md:static  md:translate-x-0  ${isFIlterToggoleOpen ? "translate-x-0" : "-translate-x-full"} z-50`}
+      >
+        <div className={`w-full border  p-4 transition-all duration-200 `}>
+          <Container>
+            <div className="p-2">
+              {/* Brand Filter */}
+              <div className="space-y-3">
+                <span className="dark:text-black mb-3 block">Brand</span>
+                <div className="flex flex-col gap-3">
+                  {["Pc", "Android", "Tv", "Electronics", "Hp"].map((brand) => (
+                    <div key={brand} className="flex items-center space-x-2">
+                      <input
+                        className="h-4 w-4 rounded  border-gray-400 text-blue-500 focus:ring-2 focus:ring-blue-500"
+                        id={brand}
+                        type="checkbox"
+                        onChange={() => handleBrandChange(brand)}
+                      />
+                      <label className="text-[#757575] dark:text-black" htmlFor={brand}>
+                        {brand}
+                      </label>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
+              </div>
 
-          <Divider className="my-4 w-32" />
+              <Divider className="my-4 w-32" />
 
-          {/* Category Filter */}
-          <section className="border">
-            <Select
-              className="max-w-xs"
-              isDisabled={isLoading}
-              label="Select Category"
-              onChange={(e) => handleCategorySelect(e.target.value)}
-            >
-              {categoryData?.data.length ? (
-                categoryData.data.map((categoryItem: ICategory) => (
-                  <SelectItem key={categoryItem.id}>
-                    {categoryItem.name}
-                  </SelectItem>
-                ))
-              ) : (
-                <SelectItem key={"f"}>No categories available</SelectItem>
-              )}
-            </Select>
-          </section>
+              {/* Category Filter */}
+              <section className="border">
+                <Select
+                  className="max-w-xs"
+                  isDisabled={isLoading}
+                  label="Select Category"
+                  onChange={(e) => handleCategorySelect(e.target.value)}
+                >
+                  {categoryData?.data.length ? (
+                    categoryData.data.map((categoryItem: ICategory) => (
+                      <SelectItem key={categoryItem.id}>
+                        {categoryItem.name}
+                      </SelectItem>
+                    ))
+                  ) : (
+                    <SelectItem key={"f"}>No categories available</SelectItem>
+                  )}
+                </Select>
+              </section>
 
-          {/* Price Range Filter */}
-          <div className="space-y-2">
-            <span className="text-lg">Price</span>
-            <div className="flex gap-3">
-              <Input
-                className="w-16 border"
-                placeholder="Min"
-                size="sm"
-                type="number"
-              />
-              <Input
-                className="w-16 border"
-                placeholder="Max"
-                size="sm"
-                type="number"
-              />
-            </div>
-          </div>
-
-          <Divider className="my-4 w-32" />
-
-          {/* Color Filter */}
-          <div className="space-y-3 mt-3">
-            <span>Color</span>
-            <div className="flex flex-col gap-3">
-              {["Black", "Blue", "Red", "Gray", "Dark"].map((color) => (
-                <div key={color} className="flex items-center space-x-2">
-                  <input
-                    checked={selectedColors.includes(color)}
-                    className="h-4 w-4 rounded border-gray-400 text-blue-500 focus:ring-2 focus:ring-blue-500"
-                    id={color}
-                    type="checkbox"
-                    onChange={() => handleColorChange(color)}
+              {/* Price Range Filter */}
+              <div className="space-y-2">
+                <span className="text-lg dark:text-black">Price</span>
+                <div className="flex gap-3">
+                  <Input
+                    className="w-16 border"
+                    placeholder="Min"
+                    size="sm"
+                    type="number"
                   />
-                  <label className="text-[#757575]" htmlFor={color}>
-                    {color}
-                  </label>
+                  <Input
+                    className="w-16 border"
+                    placeholder="Max"
+                    size="sm"
+                    type="number"
+                  />
                 </div>
-              ))}
+              </div>
+
+              <Divider className="my-4 w-32" />
+
+              {/* Color Filter */}
+              <div className="space-y-3 mt-3">
+                <span className="dark:text-black">Color</span>
+                <div className="flex flex-col gap-3">
+                  {["Black", "Blue", "Red", "Gray", "Dark"].map((color) => (
+                    <div key={color} className="flex items-center space-x-2">
+                      <input
+                        checked={selectedColors.includes(color)}
+                        className="h-4 w-4 rounded border-gray-400 text-blue-500 focus:ring-2 focus:ring-blue-500"
+                        id={color}
+                        type="checkbox"
+                        onChange={() => handleColorChange(color)}
+                      />
+                      <label className="text-[#757575]" htmlFor={color}>
+                        {color}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
+          </Container>
         </div>
-      </Container>
-    </div>
+      </div>
+    </>
   );
 });
 

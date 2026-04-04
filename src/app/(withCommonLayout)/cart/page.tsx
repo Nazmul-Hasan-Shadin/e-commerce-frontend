@@ -178,11 +178,11 @@ const CartPage = () => {
               <p className="font-bold">Total {totalAmount}</p>
             </div>
 
-            <Link href={"/checkout"}>
-              <Button className="bg-primary-color text-white w-full my-3">
+       
+              <Button onPress={()=>router.push('/checkout')} className="bg-primary-color text-white w-full my-3">
                 Proceed to Checkout
               </Button>
-            </Link>
+          
           </div>
         </section>
 

@@ -14,6 +14,8 @@ import { IoIosArrowDown } from "react-icons/io";
 import Link from "next/link";
 
 import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
+import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
+import { toggoleFilter } from "@/src/redux/feature/productFilter/sideBarFilter";
 
 interface ICategory {
   name: string;
@@ -23,6 +25,10 @@ interface ICategory {
 const SubBottomNavPage = () => {
   const { data: categroyList, isLoading } = useGetAllCategoryQuery("");
   const category: ICategory[] = categroyList?.data || [];
+  const dispatch = useAppDispatch();
+  const isFIlterToggoleOpen = useAppSelector(
+    (state) => state.uiFilter.isFilterOpen,
+  );
 
   return (
     <Navbar className=" z-30 sm:hidden">
@@ -46,13 +52,17 @@ const SubBottomNavPage = () => {
               )}
             </DropdownMenu>
           </Dropdown>
+
           <IoIosArrowDown className="text-3xl" />
         </NavbarItem>
       </NavbarContent>
 
       <NavbarContent className=" sm:flex gap-4" justify="end">
         <NavbarItem className="text-black flex items-center gap-2">
-          <IoMenuOutline className="text-3xl text-primary-color" />
+          <IoMenuOutline
+            className="text-3xl text-primary-color"
+            onClick={() => dispatch(toggoleFilter())}
+          />
         </NavbarItem>
       </NavbarContent>
     </Navbar>
