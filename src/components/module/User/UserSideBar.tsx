@@ -43,7 +43,7 @@ const UserSideBar = () => {
         <SidebarItem
           icon={<CgProfile className="text-2xl" />}
           isOpen={isOpen}
-          label="Dashboard"
+          label="Manage My Account"
           path="/user/dashboard"
         />
         <SidebarItem

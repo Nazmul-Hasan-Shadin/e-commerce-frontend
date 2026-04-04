@@ -46,12 +46,12 @@ const UserOrderPage = () => {
 
   return (
     <Container className="mx-auto">
-      <div className="font-bold md:border  md:p-5 text-black">
+      <div className="font-bold md:border  md:p-5 text-black dark:text-white">
         <h1 className="text-xl my-4">My Orders</h1>
         <Divider className="mb-5" />
         <div className="border rounded-lg overflow-x-auto">
           {/* ======== TABLE HEADER ======== */}
-          <div className="lg:grid grid-cols-10 hidden justify-items-center lg:flex-row font-semibold text-center p-4 bg-gray-100 text-sm">
+          <div className="lg:grid grid-cols-10 hidden justify-items-center lg:flex-row font-semibold text-center p-4 bg-gray-100 dark:text-black text-sm">
             <div className="col-span-1">Image</div>
 
             <div className="col-span-2">shop name</div>
