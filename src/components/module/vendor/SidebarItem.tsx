@@ -16,7 +16,7 @@ export const SidebarItem = ({
   >
     <Link href={path}>
       <div className="flex items-center">
-        <div className=" md:text-xl lg:text-2xl">{icon}</div>
+        <div className=" md:text-xl lg:text-2xl text-orange-500">{icon}</div>
         {isOpen && <span className="px-3 text-sm md:text-medium">{label}</span>}
       </div>
     </Link>

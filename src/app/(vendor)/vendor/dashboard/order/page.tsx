@@ -21,7 +21,11 @@ import {
 } from "@heroui/react";
 import Link from "next/link";
 
-import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
+import {
+  useGetAllOrderQuery,
+  useUpdateOrderStatusMutation,
+} from "@/src/redux/feature/order/order.api";
+import { useRouter } from "next/navigation";
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
@@ -152,10 +156,10 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
 };
 
 const INITIAL_VISIBLE_COLUMNS = [
-  "id",
   "customer",
   "totalAmount",
   "status",
+  "orderStatus",
   "createdAt",
   "actions",
 ];
@@ -174,12 +178,20 @@ export default function OrderTablePage() {
     column: "age",
     direction: "ascending",
   });
+
+  const ORDER_STATUS = [
+    "PENDING",
+    "PROCESSING",
+    "SHIPPED",
+    "DELIVERED",
+    "CANCELLED",
+  ];
   const { data: ordersData, isLoading } = useGetAllOrderQuery(undefined);
-
-  console.log(ordersData?.data);
-
+  const [updateOrderStatus] = useUpdateOrderStatusMutation();
   const orders = ordersData?.data || [];
-
+  console.log(orders);
+  
+  const router= useRouter()
   const columns = [
     { name: "ID", uid: "id", sortable: true },
     { name: "NAME", uid: "customer", sortable: true },
@@ -189,6 +201,7 @@ export default function OrderTablePage() {
     { name: "TOTAL", uid: "totalAmount", sortable: true },
     { name: "DATE", uid: "createdAt", sortable: true },
     { name: "P_STATUS", uid: "status", sortable: true },
+    { name: "O_STATUS", uid: "orderStatus", sortable: true },
     { name: "P_METHOD", uid: "paymentMethod", sortable: true },
     { name: "ACTIONS", uid: "actions", sortable: true },
   ];
@@ -300,6 +313,30 @@ export default function OrderTablePage() {
           </Chip>
         );
 
+      case "orderStatus":
+        return (
+          <Dropdown>
+            <DropdownTrigger>
+              <Button size="sm" variant="flat">
+                {order.orderStatus}
+              </Button>
+            </DropdownTrigger>
+
+            <DropdownMenu
+              aria-label="Order Status"
+              onAction={async (key) => {
+                await updateOrderStatus({
+                  id: order.id,
+                  status: key,
+                });
+              }}
+            >
+              {ORDER_STATUS.map((status) => (
+                <DropdownItem key={status}>{status}</DropdownItem>
+              ))}
+            </DropdownMenu>
+          </Dropdown>
+        );
       case "paymentStatus":
         return (
           <Chip
@@ -311,21 +348,28 @@ export default function OrderTablePage() {
             {cellValue}
           </Chip>
         );
-      case "actions":
-        return (
-          <Dropdown className="bg-background border-1 border-default-200">
-            <DropdownTrigger>
-              <Button isIconOnly radius="full" size="sm" variant="light">
-                <VerticalDotsIcon className="text-default-400" />
-              </Button>
-            </DropdownTrigger>
-            <DropdownMenu>
-              <DropdownItem key="view">View</DropdownItem>
-              <DropdownItem key="edit">Edit</DropdownItem>
-              <DropdownItem key="delete">Delete</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-        );
+    case "actions":
+  return (
+    <Dropdown>
+      <DropdownTrigger>
+        <Button isIconOnly size="sm" variant="light">
+          <VerticalDotsIcon className="text-default-400" />
+        </Button>
+      </DropdownTrigger>
+
+      <DropdownMenu
+        onAction={(key) => {
+          if (key === "view") {
+            router.push(`/vendor/dashboard/order-items/${order.id}`);
+          }
+        }}
+      >
+        <DropdownItem key="view">View</DropdownItem>
+        <DropdownItem key="edit">Edit</DropdownItem>
+        <DropdownItem key="delete">Delete</DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
+  );
       default:
         return cellValue;
     }
@@ -499,6 +543,7 @@ export default function OrderTablePage() {
 
   return (
     <Table
+     className="overflow-x-auto"
       isCompact
       removeWrapper
       aria-label="Example table with custom cells, pagination and sorting"
@@ -507,6 +552,7 @@ export default function OrderTablePage() {
       checkboxesProps={{
         classNames: {
           wrapper: "after:bg-foreground after:text-background text-background",
+        
         },
       }}
       classNames={classNames}
@@ -533,12 +579,7 @@ export default function OrderTablePage() {
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => (
-              <TableCell>
-                {" "}
-                <Link href={`/vendor/dashboard/order-items/${item.id}`}>
-                  {renderCell(item, columnKey)}{" "}
-                </Link>
-              </TableCell>
+              <TableCell> {renderCell(item, columnKey)} </TableCell>
             )}
           </TableRow>
         )}

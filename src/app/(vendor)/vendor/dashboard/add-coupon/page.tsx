@@ -79,7 +79,7 @@ const AddCouponPage = () => {
 
   return (
     <Container>
-      <div className="bg-white p-5 mt-4 text-black">
+      <div className="bg-white p-5 mt-4 text-black ">
         <h2 className="text-xl font-bold">Create Coupon</h2>
 
         <Divider className="my-4" />

@@ -1,3 +1,22 @@
+
+type Order = {
+  id: string;
+  status: string;
+  shop: {
+    id: string;
+    name: string;
+  };
+  orderItems: {
+    id: string;
+    price: number;
+    quantity: number;
+    product: {
+      images: string[];
+      createdAt: string;
+    };
+  }[];
+};
+
 "use client";
 import React from "react";
 import { Button, Divider, Input } from "@heroui/react";
@@ -115,7 +134,7 @@ const ProfilePage = () => {
               <div className="">Shop Name</div>
 
               <div className="">Price</div>
-              <div className="">Status</div>
+              <div className="">Payment Status</div>
               <div className="">action</div>
             </div>
             <Divider className="w-full my-6 bg-gray-300" />
@@ -123,10 +142,10 @@ const ProfilePage = () => {
 
             {userOrder?.data?.length > 0 ? (
               <div>
-                {userOrder?.data?.map((order: any, index) => (
+                {userOrder?.data?.map((order: Order) => (
                   <div key={order?.id}>
                     <div className="">
-                      {order.orderItems.map((item: any, index) => {
+                      {order.orderItems.map((item: any) => {
                         return (
                           <div key={item?.id}>
                             <div

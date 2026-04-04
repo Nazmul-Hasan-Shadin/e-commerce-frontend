@@ -9,6 +9,7 @@ const orderApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["orderStatus"],
     }),
 
     getOrderById: builder.query({
@@ -27,6 +28,26 @@ const orderApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getOrderItemsFromOrder: builder.query({
+      query: (orderItemsId) => {
+        return {
+          url: `/order/orders/items/${orderItemsId}`,
+          method: "GET",
+        };
+      },
+    }),
+    updateOrderStatus: builder.mutation({
+      query: (payload) => {
+        return {
+          url: `/order/${payload.id}/status`,
+          method: "PATCH",
+          body: {
+            status: payload.status,
+          },
+        };
+      },
+      invalidatesTags: ["orderStatus"],
+    }),
   }),
 });
 
@@ -34,4 +55,6 @@ export const {
   useGetAllOrderQuery,
   useGetOrderByIdQuery,
   useGetOrderItemsQuery,
+  useUpdateOrderStatusMutation,
+  useGetOrderItemsFromOrderQuery,
 } = orderApi;

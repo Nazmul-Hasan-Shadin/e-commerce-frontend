@@ -14,7 +14,7 @@ const orderDetailsPage = async ({
 
   const res = await fetch(`http://localhost:3001/api/v1/order/item/${id}`, {
     headers: {
-      Authorization: token,
+      Authorization: token || '',
     },
     cache: "no-cache",
   });
@@ -99,7 +99,7 @@ const orderDetailsPage = async ({
                       </p>
 
                       <p className="text-sm md:text-medium">
-                        {orderInfo?.data?.order?.status}
+                        {orderInfo?.data?.order?.orderStatus}
                       </p>
                     </div>
                     <Divider className="w-full my-6 bg-gray-300" />

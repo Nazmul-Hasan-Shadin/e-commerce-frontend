@@ -10,14 +10,16 @@ import {
   TableCell,
 } from "@heroui/react";
 
-import { useGetOrderItemsQuery } from "@/src/redux/feature/order/order.api";
+import { useGetOrderItemsFromOrderQuery, useGetOrderItemsQuery } from "@/src/redux/feature/order/order.api";
 
 const OrderItems = () => {
   const params = useParams<{ orderId: string }>();
 
-  const { data, isLoading } = useGetOrderItemsQuery(params.orderId);
+  const { data, isLoading } = useGetOrderItemsFromOrderQuery(params.orderId);
 
   const items = data?.data || [];
+  console.log(items);
+  
 
   console.log(items);
 

@@ -45,6 +45,7 @@ export const baseApi = createApi({
     "commentwithProduct",
     "categoryList",
     "createShop",
+    "orderStatus"
   ],
   endpoints: (builder) => ({}),
 });

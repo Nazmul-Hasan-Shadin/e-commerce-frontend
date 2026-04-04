@@ -32,6 +32,12 @@ function InnerLayout({
 
   return (
     <div className="flex  gap-0 sm:gap-3 md:gap-4 lg:gap-5">
+            {isOpen && (
+        <div role="button"
+          onClick={toggleSidebar}
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+        />
+      )} 
       <div className={`relative z-50  mt-16 ${isOpen ? "" : ""} `}>
         <div className={` h-screen bg-gray-800  `}>{sidebar}</div>
       </div>
