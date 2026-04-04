@@ -14,13 +14,13 @@ const SearchResultList = ({
 }) => {
   return (
     <div
-      className={`absolute border ${dynamicStyle ? "-top-[204px] lg:-top-0" : ""} border-red-500  w-[98%] left-0 md:w-full mt-80 z-40 bg-white shadow-lg rounded-lg max-h-60 overflow-y-auto
+      className={`absolute bg-white h-56 border ${dynamicStyle ? " lg:-top-0" : ""} border-red-500  w-[98%] left-0 md:w-full mt-80 z-40 bg-white shadow-lg rounded-lg max-h-60 overflow-y-auto
     `}
     >
       {/* Render the search results */}
       {searchResult && searchResult.length > 0 ? (
         searchResult.map((product) => (
-          <div key={product.id}>
+          <div key={product.id} className=" border">
             <Link href={`/product-details/${product.id}`}>
               <div
                 key={product.id}

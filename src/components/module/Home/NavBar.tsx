@@ -83,7 +83,7 @@ const NavBar = () => {
             </NavbarContent>
 
             <NavbarBrand className="flex z-20 gap-0">
-              <Image alt="Navbar logo" height={100} src={logo} width={180} />
+            <Link href={'/'}>  <Image alt="Navbar logo" height={100} src={logo} width={180} /></Link>
             </NavbarBrand>
 
             <NavbarContent className="flex-col gap-1 ">

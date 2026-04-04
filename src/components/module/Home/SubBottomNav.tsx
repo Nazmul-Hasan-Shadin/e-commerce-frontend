@@ -16,6 +16,8 @@ import Link from "next/link";
 import { useGetAllCategoryQuery } from "@/src/redux/feature/admin/admin.categoryapi";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import { toggoleFilter } from "@/src/redux/feature/productFilter/sideBarFilter";
+import { usePathname } from "next/navigation";
+import { CiFilter } from "react-icons/ci";
 
 interface ICategory {
   name: string;
@@ -29,6 +31,8 @@ const SubBottomNavPage = () => {
   const isFIlterToggoleOpen = useAppSelector(
     (state) => state.uiFilter.isFilterOpen,
   );
+  const pathname = usePathname();
+  console.log(pathname);
 
   return (
     <Navbar className=" z-30 sm:hidden">
@@ -59,10 +63,14 @@ const SubBottomNavPage = () => {
 
       <NavbarContent className=" sm:flex gap-4" justify="end">
         <NavbarItem className="text-black flex items-center gap-2">
-          <IoMenuOutline
-            className="text-3xl text-primary-color"
-            onClick={() => dispatch(toggoleFilter())}
-          />
+          {pathname === "/product" ? (
+            <CiFilter
+              className="text-3xl text-primary-color"
+              onClick={() => dispatch(toggoleFilter())}
+            />
+          ) : (
+            <IoMenuOutline  className="text-3xl text-primary-color" />
+          )}
         </NavbarItem>
       </NavbarContent>
     </Navbar>

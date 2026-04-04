@@ -54,10 +54,10 @@ const ESelect = ({
           <Select
             classNames={{
               trigger: "bg-gray-200 border",
-              value: "text-black",
-              listbox: "bg-black text-white",
+              value: "text-black dark:text-black",
+              listbox: "dark:bg-black dark:text-white ",
 
-              popoverContent: "bg-white",
+              popoverContent: "bg-white text-black dark:bg-black ",
             }}
             disabled={disabled}
             placeholder="Select option"

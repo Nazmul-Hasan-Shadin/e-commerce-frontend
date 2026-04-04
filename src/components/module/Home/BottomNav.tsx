@@ -15,7 +15,7 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { FcCustomerSupport } from "react-icons/fc";
 import { LiaFlagUsaSolid } from "react-icons/lia";
-import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowDown, MdOutlineCancel } from "react-icons/md";
 import Image from "next/image.js";
 import { usePathname, useRouter } from "next/navigation";
 import { skipToken } from "@reduxjs/toolkit/query";
@@ -30,6 +30,7 @@ import { logOut } from "@/src/redux/feature/auth/auth.slice";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hook";
 import logo from "@/src/assests/icon/bottomnavlogo.avif";
 import { useGetAllProductQuery } from "@/src/redux/feature/vendor/vendor.api";
+import { FaCross } from "react-icons/fa6";
 
 const BottomNav = () => {
   const pathname = usePathname();
@@ -114,7 +115,7 @@ const BottomNav = () => {
           <NavbarContent className="text-black flex gap-12 lg:hidden">
             <NavbarMenuToggle
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              className="text-block"
+              className={`text-block ${isSearcIconClick ? "hidden md:block" : "block md:block"}`}
             />
 
             {/*  search logo for small device */}
@@ -128,10 +129,10 @@ const BottomNav = () => {
 
             {isSearcIconClick && (
               <Input
-                className={`absolute rounded-none max-w-[98%] left-0 right-0 mx-auto ${isSearcIconClick ? styles.triggerBottomNavForOpen : ""}`}
+                className={`absolute translate-x-12 rounded-none max-w-[60%]`}
                 placeholder="search here"
-                size="lg"
-                onChange={(e) => handeSearch(e)}
+                size="md"
+                onChange={handeSearch}
                 onKeyDown={handleKeyDown}
               />
             )}
@@ -253,13 +254,16 @@ const BottomNav = () => {
 
           <NavbarBrand className="flex  lg:hidden gap-0 -p-16">
             {logo ? (
-              <Image
-                alt="Navbar logo"
-                className="w-[230px]"
-                height={60}
-                src={logo}
-                width={260}
-              />
+              <Link href={"/"}>
+                {" "}
+                <Image
+                  alt="Navbar logo"
+                  className="w-[230px]"
+                  height={60}
+                  src={logo}
+                  width={260}
+                />
+              </Link>
             ) : null}
           </NavbarBrand>
 
@@ -356,10 +360,17 @@ const BottomNav = () => {
 
             <NavbarItem className=" flex flex-col justify-center">
               <div className=" flex flex-col justify-center items-center  mx-auto">
-                <Link href={"/cart"}>
-                  {" "}
-                  <MdShoppingCartCheckout className="text-4xl text-primary-color " />
-                </Link>
+                {isSearcIconClick ? (
+                  <MdOutlineCancel
+                    onClick={() => setIsSearchIconClick(!isSearcIconClick)}
+                    className="text-4xl mr-6 text-primary-color"
+                  />
+                ) : (
+                  <Link href={"/cart"}>
+                    {" "}
+                    <MdShoppingCartCheckout className="text-4xl text-primary-color " />
+                  </Link>
+                )}
               </div>
             </NavbarItem>
           </NavbarContent>
