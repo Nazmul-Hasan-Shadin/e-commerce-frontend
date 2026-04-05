@@ -107,7 +107,7 @@ const BottomNav = () => {
     <div className="sticky top-0 z-50">
       <Container className="">
         <Navbar
-          className="bg-[#ffffff] p-0  text-white relative "
+          className="bg-[#ffffff] p-0  text-white  "
           isMenuOpen={isMenuOpen}
           maxWidth="full"
           onMenuOpenChange={setIsMenuOpen}
@@ -363,7 +363,7 @@ const BottomNav = () => {
                 {isSearcIconClick ? (
                   <MdOutlineCancel
                     onClick={() => setIsSearchIconClick(!isSearcIconClick)}
-                    className="text-4xl mr-6 text-primary-color"
+                    className="text-3xl mr-7  text-primary-color"
                   />
                 ) : (
                   <Link href={"/cart"}>
