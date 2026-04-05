@@ -5,9 +5,12 @@ import Image from "next/image";
 
 import Container from "@/src/components/ui/Container";
 import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
+import { useState } from "react";
+import Link from "next/link";
 
 interface IOrder {
   id: string;
+  orderStatus:string,
   shopId: string;
   shop: {
     name: string;
@@ -34,6 +37,8 @@ interface IOrderItems {
 }
 
 const UserOrderPage = () => {
+  const [activeTab, setActiveTab] = useState("ALL");
+
   const {
     data: orderData,
     isLoading,
@@ -46,10 +51,31 @@ const UserOrderPage = () => {
 
   return (
     <Container className="mx-auto">
-      <div className="font-bold md:border  md:p-5 text-black dark:text-white">
+      <div className="font-bold md:border  md:p-5 text-black dark:text-white bg-white">
         <h1 className="text-xl my-4">My Orders</h1>
+
+        {/* 🔥 ADD THIS TAB */}
+        <div className="flex justify-between border-b mb-4 text-sm">
+          {["ALL", "PENDING", "CONFIRMED", "DELIVERED", "CANCELLED"].map(
+            (tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`flex-1 py-2 ${
+                  activeTab === tab
+                    ? "border-b-2 border-orange-500 text-orange-500 font-semibold"
+                    : "text-gray-500"
+                }`}
+              >
+                {tab}
+              </button>
+            ),
+          )}
+        </div>
+
         <Divider className="mb-5" />
-        <div className="border rounded-lg overflow-x-auto">
+
+        <div className="border hidden sm:block rounded-lg overflow-x-auto">
           {/* ======== TABLE HEADER ======== */}
           <div className="lg:grid grid-cols-10 hidden justify-items-center lg:flex-row font-semibold text-center p-4 bg-gray-100 dark:text-black text-sm">
             <div className="col-span-1">Image</div>
@@ -142,6 +168,80 @@ const UserOrderPage = () => {
           ) : (
             <div className="h-52 flex justify-center items-center">
               <h3>Product not found</h3>
+            </div>
+          )}
+        </div>
+
+        {/* ================mobile view ========== */}
+
+        <div className="sm:hidden space-y-4">
+          {orderData?.data?.length ? (
+            orderData.data.map((order: IOrder) => (
+              <div key={order.id} className="bg-white rounded-lg shadow p-3">
+                {/* Top */}
+                <div className="flex justify-between text-xs text-gray-500 mb-2">
+                  <p>Order ID: #{order.id.slice(0, 8)}</p>
+                  <span className="text-blue-500">View</span>
+                </div>
+                <Divider className=" w-full bg-gray-300" />
+                <p> ffff hu</p>
+                {/* Product */}
+                <div className="flex gap-8">
+                  <Image
+                    src={
+                      order?.orderItems?.[0]?.product?.images?.[0] ||
+                      "/no-image.jpg"
+                    }
+                    width={70}
+                    height={70}
+                    alt=""
+                    className="rounded"
+                  />
+
+                  <div className="flex-1">
+                    <div>
+                      <h3 className="text-sm font-medium text-black line-clamp-2">
+                        {order?.shop?.name}
+                      </h3>
+
+                      <p className="text-xs text-gray-400">
+                        Items: {order.orderItems.length}
+                      </p>
+
+                      <p className="text-sm text-gray-500  font-bold">
+                        ৳ {order.totalAmount}
+                      </p>
+                    </div>
+                    <div className="border flex justify-between">
+                      {" "}
+                      <p className="text-xs text-gray-500">
+                        Seller: {order.shop?.name}
+                      </p>
+                      <p className="text-black text-xs">{order?.orderStatus}</p>
+                    </div>
+                  </div>
+                </div>
+                {/* Bottom */}
+                <div className="flex justify-between items-center mt-3">
+                  <span className="text-xs px-2 py-1 rounded text-black bg-gray-100">
+                    {order.status === "PENDING"
+                      ? "UNPAID"
+                      : order.status === "COMPLETE"
+                        ? "PAID"
+                        : "FAILED"}
+                  </span>
+
+                  <Link
+                    href={`/user/dashboard/orders/${order?.id}`}
+                  >
+                    <span className="text-xs text-orange-500">Details →</span>
+                  </Link>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="h-40 flex justify-center items-center">
+              <p>No orders found</p>
             </div>
           )}
         </div>

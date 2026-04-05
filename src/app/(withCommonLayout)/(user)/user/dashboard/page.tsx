@@ -1,14 +1,11 @@
-
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Button, Divider, Input } from "@heroui/react";
 import Link from "next/link";
 import Image from "next/image";
 
 import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
 import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
-
-
 
 type Order = {
   id: string;
@@ -28,8 +25,9 @@ type Order = {
   }[];
 };
 
-
 const ProfilePage = () => {
+  const [activeTab, setActiveTab] = useState("ALL");
+
   const { data: userData } = useGetCurrentUserQuery(undefined);
   const { data: userOrder } = useGetAllOrderQuery(undefined);
   const user = userData?.data || {};
@@ -126,11 +124,37 @@ const ProfilePage = () => {
 
       <div className="bg-white p-6 mb-8">
         <h3 className="text-black font-semibold text-xl">Track Order</h3>
+
+        {/* ==================== orders tab=================== */}
+
+        <div className="grid grid-cols-4 gap-4 my-4 text-center sm:hidden">
+          {[
+            { key: "ALL", label: "All", icon: "📦" },
+            { key: "PENDING", label: "Pending", icon: "⏳" },
+            { key: "CONFIRMED", label: "Confirm", icon: "✅" },
+            { key: "DELIVERED", label: "Done", icon: "🚚" },
+            
+          ].map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className={`flex flex-col items-center p-3 rounded-lg ${
+                activeTab === tab.key
+                  ? "bg-orange-100 text-orange-600"
+                  : "bg-gray-100 text-gray-600"
+              }`}
+            >
+              <span className="text-xl">{tab.icon}</span>
+              <span className="text-xs mt-1">{tab.label}</span>
+            </button>
+          ))}
+        </div>
+
         <Divider className="w-full my-6 bg-gray-300" />
-        <section className="grid grid-cols-12 ">
+        <section className="grid hidden sm:block grid-cols-12 ">
           <div className="col-span-12 sm:col-span-8 2xl:col-span-12 mr-3  ">
             {/* ==========Tables Header============ */}
-            <div className=" grid-cols-8   hidden sm:grid sm:grid-cols-8 font-bold  text-lg text-center p-4">
+            <div className=" grid grid-cols-8   hidden sm:grid sm:grid-cols-8 font-semibold sm:font-bold  text-small sm:text-lg text-center p-4">
               <div className="">image</div>
               <div className="col-span-3 text-center">order Date</div>
               <div className="">Shop Name</div>

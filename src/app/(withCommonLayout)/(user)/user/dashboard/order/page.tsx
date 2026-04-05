@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import Container from "@/src/components/ui/Container";
 import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
+import { useState } from "react";
 
 interface IOrder {
   id: string;
@@ -45,7 +46,16 @@ const UserOrderPage = () => {
     <Container className="mx-auto">
       <div className="font-bold md:border  mb-4 md:p-5 text-black dark:text-white ">
         <h1 className="text-xl my-4">My Orders</h1>
+
+        {/* ==================tabs ============== */}
+        <h1 className="text-xl my-4">My Orders</h1>
+
+
+
         <Divider className="mb-5" />
+
+        <Divider className="mb-5" />
+
         <div className="border rounded-lg overflow-x-auto">
           {/* ======== TABLE HEADER ======== */}
           <div className="lg:grid grid-cols-10 hidden justify-items-center lg:flex-row font-semibold text-center p-4  text-sm">
@@ -64,6 +74,10 @@ const UserOrderPage = () => {
           {/* ======== TABLE CONTENT ======== */}
           {orderData?.data.length ? (
             <div className=" ">
+
+              {/* =============for big device=============== */}
+
+
               {orderData.data?.map((order: IOrder) => (
                 <div key={order.id}>
                   <div className="hidden md:block">
@@ -118,7 +132,7 @@ const UserOrderPage = () => {
               {/* ===============for small device only========= */}
               {orderData?.data.map((orderData: IOrder) => (
                 <div key={orderData?.id} className="p-2 md:hidden">
-                  <div className="flex gap-4 mb-4">
+                  <div className="flex gap-46mb-4">
                     <figure>
                       <Image
                         alt="product image"
