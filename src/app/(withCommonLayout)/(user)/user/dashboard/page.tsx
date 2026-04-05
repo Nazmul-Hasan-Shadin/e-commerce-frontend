@@ -1,4 +1,15 @@
 
+"use client";
+import React from "react";
+import { Button, Divider, Input } from "@heroui/react";
+import Link from "next/link";
+import Image from "next/image";
+
+import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
+import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
+
+
+
 type Order = {
   id: string;
   status: string;
@@ -17,15 +28,6 @@ type Order = {
   }[];
 };
 
-"use client";
-import React from "react";
-import { Button, Divider, Input } from "@heroui/react";
-import Link from "next/link";
-import Image from "next/image";
-
-import { useGetCurrentUserQuery } from "@/src/redux/feature/auth/auth.api";
-import { useGetAllOrderQuery } from "@/src/redux/feature/order/order.api";
-import { RxCross1 } from "react-icons/rx";
 
 const ProfilePage = () => {
   const { data: userData } = useGetCurrentUserQuery(undefined);

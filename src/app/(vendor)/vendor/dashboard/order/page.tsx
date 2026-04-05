@@ -543,7 +543,7 @@ export default function OrderTablePage() {
 
   return (
     <Table
-     className="overflow-x-auto"
+     className="overflow-x-auto p-3"
       isCompact
       removeWrapper
       aria-label="Example table with custom cells, pagination and sorting"
@@ -554,6 +554,7 @@ export default function OrderTablePage() {
           wrapper: "after:bg-foreground after:text-background text-background",
         
         },
+        
       }}
       classNames={classNames}
       selectedKeys={selectedKeys}

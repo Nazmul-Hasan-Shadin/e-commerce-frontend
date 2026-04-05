@@ -18,12 +18,12 @@ const Sidebar = () => {
   const user = useAppSelector((state) => state.auth.user);
   const { data: userData } = useGetCurrentUserQuery(undefined);
   const { isOpen, toggleSidebar } = useSideBar();
-  console.log(isOpen, "isOpen sidebar");
+  console.log(userData?.data);
 
   return (
     <div
       className={` fixed  ${isOpen ? "w-[61%] sm:w-[46%] md:w-64" : "sm:w-16 "} bg-gray-800  
-       md:top-0 `}
+      top-0 md:top-0 `}
     >
    
 

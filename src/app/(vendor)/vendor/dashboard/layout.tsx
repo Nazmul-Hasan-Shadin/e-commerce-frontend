@@ -38,7 +38,7 @@ function InnerLayout({
           className="fixed inset-0 bg-black/50 z-40 md:hidden"
         />
       )} 
-      <div className={`relative z-50  mt-16 ${isOpen ? "" : ""} `}>
+      <div className={`relative z-50  md:mt-16 ${isOpen ? "" : ""} `}>
         <div className={` h-screen bg-gray-800  `}>{sidebar}</div>
       </div>
 
