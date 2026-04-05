@@ -31,24 +31,35 @@ export const getCurrentUser = async () => {
 };
 
 export const loginHandler = async (userInfo: any) => {
-  const res = await fetch(`${productionUrl}/auth/login`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    method: "POST",
+  try {
+    const res = await fetch(`${productionUrl}/auth/login`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
 
-    body: JSON.stringify(userInfo),
-    credentials: "include",
-  });
+      body: JSON.stringify(userInfo),
+      credentials: "include",
+    });
 
-  const data = await res.json();
+    const data = await res.json();
+    console.log(data, "iam data");
+    if (!res.ok || !data.success) {
+      // Return the error instead of throwing it
+      return {
+        success: false,
+        message: data?.message || "Login failed",
+      };
+    }
 
-  if (!data.success) {
-    throw new Error(data.message);
+    console.log('iam hit');
+    
+
+    await (await cookies()).set("refreshToken", data?.data?.accessToken);
+
+    return data;
+  } catch (error) {
+    console.error("Login Action Error:", error);
+    
   }
-  console.log({ data });
-
-  await (await cookies()).set("refreshToken", data?.data?.accessToken);
-
-  return data;
 };

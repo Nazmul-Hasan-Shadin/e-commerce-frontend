@@ -70,6 +70,13 @@ const Login = () => {
     try {
       const res = await loginHandler(userData);
 
+      if (!res || res.success === false) {
+        toast.error(res?.message || "Invalid email or password", {
+          id: toastId,
+        });
+        return; 
+      }
+
       const user = verifyToken(res.data.accessToken) as {
         email: string;
         role: string;
